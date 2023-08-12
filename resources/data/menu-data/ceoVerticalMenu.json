@@ -1,0 +1,17 @@
+{
+    "menu": [
+        {
+            "url" : "home",
+            "name": "Dashboards",
+            "icon": "home",
+            "slug": "home"
+        },
+        {
+            "url" : "send_order",
+            "name": "sendOrder",
+            "icon": "grid",
+            "slug": "send_order"
+        }
+       
+    ]
+}  

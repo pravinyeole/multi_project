@@ -1,0 +1,83 @@
+@isset($pageConfigs)
+{!! Helper::updatePageConfig($pageConfigs) !!}
+@endisset
+
+<!DOCTYPE html>
+{{-- {!! Helper::applClasses() !!} --}}
+@php
+$configData = Helper::applClasses();
+@endphp
+<html lang="@if(session()->has('locale')){{session()->get('locale')}}@else{{$configData['defaultLanguage']}}@endif" data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}" class="{{ ($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>@yield('title')</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/logo.png')}}">
+
+  {{-- Include core + vendor Styles --}}
+  @include('panels/styles')
+</head>
+
+ 
+
+<body class="vertical-layout vertical-menu-modern blank-page {{ $configData['bodyClass'] }} {{($configData['theme'] === 'dark') ? 'dark-layout' : 'light' }}
+    data-menu=" vertical-menu-modern" data-layout="{{ ($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }}" style="{{ $configData['bodyStyle'] }}" data-framework="laravel" data-asset-path="{{ asset('/')}}">
+    <div id="loader">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-warning" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-light" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-dark" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  <!-- BEGIN: Content-->
+  <div class="app-content content {{ $configData['pageClass'] }}">
+    <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed' ? 'container p-0' : '' }}">
+      <div class="content-body">
+
+        {{-- Include Startkit Content --}}
+        @yield('content') 
+
+      </div>
+    </div>
+  </div>
+  <!-- End: Content-->
+
+  {{-- include default scripts --}}
+  @include('panels/scripts')
+
+  <script type="text/javascript">
+    $(window).on('load', function() {
+      if (feather) {
+        feather.replace({
+          width: 14
+          , height: 14
+        });
+      }
+    })
+  </script>
+</body>
+
+</html>

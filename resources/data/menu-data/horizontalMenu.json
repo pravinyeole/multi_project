@@ -1,0 +1,23 @@
+{
+  "menu": [
+      {
+          "url" : "normal_user",
+          "name": "Dashboards",
+          "icon": "normal_user",
+          "slug": "normal_user"
+      },
+      {
+          "url" : "pin_center",
+          "name": "Pin Center",
+          "icon": "message-square",
+          "slug": "pin_center"
+      },
+      {
+          "url" : "request-pin",
+          "name": "Request Pin",
+          "icon": "message-square",
+          "slug": "request-pin"
+      }
+     
+  ]
+}  

@@ -1,0 +1,58 @@
+{
+  "menu": [
+    {
+      "url": "home1",
+      "name": "Dashboards",
+      "icon": "home1",
+      "slug": "home"
+    },
+    {
+      "url": "teams",
+      "name": "Team",
+      "icon": "users",
+      "slug": "teams"
+    },
+   {
+      "url": "clients",
+      "name": "Client",
+      "icon": "briefcase",
+      "slug": "clients"
+    },
+    {
+      "url": "users",
+      "name": "Users",
+      "icon": "user",
+      "slug": "users"
+    },
+    {
+      "url": "payment-method",
+      "name": "PaymentMethod",
+      "icon": "zap",
+      "slug": "payment-method"
+    },
+    {
+      "url": "audit",
+      "name": "Audits",
+      "icon": "check-circle",
+      "slug": "audit"
+    },
+    {
+      "url": "buy-credits",
+      "name": "Buy Credits",
+      "icon": "zap",
+      "slug": "buy-credits"
+    },
+    {
+      "url": "purchase-history",
+      "name": "Invoices",
+      "icon": "file",
+      "slug": "purchase-history"
+    },
+    {
+        "url": "insurance-agency/contact",
+        "name": "Contact",
+        "icon": "phone",
+        "slug": "insurance-agency/contact"
+      }
+  ]
+}

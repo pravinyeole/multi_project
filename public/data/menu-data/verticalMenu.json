@@ -1,0 +1,40 @@
+{
+  "menu": [
+    {
+      "url": "home",
+      "name": "Dashboards",
+      "icon": "home",
+      "slug": "dashboard-analytics"
+    },
+    {
+      "url": "organization",
+      "name": "Organization",
+      "icon": "user",
+      "slug": "app-organization"
+    },
+    {
+      "url": "users",
+      "name": "User",
+      "icon": "user",
+      "slug": "app-user"
+    },
+    {
+      "url": "carrier",
+      "name": "Carrier",
+      "icon": "grid",
+      "slug": "app-carrier"
+    },
+    {
+      "url": "company",
+      "name": "Company",
+      "icon": "user",
+      "slug": "app-company"
+    },
+    {
+      "url": "setting",
+      "name": "Setting",
+      "icon": "grid",
+      "slug": "app-setting"
+    }
+  ]
+}

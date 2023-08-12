@@ -1,0 +1,137 @@
+/*================================================================================
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Version: 2.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+table.dataTable>tbody>tr.child ul.dtr-details{
+	display: block;
+}
+.header-navbar.floating-nav{
+	margin: 1rem 2rem 0;
+}
+hr {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.card .card-header{
+	padding: 0.6rem;
+}
+.card{
+	margin-bottom: 1.5rem;
+}
+html .content.app-content {
+    padding: calc(2rem + 4.45rem + 0rem) 2rem 0;
+}
+.navbar-floating .navbar-container {
+    padding: 0.5rem 1rem;
+}
+.header-navbar{
+	min-height: 4rem;
+}
+.btn{
+	padding: 0.586rem 1.5rem;
+}
+.form-control{ color: #6e6b7b !important; }
+form select.error, form select.error:focus { border-color: #ea5455 !important; }
+
+#loader{
+    position: fixed;
+    top: 0;
+    z-index: 1040;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    text-align: center;
+    display: none;
+}
+#loader .spinner-grow{
+    margin-top: 18%;
+}
+.custom-left{
+    width: 240px;
+    color: #625f6e;
+    /* position: fixed; */
+    /* bottom: 20px; */
+    position: relative;
+    width: 100%;
+    padding-left: 20px;
+}
+.bradius50{
+    border-radius: 50%;
+}
+.todo-task-list h5{
+   padding: 0.2rem 1rem;
+    margin: 0;
+    background: #f8f8f8;
+}
+html .navbar-floating.footer-static .app-content .content-area-wrapper, html .navbar-floating.footer-static .app-content .kanban-wrapper {
+    /* height: calc( 100vh - calc( calc(2rem * 1) + 4.45rem + 3.35rem + 1.3rem + 0rem ) ); */
+    height: calc( var(--vh, 1vh) * 100 - calc( calc(1rem * 1) + 4.5rem + 3.35rem + 1.3rem + 0rem ) );
+}
+.audit_header{
+    padding: 0.2rem 1rem;
+    background: #f8f8f8;
+}
+.form-check-input{
+    margin-top: 0px;
+}
+.myaccordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.myaccordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+ .colapsable {
+  position: relative;
+}
+
+.colapsable::after {
+  content: "\f107";
+  color: #333;
+  top: 50%;
+  right: 50px;
+  position: absolute;
+  font-family: "FontAwesome"
+}
+.ecommerce-card .item-options {
+    display: flex;
+    flex-wrap: wrap;
+}
+.ecommerce-card .item-options .btn-cart{
+    border-radius: 0;
+    flex-grow: 1;
+}
+
+.custom-left .item-img img{
+    /*border: 1px solid #cbcbcb;*/
+    max-width: 100%;
+    height: 100%;
+}
+.custom-left{
+    bottom: 0;
+}
+.gap-20{
+    gap: 20px;
+}
+
+/* responsive css */
+@media (max-width: 1250px) {
+    .custom-left .item-img img{
+        max-width: 50%;
+        height: 50%;
+    }
+    .custom-left {
+        bottom: -56px !important;
+    }
+  }

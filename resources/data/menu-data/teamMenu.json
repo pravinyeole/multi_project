@@ -1,0 +1,41 @@
+{
+  "menu": [
+    {
+      "url": "home",
+      "name": "Dashboards",
+      "icon": "home",
+      "slug": "home"
+    },
+     {
+      "url": "clients",
+      "name": "Client",
+      "icon": "briefcase",
+      "slug": "clients"
+    },
+    {
+      "url": "teams",
+      "name": "Team",
+      "icon": "users",
+      "slug": "teams"
+    },
+    {
+      "url": "users",
+      "name": "Users",
+      "icon": "user",
+      "slug": "users"
+    },
+    {
+      "url": "audit",
+      "name": "Audits",
+      "icon": "check-circle",
+      "slug": "audit"
+    },
+    {
+        "url": "insurance-agency/contact",
+        "name": "Contact",
+        "icon": "phone",
+        "slug": "insurance-agency/contact"
+    }
+
+  ]
+}

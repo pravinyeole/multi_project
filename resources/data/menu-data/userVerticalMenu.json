@@ -1,0 +1,47 @@
+{
+  "menu": [
+    {
+      "url":  "home",
+      "name": "Dashboards",
+      "icon": "home",
+      "slug": "home"
+    },
+    {
+      "url":  "superadmin/admin",
+      "name": "Admin",
+      "icon": "user",
+      "slug": "superadmin/admin"
+    },
+    {
+      "url":  "superadmin/allusers",
+      "name": "All Users",
+      "icon": "users",
+      "slug": "superadmin/allusers"
+    }
+    ,
+    {
+      "url":  "superadmin/users",
+      "name": "Users",
+      "icon": "users",
+      "slug": "superadmin/users"
+    },
+    {
+      "url":  "superadmin/revokepin",
+      "name": "Revoke Pin",
+      "icon": "message-square",
+      "slug": "superadmin/revokepin"
+    },
+    {
+      "url":  "superadmin/assignuser",
+      "name": "Assign Users",
+      "icon": "users",
+      "slug": "superadmin/assignuser"
+    },
+    {
+      "url": "pins-request",
+      "name": "Requests",
+      "icon": "zap",
+      "slug": "pins-request"
+    }
+  ]
+}
