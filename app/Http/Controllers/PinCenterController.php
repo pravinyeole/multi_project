@@ -16,7 +16,7 @@ class PinCenterController extends Controller
         $this->title        = "Pin Center";
         $this->name         = "Pin Center";
         $this->title_msg    = "Pin Ceter";
-        // $this->middleware(['auth']);
+        $this->middleware(['auth']);
     }
 
      

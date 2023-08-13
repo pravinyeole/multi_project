@@ -19,7 +19,7 @@ class RequestPinController extends Controller
   public function __construct()
   {
     $this->title = "Request Pins";
-    // $this->middleware(['auth'])->except(['saveUserRoleConfig']);
+    $this->middleware(['auth'])->except(['saveUserRoleConfig']);
   }
   public function index(Request $request)
   {

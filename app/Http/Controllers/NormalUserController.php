@@ -23,7 +23,7 @@ class NormalUserController extends Controller
     public function __construct()
     {
         $this->title = "Dashboard";
-        // $this->middleware(['auth'])->except(['saveUserRoleConfig']);
+        $this->middleware(['auth'])->except(['saveUserRoleConfig']);
     }
     public function index(Request $request)
     {

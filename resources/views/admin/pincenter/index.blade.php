@@ -1,4 +1,4 @@
-@extends('layouts/contentLayoutMaster')
+@extends('layouts/common_template')
 
 @section('title', $title)
 
@@ -20,7 +20,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h4 class="card-title">{{__("labels.user.list")}}</h4>
+                    <h4><center>{{__("labels.user.list")}}</center></h4>
                     <div class="dt-action-buttons text-right">
                         <div class="dt-buttons d-inline-flex">
                            <p class="m-1">Pins:  <span class="text-primary">{{$getNoOfPins->pins ?? ''}}</span></p>
@@ -66,8 +66,9 @@ $(document).ready(function () {
         var table = $('#table_user').DataTable({
             processing: true,
             serverSide: true,
+            bLengthChange: false,
+            responsive: true,
             order: [1, 'ASC'],
-            dom:'<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-3"l><"row col-sm-12 col-md-5 customDropDown"><"col-sm-12 col-md-4"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             ajax: {
                 url: base_url + "/pin_center",
                 data: function (data) {

@@ -1,4 +1,4 @@
-@extends('layouts/contentLayoutMaster')
+@extends('layouts/common_template')
 
 @section('title', $title)
 
@@ -38,12 +38,14 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Send Help <span style="font-size: 13px;" class="pl-2 text-warning">{{ucwords($getPaymentStatus->payment_status ?? '')}}</span></h4>
+                        <h4><center>Send Help </center><span style="font-size: 13px;" class="pl-2 text-warning">{{ucwords($getPaymentStatus->payment_status ?? '')}}</span></h4>
                     </div>
                     
                     <div class="card-body">
                         <div class="row">
                                 <input type="hidden" name="user_mobile_id" value="{{$mobileId}}">
+                                <input type="hidden" name="sender_id" value="{{Auth::user()->id}}">
+                                <input type="hidden" name="recevier_id" value="{{$senderUserDetails->id}}">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="first_name">First Name<span class="text-danger">*</span></label>
@@ -68,8 +70,6 @@
                                     <input type="text" class="form-control" id="email" name="email" placeholder='Enter Email Id' value="{{$senderUserDetails->email}}" maxlength="100" required="" disabled>
                                 </div>
                             </div>
-                            <input type="hidden" name="sender_id" value="{{Auth::user()->id}}">
-                            <input type="hidden" name="recevier_id" value="{{$senderUserDetails->id}}">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     {{-- @dd($senderUserDetails); --}}
@@ -126,10 +126,11 @@
                             </div>
                             
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-6">
-                                <button type="submit" class="btn btn-success">{{__("labels.submit")}}</button>
+                                <center><button type="submit" class="btn btn-success">{{__("labels.submit")}}</button>
                                 <a href="{{ url('normal_user') }}"> <button type="button" class="btn btn-danger">{{__("labels.cancel")}}</button></a>
+                            </center>
                             </div>
                         </div>
                     </div>

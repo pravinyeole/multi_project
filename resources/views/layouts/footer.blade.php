@@ -10,7 +10,19 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  @include('panels/scripts')
 
+<script type="text/javascript">
+  $(window).on('load', function() {
+    if (feather) {
+      feather.replace({
+        width: 14
+        , height: 14
+      })
+    }
+  })
+
+</script>
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

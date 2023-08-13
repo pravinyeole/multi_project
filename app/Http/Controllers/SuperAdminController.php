@@ -19,7 +19,7 @@ class SuperAdminController extends Controller
         $this->title        = "Super Admin";
         $this->name         = "Super Admin";
         $this->title_msg    = "Super Admin";
-        // $this->middleware(['auth']);
+        $this->middleware(['auth']);
     }
 
     public function index(){
