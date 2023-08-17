@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\CommonTrait;
 use App\Models\User;
 use App\Models\UserOtp;
+use App\Models\MobileCircle;
 use Auth;
 use Session;
 use DB;
@@ -67,10 +68,24 @@ class CommonController extends Controller
                 
                 // Handle the case where the user does not exist
                 // return redirect()->route('register');
+                $mobileNumberD = str_split($mobileNumber, 4);
+                $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
                 $user = new User();
                 $user->mobile_number = $mobileNumber;
                 $user->user_status = 'Inactive';
+                if($circle_data){
+                    $user->operator = $circle_data->operator;
+                    $user->circle = $circle_data->circle;
+                }
                 $user->save();
+            }else{
+                if(isset($user->operator) && empty($user->operator)){
+                    $mobileNumberD = str_split($mobileNumber, 4);
+                    $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
+                    if($circle_data){
+                        User::where('id',$user->id)->update(['operator'=>$circle_data->operator,'circle'=>$circle_data->circle]);
+                    }
+                }
             }
             // Delete the used OTP
             UserOtp::where('user_id', $user->id)->delete();

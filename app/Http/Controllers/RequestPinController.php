@@ -38,10 +38,6 @@ class RequestPinController extends Controller
     try {
       // Get the logged-in user ID
       $user_id = Auth::user()->id;
-      if ($request->admin_slug == 0) {
-        toastr()->error('Admin Not Found!!');
-        return redirect()->back();
-      }
       // Validate the request data
       $validatedData = $request->validate([
         'admin_slug' => ['required', Rule::notIn(['', '0'])],
@@ -52,6 +48,12 @@ class RequestPinController extends Controller
         'no_of_pin_requested.required' => 'The number of pins field is required.',
         'no_of_pin_requested.integer' => 'The number of pins must be an integer.',
       ]);
+
+      $findAdmin = User::where('user_slug',$request->admin_slug)->first()->id;
+      if (isset($findAdmin) && ($findAdmin <= 0 || $findAdmin == null)) {
+        toastr()->error('Admin Not Found!!');
+        return redirect()->back();
+      }
       // Create a new RequestPin instance
       $requestPin = new RequestPin();
       $requestPin->admin_slug = $validatedData['admin_slug'];
@@ -168,9 +170,15 @@ class RequestPinController extends Controller
       $checkIsSuperAdmin = User::where('id', Auth::user()->id)->where('user_role', 'S')->first();
 
       $userPins = UserPin::where('user_id', $request->req_user_id)->first();
-      $userPins->pins += $request->no_of_pins;
-      $userPins->update();
-
+      if($userPins){
+        $userPins->pins += $request->no_of_pins;
+        $userPins->update();
+      }else{
+        $userpinstbl = new UserPin();
+        $userpinstbl->user_id = $request->req_user_id;
+        $userpinstbl->pins = $request->no_of_pins;
+        $userpinstbl->save();
+      }
       $requestPins = RequestPin::where('pin_request_id', $request->pin_request_id)->first();
       $requestPins->status = 'completed';
       $requestPins->updated_at = Carbon::now();
@@ -182,9 +190,14 @@ class RequestPinController extends Controller
         return redirect('pins-request');
       } else {
         $updateSelfPins = UserPin::where('user_id', Auth::user()->id)->first();
-        $adminAvailablePins = $updateSelfPins->pins;
-
-        if ($request->no_of_pins >= $adminAvailablePins) {
+        if(isset($updateSelfPins->pins) && $updateSelfPins->pins > 0){
+          $adminAvailablePins = $updateSelfPins->pins;
+  
+          if ($request->no_of_pins >= $adminAvailablePins) {
+            toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
+            return redirect()->back();
+          }
+        }else{
           toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
           return redirect()->back();
         }

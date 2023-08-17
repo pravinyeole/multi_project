@@ -40,6 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'pm_last_four',
         'trial_ends_at',
         'user_role',
+        'operator',
+        'circle',
     ];
      public $timestamps  = false;
 
