@@ -39,7 +39,7 @@
                         </div>
                         <input type="hidden" id="mobileId" name="mobileId" value="{{$mobileId}}">
                         <div class="card-datatable">
-                            <table class="dt-responsive table dataTable dtr-column collapsed" id="send_help_table">
+                            <table class="table table-striped table-bordered" id="send_help_table">
                                 <thead>
                                     <tr>
                                         <th>{{__("labels.no")}}</th>
@@ -62,7 +62,7 @@
                             </h5>
                         </div>
                         <div class="card-datatable">
-                            <table class="dt-responsive table dataTable dtr-column collapsed" id="get_halp_table">
+                            <table class="table table-striped table-bordered" id="get_halp_table">
                                 <thead>
                                     <tr>
                                         <th>{{__("labels.no")}}</th>

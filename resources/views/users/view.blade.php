@@ -172,7 +172,7 @@
                     </h4>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped" id="permissionTable">
+                    <table class="table table-striped table-bordered" id="permissionTable">
                         <thead>
                             <tr>
                                 <th>Insurance Agency Name</th>
@@ -201,7 +201,7 @@
                     </h4>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped dt-responsive" id="permissionTable">
+                    <table class="table table-striped table-bordered" id="permissionTable">
                         <thead>
                             <tr>
                                 <th scope="col">Team Name</th>

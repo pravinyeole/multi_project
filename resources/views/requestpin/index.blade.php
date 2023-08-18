@@ -47,7 +47,7 @@
                     @if(isset($requestedPins))
                     <div class="row">
                         <div class="col-12">
-                            <table class="table">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Pin Request ID</th>

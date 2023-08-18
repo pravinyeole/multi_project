@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="card-datatable">
-                   <table class="dt-responsive table dataTable dtr-column collapsed" id="table_department">
+                   <table class="table table-striped table-bordered" id="table_department">
                         <thead>
                             <tr>
                                 <th>{{__("labels.no")}}</th>

@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="card-datatable">
-                        <table class="dt-responsive table" id="table_users">
+                        <table class="table table-striped table-bordered" id="table_users">
                             <thead>
                             <tr>
                                 <th>{{__("labels.no")}}</th>
@@ -96,7 +96,7 @@
                     </div>
 
                     <div class="card-datatable">
-                        <table class="dt-responsive table" id="invited_users">
+                        <table class="table table-striped table-bordered" id="invited_users">
                             <thead>
                             <tr>
                                 <th>{{__("labels.no")}}</th>

@@ -195,7 +195,7 @@
                     </h4>
                 </div>
                 <div class="">
-                    <table class="table table-striped" id="permissionTable">
+                    <table class="table table-striped table-bordered" id="permissionTable">
                         <thead>
                             <tr>
                                 <th scope="col">Team Name</th>

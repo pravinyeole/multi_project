@@ -354,7 +354,7 @@
 
             <div class="tab-pane fade" id="account-vertical-subscription" role="tabpanel" aria-labelledby="account-pill-subscription" aria-expanded="false">
                 <div class="row">
-                  <table class="table-responsive table dataTable dtr-column collapsed">
+                  <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th>Plan Name</th>
