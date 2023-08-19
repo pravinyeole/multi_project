@@ -2,15 +2,6 @@
 
 @section('title', $title)
 
-@section('vendor-style')
-    {{-- vendor css files --}}
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap4.min.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" integrity="YOUR-INTEGRITY-CODE" crossorigin="anonymous" />
-
-@endsection
-
 @section('page-style')
     {{-- Page Css files --}}
     <link rel="stylesheet" type="text/css" href="{{asset('css/base/plugins/forms/pickers/form-flat-pickr.css')}}">
@@ -31,7 +22,7 @@
                 </div>
 
                 <div class="card-datatable">
-                   <table class="table table-striped table-bordered" id="table_user">
+                    <table class="table table-striped table-bordered nowrap" id="table_user">
                         <thead>
                             <tr>
                                 <th>{{__("labels.no")}}</th>
@@ -51,14 +42,6 @@
 </section>
 @endsection
 
-@section('vendor-script')
-    {{-- vendor files --}}
-    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
-@endsection
 
 @section('page-script')
 <script>

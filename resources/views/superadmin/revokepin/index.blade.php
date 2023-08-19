@@ -3,9 +3,6 @@
 @section('title', $title)
 
 @section('vendor-style')
-    {{-- vendor css files --}}
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap4.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
 @endsection
 
@@ -121,10 +118,6 @@
 @endsection
 
 @section('vendor-script')
-    {{-- vendor files --}}
-    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 @endsection
@@ -133,7 +126,7 @@
 <script>
 $(document).ready(function () {
     $('.select2').select2();
-
+    $('.select2-selection__rendered').hide();
    // Show user details when a user is selected
    $('#search').on('change', function () {
         var userId = $(this).val();
@@ -144,6 +137,7 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
                 success: function (response) {
+                    $('.select2-selection__rendered').hide();
                     if (response.success) {
                         var userDetails = response.data; // Assuming the response contains user details in the 'data' field
 
