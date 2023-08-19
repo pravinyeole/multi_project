@@ -17,6 +17,14 @@
 @section('content')
 <section id="responsive-datatable">
     <div class="row">
+        @if (Session::has('alert'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Success !</strong> {{ session('alert') }}
+        </div>
+        @endif
         <div class="col-12">
             <div class="card" style="padding: 10px;">
                 <div class="card-header border-bottom">
@@ -48,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="card-datatable">
                     <table class="table table-striped table-bordered" id="table_user">
                         <thead>
@@ -101,12 +110,12 @@
 @endsection
 
 @section('vendor-script')
-    {{-- vendor files --}}
-    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+{{-- vendor files --}}
+<script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 @endsection
 
 @section('page-script')

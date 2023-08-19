@@ -33,7 +33,6 @@
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min"></script>
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js')}}"></script>
 

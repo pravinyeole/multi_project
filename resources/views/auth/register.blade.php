@@ -19,7 +19,7 @@
     border-radius: 20px;
     background: #fff;
     border: none;
-    height: 470px;
+    /* height: 470px; */
     position: relative;
   }
 

@@ -10,6 +10,7 @@ use App\Models\UserSubInfo;
 use Illuminate\Support\Carbon;
 use App\Models\Parameter;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Session;
 use Auth;
 use DataTables;
 use DB;
@@ -127,14 +128,11 @@ class NormalUserController extends Controller
                 // Calculate the initial number of count for the current wx`x`eek
                 $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
 
-                if ($userIds <= 3) {
-                    toastr()->error('You have reached the maximum limit of ID creations for today!');
-                    return redirect()->back();
+                if ($userIds >= 3) {
+                    return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }else if ($userIds >= $initialsNoOfCount) {
-                    toastr()->error('You have reached the maximum limit of ID creations for today!');
-                    return redirect()->back();
+                    return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }
-
 
                 // Retrieve user details and generate mobile_id
                 $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
