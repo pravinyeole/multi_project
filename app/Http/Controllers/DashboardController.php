@@ -33,16 +33,17 @@ class DashboardController extends Controller
 
 
 
-     public function dashboard()
+    public function dashboard()
     {
     
-          $pageConfigs = ['pageHeader' => false];
-          $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
-            ->select('users.*', 'user_pins.pins')
-            ->where('users.id', Auth::user()->id)
-            ->first();
+        //$pageConfigs = ['pageHeader' => false];
+        //   $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
+        //     ->select('users.*', 'user_pins.pins')
+        //     ->where('users.id', Auth::user()->id)
+        //     ->first();
 
-        return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
+        //return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
+        return view('dashboard/new_dashboard');
   
     }
 

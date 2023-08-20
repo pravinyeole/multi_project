@@ -48,7 +48,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::post('register_user', [RegisterController::class,'register'])->name('register_user');
     Route::get('/user-invitation/{userInvitation}',[MapUserController::class, 'show']);
 
-    Route::get('/home',                 [DashboardController::class,'dashboard'])->name('home');
+    Route::get('/home',[DashboardController::class,'dashboard'])->name('home');
    
     Auth::routes(['verify' => true]);
     Route::get('logout', [LoginController::class, 'logout']);

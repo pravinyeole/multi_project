@@ -4,12 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Bharat</title>
-  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>IN₹ Bharat</title>
 
 
   <!-- Favicons -->
@@ -42,7 +40,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{url('/normal_user')}}" class="logo d-flex align-items-center">
         <img src="{{asset('images/logo/hpa_logo.png')}}" alt="">
-        <span class="d-none d-lg-block">INR ₹ BHARAT</span>
+        <span class="d-none d-lg-block">IN₹ BHARAT</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
