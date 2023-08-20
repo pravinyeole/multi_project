@@ -8,13 +8,38 @@
 @section('content')
 <section id="responsive-datatable">
     <div class="card">
+        @if(isset($getOldUser))
         <div class="card-header">
             <h4 class="card-title">Assign Users</h4>
         </div>
         <div class="card-body mt-3">
+            @if (Session::has('invalidId'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                <strong>Invalid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('invalidId')) }}
+            </div>
+            @endif
+            @if (Session::has('validMapped'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
+            </div>
+            @endif
+            @if (Session::has('alreadyMapped'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                <strong>ALready Mapped !</strong> {{ str_replace(['[',']','"',"'"],'',session('alreadyMapped')) }}
+            </div>
+            @endif
+
             <form class="form-horizontal" action="{{ route('superadmin.save-assigne-user') }}" method="POST" id="manaualAssign">
                 @csrf
-                @if(isset($getOldUser))
                 <input type="hidden" name="type" value="GH">
                 @foreach ($getOldUser as $user)
                 <div class="form-group row">
@@ -22,11 +47,11 @@
                         <center>{{ $user->mobile_id }} ({{ $user->user_fname }} {{ $user->user_lname }})</center>
                     </label>
                     <div class="col-sm-4">
-                        <select name="{{ $user->id }}_{{ $user->mobile_id }}[]" class="form-control select2" multiple="multiple">
+                        <select name="{{ $user->id }}_{{ $user->mobile_id }}[]" class="form-control select2 multiselect" multiple="multiple">
                             @foreach ($getRecentlyJoinUser as $recentUser)
-                                @if($user->id != $recentUser->id)
-                                    <option value="{{ $recentUser->id }}">{{ $recentUser->user_fname }} {{ $recentUser->user_lname }} ({{ $recentUser->mobile_number }})</option>
-                                @endif
+                            @if($user->id != $recentUser->id)
+                            <option value="{{ $recentUser->id }}">{{ $recentUser->user_fname }} {{ $recentUser->user_lname }} ({{ $recentUser->mobile_number }})</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
@@ -34,17 +59,20 @@
                     </div>
                 </div>
                 @endforeach
-                @endif
-            
+
+            </form>
             <div class="form-check">
                 <center><input class="form-check-input custom-checkbox" type="checkbox" id="auto-assign-checkbox">
-                <label class="form-check-label ml-1" for="auto-assign-checkbox">Auto Assign</label>
-                <button type="submit" form="manaualAssign" class="btn btn-primary ml-5" id="assign-user-btn">Assign User</button></center>
+                    <label class="form-check-label ml-1" for="auto-assign-checkbox">Auto Assign</label>
+                    <button type="submit" form="manaualAssign" class="btn btn-primary ml-5" id="assign-user-btn">Assign User</button>
+                </center>
             </div>
-            </form>
         </div>
-
-    </div>
+        @else
+        <div class="card-header">
+            <h4 class="card-title">No Users for Assigned</h4>
+        </div>
+        @endif
     </div>
 </section>
 @endsection
@@ -58,11 +86,15 @@
     $(document).ready(function() {
         // Initialize Select2 on the dropdown menus
         $('.select2').select2();
-
+        
         // Auto Assign checkbox change event
         $('#auto-assign-checkbox').on('change', function() {
             if ($(this).is(':checked')) {
                 // Auto assign users
+                var labelCount = $('#manaualAssign label').length;
+                var i = 1;
+                var fr = 0;
+                var to = 2;
                 $('.select2').each(function() {
                     var selectElement = $(this);
                     var options = selectElement.find('option');
@@ -70,9 +102,16 @@
                     // Clear previous selections
                     selectElement.val(null).trigger('change');
 
-                    // Select the first two options
-                    options.slice(0, 2).prop('selected', true);
+                    // Set Slice count of options 
+                    if (i == 1) {
+                        i++;
+                    } else {
+                        fr = fr + 1;
+                        to = fr + 2;
+                    }
+                    options.slice(fr, to).prop('selected', true);
                     selectElement.trigger('change');
+                    // Select the first two options
                 });
             } else {
                 // Clear selections
