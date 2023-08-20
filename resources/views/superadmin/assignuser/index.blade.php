@@ -83,10 +83,16 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
 <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
 <script>
+    $('#manaualAssign').on('submit',function(e) {
+        $('select ').prop('disabled', false);
+        var isValid = $(e.target).parents('form').isValid();
+        if (!isValid) {
+            e.preventDefault(); //prevent the default action
+        }
+    });
     $(document).ready(function() {
         // Initialize Select2 on the dropdown menus
         $('.select2').select2();
-        
         // Auto Assign checkbox change event
         $('#auto-assign-checkbox').on('change', function() {
             if ($(this).is(':checked')) {
@@ -113,7 +119,9 @@
                     selectElement.trigger('change');
                     // Select the first two options
                 });
+                $('select ').prop('disabled', true);
             } else {
+                $('select ').prop('disabled', false);
                 // Clear selections
                 $('.select2').val(null).trigger('change');
             }

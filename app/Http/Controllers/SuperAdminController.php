@@ -470,23 +470,23 @@ class SuperAdminController extends Controller
                     array_push($alreadyMapped, $exploded[1]);
                     // toastr()->error('User is already mapped');
                     // return back();
+                }else{
+                    // Create an array to hold the rows for insertion
+    
+                    foreach ($userIds as $userId) {
+                        // Create a row array for each user ID
+                        $row = [
+                            'mobile_id' => $mobileID,
+                            'user_id' => $userId,
+                            'type' => 'GH', // Hard-coded type as 'GH'
+                        ];
+    
+                        // Add the row to the rows array
+                        $rows[] = $row;
+                    }
+                    array_push($validMapped, $mobileID);
+                    // Insert the rows into the "user_map_new" table
                 }
-
-                // Create an array to hold the rows for insertion
-
-                foreach ($userIds as $userId) {
-                    // Create a row array for each user ID
-                    $row = [
-                        'mobile_id' => $mobileID,
-                        'user_id' => $userId,
-                        'type' => 'GH', // Hard-coded type as 'GH'
-                    ];
-
-                    // Add the row to the rows array
-                    $rows[] = $row;
-                }
-                array_push($validMapped, $mobileID);
-                // Insert the rows into the "user_map_new" table
             }
             if (count($invalidId)) {
                 $resultArray['invalidId'] = json_encode($invalidId);

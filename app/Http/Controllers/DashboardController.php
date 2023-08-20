@@ -10,6 +10,7 @@ use App\Models\UserPin;
 use App\Models\Classes;
 use App\Models\Subject;
 use App\Models\TeacherPaper;
+use App\Models\RequestPin;
 
 
 use App\Models\User;
@@ -41,9 +42,16 @@ class DashboardController extends Controller
         //     ->select('users.*', 'user_pins.pins')
         //     ->where('users.id', Auth::user()->id)
         //     ->first();
+        $activeAdmin = User::where(['user_role'=>'A','user_status'=>'Active'])->count();
+        $activeUsers = User::where(['user_role'=>'U','user_status'=>'Active'])->count();
+        $pinReuqest = RequestPin::where(['req_user_id'=>Auth::user()->id,'status'=>'pending'])->count();
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $todaysUsers = User::where(['user_role'=>'U'])->whereDate('created_at',Carbon::today())->count();
+        $weekUsers = User::where(['user_role'=>'U'])->whereBetween('created_at',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
 
         //return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
-        return view('dashboard/new_dashboard');
+        return view('dashboard/new_dashboard',compact('activeAdmin','activeUsers','pinReuqest','todaysUsers','weekUsers'));
   
     }
 

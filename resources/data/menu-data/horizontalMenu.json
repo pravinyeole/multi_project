@@ -1,8 +1,14 @@
 {
   "menu": [
       {
-          "url" : "normal_user",
+          "url" : "home",
           "name": "Dashboards",
+          "icon": "home",
+          "slug": "home"
+      },
+      {
+          "url" : "normal_user",
+          "name": "Users",
           "icon": "normal_user",
           "slug": "normal_user"
       },

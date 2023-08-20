@@ -52,7 +52,16 @@ class CommonController extends Controller
     }
 
    
+    function sendOTPAPI($mobileNum){
 
+        $apipath = config('custom.custom.apipath');
+        $username = config('custom.custom.username');
+        $password = config('custom.custom.password');
+        $sender_id = config('custom.custom.sender_id');
+        echo $apiURL = trim($apipath.'username='.$username.'&password='.$password.'&from='.$sender_id.'&to='.$mobileNum);
+        // https://web.smsgw.in/smsapi/httpapi.jsp?username=XXXXXXXXXX&password=XXXXXX&from=XXXXXX&to=XXXXXXXXXX,XXXXXXXXXX&text=hello+world&coding=0&pe_id=xxxxxx&template_id=xxxxx&scheduletime=XXXX-XX-XX XX:XX&flash=2
+
+    }
 
     public function sendOTP(Request $request)
     {
@@ -61,7 +70,8 @@ class CommonController extends Controller
             ]);
         
             $mobileNumber = $validatedData['mobileNumber'];
-
+            // $this->sendOTPAPI($mobileNumber);
+            // dd();
             $user = User::where('mobile_number', $mobileNumber)->first();
 
             if (!$user) {

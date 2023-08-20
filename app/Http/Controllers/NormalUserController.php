@@ -27,7 +27,7 @@ class NormalUserController extends Controller
         $this->middleware(['auth'])->except(['saveUserRoleConfig']);
     }
     public function index(Request $request)
-    {
+    {   
         $title = $this->title;
         try {
             if ($request->ajax()) {

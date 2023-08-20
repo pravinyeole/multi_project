@@ -1757,3 +1757,9 @@ INSERT INTO `mobile_circle` (`serial`, `operator`, `circle`) VALUES ("9999","VI"
 ALTER TABLE `users` ADD `operator` VARCHAR(5) NOT NULL AFTER `user_role`, ADD `circle` VARCHAR(5) NOT NULL AFTER `operator`;
 <!-- Add Operator and circle column to user table -->
 
+<!-- 20-08-2023 -->
+
+ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `modified_at` `modified_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `deleted_at` `deleted_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `modified_at` `modified_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `deleted_at` `deleted_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
