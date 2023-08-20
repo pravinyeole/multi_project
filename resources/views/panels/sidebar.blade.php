@@ -10,12 +10,6 @@ $configData = Helper::applClasses();
                     <img src="{{asset('images/logo/logo.png')}}" width="100%" />
                 </a>
             </li>
-            {{-- <li class="nav-item nav-toggle">
-                <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
-                    <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
-                    <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
-                </a>
-            </li> --}}
         </ul>
     </div>
 
@@ -23,10 +17,7 @@ $configData = Helper::applClasses();
 
     <div class="main-menu-content" style="margin-top: 60px;background:#62b9dc;">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-        {{-- Foreach menu item starts --}}
         
-        {{-- {{dd(Auth::user()->getRole())}} --}}
-      {{-- @dd() --}}
         @if(Auth::user()->getRole() == 'A') 
             @php $menuData = $menuData[0]; @endphp
         @elseif(Auth::user()->getRole() == 'U')
