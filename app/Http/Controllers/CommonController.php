@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Carbon;
 use App\Traits\CommonTrait;
 use App\Models\User;
 use App\Models\UserOtp;
@@ -52,15 +52,32 @@ class CommonController extends Controller
     }
 
    
-    function sendOTPAPI($mobileNum){
+    function sendOTPAPI($mobileNum,$otp){
 
-        $apipath = config('custom.custom.apipath');
+        // $apipath = config('custom.custom.apipath');
+        $apipath = 'https://web.smsgw.in/smsapi/jsonapi.jsp';
         $username = config('custom.custom.username');
         $password = config('custom.custom.password');
         $sender_id = config('custom.custom.sender_id');
-        echo $apiURL = trim($apipath.'username='.$username.'&password='.$password.'&from='.$sender_id.'&to='.$mobileNum);
-        // https://web.smsgw.in/smsapi/httpapi.jsp?username=XXXXXXXXXX&password=XXXXXX&from=XXXXXX&to=XXXXXXXXXX,XXXXXXXXXX&text=hello+world&coding=0&pe_id=xxxxxx&template_id=xxxxx&scheduletime=XXXX-XX-XX XX:XX&flash=2
-
+        $pe_id = config('custom.custom.PE_ID');
+        $template_id = config('custom.custom.template_id');
+        $template_text =  'Welcome to INR Bharat Login Portal . Please use OTP '.$otp.' for login. OTP is valid for 5 Minutes. INR BHARAT';
+        $apiBody = json_encode(['username'=>$username,'password'=>$password,'from'=>$sender_id,'to'=>[$mobileNum],'text'=>$template_text,'pe_id'=>$pe_id,'template_id'=>$template_id]);
+        $curl = curl_init('http://49.50.67.32/smsapi/jsonapi.jsp');
+        curl_setopt_array($curl, array(
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS =>$apiBody,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-Type:application/json'),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data_res = json_decode($response);
+        if(isset($data_res->data->ack_id) && !empty($data_res->data->ack_id)){
+            return true;
+        }else{
+            return false;
+        }        
     }
 
     public function sendOTP(Request $request)
@@ -68,14 +85,9 @@ class CommonController extends Controller
             $validatedData = $request->validate([
                 'mobileNumber' => 'required|numeric|digits:10',
             ]);
-        
             $mobileNumber = $validatedData['mobileNumber'];
-            // $this->sendOTPAPI($mobileNumber);
-            // dd();
             $user = User::where('mobile_number', $mobileNumber)->first();
-
             if (!$user) {
-                
                 // Handle the case where the user does not exist
                 // return redirect()->route('register');
                 $mobileNumberD = str_split($mobileNumber, 4);
@@ -97,23 +109,37 @@ class CommonController extends Controller
                     }
                 }
             }
-            // Delete the used OTP
-            UserOtp::where('user_id', $user->id)->delete();
-            // Generate a random 6-digit OTP
-            $otp = mt_rand(100000, 999999);
-        
-            // Create a new UserOtp record
-            $userOtp = UserOtp::create([
-                'user_id' => $user->id,
-                'phone_otp' => $otp,
-            ]);
-        // Check if the entered OTP matches the stored OTP for the user
-        $userOtp = UserOtp::where('user_id', $user->id)->first();
-         // After successfully sending the OTP, prepare the redirect URL
-         $userId = $user->id;
-         $mobileNumber =  $user->mobile_number; 
-         $redirectUrl = route('show-enter-otp', ['user_id' => $userId,'mobileNumber'=>$mobileNumber]);
-         return response()->json(['message' => 'OTP sent successfully',"redirect_url"=>$redirectUrl], 200);
+            $now = Carbon::now();
+            $otpvalidtime = config('custom.custom.otpvalidtime');
+            $diffMinutes = 100;
+            $previousOTP = UserOtp::where('user_id', $user->id)->first();
+            if(isset($previousOTP->created_at) && !empty($previousOTP->created_at)){
+                $created_at = Carbon::parse($previousOTP->created_at);
+                $diffMinutes = $created_at->diffInMinutes($now);
+            }
+            if($diffMinutes <= $otpvalidtime){
+                $redirectUrl = route('show-enter-otp', ['user_id' => $user->id,'mobileNumber'=>$mobileNumber]);
+                return response()->json(['message' => 'OTP sent successfully',"redirect_url"=>$redirectUrl], 200); 
+            }
+                UserOtp::where('user_id', $user->id)->delete();
+                $otp = mt_rand(100000, 999999);
+                $userOtp = UserOtp::create([
+                    'user_id' => $user->id,
+                    'phone_otp' => $otp,
+                ]);
+                // Send OTP API Call
+                $response  = $this->sendOTPAPI($mobileNumber,$otp);
+                if($response != 1){
+                    $redirectUrl = route('login');
+                    return response()->json(['message' => 'Somthing Went Wrong,Please Try again',"redirect_url"=>$redirectUrl], 200);
+                }
+            // Check if the entered OTP matches the stored OTP for the user
+            $userOtp = UserOtp::where('user_id', $user->id)->first();
+            // After successfully sending the OTP, prepare the redirect URL
+            $userId = $user->id;
+            $mobileNumber =  $user->mobile_number; 
+            $redirectUrl = route('show-enter-otp', ['user_id' => $userId,'mobileNumber'=>$mobileNumber]);
+            return response()->json(['message' => 'OTP sent successfully',"redirect_url"=>$redirectUrl], 200);
     }
 
     public function resendOTP(Request $request)
