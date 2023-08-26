@@ -1,60 +1,94 @@
- <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-        
-        @if(Auth::user()->getRole() == 'A') 
-            @php $menuData = $menuData[0]; @endphp
-        @elseif(Auth::user()->getRole() == 'U')
-            @php $menuData = $menuData[1]; @endphp
-        @elseif(Session::get('USER_TYPE') == 'O' || Session::get('USER_TYPE') == 'OA')
-            @php $menuData = $menuData[3]; @endphp
-        @elseif(Session::get('USER_TYPE') == 'T')
-            @php $menuData = $menuData[5]; @endphp
-        @else
-            @php $menuData = $menuData[4]; @endphp
-        @endif
-
-        @if(isset($menuData))
-            @foreach($menuData->menu as $menu)
-                @if(isset($menu->navheader))
-                    <li class="navigation-header">
-                        <span>{{ __('locale.'.$menu->navheader) }}</span>
-                        <i data-feather="more-horizontal"></i>
-                    </li>
-                @else
-                    {{-- Add Custom Class with nav-item --}}
-                    @php
-                    $custom_classes = "";
-                    if(isset($menu->classlist)) {
-                        $custom_classes = $menu->classlist;
-                    }
-                    @endphp
-                    <li class="nav-item @if(Request::is($menu->slug.'/*') || Request::is($menu->slug)) active  @endif" {{ $custom_classes }}">
-                        <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
-                            <i class="bi bi-card-list" ></i>
-                            <span class="menu-title text-truncate">{{ __('locale.'.$menu->name) }}</span>
-                            @if (isset($menu->badge))
-                            <?php $badgeClasses = "badge badge-pill badge-light-primary ml-auto mr-1" ?>
-                            <span class="{{ isset($menu->badgeClass) ? $menu->badgeClass : $badgeClasses }} ">{{$menu->badge}}</span>
-                            @endif
-                        </a>
-
-                        @if(isset($menu->submenu))
-                            @include('panels/submenu', ['menu' => $menu->submenu])
-                        @endif
-                    </li>
-                @endif
-            @endforeach
-
-            @php
-            $custom_classes = "";
-            if(isset($submenuData->classlist)) {
-                $custom_classes = $submenuData->classlist;
-            }
-            @endphp
-
-            
-        @endif
-    </ul>
-
-  </aside><!-- End Sidebar-->
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item nav-category">UI Elements</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-floor-plan"></i>
+              <span class="menu-title">UI Elements</span>
+              <i class="menu-arrow"></i> 
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item nav-category">Forms and Datas</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="menu-icon mdi mdi-card-text-outline"></i>
+              <span class="menu-title">Form elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Charts</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Tables</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="menu-icon mdi mdi-layers-outline"></i>
+              <span class="menu-title">Icons</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item nav-category">pages</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="menu-icon mdi mdi-account-circle-outline"></i>
+              <span class="menu-title">User Pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item nav-category">help</li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
+              <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
