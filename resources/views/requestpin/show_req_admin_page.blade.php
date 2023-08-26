@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    <section id="responsive-datatable">
+    {{-- <section id="responsive-datatable">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -41,7 +41,35 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">{{__("labels.user.list")}}</h4>
+            <div class="table-responsive">
+                <table class="table table-striped" id="table_user">
+                <thead>
+                    <tr>
+                        <th>{{__("labels.no")}}</th>
+                        <th>Username</th>                             
+                        <th>Email</th>
+                        <th>Mobile No</th>
+                        <th>Status</th>
+                        <th>Create At</th>
+                        <th>{{__("labels.action")}}</th>
+                    </tr>
+                </thead>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 

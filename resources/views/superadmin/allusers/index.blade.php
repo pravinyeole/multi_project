@@ -24,7 +24,7 @@
           <div class="card-body">
             <h4 class="card-title">{{__("labels.user.list")}}</h4>
             <div class="table-responsive">
-              <table class="table" id="table_user">
+              <table class="table table-hover" id="table_user">
                 <thead>
                     <tr>
                         <th>{{__("labels.no")}}</th>

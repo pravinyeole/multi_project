@@ -18,7 +18,6 @@
 
 
 @section('content')
-
     <!-- Responsive Datatable -->
     <section id="responsive-datatable">
         <div class="row">
