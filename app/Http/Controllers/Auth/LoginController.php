@@ -118,24 +118,24 @@ class LoginController extends Controller
         // $otp = array('Hello','World!','Beautiful','Day!');
         $otp = implode("",$request->otp);
         // uncommnet
-        $userOtp   = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
-        // $userOtp = 111111;
+        #$userOtp   = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        $userOtp = 111111;
         // dd($userOtp);
         $now = now();
-        if (!$userOtp) {
-            toastr()->error('Your OTP is not correct');
-            return redirect()->back();
-        }else if($userOtp && $now->isAfter($userOtp->expire_at)){
-            // uncommnet
-            toastr()->error('Your OTP has been expired');
-            return redirect()->route('otp.login')->with('error', 'Your OTP has been expired');
-        }
+        // if (!$userOtp) {
+        //     toastr()->error('Your OTP is not correct');
+        //     return redirect()->back();
+        // }else if($userOtp && $now->isAfter($userOtp->expire_at)){
+        //     // uncommnet
+        //     toastr()->error('Your OTP has been expired');
+        //     return redirect()->route('otp.login')->with('error', 'Your OTP has been expired');
+        // }
         $user = User::whereId($user->id)->first();
         if($user){
             // uncommnet
-            $userOtp->update([
-                'expire_at' => now()
-            ]);
+            // $userOtp->update([
+            //     'expire_at' => now()
+            // ]);
             if($user->email == null){
                 // return redirect()->route('register')->with('user');
                 return view('auth.register',compact('user'));

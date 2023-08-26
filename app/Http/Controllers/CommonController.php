@@ -128,11 +128,11 @@ class CommonController extends Controller
                     'phone_otp' => $otp,
                 ]);
                 // Send OTP API Call
-                $response  = $this->sendOTPAPI($mobileNumber,$otp);
-                if($response != 1){
-                    $redirectUrl = route('login');
-                    return response()->json(['message' => 'Somthing Went Wrong,Please Try again',"redirect_url"=>$redirectUrl], 200);
-                }
+                // $response  = $this->sendOTPAPI($mobileNumber,$otp);
+                // if($response != 1){
+                //     $redirectUrl = route('login');
+                //     return response()->json(['message' => 'Somthing Went Wrong,Please Try again',"redirect_url"=>$redirectUrl], 200);
+                // }
             // Check if the entered OTP matches the stored OTP for the user
             $userOtp = UserOtp::where('user_id', $user->id)->first();
             // After successfully sending the OTP, prepare the redirect URL

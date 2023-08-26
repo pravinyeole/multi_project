@@ -1,0 +1,242 @@
+
+@isset($pageConfigs)
+{!! Helper::updatePageConfig($pageConfigs) !!}
+@endisset
+
+<!DOCTYPE html>
+{{-- {!! Helper::applClasses() !!} --}}
+@php
+$configData = Helper::applClasses();
+@endphp
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>IN₹ Bharat</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/mdi/css/materialdesignicons.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('vendors/ti-icons/css/themify-icons.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="{{asset('vendors/typicons/typicons.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer"> --}}
+  <link rel="stylesheet" href="{{asset('vendors/simple-line-icons/css/simple-line-icons.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{{asset('images/logo/hpa_logo.png')}}" />
+  <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-auth.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="{{asset('images/logo/INRB_LOGO_FINAL_SVG.svg')}}" alt="logo">
+              </div>
+              <h4>Hello! let's get started</h4>
+              <h6 class="fw-light">Sign in to continue.</h6>
+              <form class="pt-3" id="mobileForm"  method="POST" action="{{url('login')}}">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
+                </div>
+                <div id="otp-section" class="mt-2">
+                  <div class="otp-input-group">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                    <input type="text" class="form-control otp-input" maxlength="1" name="otp[]">
+                  </div>
+                </div>
+                <div id="timer" class="mt-2"></div>
+                <div class="text-center mt-2">
+                  <button id="getOtpBtn" class="btn btn-primary">Get OTP</button>
+                  <button  id="resendOtpBtn" class="font-weight-bold btn btn-danger cursor" style="display: none;">Resend OTP</button>
+                </div>
+                <div class="text-center mt-2">
+                  <button id="loginBtn" class="btn btn-primary">Login</button>
+                </div>
+                
+                <div class="mb-2">
+                  <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                    <i class="ti-facebook me-2"></i>Connect using facebook
+                  </button>
+                </div>
+                <div class="text-center mt-4 fw-light">
+                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <!-- endinject -->
+  @include('panels/scripts')
+
+  <script type="text/javascript">
+    $(window).on('load', function() {
+      if (feather) {
+        feather.replace({
+          width: 14
+          , height: 14
+        });
+      }
+    })
+  </script>
+  @section('vendor-script')
+  <!-- vendor files -->
+  <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+  @endsection
+  
+  @section('page-script')
+  <script>
+    $(function () {
+      var jqForm = $('#mobileForm');
+      var otpSection = $('#otp-section');
+      var timer = $('#timer');
+      var mobileNumberInput = $('#mobileNumber');
+      var getOtpBtn = $('#getOtpBtn');
+      var resendOtpBtn = $('#resendOtpBtn');
+      var otpInputs = otpSection.find('.otp-input');
+      var loginBtn = $('#loginBtn');
+      var loginTitle = $('.login-title');
+      var loginOtpIcon1 =$('.enterphone');
+      var loginOtpIcon2 =$('.veritifcation-otp');
+      var timerDuration = 120; // Duration in seconds
+      var timerInterval; // Variable to hold the timer interval
+  
+      // Mobile number validation method
+      jQuery.validator.addMethod("validate_mobile", function (value, element) {
+        if (/^\d{10}$/.test(value)) {
+          return true;
+        } else {
+          return false;
+        }
+      }, "Please enter a 10-digit mobile number");
+  
+      jqForm.validate({
+        rules: {
+          mobileNumber: {
+            required: true,
+            validate_mobile: true,
+          },
+        },
+        messages: {
+          mobileNumber: {
+            required: "Please enter your mobile number",
+            validate_mobile: "Please enter a valid 10-digit mobile number",
+          },
+        },
+      });
+      var base_url = "{{url('/')}}";
+      // Get OTP button click event
+      getOtpBtn.click(function (e) {
+        e.preventDefault();
+        if (jqForm.valid()) {
+          $.ajax({
+            // url: jqForm.attr('action'),
+            url: base_url + "/common/send-otp",
+            method: 'POST',
+            data: jqForm.serialize(),
+            success: function (response) {
+              console.log(response);
+              // Handle the success response here
+              toastr.success('OTP sent successfully');
+              window.location.href = response.redirect_url;
+            },
+            error: function (error) {
+              console.log(error);
+              // Handle the error response here
+              toastr.error('Failed to send OTP');
+            }
+          });
+        }
+      });
+  
+      // Resend OTP button click event
+      resendOtpBtn.click(function (e) {
+        e.preventDefault();
+        // Send mobile number with AJAX
+        $.ajax({
+          url: base_url + "/common/resend-otp",
+          method: 'POST',
+          data: jqForm.serialize(),
+          success: function (response) {
+            console.log(response);
+            // Handle the success response here
+            toastr.success('OTP sent successfully');
+          },
+          error: function (error) {
+            console.log(error);
+            toastr.success('Somthing went wrong!!');
+            // Handle the error response here
+          }
+        });
+      });
+  
+      // OTP input change event
+      otpInputs.on('input', function () {
+        var currentInput = $(this);
+        var otp = otpInputs.map(function () {
+          return $(this).val();
+        }).get().join('');
+  
+        if (otp.length === 6) {
+          loginBtn.show();
+        } else {
+          loginBtn.hide();
+          if (currentInput.next().length) {
+            currentInput.next().focus(); // Focus on the next OTP input field
+          }
+        }
+      });
+  
+      // Start the timer
+      function startTimer() {
+        var duration = timerDuration;
+        timer.text('');
+        clearInterval(timerInterval); // Clear any existing timer interval
+        timerInterval = setInterval(function () {
+          if (duration <= 0) {
+            clearInterval(timerInterval);
+            timer.text('');
+            otpInputs.val('');
+            resendOtpBtn.show(); // Show the resend OTP button
+            mobileNumberInput.attr("disabled", false);
+          } else {
+            var minutes = Math.floor(duration / 60);
+            var seconds = duration % 60;
+            var timeText = "Resend OTP in " + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+            timer.text(timeText);
+            duration--;
+          }
+        }, 1000);
+      }
+  
+    });
+  </script>
+  @endsection
+
+</body>
+
+</html>
