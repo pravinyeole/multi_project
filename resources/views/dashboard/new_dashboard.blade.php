@@ -150,7 +150,7 @@
                                         </td>
                                         <td>
                                           <div class="d-flex ">
-                                            <img src="images/faces/face1.jpg" alt="">
+                                            <img src="{{asset('images/faces/face1.jpg')}}" alt="">
                                             <div>
                                               <h6>Brandon Washington</h6>
                                               <p>Head admin</p>
@@ -183,7 +183,7 @@
                                         </td>
                                         <td>
                                           <div class="d-flex">
-                                            <img src="images/faces/face2.jpg" alt="">
+                                            <img src="{{asset('images/faces/face2.jpg')}}" alt="">
                                             <div>
                                               <h6>Laura Brooks</h6>
                                               <p>Head admin</p>
@@ -216,7 +216,7 @@
                                         </td>
                                         <td>
                                           <div class="d-flex">
-                                            <img src="images/faces/face3.jpg" alt="">
+                                            <img src="{{asset('images/faces/face3.jpg')}}" alt="">
                                             <div>
                                               <h6>Wayne Murphy</h6>
                                               <p>Head admin</p>
@@ -249,7 +249,7 @@
                                         </td>
                                         <td>
                                           <div class="d-flex">
-                                            <img src="images/faces/face4.jpg" alt="">
+                                            <img src="{{asset('images/faces/face4.jpg')}}" alt="">
                                             <div>
                                               <h6>Matthew Bailey</h6>
                                               <p>Head admin</p>
@@ -282,7 +282,7 @@
                                         </td>
                                         <td>
                                           <div class="d-flex">
-                                            <img src="images/faces/face5.jpg" alt="">
+                                            <img src="{{asset('images/faces/face5.jpg')}}" alt="">
                                             <div>
                                               <h6>Katherine Butler</h6>
                                               <p>Head admin</p>
@@ -573,7 +573,7 @@
                                     <div class="mt-3">
                                       <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
                                         <div class="d-flex">
-                                          <img class="img-sm rounded-10" src="images/faces/face1.jpg" alt="profile">
+                                          <img class="img-sm rounded-10" src="{{asset('images/faces/face1.jpg')}}" alt="profile">
                                           <div class="wrapper ms-3">
                                             <p class="ms-1 mb-1 fw-bold">Brandon Washington</p>
                                             <small class="text-muted mb-0">162543</small>
@@ -585,7 +585,7 @@
                                       </div>
                                       <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
                                         <div class="d-flex">
-                                          <img class="img-sm rounded-10" src="images/faces/face2.jpg" alt="profile">
+                                          <img class="img-sm rounded-10" src="{{asset('images/faces/face2.jpg')}}" alt="profile">
                                           <div class="wrapper ms-3">
                                             <p class="ms-1 mb-1 fw-bold">Wayne Murphy</p>
                                             <small class="text-muted mb-0">162543</small>
@@ -597,7 +597,7 @@
                                       </div>
                                       <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
                                         <div class="d-flex">
-                                          <img class="img-sm rounded-10" src="images/faces/face3.jpg" alt="profile">
+                                          <img class="img-sm rounded-10" src="{{asset('images/faces/face3.jpg')}}" alt="profile">
                                           <div class="wrapper ms-3">
                                             <p class="ms-1 mb-1 fw-bold">Katherine Butler</p>
                                             <small class="text-muted mb-0">162543</small>
@@ -609,7 +609,7 @@
                                       </div>
                                       <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
                                         <div class="d-flex">
-                                          <img class="img-sm rounded-10" src="images/faces/face4.jpg" alt="profile">
+                                          <img class="img-sm rounded-10" src="{{asset('images/faces/face4.jpg')}}" alt="profile">
                                           <div class="wrapper ms-3">
                                             <p class="ms-1 mb-1 fw-bold">Matthew Bailey</p>
                                             <small class="text-muted mb-0">162543</small>
@@ -621,7 +621,7 @@
                                       </div>
                                       <div class="wrapper d-flex align-items-center justify-content-between pt-2">
                                         <div class="d-flex">
-                                          <img class="img-sm rounded-10" src="images/faces/face5.jpg" alt="profile">
+                                          <img class="img-sm rounded-10" src="{{asset('images/faces/face5.jpg')}}" alt="profile">
                                           <div class="wrapper ms-3">
                                             <p class="ms-1 mb-1 fw-bold">Rafell John</p>
                                             <small class="text-muted mb-0">Alaska, USA</small>
