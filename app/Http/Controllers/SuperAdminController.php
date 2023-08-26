@@ -259,6 +259,11 @@ class SuperAdminController extends Controller
                         // dd($user_name);
                         return $user_name;
                     })
+                    ->editColumn('user_role', function ($row) {
+                        $user_role = ($row->user_role =='U') ? 'USER' : (($row->user_role =='A') ? 'ADMIN': 'N/A');
+                        // dd($user_role);
+                        return $user_role;
+                    })
                     ->addColumn('action', function ($row) {
                         $id  = encrypt($row->id);
                         $userStatus = $row->user_status;
@@ -267,9 +272,9 @@ class SuperAdminController extends Controller
 
                         // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
                         if ($userStatus == 'Active') {
-                            $status = "<button title='Active' data-id='$row->id' data-type='Active' data-model='User' class='btn btn-success status'>Active</button>";
+                            $status = "<button type='button' title='Active' data-id='$row->id' data-type='Active' data-model='User' class='badge badge-success status'>Active</button>";
                         } else {
-                            $status = "<button title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='btn btn-danger status'>Inactive</button>";
+                            $status = "<button type='button' title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='badge badge-warning status'>Inactive</button>";
                         }
                         return $status;
                         // return $btn;

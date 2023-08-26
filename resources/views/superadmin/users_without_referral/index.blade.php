@@ -21,12 +21,9 @@
         <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-            <h4 class="card-title">{{__("labels.user.list")}}</h4>
-            <div class="dt-action-buttons text-right">
-                <div class="dt-buttons d-inline-flex">
-                   <p class="m-1">Pins:  <span class="text-primary">{{$getNoOfPins->pins ?? ''}}</span></p>
-                </div>
-            </div>
+            <center>
+                        <h4 class="card-title" style="text-transform: uppercase;">Unassigned User List</h4>
+                    </center>
             <div class="table-responsive">
                 <table class="table table-striped" id="table_user">
                 <thead>
@@ -50,15 +47,6 @@
 
 @endsection
 
-@section('vendor-script')
-    {{-- vendor files --}}
-    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
-@endsection
-
 @section('page-script')
 <script>
 $(document).ready(function () {
@@ -80,10 +68,7 @@ $(document).ready(function () {
                 {data: 'email', name: 'email'},
                 {data: 'mobile_number', name: 'mobile_number'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
-            ],
-            drawCallback: function (settings) {
-                enableDisableInputs(true);
-            }
+            ]
         });
 
     }

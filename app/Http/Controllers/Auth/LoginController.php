@@ -53,15 +53,16 @@ class LoginController extends Controller
     }
 
     // Login
-    public function showLoginForm(){
-      $pageConfigs = [
-          'bodyClass' => "bg-full-screen-image",
-          'blankPage' => true
-      ];
+    public function showLoginForm()
+    {
+        $pageConfigs = [
+            'bodyClass' => "bg-full-screen-image",
+            'blankPage' => true
+        ];
 
-      return view('/auth/login', [
-          'pageConfigs' => $pageConfigs
-      ]);
+        return view('/auth/login', [
+            'pageConfigs' => $pageConfigs
+        ]);
     }
 
 
@@ -81,7 +82,7 @@ class LoginController extends Controller
     //     if ($this->attemptLogin($request)) {
     //         $id = Auth::id();
     //         $user = User::where('id',$id)->first();
-            
+
     //         if($user->deleted_at == ''){
     //             User::where('id', $id)->update(['user_last_login' => date('Y-m-d H:i:s')]);
     //             return $this->sendLoginResponse($request);
@@ -108,51 +109,48 @@ class LoginController extends Controller
      * @return response()
      */
     public function login(Request $request)
-    {  
+    {
         $request->validate([
             'mobileNumber' => 'required',
             'otp' => 'required'
-        ]);  
+        ]);
         $user = User::where('mobile_number', $request->mobileNumber)->first();
         /* Validation Logic */
         // $otp = array('Hello','World!','Beautiful','Day!');
-        $otp = implode("",$request->otp);
+        $otp = implode("", $request->otp);
         // uncommnet
-        #$userOtp   = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
-        $userOtp = 111111;
-        // dd($userOtp);
+        $userOtp   = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        // $userOtp = 111111;
         $now = now();
-        // if (!$userOtp) {
-        //     toastr()->error('Your OTP is not correct');
-        //     return redirect()->back();
-        // }else if($userOtp && $now->isAfter($userOtp->expire_at)){
-        //     // uncommnet
-        //     toastr()->error('Your OTP has been expired');
-        //     return redirect()->route('otp.login')->with('error', 'Your OTP has been expired');
-        // }
+        if (!$userOtp) {
+            toastr()->error('Your OTP is not correct');
+            return redirect()->back()->with('error', 'Sorry! Incorrect OTP');
+        } else if ($userOtp && $now->isAfter($userOtp->expire_at)) {
+            // uncommne
+            return redirect()->route('otp.login')->with('error', 'Your OTP has been expired');
+        }
         $user = User::whereId($user->id)->first();
-        if($user){
+        if ($user) {
             // uncommnet
-            // $userOtp->update([
-            //     'expire_at' => now()
-            // ]);
-            if($user->email == null){
+            $userOtp->update([
+                'expire_at' => now()
+            ]);
+            if ($user->email == null) {
                 // return redirect()->route('register')->with('user');
-                return view('auth.register',compact('user'));
-            }elseif($user->user_status == 'Inactive'){
-                toastr()->error('Your account is not active');
-                return redirect()->route('login');
+                return view('auth.register', compact('user'));
+            } elseif ($user->user_status == 'Inactive') {
+                return redirect()->route('login')->with('error', 'Inactive Account! Contact Admin to Activate');
             }
             Auth::login($user);
             return $this->sendLoginResponse($request);
-            // redirect('/home');
+            // return redirect('/home');
         }
         return redirect()->route('otp.login')->with('error', 'Your Otp is not correct');
     }
 
 
     public function logout(Request $request)
-    {   
+    {
         $this->guard()->logout();
 
         $request->session()->invalidate();
@@ -179,7 +177,7 @@ class LoginController extends Controller
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 204)
-                    : redirect()->route('home');
+            ? new JsonResponse([], 204)
+            : redirect()->route('home');
     }
 }

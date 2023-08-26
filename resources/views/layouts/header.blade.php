@@ -21,12 +21,15 @@
   <link rel="stylesheet" href="{{asset('vendors/simple-line-icons/css/simple-line-icons.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
   <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="{{asset('js/select.dataTables.min.css')}}">
-  <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
   <!-- Template Main CSS File -->
+  <style>
+    .brand-logo-mini{
+      height: 50px;
+      width: 40px;
+    }
+  </style>
 </head>
 
 <body>
@@ -40,10 +43,10 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="{{url('/home')}}">
-            <img src="{{asset('images/logo/INRB_LOGO_FINAL_SVG.svg')}}" alt="logo" />
+            <img src="{{asset('images/logo/hpa_logo_100_100.png')}}" alt="logo" /> BHARAT
           </a>
           <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
-            <img src="{{asset('images/INRB_LOGO_FINAL_SVG.svg')}}" alt="logo">
+            <img src="{{asset('images/logo/hpa_logo_100_100.png')}}" alt="logo">
           </a>
         </div>
       </div>
@@ -79,7 +82,15 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+          <li class="nav-item d-lg-block">
+            <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+              <span class="input-group-addon input-group-prepend border-right">
+                <span class="icon-calendar input-group-text calendar-icon"></span>
+              </span>
+              <input type="text" class="form-control">
+            </div>
+          </li>
+          <li class="nav-item dropdown d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">

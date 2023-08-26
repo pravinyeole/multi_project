@@ -16,12 +16,18 @@
   <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
   <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-auth.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"></head>
-  <style>
-    .auth .brand-logo img{
-      width:150px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+</head>
+<style>
+  .auth .brand-logo img {
+    width: 150px;
+  }
+
+  .alert-error {
+    background: #f96868;
+    color: white;
+  }
+</style>
 </head>
 
 <body>
@@ -34,7 +40,14 @@
               <div class="brand-logo">
                 <center><img src="{{asset('images/logo/hpa_logo_150_150.png')}}" alt="logo"></center>
               </div>
-              <center><h3>Hello! let's get started</h3></center>
+              <center>
+                <h3>Hello! let's get started</h3>
+              </center>
+              @if (session('error'))
+              <div class="alert alert-error m-1" role="alert" style="padding: 2%">
+                {{ session('error') }}
+              </div>
+              @endif
               <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
               <form class="pt-3" id="mobileForm" method="POST" action="{{url('login')}}">
                 @csrf <!-- Add CSRF token field -->
@@ -42,33 +55,37 @@
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
                 </div>
                 <div class="mt-3">
-                  <center><button id="getOtpBtn" class="btn btn-block btn-primary btn-lg btn-rounded font-weight-medium auth-form-btn" >Get OTP</button></center>
+                  <center><button id="getOtpBtn" class="btn btn-block btn-primary btn-lg btn-rounded font-weight-medium auth-form-btn">Get OTP</button></center>
                   <button id="resendOtpBtn" class="font-weight-bold btn btn-danger cursor" style="display: none;">Resend OTP</button>
                 </div>
                 <div class="mb-3">
-                <div class="template-demo d-flex justify-content-between flex-nowrap">
-                      <a href="https://www.facebook.com/inrbharathelp" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
-                        <i class="ti-facebook"></i>
-                      </a>
-                      <a href="https://youtube.com/@INRBharat" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                        <i class="ti-youtube"></i>
-                      </a>
-                      <a href="https://twitter.com/inr_bharat/" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
-                        <i class="ti-twitter"></i>
-                      </a>
-                      <a href="https://www.instagram.com/inrbharathelp/" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                        <i class="ti-instagram"></i>
-                      </a>
-                      <a href="https://api.whatsapp.com/send?phone=919975702645" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
-                      <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1"/></i>
-                      </a>
-                      <a href="https://t.me/INR_Bharat/" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
-                        <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1"/></i>
-                      </a>
+                  <div class="template-demo d-flex justify-content-between flex-nowrap">
+                    <a href="https://www.facebook.com/inrbharathelp" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
+                      <i class="ti-facebook"></i>
+                    </a>
+                    <a href="https://youtube.com/@INRBharat" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                      <i class="ti-youtube"></i>
+                    </a>
+                    <a href="https://twitter.com/inr_bharat/" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
+                      <i class="ti-twitter"></i>
+                    </a>
+                    <div class="template-demo d-flex justify-content-between flex-nowrap">
                     </div>
+                    <a href="https://www.instagram.com/inrbharathelp/" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                      <i class="ti-instagram"></i>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=919975702645" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
+                      <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1" /></i>
+                    </a>
+                    <a href="https://t.me/INR_Bharat/" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
+                      <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1" /></i>
+                    </a>
+                  </div>
                 </div>
                 <div class="mt-5">
-                  <center><span id="siteseal"><script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script></span></center>
+                  <center><span id="siteseal">
+                      <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
+                    </span></center>
                 </div>
               </form>
             </div>

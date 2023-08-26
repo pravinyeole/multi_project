@@ -3,44 +3,44 @@
     {
       "url":  "home",
       "name": "Dashboards",
-      "icon": "home",
+      "icon": "mdi mdi-grid-large",
       "slug": "home"
     },
     {
       "url":  "superadmin/admin",
       "name": "Admin",
-      "icon": "user",
+      "icon": "mdi mdi-account-check",
       "slug": "superadmin/admin"
     },
     {
       "url":  "superadmin/allusers",
       "name": "All Users",
-      "icon": "users",
+      "icon": "mdi mdi-account-star",
       "slug": "superadmin/allusers"
     }
     ,
     {
       "url":  "superadmin/users",
       "name": "Users",
-      "icon": "users",
+      "icon": "mdi mdi-account-multiple",
       "slug": "superadmin/users"
     },
     {
       "url":  "superadmin/revokepin",
       "name": "Revoke Pin",
-      "icon": "message-square",
+      "icon": "mdi mdi-account-off",
       "slug": "superadmin/revokepin"
     },
     {
       "url":  "superadmin/assignuser",
       "name": "Assign Users",
-      "icon": "users",
+      "icon": "mdi mdi-account-network",
       "slug": "superadmin/assignuser"
     },
     {
       "url": "pins-request",
       "name": "Requests",
-      "icon": "zap",
+      "icon": "mdi mdi-account-multiple-plus",
       "slug": "pins-request"
     }
   ]
