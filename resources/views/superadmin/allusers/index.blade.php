@@ -8,38 +8,39 @@
 @endsection
 
 @section('content')
-<section id="responsive-datatable">
+
+<div class="content-wrapper">
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header border-bottom">
-                    <h4 class="card-title">{{__("labels.user.list")}}</h4>
-                    <div class="dt-action-buttons text-right">
-                        <div class="dt-buttons d-inline-flex">
-                           <p class="m-1">Pins:  <span class="text-primary">{{$getNoOfPins->pins ?? ''}}</span></p>
-                        </div>
+        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-header border-bottom">
+                <h4 class="card-title">{{__("labels.user.list")}}</h4>
+                <div class="dt-action-buttons text-right">
+                    <div class="dt-buttons d-inline-flex">
+                       <p class="m-1">Pins:  <span class="text-primary">{{$getNoOfPins->pins ?? ''}}</span></p>
                     </div>
                 </div>
-
-                <div class="card-datatable">
-                    <table class="table table-striped table-bordered nowrap" id="table_user">
-                        <thead>
-                            <tr>
-                                <th>{{__("labels.no")}}</th>
-                                <th>Username</th>                             
-                                <th>Email</th>
-                                <th>Mobile No</th>
-                                {{-- <th>Pins</th>
-                                <th>Event</th> --}}
-                                <th>{{__("labels.action")}}</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
             </div>
+          <div class="card-body">
+            <h4 class="card-title">{{__("labels.user.list")}}</h4>
+            <div class="table-responsive">
+              <table class="table" id="table_user">
+                <thead>
+                    <tr>
+                        <th>{{__("labels.no")}}</th>
+                        <th>Username</th>                             
+                        <th>Email</th>
+                        <th>Mobile No</th>
+                        <th>{{__("labels.action")}}</th>
+                    </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </div>
 @endsection
 
 

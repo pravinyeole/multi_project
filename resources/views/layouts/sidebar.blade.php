@@ -50,6 +50,6 @@
             $custom_classes = $submenuData->classlist;
         }
         @endphp
-
-        
     @endif
+        </ul>
+</nav>
