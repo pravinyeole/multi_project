@@ -29,8 +29,7 @@
   <script src="{{ asset('assets/vendor/chart.js/chart.umd.js')}}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min"></script>
+  <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
   <!-- Template Main JS File -->
