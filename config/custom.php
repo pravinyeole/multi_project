@@ -23,6 +23,12 @@ return [
     'sender_id' => 'INBART',
     'PE_ID' => '1001873533044526874',
     'template_id' => '1007252692316482946',
+    'facebook_id' => 'https://www.facebook.com/inrbharathelp',
+    'youtube_id' => 'https://youtube.com/@INRBharat',
+    'twitter_id' => 'https://twitter.com/inr_bharat/',
+    'instagram_id' => 'https://www.instagram.com/inrbharathelp/',
+    'whatsapp_id' => 'https://api.whatsapp.com/send?phone=919975702645',
+    'telegram_id' => 'https://t.me/INR_Bharat/',
   ]
 ];
 

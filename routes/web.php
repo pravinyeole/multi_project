@@ -57,8 +57,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
 
      /* Route Common */
     Route::group(['prefix' => 'common'], function () {
-        Route::post('/delete', 		            [CommonController::class, 'deleteRecord']);
-        Route::post('/status', 		            [CommonController::class, 'updateStatus']);
+        Route::post('/delete',[CommonController::class, 'deleteRecord']);
+        Route::post('/status',[CommonController::class, 'updateStatus']);
         Route::post('/users/update-status', [CommonController::class, 'updateStatus'])->name('users.update-status');
         Route::post('/send-otp', [CommonController::class, 'sendOTP'])->name('send-otp');
         Route::post('/resend-otp', [CommonController::class, 'resendOTP'])->name('resend-otp');

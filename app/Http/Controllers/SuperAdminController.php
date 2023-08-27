@@ -272,9 +272,9 @@ class SuperAdminController extends Controller
 
                         // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
                         if ($userStatus == 'Active') {
-                            $status = "<button type='button' title='Active' data-id='$row->id' data-type='Active' data-model='User' class='badge badge-success status'>Active</button>";
+                            $status = '<button type="button" title="Active" data-type="Active" data-model="User" class="badge badge-success" onclick="openModel('."$row->id".','."'Inactive'".')">Active</button>';
                         } else {
-                            $status = "<button type='button' title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='badge badge-warning status'>Inactive</button>";
+                            $status = '<button type="button" title="Inactive" data-type="Inactive" data-model="User" class="badge badge-warning" onclick="openModel('."$row->id".','."'Active'".')">Inactive</button>';
                         }
                         return $status;
                         // return $btn;

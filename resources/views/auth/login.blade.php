@@ -58,26 +58,29 @@
                   <center><button id="getOtpBtn" class="btn btn-block btn-primary btn-lg btn-rounded font-weight-medium auth-form-btn">Get OTP</button></center>
                   <button id="resendOtpBtn" class="font-weight-bold btn btn-danger cursor" style="display: none;">Resend OTP</button>
                 </div>
+                </form>
                 <div class="mb-3">
                   <div class="template-demo d-flex justify-content-between flex-nowrap">
-                    <a href="https://www.facebook.com/inrbharathelp" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
+                    <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
                       <i class="ti-facebook"></i>
                     </a>
-                    <a href="https://youtube.com/@INRBharat" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                    <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
                       <i class="ti-youtube"></i>
                     </a>
-                    <a href="https://twitter.com/inr_bharat/" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
+                    <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
                       <i class="ti-twitter"></i>
                     </a>
-                    <div class="template-demo d-flex justify-content-between flex-nowrap">
-                    </div>
-                    <a href="https://www.instagram.com/inrbharathelp/" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="template-demo d-flex justify-content-between flex-nowrap">
+                    <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
                       <i class="ti-instagram"></i>
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=919975702645" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
+                    <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
                       <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1" /></i>
                     </a>
-                    <a href="https://t.me/INR_Bharat/" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
+                    <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
                       <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1" /></i>
                     </a>
                   </div>
@@ -87,7 +90,6 @@
                       <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
                     </span></center>
                 </div>
-              </form>
             </div>
           </div>
         </div>

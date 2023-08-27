@@ -38,10 +38,14 @@
 </div>
 @endsection
 
-
 @section('page-script')
 <script>
     $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
@@ -82,69 +86,61 @@
                     },
                 ]
             });
-
         }
-        $(document).on('click', '.status', function(e) {
-            // var endpoint = base_url+'/'+$(this).data('url')+'/status';
-            var endpoint = '{{ route("users.update-status") }}';
-            var token = $("input[name='_token']").val();
-            var message = "Are you sure you want to change the status?";
-            var id = $(this).data('id');
-            var type = $(this).data('type');
-            bootbox.confirm({
-                title: "Status",
-                message: message,
-                buttons: {
-                    confirm: {
-                        label: 'Yes',
-                        className: 'btn-danger'
-                    },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn-secondary'
-                    }
-                },
-                callback: function(result) {
-                    if (result == true) {
-                        $('#loader').show();
-                        $.ajax({
-                            url: endpoint,
-                            method: 'POST',
-                            data: {
-                                '_token': token,
-                                'id': id,
-                                'type': type,
-                            },
-                            dataType: "json",
-                            success: function(data) {
-                                if (data.title == 'Error') {
-                                    $('#loader').hide();
-                                    toastr.error(data.message, data.title);
-                                } else {
-                                    toastr.success(data.message, data.title);
-                                    setTimeout(function() {
-                                        window.location.reload();
-                                    }, 1000);
-                                }
-                            }
-                        })
-                    }
-                }
-            });
-        });
-
-        $('.addDepartment').on('submit', function(e) {
-            if ($(".addDepartment").valid()) {
-                $('#loader').show();
-                return true;
-            }
-        });
-        $('.editDepartment').on('submit', function(e) {
-            if ($(".editDepartment").valid()) {
-                $('#loader').show();
-                return true;
-            }
-        });
     });
+
+    function openModel(user_id,type) {
+        if(user_id <= 0 || user_id == null){
+            alert('pppppppppp');
+            return false;
+        }
+        // var endpoint = base_url+'/'+$(this).data('url')+'/status';
+        var endpoint = '{{ route("users.update-status") }}';
+        var token = $("input[name='_token']").val();
+        var message = "Are you sure you want to change the status?";
+        var id = user_id;
+        var type = type;
+        bootbox.confirm({
+            title: "Status",
+            message: message,
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-danger'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-secondary'
+                }
+            },
+            callback: function(result) {
+                if (result == true) {
+                    $('#loader').show();
+                    $.ajax({
+                        url: endpoint,
+                        method: 'POST',
+                        data: {
+                            '_token': token,
+                            'id': id,
+                            'type': type,
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            if (data.title == 'Error') {
+                                $('#loader').hide();
+                                toastr.error(data.message, data.title);
+                            } else {
+                                toastr.success(data.message, data.title);
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        }
+                    })
+                }
+            }
+        });
+    }
 </script>
 @endsection

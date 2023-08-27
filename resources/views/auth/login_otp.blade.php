@@ -137,7 +137,7 @@
                 </div>
                 <input type="hidden" name="id" value="{{$user_id}}">
                 <div id="otp-section" class="mt-2">
-                  <div class="otp-input-group">
+                  <div class="otp-input-group d-flex">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
@@ -152,24 +152,26 @@
               </form>
               <div class="mb-3">
                 <div class="template-demo d-flex justify-content-between flex-nowrap">
-                  <a href="https://www.facebook.com/inrbharathelp" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
+                  <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
                     <i class="ti-facebook"></i>
                   </a>
-                  <a href="https://youtube.com/@INRBharat" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                  <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
                     <i class="ti-youtube"></i>
                   </a>
-                  <a href="https://twitter.com/inr_bharat/" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
+                  <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
                     <i class="ti-twitter"></i>
                   </a>
                 </div>
+              </div>
+              <div class="mb-3">
                 <div class="template-demo d-flex justify-content-between flex-nowrap">
-                  <a href="https://www.instagram.com/inrbharathelp/" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
+                  <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
                     <i class="ti-instagram"></i>
                   </a>
-                  <a href="https://api.whatsapp.com/send?phone=919975702645" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
+                  <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
                     <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1" /></i>
                   </a>
-                  <a href="https://t.me/INR_Bharat/" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
+                  <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
                     <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1" /></i>
                   </a>
                 </div>
