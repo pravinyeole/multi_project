@@ -12,6 +12,7 @@ use DataTables;
 use DB;
 use Auth;
 use Redirect;
+use Illuminate\Support\Carbon;
 
 class SuperAdminController extends Controller
 {
@@ -371,11 +372,26 @@ class SuperAdminController extends Controller
 
     public function showAssignUserFrom(Request $request)
     {
+        date_default_timezone_set( 'Asia/Kolkata');
         // $getOldUser = User::all();
         $title = $this->title;
-        $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-            ->select('users.*', 'user_sub_info.mobile_id')
-            ->get();
+        $interval = now()->subDays(2)->endOfDay();
+        $date = \Carbon\Carbon::today()->subDays(7);
+        $userIds_res = UserMap::pluck('new_user_id')->all();
+        $userIds = implode(',',$userIds_res);
+        
+        // $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+        //     ->select('users.*', 'user_sub_info.mobile_id')
+        //      ->where('users.created_at','>=',$date)
+        //      ->whereNotIn('users.id',[$userIds])
+        //     ->get();
+        
+        $getOldUser = User::join('user_map_new', 'users.id', '!=', 'user_map_new.new_user_id')
+            ->whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
+            ->where('user_role', '!=', 'S')
+            ->whereNotIn('users.id',[$userIds])
+            ->get();  
+        
         // $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
         // ->join('payments', 'user_sub_info.mobile_id', '=', 'payments.mobile_id')
         // ->select('users.*', 'user_sub_info.mobile_id')
@@ -383,6 +399,7 @@ class SuperAdminController extends Controller
         // ->get();
 
         // Retrieve recently joined users from "users" table
+        // $getRecentlyJoinUser = User::whereDate('created_at', '=', date('Y-m-d'))->where('user_role', '!=', 'S')->get();
         $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
