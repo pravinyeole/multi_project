@@ -386,8 +386,7 @@ class SuperAdminController extends Controller
         //      ->whereNotIn('users.id',[$userIds])
         //     ->get();
         
-        $getOldUser = User::join('user_map_new', 'users.id', '!=', 'user_map_new.new_user_id')
-            ->whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
+        $getOldUser = User::whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
             ->where('user_role', '!=', 'S')
             ->whereNotIn('users.id',[$userIds])
             ->get();  
@@ -399,8 +398,8 @@ class SuperAdminController extends Controller
         // ->get();
 
         // Retrieve recently joined users from "users" table
-        // $getRecentlyJoinUser = User::whereDate('created_at', '=', date('Y-m-d'))->where('user_role', '!=', 'S')->get();
-        $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
+        $getRecentlyJoinUser = User::whereDate('created_at', '=', date('Y-m-d'))->where('user_role', '!=', 'S')->get();
+        // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
 

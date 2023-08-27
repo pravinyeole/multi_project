@@ -129,19 +129,22 @@
                     var user = $('#manaual_radio_' + j).attr('radiovalue');
                     var user_name = $('#manaual_radio_' + j).attr('radioname');
                     assignee_user[user] = [];
-                    htmlassign += '<ul class="active"><li><div class="member-details"><h5>' + user_name + '</h5></div><ul>';
                     if (i == 1) {
                         i++;
                     } else {
                         fr = fr + 1;
                         to = fr + 2;
                     }
+                    htmlassign += '<ul class="active"><li><div class="member-details"><h5>' + user_name + '</h5></div><ul>';
                     for (var k = fr; fr < to;) {
                         var assignee = $('#manuel_check_' + fr).attr('checkvalue');
-                        var assignee_name = $('#manuel_check_' + fr).attr('checkname');
-                        htmlassign += '<li><div class="member-details"><h5>' + assignee_name + '</h5></div></li>';
-                        assignee_user[user].push(assignee);
-                        fr++;
+                        if(assignee != undefined){
+                            var assignee_name = $('#manuel_check_' + fr).attr('checkname');
+                            htmlassign += '<li><div class="member-details"><h5>' + assignee_name + '</h5></div></li>';
+                            assignee_user[user].push(assignee);
+                            fr++;
+
+                        }
                     }
                     htmlassign += '</ul></li></ul>';
                     // break;
