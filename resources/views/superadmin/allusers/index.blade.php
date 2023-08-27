@@ -26,6 +26,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Mobile No</th>
+                                    <th>Refferal Id</th>
                                     <th>{{__("labels.action")}}</th>
                                 </tr>
                             </thead>
@@ -77,6 +78,10 @@
                     {
                         data: 'mobile_number',
                         name: 'mobile_number'
+                    },
+                    {
+                        data: 'user_slug',
+                        name: 'user_slug'
                     },
                     {
                         data: 'action',

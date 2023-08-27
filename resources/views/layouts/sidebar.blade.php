@@ -1,5 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
+        
         @if(Auth::user()->getRole() == 'A')
         @php $menuData = $menuData[0]; @endphp
         @elseif(Auth::user()->getRole() == 'U')

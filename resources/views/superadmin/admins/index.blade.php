@@ -42,6 +42,7 @@
                                     <th>{{__("labels.no")}}</th>
                                     <th>Username</th>
                                     <th>Email</th>
+                                    <th>Refferal Id</th>
                                     <th>{{__("labels.action")}}</th>
                                 </tr>
                             </thead>
@@ -81,6 +82,10 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'user_slug',
+                        name: 'user_slug'
                     },
                     // {data: 'class_status', name: 'status', searchable: false, orderable: false},
                     {

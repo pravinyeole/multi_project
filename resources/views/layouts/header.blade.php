@@ -99,7 +99,7 @@
                 <p class="mb-1 mt-3 font-weight-semibold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</p>
                 <p class="fw-light text-muted mb-0">{{Auth::User()->email}}</p>
               </div>
-              <a class="dropdown-item" href="{{('logout')}}">
+              <a class="dropdown-item" href="{{('/logout')}}">
                 <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out
               </a>
             </div>

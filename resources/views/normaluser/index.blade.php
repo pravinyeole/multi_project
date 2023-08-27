@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-<section id="responsive-datatable">
+<div class="content-wrapper">
     <div class="row">
         @if (Session::has('alert'))
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -38,17 +38,34 @@
                             <div class="dt-action-buttons text-right">
                                 <div class="dt-buttons d-inline-flex">
                                     @if(Auth::user()->user_role != "S")
-
+                                    <?php
+                                    date_default_timezone_set('Asia/Kolkata');
+                                    $slo = '';
+                                    $time = date("H");
+                                    $timezone = date("e");
+                                    
+                                    if($time >= "10" && $time <= "16")
+                                    {
+                                        $slo = "10";
+                                    }
+                                    else 
+                                    {
+                                        $slo = "not_login";
+                                    }
+                                    ?>
+                                    
                                     {{-- @if($timer == 'start' || !empty($timer)) --}}
-                                    <button class="dt-button create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg>
-                                            Create Id
-                                        </span>
-                                    </button>
+                                        @if($slo != 'not_login')
+                                            <button class="dt-button create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                    Create Id
+                                                </span>
+                                            </button>
+                                        @endif
                                     {{-- @endif --}}
                                     @endif
                                 </div>
