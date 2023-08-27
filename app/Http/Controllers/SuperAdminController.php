@@ -435,10 +435,9 @@ class SuperAdminController extends Controller
     {
         try {
             $formData = $request->all();
-
             // Remove unwanted keys
             unset($formData['type'], $formData['_token']);
-
+            
             // Extract the mobile ID key
             // $mobileIdKey = key($formData);
             $mobileIdKey = array_keys($formData);
@@ -452,7 +451,6 @@ class SuperAdminController extends Controller
             $validMapped = [];
             $rows = [];
             for ($i = 0; $i < count($mobileIdKey); $i++) {
-
                 // Extract the mobile ID from the key
                 $exploded = explode('_', $mobileIdKey[$i]);
 
@@ -464,8 +462,8 @@ class SuperAdminController extends Controller
                 }
 
                 $mobileID = $exploded[1];
-                $userIds = $formData[$mobileIdKey[$i]] ?: [];
-
+                // $userIds = $formData[$mobileIdKey[$i]] ?: [];
+                $userIds = explode(',',$formData[$mobileIdKey[$i]][0]);
                 // Check if the user mapping already exists
                 $existingUserMap = UserMap::where('mobile_id', $mobileID)
                     ->whereIn('user_id', $userIds)
@@ -480,14 +478,17 @@ class SuperAdminController extends Controller
     
                     foreach ($userIds as $userId) {
                         // Create a row array for each user ID
-                        $row = [
-                            'mobile_id' => $mobileID,
-                            'user_id' => $userId,
-                            'type' => 'GH', // Hard-coded type as 'GH'
-                        ];
-    
-                        // Add the row to the rows array
-                        $rows[] = $row;
+                        if($userId>0){
+                            $row = [
+                                'mobile_id' => $mobileID,
+                                'new_user_id' => $exploded[0],
+                                'user_id' => $userId,
+                                'type' => 'GH', // Hard-coded type as 'GH'
+                            ];
+        
+                            // Add the row to the rows array
+                            $rows[] = $row;
+                        }
                     }
                     array_push($validMapped, $mobileID);
                     // Insert the rows into the "user_map_new" table
