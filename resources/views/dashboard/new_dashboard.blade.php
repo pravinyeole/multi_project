@@ -11,25 +11,111 @@
 
 @section('content')
 <div class="content-wrapper">
+  <section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <!-- Sales Card -->
+                <div class="col-xxl-4 col-md-4" style="padding: 10px;">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Admin <!-- <span>| Today</span> --></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{$activeAdmin}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Sales Card -->
+                <div class="col-xxl-4 col-md-4" style="padding: 10px;">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Total Users <!-- <span>| This Month</span> --></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{$activeUsers}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Pending PIN Request</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{$pinReuqest}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Today's Total Users</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{$todaysUsers}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total One Week Users</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{$weekUsers}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
+                  <div class="card info-card customers-card">
+                      <div class="card-body">
+                          <h5 class="card-title">Total Pin Genrated</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="bi bi-people"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h6>{{$activeAdmin}}</h6>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </section>
+</div>
+
+{{-- <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                {{--<div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                   <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
-                    </li>
-                  </ul>
-                </div> --}}
                 <div class="tab-content tab-content-basic">
                   <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
                     <div class="row">
@@ -41,18 +127,15 @@
                                     <div class="statistics-details d-flex align-items-center justify-content-between">
                                       <div>
                                         <p class="statistics-title">Total Admin</p>
-                                        <h3 class="rate-percentage">32.53%</h3>
-                                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                                        <h3 class="rate-percentage">{{$activeAdmin}}</h3>
                                       </div>
                                       <div>
                                         <p class="statistics-title">Total Users</p>
-                                        <h3 class="rate-percentage">7,682</h3>
-                                        <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
+                                        <h3 class="rate-percentage">{{$activeUsers}}</h3>
                                       </div>
                                       <div>
                                         <p class="statistics-title">Total Pending PIN Request </p>
-                                        <h3 class="rate-percentage">68.8</h3>
-                                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                                        <h3 class="rate-percentage">{{$pinReuqest}}</h3>
                                       </div>
                                     </div>
                                 </div>
@@ -73,18 +156,15 @@
                                       <div class="statistics-details d-flex align-items-center justify-content-between">
                                         <div>
                                           <p class="statistics-title">Today's Total Users</p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                                          <h3 class="rate-percentage">{{$todaysUsers}}</h3>
                                         </div>
                                         <div>
                                           <p class="statistics-title">Total One Week Users </p>
-                                          <h3 class="rate-percentage">68.8</h3>
-                                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                                          <h3 class="rate-percentage">{{$weekUsers}}</h3>
                                         </div>
                                         <div>
                                           <p class="statistics-title">Total Pin Genrated</p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                                          <h3 class="rate-percentage">{{$activeAdmin}}</h3>
                                         </div>
                                       </div>
                                   </div>
@@ -99,7 +179,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
 @endsection
 
 
