@@ -56,8 +56,8 @@
         @endif
 
         <li class="nav-item">
-            <a class="nav-link" href="{{('/logout')}}">
-              <i class="menu-icon mdi mdi-file-document"></i>
+            <a class="nav-link" href="{{('/logout')}}" onclick="return confirm('Are you sure to logout?');">
+              <i class="menu-icon mdi mdi-file-document" ></i>
               <span class="menu-title">Sign Out</span>
             </a>
           </li>
