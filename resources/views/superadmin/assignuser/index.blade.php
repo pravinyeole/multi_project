@@ -109,53 +109,48 @@
     </form>
     @endsection
 
-    @section('page-script')
-    <script>
-        var assignee_user_array = [];
-        $(document).ready(function() {
-            $('#auto-assign-checkbox').on('click', function() {
-                var i = 1;
-                var fr = 0;
-                var to = 2;
-                var htmlassign = '';
-                if ($('#autocheck').val() == 0) {
-                    $('#auto-assign-checkbox').text('Reset Values');
-                    $('#autocheck').val(1);
-                    $('#htmlassign').html();
-                    var labelCount = $('#manaualAssignRadio label').length;
-                    htmlassign += '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
-                    for (j = 0; labelCount > j;) {
-                        var assignee_user = [];
-                        var user = $('#manaual_radio_' + j).attr('radiovalue');
-                        var user_name = $('#manaual_radio_' + j).attr('radioname');
-                        assignee_user[user] = [];
-                        htmlassign += '<ul class="active"><li><div class="member-details"><h5>' + user_name + '</h5></div><ul>';
-                        if (i == 1) {
-                            i++;
-                        } else {
-                            fr = fr + 1;
-                            to = fr + 2;
-                        }
-                        for (var k = fr; fr < to;) {
-                            var assignee = $('#manuel_check_' + fr).attr('checkvalue');
+@section('page-script')
+<script>
+    var assignee_user_array = [];
+    $(document).ready(function() {
+        $('#auto-assign-checkbox').on('click', function() {
+            var i = 1;
+            var fr = 0;
+            var to = 2;
+            var htmlassign = '';
+            if ($('#autocheck').val() == 0) {
+                $('#auto-assign-checkbox').text('Reset Values');
+                $('#autocheck').val(1);
+                $('#htmlassign').html();
+                var labelCount = $('#manaualAssignRadio label').length;
+                htmlassign += '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
+                for (j = 0; labelCount > j;) {
+                    var assignee_user = [];
+                    var user = $('#manaual_radio_' + j).attr('radiovalue');
+                    var user_name = $('#manaual_radio_' + j).attr('radioname');
+                    assignee_user[user] = [];
+                    if (i == 1) {
+                        i++;
+                    } else {
+                        fr = fr + 1;
+                        to = fr + 2;
+                    }
+                    htmlassign += '<ul class="active"><li><div class="member-details"><h5>' + user_name + '</h5></div><ul>';
+                    for (var k = fr; fr < to;) {
+                        var assignee = $('#manuel_check_' + fr).attr('checkvalue');
+                        if(assignee != undefined){
                             var assignee_name = $('#manuel_check_' + fr).attr('checkname');
                             htmlassign += '<li><div class="member-details"><h5>' + assignee_name + '</h5></div></li>';
                             assignee_user[user].push(assignee);
                             fr++;
+
                         }
-                        htmlassign += '</ul></li></ul>';
-                        // break;
-                        j++;
-                        assignee_user_array.push(assignee_user);
-                        $('#manaualAssign').append('<input type="text" name="'+user+'[]" value="'+assignee_user[user]+'">');
                     }
-                    htmlassign += '</div></div>';
-                    $('#htmlassign').append(htmlassign);
-                } else {
-                    assignee_user_array = [];
-                    $('#autocheck').val(0);
-                    $('#htmlassign').html('');
-                    $('#auto-assign-checkbox').text('Auto Assign User');
+                    htmlassign += '</ul></li></ul>';
+                    // break;
+                    j++;
+                    assignee_user_array.push(assignee_user);
+                    $('#manaualAssign').append('<input type="text" name="'+user+'[]" value="'+assignee_user[user]+'">');
                 }
             }),
             $('#assign_user_submit').on('click', function() {
