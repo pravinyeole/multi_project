@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
 	font-family: 'themify';
 	src:url('../fonts/themify.eot');
 	src:url('../fonts/themify.eot?#iefix') format('embedded-opentype'),
@@ -7,7 +7,9 @@
 		url('../fonts/themify.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
-}
+} */
+
+@import url("https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.min.css");
 
 [class^="ti-"], [class*=" ti-"] {
 	font-family: 'themify';
