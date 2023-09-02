@@ -71,14 +71,32 @@
 
   .otp-input-group {
     display: flex;
+    padding-bottom:15px;
   }
 
   .otp-input-group input {
-    width: 35px;
+    width: 48px;
     margin: 10px 5px 10px 5px;
-    height: 35px;
-    border: solid 1px black;
+    height: 48px;
+    border: 1px solid #adadad;
+    border-radius: 6px;
+    box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);
+    background: #fff;
     text-align: center;
+  }
+  @media all and (max-width:360px){
+    .otp-input-group input {
+      width: 38px;
+      height: 38px;
+      margin: 0px 5px 0px 5px;
+    }
+  }
+  @media all and (max-height:660px){
+    .otp-input-group input {
+      width: 35px;
+      height: 35px;
+      margin: 0px 5px 0px 5px;
+    }
   }
 
   .otp-input-group .form-control {
@@ -112,18 +130,18 @@
 </head>
 
 <body>
-  <div class="container-scroller">
+<div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
-        <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+      <div class="content-wrapper login-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
+            <div class="auth-form-light text-center p-0">
               <div class="brand-logo">
-                <center><img src="{{asset('images/logo/hpa_logo_150_150.png')}}" alt="logo"></center>
+                <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
               </div>
-              <center>
-                <h3>OTP Verification</h3>
-              </center>
+              <div class="login-body">
+              <div class="header">
+                <h1>OTP Verification</h1>
+                <!-- <h3 class="text-white">Code has send to</h3> -->
+              </div>
               @if (session('error'))
               <div class="alert alert-error m-1" role="alert" style="padding: 2%">
                 {{ session('error') }}
@@ -132,12 +150,12 @@
               <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
               <form id="mobileForm" method="POST" action="{{url('login')}}">
                 @csrf <!-- Add CSRF token field -->
-                <div class="mt-2">
-                  <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
+                <div class="mt-0 text-center text-dark pb-1">
+                  <p>Code has send to {{$mobileNumber}}</p>
                 </div>
                 <input type="hidden" name="id" value="{{$user_id}}">
                 <div id="otp-section" class="mt-2">
-                  <div class="otp-input-group d-flex">
+                  <div class="otp-input-group d-flex align-items-center justify-content-center">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
@@ -146,8 +164,11 @@
                     <input type="text" class="otp-input" maxlength="1" name="otp[]">
                   </div>
                 </div>
-                <div class="text-center mt-2">
-                  <button id="loginBtn" class="btn btn-primary">Login</button>
+                <div class="resent_otp text-muted text-small">
+                  If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend OTP</a>
+                </div>
+                <div class="text-center">
+                  <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
                 </div>
               </form>
               <div class="seprator"></div>
@@ -174,7 +195,7 @@
                     </a>
                   </div>
                 </div>
-                <div class="mt-3 mb-2">
+                <div class="mt-1 mb-2">
                   <span id="siteseal">
                       <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
                     </span>
@@ -200,10 +221,12 @@
   <script src="{{asset('js/hoverable-collapse.js')}}"></script>
   <script src="{{asset('js/settings.js')}}"></script>
   <script src="{{asset('js/todolist.js')}}"></script>
+  <script src="{{asset('js/custom/feather.min.js')}}"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
   <!-- endinject -->
   <script>
     $(function() {
+      feather.replace()
       var jqForm = $('#mobileForm');
       var otpSection = $('#otp-section');
       var timer = $('#timer');

@@ -38,7 +38,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
 <body>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
+      <div class="content-wrapper login-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
             <div class="auth-form-light text-center p-0">
               <div class="brand-logo">
                 <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
@@ -59,12 +59,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
                 </div>
-                <div class="mt-3">
+                <div class="">
                   <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Get OTP</button>
                 </div>
-                <div class="resent_otp text-muted text-small">
+                <!-- <div class="resent_otp text-muted text-small">
                   If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-dark" disabled>Resend OTP</a>
-                </div>
+                </div> -->
                 </form>
                 <div class="seprator"></div>
                 <div class="pb-2 social text-white">
@@ -90,7 +90,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                     </a>
                   </div>
                 </div>
-                <div class="mt-3 mb-2">
+                <div class="mt-1 mb-2">
                   <span id="siteseal">
                       <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
                     </span>

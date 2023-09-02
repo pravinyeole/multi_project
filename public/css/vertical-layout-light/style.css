@@ -28849,7 +28849,7 @@ div.tagsinput span.tag a {
   padding: .8rem 3rem;
   line-height: 1.5;
   width: 100%;border-radius: 6px;background: #2f9a28;
-  box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);border: 0;font-size: 1rem;margin-bottom: 12px;
+  box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);border: 0;font-size: 1rem;margin-bottom: 12px;margin-top: 12px;
 }
 
 .resent_otp{
@@ -28870,26 +28870,31 @@ div.tagsinput span.tag a {
   background: linear-gradient(180deg, rgba(237,232,204,1) 5%, rgba(216,117,18,1) 77%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ede8cc",endColorstr="#d87512",GradientType=1);
   padding:0px 73px 12px;
+  height: calc(100vh - 224px - 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 450px;
 }
-.auth-form-light .brand-logo{
-  padding:36px 20px 90px;
+.auth-form-light .brand-logo{/* 9595838283 */
+  padding:26px 20px 70px;
   background: url('../../images/login-top-bg.jpg') left bottom no-repeat;background-size:100% auto;margin:0;
 }
 .auth-form-light .brand-logo img {
-  max-width: 190px;width:100%;
+  max-width: 160px;width:100%;
 }
 
 .background-none{background: transparent !important;}
 .login-body h1{
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #000565;
-  line-height: 1.6;
-  font-weight: 600;margin: 0;
+  line-height: 1.4;
+  font-weight: 600;margin: 0;    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
 .login-body h3{
-  font-size: 1.45rem;
+  font-size: 1.25rem;
   line-height: 1.6;
-  margin: 0;padding: 6px 0;font-weight: 500;
+  margin: 0;padding: 0px 0;font-weight: 400;    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
 
 .auth form .form-group .form-control{
@@ -28900,9 +28905,9 @@ div.tagsinput span.tag a {
   text-align: center;
 }
 
-.seprator{display: block;background: rgba(255, 255, 255, 0.6);height: 1px;margin: 1.5rem 0;}
+.seprator{display: block;background: rgba(255, 255, 255, 0.6);height: 1px;margin: .5rem 0;}
 .social-icon{
-  max-width: 314px;margin: 12px auto;
+  max-width: 314px;margin: 0px auto;
 }
 .social-icon a{color: #fff;transition: all ease-in-out 300ms;}
 .social-icon a:hover{opacity: .5;}
@@ -28937,6 +28942,33 @@ div.tagsinput span.tag a {
   flex-direction: column;
 }
 
+@media all and (max-height:660px){
+  .auth .auth-form-light{
+    max-width: 416px;
+  }
+  .content-wrapper.login-wrapper{
+    padding: 0;
+  }
+  .auth-form-light .brand-logo img {
+    max-width: 120px;
+    width: 100%;
+  }
+  .auth-form-light .brand-logo {
+    padding: 10px 20px 50px;
+  }
+  .login-body{
+    height: calc(100vh - 156px - 0rem);
+    padding: 0px 32px 6px;
+    min-height: 305px;
+  }
+  .login-body h1 {font-size: 1.6rem;}
+  .login-body h3 {font-size: 1.1rem;}
+  .login-body h4 {font-size: 1rem;}
+  .auth form .form-group {margin-bottom: 1rem;}
+  .auth form .form-group .form-control,.auth form .auth-form-btn{padding: 8px 15px;height: auto;min-height:20px;font-size: 13px;margin-bottom: 0px;}
+  .social-icon a svg, .social-icon a img{width: 18px;height: 18px;}
+  #siteseal img{max-width: 100px;}
+}
 @media (max-width: 991px) {
   .main-panel {
     margin-left: 0;
@@ -28954,10 +28986,46 @@ div.tagsinput span.tag a {
 
 @media (max-width: 767px) {
   .content-wrapper {
-    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding: 0 1.5rem;
+  }
+  .auth .auth-form-light{
+    max-width: none;border-radius: 0px;
+  }
+  .login-body{
+    height: calc(100vh - 224px - 0rem);
+    max-height: none;
   }
 }
+@media (max-width: 500px) {
+  .login-body{
+    height: calc(100vh - 168px - 0rem);
+    max-height: none;
+    padding: 0px 25px 0px;justify-content: space-evenly;
+  }
+  .auth-form-light .brand-logo{
+    padding: 18px 20px 70px;
+  }
+  .auth-form-light .brand-logo img {
+    max-width: 100px;
+    width: 100%;
+  }
+}
+@media (min-height: 660px) and (max-width: 500px) {
+  .auth-form-light .brand-logo{padding-top: 50px;}
+  .login-body{height: calc(100vh - 200px - 0rem);}
+}
 
+@media (min-height: 750px) and (max-width: 500px) {
+  .auth-form-light .brand-logo{padding-top: 50px;}
+  .login-body{height: calc(100vh - 240px - 0rem);}
+  .auth-form-light .brand-logo img {max-width: 150px;}
+}
+@media (max-height: 600px) and (max-width: 500px) {
+  .auth-form-light .brand-logo{
+    padding: 18px 20px 50px;
+  }
+  .login-body{height: calc(100vh - 148px - 0rem);}
+}
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 97px);
