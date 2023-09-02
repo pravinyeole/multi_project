@@ -24,6 +24,18 @@
         "name": "Request Pin",
         "icon": "message-square",
         "slug": "request-pin"
+    },
+    {
+      "url":  "superadmin/revokepin",
+      "name": "Revoke Pin",
+      "icon": "mdi mdi-account-off",
+      "slug": "superadmin/revokepin"
+    },
+    {
+      "url":  "pin_center/transferpin",
+      "name": "Transfer Pin",
+      "icon": "mdi mdi-account-off",
+      "slug": "pin_center/transferpin"
     }
 
   ]

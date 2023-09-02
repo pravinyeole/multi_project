@@ -23,6 +23,12 @@
           "name": "Request Pin",
           "icon": "message-square",
           "slug": "request-pin"
+      },
+      {
+          "url" : "transferpin",
+          "name": "Transfer Pin",
+          "icon": "message-square",
+          "slug": "transferpin"
       }
      
   ]
