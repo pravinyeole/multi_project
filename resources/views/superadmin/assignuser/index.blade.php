@@ -155,26 +155,18 @@
 @section('vendor-style')
 @endsection
 
-@section('content')
-<div class="content-wrapper">
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                @if(isset($getOldUser))
-                <div class="card-body">
-                    <div class="row">
-                        <input type="hidden" id="autocheck" value="0">
-                        <button type="button" class="btn btn-danger col-sm-3" id="auto-assign-checkbox">Auto Assign User</button>
-                        <button class="btn btn-outline-info btn-fw col-sm-5" type="button" style="text-transform: uppercase;text-align: center;margin: 0px 10px 0px 10px;">Assign Users Form </button>
-                        <button type="button" form="manaualAssign" class="btn btn-success col-sm-3" id="assign_user_submit">Submit Assigned User</button>
-                    </div>
+    @section('content')
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    @if(isset($getOldUser))
                     <div class="card-body">
-                        <div id="message_div"></div>
-                        @if (Session::has('invalidId'))
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">
-                            </button>
-                            <strong>Invalid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('invalidId')) }}
+                        <div class="row">
+                            <input type="hidden" id="autocheck" value="0">
+                            <button type="button" class="btn btn-danger col-sm-3" id="auto-assign-checkbox">Auto Assign User</button>
+                            <button class="btn btn-outline-info btn-fw col-sm-5" type="button" style="text-transform: uppercase;text-align: center;margin: 0px 10px 0px 10px;">Assign Users Form </button>
+                            <button type="button" form="manaualAssign" class="btn btn-success col-sm-3" id="assign_user_submit">Submit Assigned User</button>
                         </div>
                         @endif
                         @if (Session::has('validMapped'))
@@ -215,7 +207,12 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-5 scrolldiv" id="htmlassign">
+                            @endif
+                            @if (Session::has('validMapped'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                </button>
+                                <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
                             </div>
                             <div class="col-sm-4 scrolldiv">
                                 <table class="table table-striped">
@@ -240,15 +237,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
+                    @else
+                    <div class="card-header">
+                        <h4 class="card-title">No Users for Assigned</h4>
+                    </div>
+                    @endif
                 </div>
-                @else
-                <div class="card-header">
-                    <h4 class="card-title">No Users for Assigned</h4>
-                </div>
-                @endif
             </div>
         </div>
     </div>
@@ -427,5 +424,5 @@
 </script>
 @endsection
 
-@section('page-style')
-@endsection
+    @section('page-style')
+    @endsection

@@ -20,9 +20,13 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
 </head>
 <style>
-  .auth .brand-logo img {
-    width: 150px;
-  }
+  body{
+  background: rgb(255,255,255);
+background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#fff1e2",GradientType=1);
+}
 
   .alert-error {
     background: #f96868;
@@ -34,16 +38,16 @@
 <body>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
-        <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+      <div class="content-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
+            <div class="auth-form-light text-center p-0">
               <div class="brand-logo">
-                <center><img src="{{asset('images/logo/hpa_logo_150_150.png')}}" alt="logo"></center>
+                <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
               </div>
-              <center>
-                <h3>Hello! let's get started</h3>
-              </center>
+              <div class="login-body">
+              <div class="header">
+                <h1>Login</h1>
+                <h3 class="text-white">Hello! let's get started</h3>
+              </div>
               @if (session('error'))
               <div class="alert alert-error m-1" role="alert" style="padding: 2%">
                 {{ session('error') }}
@@ -56,44 +60,43 @@
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
                 </div>
                 <div class="mt-3">
-                  <center><button id="getOtpBtn" class="btn btn-block btn-primary btn-lg btn-rounded font-weight-medium auth-form-btn">Get OTP</button></center>
-                  <button id="resendOtpBtn" class="font-weight-bold btn btn-danger cursor" style="display: none;">Resend OTP</button>
+                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Get OTP</button>
+                </div>
+                <div class="resent_otp text-muted text-small">
+                  If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-dark" disabled>Resend OTP</a>
                 </div>
                 </form>
-                <div class="mb-3">
-                  <div class="template-demo d-flex justify-content-between flex-nowrap">
-                    <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
-                      <i class="ti-facebook"></i>
+                <div class="seprator"></div>
+                <div class="pb-2 social text-white">
+                  <h4>Follow us</h4>
+                  <div class="social-icon d-flex justify-content-between flex-nowrap">
+                    <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn-icon">
+                      <i class="icon" data-feather="facebook"></i>
                     </a>
-                    <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                      <i class="ti-youtube"></i>
+                    <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="youtube"></i>
                     </a>
-                    <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
-                      <i class="ti-twitter"></i>
+                    <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="twitter"></i>
                     </a>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <div class="template-demo d-flex justify-content-between flex-nowrap">
-                    <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                      <i class="ti-instagram"></i>
+                    <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="instagram"></i>
                     </a>
-                    <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
-                      <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1" /></i>
+                    <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
+                      <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
                     </a>
-                    <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
-                      <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1" /></i>
+                    <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="send"></i>
                     </a>
                   </div>
                 </div>
-                <div class="mt-5">
-                  <center><span id="siteseal">
+                <div class="mt-3 mb-2">
+                  <span id="siteseal">
                       <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
-                    </span></center>
+                    </span>
                 </div>
+              </div>
             </div>
-          </div>
-        </div>
       </div>
       <!-- content-wrapper ends -->
     </div>
@@ -103,19 +106,23 @@
   <!-- plugins:js -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
   <script src="{{asset('js/forms/validation/jquery.validate.min.js')}}"></script>
+  <script src="{{asset('js/custom/feather.min.js')}}"></script>
   <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+  <!-- Plugin js for this page
+  <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script> -->
   <!-- End plugin js for this page -->
-  <!-- inject:js -->
+  <!-- inject:js
   <script src="{{asset('js/off-canvas.js')}}"></script>
   <script src="{{asset('js/hoverable-collapse.js')}}"></script>
   <script src="{{asset('js/settings.js')}}"></script>
   <script src="{{asset('js/todolist.js')}}"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script> -->
   <!-- endinject -->
   <script>
     $(function() {
+      
+    feather.replace()
+
       var jqForm = $('#mobileForm');
       var otpSection = $('#otp-section');
       var timer = $('#timer');

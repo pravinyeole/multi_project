@@ -92,7 +92,7 @@
               <input type="text" class="form-control">
             </div>
           </li>
-          <li class="nav-item dropdown d-lg-block user-dropdown">
+          {{-- <li class="nav-item dropdown d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -105,7 +105,7 @@
                 <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out
               </a>
             </div>
-          </li>
+          </li> --}}
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>

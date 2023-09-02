@@ -1,6 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        
+
         @if(Auth::user()->getRole() == 'A')
         @php $menuData = $menuData[0]; @endphp
         @elseif(Auth::user()->getRole() == 'U')
@@ -54,5 +54,14 @@
 
 
         @endif
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{('/logout')}}" onclick="return confirm('Are you sure to logout?');">
+              <i class="menu-icon mdi mdi-file-document" ></i>
+              <span class="menu-title">Sign Out</span>
+            </a>
+          </li>
+       
+        </li>
     </ul>
 </nav>

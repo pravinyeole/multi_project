@@ -14,8 +14,8 @@
   $(window).on('load', function() {
     if (feather) {
       feather.replace({
-        width: 14
-        , height: 14
+        width: 14,
+        height: 14
       })
     }
   })
@@ -43,6 +43,7 @@
   
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js')}}"></script>
+
 
 </body>
 
