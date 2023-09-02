@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 use Auth;
 
 class RegisterController extends Controller
@@ -100,12 +101,23 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm(string $invitationID = null)
     {
+        $invitation_ID='';
+        $invitation_mobile='';
+        if(isset($invitationID) && strlen($invitationID) >40){
+            $invitation_ID = Crypt::decryptString($invitationID);
+            $arrdata = User::where('user_slug',$invitation_ID)->first();
+            if(isset($arrdata->mobile_number) && $arrdata->mobile_number !=null){
+                $invitation_mobile = $arrdata->mobile_number;
+            }else{
+                return redirect('login')->with('error','Invalid Refferal Code!');   
+            }
+        }
         try{
-            return view('auth.register');
-    }catch(\Exception $e){
-        // toastr()->error('Something went wrong');
-        return redirect('login');
-    }
+            return view('auth.register',compact('invitation_ID','invitation_mobile'));
+        }catch(\Exception $e){
+            // toastr()->error('Something went wrong');
+            return redirect('login');
+        }
         
     }
 

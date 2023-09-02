@@ -39,8 +39,8 @@ header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
-    Route::get('/{refid?}', [LoginController::class, 'showLoginForm']);
-    // Route::get('register/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
+    Route::get('/', [LoginController::class, 'showLoginForm']);
+    Route::get('register/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
     Route::get('register', [RegisterController::class,'showRegistrationForm']);
     Route::get('show-enter-otp/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterOtp'])->name('show-enter-otp');
 

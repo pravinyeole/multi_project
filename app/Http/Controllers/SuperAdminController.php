@@ -377,13 +377,15 @@ class SuperAdminController extends Controller
         // $getOldUser = User::all();
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
-        $date = \Carbon\Carbon::today()->subDays(7);
+        $from_date = \Carbon\Carbon::today()->subDays(0);
+        $to_date = \Carbon\Carbon::today()->subDays(0);
+        $to_date = str_replace('00:00:00','23:59:59',$to_date);
         $userIds_res = UserMap::pluck('mobile_id')->all();
         $userIds = $userIds_res;
         
         $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
             ->select('users.*', 'user_sub_info.mobile_id')
-            ->where('users.created_at','>=',$date)
+            ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
             ->get();
         
         // $getOldUser = User::whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
@@ -398,7 +400,7 @@ class SuperAdminController extends Controller
         // ->get();
 
         // Retrieve recently joined users from "users" table
-        $getRecentlyJoinUser = User::whereDate('created_at', '=', date('Y-m-d'))->where('user_role', '!=', 'S')->get();
+        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date,$to_date])->where('user_role', '!=', 'S')->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();

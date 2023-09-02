@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Auth;
 use App\Models\User;
 use App\Models\InsuranceAgency;
@@ -54,17 +53,8 @@ class LoginController extends Controller
     }
 
     // Login
-    public function showLoginForm($refid='')
+    public function showLoginForm()
     {
-        // echo $refid;
-        // echo Crypt::decrypt($refid);
-        // // echo '*****';
-        // // echo encrypt($refid);
-        // // $encryptedValue = encrypt($refid);
-        // // echo '=======';
-        // $encryptedValuep =  decrypt($refid);
-        // echo $encryptedValuep;
-        // die();
         $pageConfigs = [
             'bodyClass' => "bg-full-screen-image",
             'blankPage' => true

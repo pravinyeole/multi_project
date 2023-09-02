@@ -90,6 +90,7 @@
 <div class="auth-wrapper auth-v1" style="background-color: #66C3F4;">
   <div class="auth-inner py-2">
     <div class="d-flex justify-content-center align-items-center container">
+      @if(isset($user->mobile_number) && $user->mobile_number != null)
       <div class="card py-5 px-3">
         <h5 class="m-0">Register</h5>
         <h5 class="m-0">Mobile phone verification <span class="text-primary">{{$user->mobile_number}}</span></h5>
@@ -116,6 +117,35 @@
           </div>
         </form>
       </div>
+      @else     
+      <div class="card py-5 px-3">
+        <h5 class="m-0">Register</h5>
+        <form id="registrationForm" method="POST" action="{{route('register_user')}}">
+          @csrf <!-- Add CSRF token field -->
+          <div class="mt-2">
+            <input type="text" class="form-control" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
+          </div>
+          <div class="mt-2">
+            <input type="text" class="form-control" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
+          </div>
+          <div class="mt-2">
+            <input type="text" class="form-control" name="user_lname" id="user_lname"  placeholder="Enter Last Name"  value="{{ old('user_lname') }}">
+          </div>
+          <div class="mt-2">
+            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your email id" value="{{ old('email') }}">
+          </div>
+          <div class="mt-2">
+            <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif>
+          </div>
+           <div class="mt-2">
+            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter Admin Referal Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif>
+          </div>
+          <div class="text-center mt-2">
+            <button id="registerBtn" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+      @endif
     </div>
   </div>
 </div>
