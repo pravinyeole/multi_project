@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="{{asset('vendors/typicons/typicons.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="{{asset('vendors/simple-line-icons/css/simple-line-icons.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+  
   <!-- endinject -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">

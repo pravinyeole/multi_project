@@ -58,6 +58,13 @@
                     url: base_url + "/superadmin/allusers",
                     data: function(data) {}
                 },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,

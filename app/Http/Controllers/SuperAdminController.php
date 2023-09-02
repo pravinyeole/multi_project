@@ -377,19 +377,18 @@ class SuperAdminController extends Controller
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
         $date = \Carbon\Carbon::today()->subDays(7);
-        $userIds_res = UserMap::pluck('new_user_id')->all();
-        $userIds = implode(',',$userIds_res);
+        $userIds_res = UserMap::pluck('mobile_id')->all();
+        $userIds = $userIds_res;
         
-        // $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-        //     ->select('users.*', 'user_sub_info.mobile_id')
-        //      ->where('users.created_at','>=',$date)
-        //      ->whereNotIn('users.id',[$userIds])
-        //     ->get();
+        $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+            ->select('users.*', 'user_sub_info.mobile_id')
+            ->where('users.created_at','>=',$date)
+            ->get();
         
-        $getOldUser = User::whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
-            ->where('user_role', '!=', 'S')
-            ->whereNotIn('users.id',[$userIds])
-            ->get();  
+        // $getOldUser = User::whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
+        //     ->where('user_role', '!=', 'S')
+        //     ->whereNotIn('users.id',[$userIds])
+        //     ->get();  
         
         // $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
         // ->join('payments', 'user_sub_info.mobile_id', '=', 'payments.mobile_id')
@@ -403,7 +402,7 @@ class SuperAdminController extends Controller
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
 
-        return view('superadmin.assignuser.index', compact('title', 'getOldUser', 'getRecentlyJoinUser'));
+        return view('superadmin.assignuser.index', compact('title', 'userIds','getOldUser', 'getRecentlyJoinUser'));
     }
 
     // public function saveAssignUsers(Request $request){
