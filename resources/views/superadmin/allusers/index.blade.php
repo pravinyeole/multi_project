@@ -1,4 +1,4 @@
-@extends('layouts/common_template')
+ @extends('layouts/common_template')
 
 @section('title', $title)
 
