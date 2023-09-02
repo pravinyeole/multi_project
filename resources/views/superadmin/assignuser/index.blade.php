@@ -213,7 +213,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+                        <div class="col-sm-5 scrolldiv" id="htmlassign">
+                        </div>
                         <div class="col-sm-4 scrolldiv">
                             <table class="table table-striped">
                                 <thead>

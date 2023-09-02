@@ -113,11 +113,12 @@
                 </div>
                 <br>
                 <div class="d-flex flex-column-reverse flex-md-row gap-20 justify-content-end">
-                    <button type="button" class="btn btn-danger mb-2 " data-dismiss="modal">Cancel</button>
+                    
                     <form id="createIdForm" action="{{ route('normal_user.create_id') }}" method="POST">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $userDetails->id ?? '' }}">
                         <button type="submit" id="createButton" class="btn btn-primary mb-2">Create</button>
+                        <button type="button" class="btn btn-danger mb-2 " data-dismiss="modal">Cancel</button>
                     </form>
                 </div>
             </div>

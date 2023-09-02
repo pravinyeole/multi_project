@@ -56,15 +56,32 @@ class LoginController extends Controller
     // Login
     public function showLoginForm($refid='')
     {
-        // echo $refid;
-        // echo Crypt::decrypt($refid);
-        // // echo '*****';
-        // // echo encrypt($refid);
-        // // $encryptedValue = encrypt($refid);
-        // // echo '=======';
-        // $encryptedValuep =  decrypt($refid);
-        // echo $encryptedValuep;
-        // die();
+        // for($j=28;$j<=31;){
+        //     for($i=1;$i<=10;){
+        //         $date = '2023-08-'.$j.' 10:32:24';
+        //         $uid = 'SS'.sprintf("%02d", $i).date($j.'08Y');
+        //         echo "INSERT INTO `user_sub_info` (`user_sub_info_id`, `user_id`, `mobile_id`, `status`, `created_at`) VALUES (NULL, '1', '".$uid."', 'red', '".$date."');";
+        //         echo "<br>";
+        //         $i++;
+        //     }
+        //     echo "<br>";
+        //     echo "<br>";
+        //     echo "<br>";
+        //     $j++;
+        // }
+        // for($j=1;$j<=2;){
+        //     for($i=1;$i<=10;){
+        //         $date = '2023-09-'.sprintf("%02d", $j).' 10:32:24';
+        //         $uid =  'SS'.sprintf("%02d", $i).date(sprintf("%02d", $j).'Y');
+        //         echo "INSERT INTO `user_sub_info` (`user_sub_info_id`, `user_id`, `mobile_id`, `status`, `created_at`) VALUES (NULL, '1', '".$uid."', 'red', '".$date."');";
+        //         echo "<br>";
+        //         $i++;
+        //     }
+        //     echo "<br>";
+        //     echo "<br>";
+        //     echo "<br>";
+        //     $j++;
+        // }
         $pageConfigs = [
             'bodyClass' => "bg-full-screen-image",
             'blankPage' => true

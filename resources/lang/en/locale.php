@@ -213,6 +213,7 @@ return [
   "Revoke Pin" => "Revoke Pin",
   "Assign Users"=>"Assign Users",
   "Request Pin"=>"Request Pin",
-  "Requests"=>'Requests'
+  "Requests"=>'Requests',
+  "Announcement"=>'Announcement',
 
 ];
