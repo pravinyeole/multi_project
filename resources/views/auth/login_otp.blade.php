@@ -150,37 +150,35 @@
                   <button id="loginBtn" class="btn btn-primary">Login</button>
                 </div>
               </form>
-              <div class="mb-3">
-                <div class="template-demo d-flex justify-content-between flex-nowrap">
-                  <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn btn-primary btn-sm btn-icon">
-                    <i class="ti-facebook"></i>
-                  </a>
-                  <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                    <i class="ti-youtube"></i>
-                  </a>
-                  <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn btn-primary btn-dark btn-sm btn-icon">
-                    <i class="ti-twitter"></i>
-                  </a>
+              <div class="seprator"></div>
+                <div class="pb-2 social text-white">
+                  <h4>Follow us</h4>
+                  <div class="social-icon d-flex justify-content-between flex-nowrap">
+                    <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn-icon">
+                      <i class="icon" data-feather="facebook"></i>
+                    </a>
+                    <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="youtube"></i>
+                    </a>
+                    <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="twitter"></i>
+                    </a>
+                    <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="instagram"></i>
+                    </a>
+                    <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
+                      <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
+                    </a>
+                    <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
+                    <i class="icon" data-feather="send"></i>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div class="mb-3">
-                <div class="template-demo d-flex justify-content-between flex-nowrap">
-                  <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn btn-danger btn-sm btn-icon">
-                    <i class="ti-instagram"></i>
-                  </a>
-                  <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn btn-success btn-sm btn-icon">
-                    <i><img width="22" height="22" src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp--v1" /></i>
-                  </a>
-                  <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn btn-info btn-sm btn-icon">
-                    <i><img width="22" height="22" src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="telegram-app--v1" /></i>
-                  </a>
+                <div class="mt-3 mb-2">
+                  <span id="siteseal">
+                      <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
+                    </span>
                 </div>
-              </div>
-              <div class="mt-5">
-                <center><span id="siteseal">
-                    <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
-                  </span></center>
-              </div>
             </div>
           </div>
         </div>

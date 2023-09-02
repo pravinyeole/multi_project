@@ -116,7 +116,7 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800,900&display=swap");
 @-moz-keyframes flash {
   0% {
     opacity: 1;
@@ -19769,7 +19769,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -20038,7 +20038,7 @@ pre {
 code {
   padding: 5px;
   color: #F95F53;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-size: 0.812rem;
   border-radius: 4px;
@@ -20058,7 +20058,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: calc(0.812rem - 0.05rem);
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -24758,7 +24758,7 @@ dl li {
   padding-left: 0;
   position: relative;
   margin-bottom: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .icon-data-list li {
@@ -25856,11 +25856,11 @@ dl li {
 }
 
 .home-tab {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .home-tab .nav-tabs {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   border-bottom: none;
 }
 
@@ -25877,7 +25877,7 @@ dl li {
   padding: 12px 14px;
   border: none;
   border-right: 1px solid #dee2e6;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   background: transparent;
 }
 
@@ -25895,7 +25895,7 @@ dl li {
 
 .home-tab .tab-content {
   padding: 24px 0;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   border: none;
 }
 
@@ -27447,7 +27447,7 @@ table.dataTable tbody td.select-checkbox:after {
 
 .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
 .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #1F1F1F;
   font-size: 0.875rem;
   font-weight: initial;
@@ -28765,6 +28765,8 @@ div.tagsinput span.tag a {
 
 .auth .auth-form-light {
   background: #ffffff;
+  border-radius: 30px;
+    box-shadow: 0 0 16px rgba(0,0,0,.21);overflow: hidden;width: 100%;max-width: 516px;
 }
 
 .auth .auth-form-light select {
@@ -28844,10 +28846,15 @@ div.tagsinput span.tag a {
 }
 
 .auth form .auth-form-btn {
-  padding: 1rem 3rem;
+  padding: .8rem 3rem;
   line-height: 1.5;
+  width: 100%;border-radius: 6px;background: #2f9a28;
+  box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);border: 0;font-size: 1rem;margin-bottom: 12px;
 }
 
+.resent_otp{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
 .auth form .auth-link {
   font-size: 0.812rem;
 }
@@ -28856,6 +28863,53 @@ div.tagsinput span.tag a {
   color: initial;
 }
 
+.login-body{
+  background: rgb(237,232,204);
+  background: -moz-linear-gradient(180deg, rgba(237,232,204,1) 5%, rgba(216,117,18,1) 77%);
+  background: -webkit-linear-gradient(180deg, rgba(237,232,204,1) 5%, rgba(216,117,18,1) 77%);
+  background: linear-gradient(180deg, rgba(237,232,204,1) 5%, rgba(216,117,18,1) 77%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ede8cc",endColorstr="#d87512",GradientType=1);
+  padding:0px 73px 12px;
+}
+.auth-form-light .brand-logo{
+  padding:36px 20px 90px;
+  background: url('../../images/login-top-bg.jpg') left bottom no-repeat;background-size:100% auto;margin:0;
+}
+.auth-form-light .brand-logo img {
+  max-width: 190px;width:100%;
+}
+
+.background-none{background: transparent !important;}
+.login-body h1{
+  font-size: 2.2rem;
+  color: #000565;
+  line-height: 1.6;
+  font-weight: 600;margin: 0;
+}
+.login-body h3{
+  font-size: 1.45rem;
+  line-height: 1.6;
+  margin: 0;padding: 6px 0;font-weight: 500;
+}
+
+.auth form .form-group .form-control{
+  border: 1px solid #adadad;
+  border-radius: 6px;
+  box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  text-align: center;
+}
+
+.seprator{display: block;background: rgba(255, 255, 255, 0.6);height: 1px;margin: 1.5rem 0;}
+.social-icon{
+  max-width: 314px;margin: 12px auto;
+}
+.social-icon a{color: #fff;transition: all ease-in-out 300ms;}
+.social-icon a:hover{opacity: .5;}
+#siteseal{
+  display: inline-block;
+  padding: 6px;border-radius: 4px;background: #fff;box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+}
 .page-body-wrapper {
   min-height: calc(100vh - 97px);
   display: -webkit-flex;
@@ -28908,7 +28962,7 @@ div.tagsinput span.tag a {
 .sidebar {
   min-height: calc(100vh - 97px);
   background: #F4F5F7;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   padding: 0;
   width: 220px;
@@ -29696,7 +29750,7 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .welcome-text {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 28px;
@@ -29710,7 +29764,7 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .welcome-sub-text {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -29727,7 +29781,7 @@ div.tagsinput span.tag a {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   min-width: 170px;
   height: 34px;
   background: #ffffff;
@@ -29743,7 +29797,7 @@ div.tagsinput span.tag a {
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .navbar-date-picker {
   background: #ffffff;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   height: 36px;
   border: 1px solid #DFDFDF;
   border-radius: 6px;
@@ -30988,7 +31042,7 @@ div.tagsinput span.tag a {
 .settings-panel .settings-heading {
   padding: 16px 0 13px 35px;
   font-size: 0.812rem;
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 1;
   color: rgba(0, 0, 0, 0.9);
@@ -31183,7 +31237,7 @@ div.tagsinput span.tag a {
 }
 
 .settings-panel .events p {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
 
