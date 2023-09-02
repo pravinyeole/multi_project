@@ -215,5 +215,6 @@ return [
   "Request Pin"=>"Request Pin",
   "Requests"=>'Requests',
   "Announcement"=>'Announcement',
+  "Transfer Pin"=>"Transfer Pin",
 
 ];
