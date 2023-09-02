@@ -5,6 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="INRBHARAT Is a network to grow together">
   <title>{{env('APP_NAME')}}</title>
   <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/mdi/css/materialdesignicons.min.css')}}">
@@ -106,6 +107,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
   <script src="{{asset('js/forms/validation/jquery.validate.min.js')}}"></script>
   <script src="{{asset('js/custom/feather.min.js')}}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page
   <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script> -->
@@ -114,8 +116,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
   <script src="{{asset('js/off-canvas.js')}}"></script>
   <script src="{{asset('js/hoverable-collapse.js')}}"></script>
   <script src="{{asset('js/settings.js')}}"></script>
-  <script src="{{asset('js/todolist.js')}}"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script> -->
+  <script src="{{asset('js/todolist.js')}}"></script> -->
   <!-- endinject -->
   <script>
     $(function() {

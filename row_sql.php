@@ -1763,3 +1763,4 @@ ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET u
 
 ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `modified_at` `modified_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `deleted_at` `deleted_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
+composer require hashids/hashids

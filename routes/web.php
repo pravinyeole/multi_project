@@ -39,7 +39,7 @@ header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
-    Route::get('/', [LoginController::class, 'showLoginForm']);
+    Route::get('/{refid?}', [LoginController::class, 'showLoginForm']);
     // Route::get('register/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
     Route::get('register', [RegisterController::class,'showRegistrationForm']);
     Route::get('show-enter-otp/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterOtp'])->name('show-enter-otp');
@@ -125,9 +125,6 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
 
         Route::get('/assignuser', 			    [SuperAdminController::class, 'showAssignUserFrom']);
         Route::post('/save-assigne-user', [SuperAdminController::class, 'saveAssignUsers'])->name('superadmin.save-assigne-user');
-        Route::get('/announcement', 			    [SuperAdminController::class, 'showannouncement']);
-        Route::post('/announce_create', 			    [SuperAdminController::class, 'announce_create']);
-        Route::get('/delete/{id}', 			    [SuperAdminController::class, 'delete']);
 
     });
 
