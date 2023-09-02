@@ -8,8 +8,8 @@
   if ($(".color-picker").length) {
     $('.color-picker').asColorPicker();
   }
-  if ($("#datepicker-popup").length) {
-    $('#datepicker-popup').datepicker({
+  if ($(".datepicker-popup").length) {
+    $('.datepicker-popup').datepicker({
       enableOnReadonly: true,
       todayHighlight: true,
     });

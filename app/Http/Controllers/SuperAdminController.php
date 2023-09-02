@@ -8,6 +8,7 @@ use App\Models\UserMap;
 use App\Models\UserPin;
 use App\Models\UserRole;
 use App\Models\UserReferral;
+use App\Models\Announcement;
 use DataTables;
 use DB;
 use Auth;
@@ -526,5 +527,65 @@ class SuperAdminController extends Controller
             toastr()->error('Something went wrong');
             return back();
         }
+    }
+
+    public function showannouncement(Request $request)
+    {
+        $title = $this->title;
+        try {
+            if ($request->ajax()) {
+                $data = Announcement::select('*')->orderBy('id', 'DESC')->get();
+
+
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->editColumn('type', function ($row) {
+                        $user_name = $row->type;
+                        return $user_name;
+                    })
+                    ->editColumn('announce', function ($row) {
+                        $user_role = $row->announce;
+                        return $user_role;
+                    })
+                    ->editColumn('start_date', function ($row) {
+                        $start_date = $row->start_date;
+                        return $start_date;
+                    })
+                    ->editColumn('end_date', function ($row) {
+                        $end_date = $row->end_date;
+                        return $end_date;
+                    })
+                    ->addColumn('action', function ($row) {
+                        $id  = encrypt($row->id);
+                        $btn = "<a href='" . url('/superadmin/delete/' . $id) . "' class='item-edit text-blue'  title='Delete'><svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='50' height='50' viewBox='0 0 48 48'>
+                        <path fill='#F44336' d='M21.5 4.5H26.501V43.5H21.5z' transform='rotate(45.001 24 24)'></path><path fill='#F44336' d='M21.5 4.5H26.5V43.501H21.5z' transform='rotate(135.008 24 24)'></path>
+                        </svg></a>";
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])        
+                    ->make(true);
+            }
+        } catch (\Exception $e) {
+            // DB::rollback();
+            dd($e);
+            toastr()->error(Config('messages.500'));
+        }
+
+        return view('superadmin.annoucement.index', compact('title'));
+    }
+    public function announce_create(Request $request)
+    {
+        $data['type'] = $request->type;
+        $data['start_date'] = date('Y-m-d',strtotime($request->start_date));
+        $data['end_date'] = date('Y-m-d',strtotime($request->end_date));
+        $data['announce'] = $request->anno;
+        $res = Announcement::Create($data);
+        return back();
+    }
+    public function delete(Request $request)
+    {
+        $id = decrypt($request->id);
+        $res = Announcement::where('id',$id)->delete();
+        return back();
     }
 }

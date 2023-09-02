@@ -85,7 +85,7 @@
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item d-lg-block">
-            <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+            <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker datepicker-popup">
               <span class="input-group-addon input-group-prepend border-right">
                 <span class="icon-calendar input-group-text calendar-icon"></span>
               </span>
