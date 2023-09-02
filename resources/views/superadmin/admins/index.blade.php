@@ -21,20 +21,22 @@
             <div class="card">
                 <div class="dt-action-buttons text-right">
                 </div>
+                <div class="col-sm-12 dt-buttons d-inline-flex">
+                <div class="col-sm-6">
+                    <a href="{{url('superadmin/admin_create_form')}}">
+                        <button class="btn btn-primary btn-fw m-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in"><span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>{{__("labels.department.addnew")}}</span>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <h2 class="card-title" style="text-transform: uppercase;">Admin List</h2>
+                </div>
+                </div>
                 <div class="card-body">
-                    <div class="dt-buttons d-inline-flex">
-                        <a href="{{url('superadmin/admin_create_form')}}">
-                            <button class="btn btn-primary btn-fw m-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in"><span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
-                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    </svg>{{__("labels.department.addnew")}}</span>
-                            </button>
-                        </a>
-                    </div>
-                    <center>
-                        <h2 class="card-title" style="text-transform: uppercase;">Admin List</h2>
-                    </center>
                     <div class="table-responsive">
                         <table class="table table-striped" id="table_user">
                             <thead>

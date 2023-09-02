@@ -238,6 +238,13 @@
                             </table>
                         </div>
                     </div>
+                    <form action="{{ route('superadmin.save-assigne-user') }}" method="POST" id="manaualAssign">
+                        @csrf
+                        <input type="hidden" name="type" value="GH">
+                        <div id="assign_inputs">
+                    
+                        </div>
+                    </form>
                     @else
                         <h4 class="card-title">No Users for Assigned</h4>
                     @endif
@@ -246,13 +253,6 @@
         </div>
     </div>
 </div>
-<form class="form-horizontal" action="{{ route('superadmin.save-assigne-user') }}" method="POST" id="manaualAssign">
-    @csrf
-    <input type="hidden" name="type" value="GH">
-    <div id="assign_inputs">
-
-    </div>
-</form>
 @endsection
 
 @section('page-script')
@@ -319,7 +319,7 @@
                         // break;
                         j++;
                         assignee_user_array.push(assignee_user);
-                        $('#manaualAssign #assign_inputs').append('<input type="text" name="' + user + '[]" value="' + assignee_user[user] + '">');
+                        $('#manaualAssign #assign_inputs').append('<input type="hidden" name="' + user + '[]" value="' + assignee_user[user] + '">');
                     }
                     htmlassign += '</div></div>';
                     $('#htmlassign').html('');
@@ -374,7 +374,7 @@
                     //     assignee_user_array[usid]=[];
                     // }
                     if ($('.' + common_id).length == 0) {
-                        $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + ass_usid + '" data-uname="' + ass_checkname + '" data-checkcount="1">');
+                        $('#manaualAssign #assign_inputs').append('<input type="hidden" class="' + common_id + '" name="' + common_id + '[]" value="' + ass_usid + '" data-uname="' + ass_checkname + '" data-checkcount="1">');
                         htmlassign_one += '<ul class="active"><li><div class="member-details"><h5>' + common_id + '</h5></div><ul>';
                     } else {
                         var old_val = $('.' + common_id).val();
@@ -382,7 +382,7 @@
                         checkcount = $('.' + common_id).attr('data-checkcount');
                         if (checkcount != 2) {
                             $('.' + common_id).remove();;
-                            $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + old_val + ',' + ass_usid + '" data-checkcount="2">');
+                            $('#manaualAssign #assign_inputs').append('<input type="hidden" class="' + common_id + '" name="' + common_id + '[]" value="' + old_val + ',' + ass_usid + '" data-checkcount="2">');
                             htmlassign_one += '<li><div class="member-details"><h5>' + old_name + '</h5></div></li>';
                             htmlassign_one += '<li><div class="member-details"><h5>' + ass_checkname + '</h5></div></li>';
                             htmlassign_one += '</ul></li></ul>';
