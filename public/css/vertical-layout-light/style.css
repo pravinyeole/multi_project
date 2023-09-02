@@ -28845,7 +28845,7 @@ div.tagsinput span.tag a {
   font-size: .9375rem;
 }
 
-.auth form .auth-form-btn {
+.auth form .auth-form-btn,.auth form .login-btn {
   padding: .8rem 3rem;
   line-height: 1.5;
   width: 100%;border-radius: 6px;background: #2f9a28;
@@ -28965,7 +28965,7 @@ div.tagsinput span.tag a {
   .login-body h3 {font-size: 1.1rem;}
   .login-body h4 {font-size: 1rem;}
   .auth form .form-group {margin-bottom: 1rem;}
-  .auth form .form-group .form-control,.auth form .auth-form-btn{padding: 8px 15px;height: auto;min-height:20px;font-size: 13px;margin-bottom: 0px;}
+  .auth form .form-group .form-control,.auth form .auth-form-btn, .auth form .login-btn{padding: 8px 15px;height: auto;min-height:20px;font-size: 13px;margin-bottom: 0px;}
   .social-icon a svg, .social-icon a img{width: 18px;height: 18px;}
   #siteseal img{max-width: 100px;}
 }

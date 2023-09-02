@@ -168,7 +168,7 @@
                   If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend OTP</a>
                 </div>
                 <div class="text-center">
-                  <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
+                  <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Login</button>
                 </div>
               </form>
               <div class="seprator"></div>
