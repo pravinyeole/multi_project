@@ -38,6 +38,12 @@
       "slug": "superadmin/assignuser"
     },
     {
+      "url":  "superadmin/announcement",
+      "name": "Announcement",
+      "icon": "mdi mdi-account-network",
+      "slug": "superadmin/announcement"
+    },
+    {
       "url": "pins-request",
       "name": "Requests",
       "icon": "mdi mdi-account-multiple-plus",
