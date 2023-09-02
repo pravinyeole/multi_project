@@ -155,95 +155,91 @@
 @section('vendor-style')
 @endsection
 
-    @section('content')
-    <div class="content-wrapper">
-        <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                    @if(isset($getOldUser))
-                    <div class="card-body">
-                        <div class="row">
-                            <input type="hidden" id="autocheck" value="0">
-                            <button type="button" class="btn btn-danger col-sm-3" id="auto-assign-checkbox">Auto Assign User</button>
-                            <button class="btn btn-outline-info btn-fw col-sm-5" type="button" style="text-transform: uppercase;text-align: center;margin: 0px 10px 0px 10px;">Assign Users Form </button>
-                            <button type="button" form="manaualAssign" class="btn btn-success col-sm-3" id="assign_user_submit">Submit Assigned User</button>
-                        </div>
-                        @endif
-                        @if (Session::has('validMapped'))
+@section('content')
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                @if(isset($getOldUser) && count($getOldUser))
+                    <div class="row">
+                        <input type="hidden" id="autocheck" value="0">
+                        <button type="button" class="btn btn-danger col-sm-3" id="auto-assign-checkbox">Auto Assign User</button>
+                        <button class="btn btn-outline-info btn-fw col-sm-5" type="button" style="text-transform: uppercase;text-align: center;margin: 0px 10px 0px 10px;">Assign Users Form </button>
+                        <button type="button" form="manaualAssign" class="btn btn-success col-sm-3" id="assign_user_submit">Submit Assigned User</button>
+                    </div>
+                    @if (Session::has('validMapped'))
                         <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert">
                             </button>
                             <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
                         </div>
-                        @endif
-                        @if (Session::has('alreadyMapped'))
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">
-                            </button>
-                            <strong>ALready Mapped !</strong> {{ str_replace(['[',']','"',"'"],'',session('alreadyMapped')) }}
+                    @endif
+                    @if (Session::has('validMapped'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                        </button>
+                        <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
+                    </div>
+                    @endif
+                    @if (Session::has('alreadyMapped'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                        </button>
+                        <strong>ALready Mapped !</strong> {{ str_replace(['[',']','"',"'"],'',session('alreadyMapped')) }}
+                    </div>
+                    @endif
+                    <div class="col-sm-12 row">
+                        <div class="col-sm-3 scrolldiv">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="manaualAssignRadio">
+                                    @foreach ($getOldUser as $key => $user)
+                                    @if(!in_array($user->mobile_id,$userIds))
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="user_id" id="{{ $user->id }}_{{ $user->mobile_id }}" data-username="{{ $user->mobile_id }}" data-oid="{{ $user->id }}">
+                                            <label radiovalue="{{ $user->id }}_{{ $user->mobile_id }}" radioname="{{ $user->user_fname }}_{{ $user->user_lname }}" class="col-sm-4 control-label" id="manaual_radio_{{$key}}">
+                                                <center>{{ $user->mobile_id }} ({{ $user->user_fname }} {{ $user->user_lname }})</center>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        @endif
-                        <div class="col-sm-12 row">
-                            <div class="col-sm-3 scrolldiv">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="manaualAssignRadio">
-                                        @foreach ($getOldUser as $key => $user)
-                                            @if(!in_array($user->mobile_id,$userIds))
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="user_id" id="{{ $user->id }}_{{ $user->mobile_id }}" data-username="{{ $user->mobile_id }}" data-oid="{{ $user->id }}">
-                                                    <label radiovalue="{{ $user->id }}_{{ $user->mobile_id }}" radioname="{{ $user->user_fname }}_{{ $user->user_lname }}" class="col-sm-4 control-label" id="manaual_radio_{{$key}}">
-                                                        <center>{{ $user->mobile_id }} ({{ $user->user_fname }} {{ $user->user_lname }})</center>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            @endif
-                            @if (Session::has('validMapped'))
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">
-                                </button>
-                                <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
-                            </div>
-                            <div class="col-sm-4 scrolldiv">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="manaualAssignCheck">
-                                        @php $r=0; @endphp
-                                        @foreach ($getRecentlyJoinUser as $recentUser)
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="new_user_id" value="{{ $recentUser->id }}" data-checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" data-nid="{{ $recentUser->id }}">
-                                                <label checkvalue="{{ $recentUser->id }}" checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" class="col-sm-4 control-label" id="manuel_check_{{$r}}">
-                                                    <center>{{ $recentUser->user_fname }} {{ $recentUser->user_lname }} ({{ $recentUser->mobile_number }})</center>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        @php $r++;@endphp
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
+                        
+                        <div class="col-sm-4 scrolldiv">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="manaualAssignCheck">
+                                    @php $r=0; @endphp
+                                    @foreach ($getRecentlyJoinUser as $recentUser)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="new_user_id" value="{{ $recentUser->id }}" data-checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" data-nid="{{ $recentUser->id }}">
+                                            <label checkvalue="{{ $recentUser->id }}" checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" class="col-sm-4 control-label" id="manuel_check_{{$r}}">
+                                                <center>{{ $recentUser->user_fname }} {{ $recentUser->user_lname }} ({{ $recentUser->mobile_number }})</center>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    @php $r++;@endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     @else
-                    <div class="card-header">
                         <h4 class="card-title">No Users for Assigned</h4>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -266,27 +262,27 @@
     var htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
     $(document).ready(function() {
         $('#auto-assign-checkbox').on('click', function() {
-            if($('#assign_inputs input').length >= 1){
-                var msg = 'You Lost Manual Assign Data, Confirm ? ';
-                var result = confirm(msg);
-                if (result) {
-                    $('#assign_inputs').empty();
-                    $('#htmlassign').html('');
-                    $('#htmlassign').empty();
-                    var htmlassign_one = '';
-                    htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
-                    $('#assign_inputs').empty();
-                    $( 'input[type="checkbox"]' ).each(function( index ) {
-                        $('input[type="checkbox"]').attr("disabled", false);
-                        $('input[type="checkbox"]').prop('checked', false);
-                    });
-                    if ($('#autocheck').val() == 1) {
-                        location.reload();
+                if ($('#assign_inputs input').length >= 1) {
+                    var msg = 'You Lost Manual Assign Data, Confirm ? ';
+                    var result = confirm(msg);
+                    if (result) {
+                        $('#assign_inputs').empty();
+                        $('#htmlassign').html('');
+                        $('#htmlassign').empty();
+                        var htmlassign_one = '';
+                        htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
+                        $('#assign_inputs').empty();
+                        $('input[type="checkbox"]').each(function(index) {
+                            $('input[type="checkbox"]').attr("disabled", false);
+                            $('input[type="checkbox"]').prop('checked', false);
+                        });
+                        if ($('#autocheck').val() == 1) {
+                            location.reload();
+                        }
+                    } else {
+                        return false;
                     }
-                }else{
-                    return false;
                 }
-            }
                 var i = 1;
                 var fr = 0;
                 var to = 2;
@@ -328,11 +324,11 @@
                     htmlassign += '</div></div>';
                     $('#htmlassign').html('');
                     $('#htmlassign').append(htmlassign);
-                    $( 'input[type="checkbox"]' ).each(function( index ) {
+                    $('input[type="checkbox"]').each(function(index) {
                         $('input[type="checkbox"]').attr("disabled", true);
                         $('input[type="checkbox"]').prop('checked', true);
                     });
-                    $( 'input[type="radio"]' ).each(function( index ) {
+                    $('input[type="radio"]').each(function(index) {
                         $('input[type="radio"]').attr("disabled", true);
                         $('input[type="radio"]').prop('checked', true);
                     });
@@ -349,7 +345,7 @@
                 if (assignee_user_array.length) {
                     // Submit Form
                     $('#manaualAssign').submit();
-                } else if(manual_form == 2){
+                } else if (manual_form == 2) {
                     $('#manaualAssign').submit();
                 } else {
                     var msg = 'Select Users and Assignee to submit form';
@@ -367,7 +363,7 @@
                     var usid = $('input[type="radio"]:checked').attr('data-oid');
                     var ass_usid = $(this).attr('data-nid');
                     var ass_checkname = $(this).attr('data-checkname');
-                    var common_id = usid+'_'+us_radioname;
+                    var common_id = usid + '_' + us_radioname;
                     var checkcount;
                     // if ($.inArray(usid,assignee_user_array) >  -1){
                     //     assignee_user_array[usid].push(ass_usid);
@@ -377,26 +373,26 @@
                     //     console.log("else==="+assignee_user_array);
                     //     assignee_user_array[usid]=[];
                     // }
-                    if($('.'+common_id).length == 0){
-                        $('#manaualAssign #assign_inputs').append('<input type="text" class="'+common_id+'" name="'+common_id+'[]" value="' + ass_usid + '" data-uname="'+ass_checkname+'" data-checkcount="1">');
+                    if ($('.' + common_id).length == 0) {
+                        $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + ass_usid + '" data-uname="' + ass_checkname + '" data-checkcount="1">');
                         htmlassign_one += '<ul class="active"><li><div class="member-details"><h5>' + common_id + '</h5></div><ul>';
-                    }else{
-                        var old_val = $('.'+common_id).val();
-                        var old_name = $('.'+common_id).attr('data-uname');
-                        checkcount = $('.'+common_id).attr('data-checkcount');
-                        if(checkcount != 2){
-                            $('.'+common_id).remove();;
-                            $('#manaualAssign #assign_inputs').append('<input type="text" class="'+common_id+'" name="'+common_id+'[]" value="' +old_val+','+ ass_usid + '" data-checkcount="2">');
+                    } else {
+                        var old_val = $('.' + common_id).val();
+                        var old_name = $('.' + common_id).attr('data-uname');
+                        checkcount = $('.' + common_id).attr('data-checkcount');
+                        if (checkcount != 2) {
+                            $('.' + common_id).remove();;
+                            $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + old_val + ',' + ass_usid + '" data-checkcount="2">');
                             htmlassign_one += '<li><div class="member-details"><h5>' + old_name + '</h5></div></li>';
                             htmlassign_one += '<li><div class="member-details"><h5>' + ass_checkname + '</h5></div></li>';
                             htmlassign_one += '</ul></li></ul>';
                             $('#htmlassign').html(htmlassign_one);
-                        }else{
+                        } else {
                             var msg = 'You Can select only 2 ID`s per User';
                             var classname = 'danger';
                             showMessage(msg, classname);
                             $(this).prop('checked', false);
-                            return false;                            
+                            return false;
                         }
                     }
                     $(this).attr("disabled", true);
@@ -415,6 +411,7 @@
             }
         })
     });
+
     function showMessage(msg, classname) {
         $('#message_div').html('<button type="button" class="btn btn-outline-' + classname + ' btn-fw" style="text-align: left;width:auto">' + msg + '</button>');
         setTimeout(function() {
@@ -424,5 +421,5 @@
 </script>
 @endsection
 
-    @section('page-style')
-    @endsection
+@section('page-style')
+@endsection
