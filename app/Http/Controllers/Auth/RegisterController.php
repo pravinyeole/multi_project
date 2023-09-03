@@ -16,6 +16,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use App\Models\MobileCircle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -145,7 +146,7 @@ class RegisterController extends Controller
         $user = User::where('mobile_number',$request->mobile_number)->first();
       
         $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
-        
+
         if (!$admin) {
             return redirect()->back()->withInput()->with('error','Admin Referral Code does not exist');
         }else{
@@ -155,6 +156,19 @@ class RegisterController extends Controller
                  toastr()->error('Referral does not exist');
                  return redirect()->back()->withInput();
              }
+            if($user == null){
+                $mobileNumberD = str_split($request->mobile_number, 4);
+                $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
+                $user = new User();
+                $user->mobile_number = $request->mobile_number;
+                $user->user_status = 'Inactive';
+                if($circle_data){
+                    $user->operator = $circle_data->operator;
+                    $user->circle = $circle_data->circle;
+                }
+                $user->save();
+                $user = User::where('mobile_number', $request->mobile_number)->first();
+            }
             $user->user_fname = $request->user_fname;
             $user->user_lname = $request->user_lname;
             $user->email = $request->email;
