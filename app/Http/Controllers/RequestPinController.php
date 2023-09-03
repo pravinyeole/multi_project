@@ -48,11 +48,9 @@ class RequestPinController extends Controller
         'no_of_pin_requested.required' => 'The number of pins field is required.',
         'no_of_pin_requested.integer' => 'The number of pins must be an integer.',
       ]);
-
-      $findAdmin = User::where('user_slug',$request->admin_slug)->first()->id;
+      $findAdmin = User::where('user_slug',$request->admin_slug)->count();
       if (isset($findAdmin) && ($findAdmin <= 0 || $findAdmin == null)) {
-        toastr()->error('Admin Not Found!!');
-        return redirect()->back();
+        return redirect()->back()->with('error','Admin Slug is invalid');
       }
       // Create a new RequestPin instance
       $requestPin = new RequestPin();
@@ -70,8 +68,8 @@ class RequestPinController extends Controller
       toastr()->success('Pin request sent successfully');
       return redirect()->back();
     } catch (\Exception $e) {
-      toastr()->error(Config('messages.500'));
-      return redirect()->back();
+      // toastr()->error(Config('messages.500'));
+      return redirect()->back()->with('error','Admin Slug is invalid');
     }
   }
 

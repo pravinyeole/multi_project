@@ -125,11 +125,6 @@
 
 @endsection
 
-@section('vendor-script')
-<script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-<script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
-@endsection
-
 @section('page-script')
 <script>
     $(document).ready(function() {

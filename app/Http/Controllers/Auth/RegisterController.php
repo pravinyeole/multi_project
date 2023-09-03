@@ -125,15 +125,29 @@ class RegisterController extends Controller
         return view('auth.login_otp', compact('user_id', 'mobileNumber'));
     }
     
+    public function generateUserSlug($fname,$lname,$mn,$check=''){
+        if(isset($check) && $check >= 1){
+            $slug = rand(0001,9999);
+            $user_slug = substr($fname, 0, 1) . substr($lname, 0, 1) . $slug;
+            $prvCheck = User::where('user_slug',$user_slug)->count();
+        }else{
+            $user_slug = substr($fname, 0, 1) . substr($lname, 0, 1) . substr($mn, 6, 9);
+            $prvCheck = User::where('user_slug',$user_slug)->count();
+        }
+        if($prvCheck > 0){
+            return $this->generateUserSlug($fname,$lname,$mn,$prvCheck);
+        }
+        return $user_slug;
+    }
     public function register(Request $request)
     {    
         // $this->validator($request->all())->validate();
         $user = User::where('mobile_number',$request->mobile_number)->first();
       
         $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
+
         if (!$admin) {
-            toastr()->error('Admin Referral Code does not exist');
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('error','Admin Referral Code does not exist');
         }else{
              // Check if referral ID exists in the user table
              $referralUser = User::where('mobile_number', $request->referal_code)->first();
@@ -146,8 +160,8 @@ class RegisterController extends Controller
             $user->email = $request->email;
             $user->user_status = 'Inactive';
             $user->user_role = 'U';
-            $user_slug = substr($request->user_fname, 0, 1) . substr($request->user_lname, 0, 1) . substr($user->mobile_number, 0, 4);
-            $user->user_slug = $user_slug; // Set the user_slug value
+
+            $user->user_slug = $this->generateUserSlug($request->user_fname,$request->user_lname,$request->mobile_number); // Set the user_slug value
             $user->update();
             
             $userReferral = new UserReferral();
