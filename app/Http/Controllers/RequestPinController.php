@@ -211,4 +211,10 @@ class RequestPinController extends Controller
       return redirect()->back();
     }
   }
+  public function direct_ref_user_list(Request $request)
+  {
+    $title = "Direct Referance Users List";
+    $data = UserReferral::where('user_id', Auth::user()->id)->get();
+    return view('reffral.index', compact('title','data'));
+  }
 }

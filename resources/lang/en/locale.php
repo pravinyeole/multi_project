@@ -216,5 +216,6 @@ return [
   "Requests"=>'Requests',
   "Announcement"=>'Announcement',
   "Transfer Pin"=>"Transfer Pin",
+  "Direct Ref User List"=>"Direct Ref User List",
 
 ];

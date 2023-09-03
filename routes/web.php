@@ -153,6 +153,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::group(['prefix' => 'request-pin'], function () {
         Route::get('/', 			    [RequestPinController::class, 'index']);
         Route::post('/send-request', [RequestPinController::class,'sendPinRequestToAdmin'])->name('request-pin.send-request');
+        Route::get('/direct_ref_user_list', [RequestPinController::class,'direct_ref_user_list'])->name('direct_ref_user_list');
     });
 
 });
