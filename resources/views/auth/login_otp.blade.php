@@ -71,7 +71,7 @@
 
   .otp-input-group {
     display: flex;
-    padding-bottom:15px;
+    padding-bottom: 15px;
   }
 
   .otp-input-group input {
@@ -84,14 +84,16 @@
     background: #fff;
     text-align: center;
   }
-  @media all and (max-width:360px){
+
+  @media all and (max-width:360px) {
     .otp-input-group input {
       width: 38px;
       height: 38px;
       margin: 0px 5px 0px 5px;
     }
   }
-  @media all and (max-height:660px){
+
+  @media all and (max-height:660px) {
     .otp-input-group input {
       width: 35px;
       height: 35px;
@@ -130,83 +132,84 @@
 </head>
 
 <body>
-<div class="container-scroller">
+  <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper login-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
-            <div class="auth-form-light text-center p-0">
-              <div class="brand-logo">
-                <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
+        <div class="auth-form-light text-center p-0">
+          <div class="brand-logo">
+            <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
+          </div>
+          <div class="login-body">
+            <div class="header">
+              <h1>OTP Verification</h1>
+              <!-- <h3 class="text-white">Code has send to</h3> -->
+            </div>
+            @if (session('error'))
+            <div class="alert alert-error m-1" role="alert" style="padding: 2%">
+              {{ session('error') }}
+            </div>
+            @endif
+            <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
+            <form id="mobileForm" method="POST" action="{{url('login')}}">
+              @csrf <!-- Add CSRF token field -->
+              <div class="mt-0 text-center text-dark pb-1">
+                <p>Code has send to {{$mobileNumber}}</p>
               </div>
-              <div class="login-body">
-              <div class="header">
-                <h1>OTP Verification</h1>
-                <!-- <h3 class="text-white">Code has send to</h3> -->
+              <input type="hidden" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
+              <input type="hidden" name="id" value="{{$user_id}}">
+              <div id="otp-section" class="mt-2">
+                <div class="otp-input-group d-flex align-items-center justify-content-center">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                </div>
               </div>
-              @if (session('error'))
-              <div class="alert alert-error m-1" role="alert" style="padding: 2%">
-                {{ session('error') }}
+              <div class="resent_otp text-muted text-small">
+                If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend OTP</a>
               </div>
-              @endif
-              <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
-              <form id="mobileForm" method="POST" action="{{url('login')}}">
-                @csrf <!-- Add CSRF token field -->
-                <div class="mt-0 text-center text-dark pb-1">
-                  <p>Code has send to {{$mobileNumber}}</p>
-                </div>
-                <input type="hidden" name="id" value="{{$user_id}}">
-                <div id="otp-section" class="mt-2">
-                  <div class="otp-input-group d-flex align-items-center justify-content-center">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                    <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  </div>
-                </div>
-                <div class="resent_otp text-muted text-small">
-                  If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend OTP</a>
-                </div>
-                <div class="text-center">
-                  <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Login</button>
-                </div>
-              </form>
-              <div class="seprator"></div>
-                <div class="pb-2 social text-white">
-                  <h4>Follow us</h4>
-                  <div class="social-icon d-flex justify-content-between flex-nowrap">
-                    <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn-icon">
-                      <i class="icon" data-feather="facebook"></i>
-                    </a>
-                    <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn-icon">
-                    <i class="icon" data-feather="youtube"></i>
-                    </a>
-                    <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn-icon">
-                    <i class="icon" data-feather="twitter"></i>
-                    </a>
-                    <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn-icon">
-                    <i class="icon" data-feather="instagram"></i>
-                    </a>
-                    <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
-                      <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
-                    </a>
-                    <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
-                    <i class="icon" data-feather="send"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="mt-1 mb-2">
-                  <span id="siteseal">
-                      <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
-                    </span>
-                </div>
+              <div class="text-center">
+                <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Login</button>
+              </div>
+            </form>
+            <div class="seprator"></div>
+            <div class="pb-2 social text-white">
+              <h4>Follow us</h4>
+              <div class="social-icon d-flex justify-content-between flex-nowrap">
+                <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i class="icon" data-feather="facebook"></i>
+                </a>
+                <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i class="icon" data-feather="youtube"></i>
+                </a>
+                <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i class="icon" data-feather="twitter"></i>
+                </a>
+                <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i class="icon" data-feather="instagram"></i>
+                </a>
+                <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
+                </a>
+                <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
+                  <i class="icon" data-feather="send"></i>
+                </a>
+              </div>
+            </div>
+            <div class="mt-1 mb-2">
+              <span id="siteseal">
+                <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
+              </span>
             </div>
           </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
+    <!-- content-wrapper ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
