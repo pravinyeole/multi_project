@@ -126,10 +126,11 @@
 @endsection
 
 @section('page-script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 <script>
     $(document).ready(function() {
         $('.select2').select2();
-        $('.select2-selection__rendered').hide();
+        $('.select2-selection--single').hide();
         // Show user details when a user is selected
         $('#search').on('change', function() {
             var userId = $(this).val();
