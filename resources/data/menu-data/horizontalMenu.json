@@ -29,7 +29,14 @@
           "name": "Transfer Pin",
           "icon": "message-square",
           "slug": "transferpin"
+      },
+      {
+          "url" : "request-pin/direct_ref_user_list",
+          "name": "Direct Ref User List",
+          "icon": "message-square",
+          "slug": "direct-ref"
       }
+
      
   ]
 }  

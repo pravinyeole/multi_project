@@ -1,4 +1,4 @@
-@extends('layouts/contentLayoutMaster')
+@extends('layouts/common_template')
 
 @section('title', 'Layout without menu')
 
