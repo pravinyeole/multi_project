@@ -13,7 +13,7 @@
                         <h4 class="card-title">Direct Referance Users List</h4>
                     </center>
                     <div class="table-responsive">
-                        <table class="table table-striped" id="table_user">
+                        <table class="table table-striped display common-table" id="table_user">
                             <thead>
                                 <tr>
                                     <th>{{__("labels.no")}}</th>

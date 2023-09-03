@@ -7,7 +7,7 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="padding: 2%;">
                 <div class="card-header border-bottom">
                     <h4>
                         <center>PIN Request</center>
@@ -35,9 +35,8 @@
                     </div>
                 </form>
                     @if(isset($requestedPins))
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-striped">
+
+                            <table class="table table-striped common-table">
                                 <thead>
                                     <tr>
                                         <th>Pin Request ID</th>
@@ -69,15 +68,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
                     @endif
-
             </div>
-            </form>
         </div>
     </div>
-    </div>
+</div>
 
 @endsection
 
