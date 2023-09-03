@@ -1,6 +1,4 @@
- @extends('layouts/common_template')
-
-@section('title', $title)
+@extends('layouts/common_template')
 
 @section('page-style')
 {{-- Page Css files --}}
@@ -18,7 +16,7 @@
                         <h4 class="card-title" style="text-transform: uppercase;">All Admin & User List</h4>
                     </center>
                     <div class="table-responsive">
-                        <table class="table table-striped" id="table_user">
+                        <table class="table table-striped common-table">
                             <thead>
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
@@ -30,6 +28,21 @@
                                     <th>{{__("labels.action")}}</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @if(count($all_users))
+                                @foreach($all_users AS $key => $au)
+                                <tr>
+                                    <td>{{($key+1)}}</td>
+                                    <td>Role</td>
+                                    <td>Username</td>
+                                    <td>Email</td>
+                                    <td>Mobile No</td>
+                                    <td>Refferal Id</td>
+                                    <td>{{__("labels.action")}}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -41,68 +54,8 @@
 
 @section('page-script')
 <script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        // DataTable for organization
-        if (document.getElementById("table_user")) {
-            var table = $('#table_user').DataTable({
-                processing: true,
-                serverSide: true,
-                order: [1, 'ASC'],
-                dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-3"l><"row col-sm-12 col-md-5 customDropDown"><"col-sm-12 col-md-4"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-                ajax: {
-                    url: base_url + "/superadmin/allusers",
-                    data: function(data) {}
-                },
-                dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-                ],
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'user_role',
-                        name: 'user_role'
-                    },
-                    {
-                        data: 'user_name',
-                        name: 'user_name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'mobile_number',
-                        name: 'mobile_number'
-                    },
-                    {
-                        data: 'user_slug',
-                        name: 'user_slug'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-        }
-    });
-
-    function openModel(user_id,type) {
-        if(user_id <= 0 || user_id == null){
+    function openModel(user_id, type) {
+        if (user_id <= 0 || user_id == null) {
             alert('pppppppppp');
             return false;
         }

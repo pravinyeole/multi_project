@@ -145,7 +145,7 @@ class RegisterController extends Controller
         $user = User::where('mobile_number',$request->mobile_number)->first();
       
         $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
-
+        
         if (!$admin) {
             return redirect()->back()->withInput()->with('error','Admin Referral Code does not exist');
         }else{

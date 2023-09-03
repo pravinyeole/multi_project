@@ -46,15 +46,9 @@
     $('.common-table').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            {
-              text: 'My button',
-                action: function ( e, dt, node, config ) {
-                  // 'copyHtml5'
-                  'pdfHtml5'
-                }
-            },
+            // 'copyHtml5',
             'excelHtml5',
-            'csvHtml5',
+            // 'csvHtml5',
             'pdfHtml5'
         ]
     } );

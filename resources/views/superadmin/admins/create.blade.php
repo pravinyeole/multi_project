@@ -2,14 +2,6 @@
 
 @section('title', $title)
 
-@section('vendor-style')
-  <!-- vendor css files -->
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
-  {{-- <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}"> --}}
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/datatables.min.css')) }}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap.min.css')) }}">
-@endsection
-
 @section('page-style')
     {{-- Page Css files --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/base/plugins/forms/pickers/form-flat-pickr.css') }}">
@@ -30,18 +22,14 @@
 @endsection
  
 @section('content')
-<section class="bs-validation">
-    <div class="row">
-        
-        <div class="col-12">
+<div class="content-wrapper">
+    <div class="row">        
+        <div class="col-lg-12 grid-margin stretch-card">
             <form id="addDepartment" method="POST" class="addDepartment" action="{{url('superadmin/admin/save')}}" autocomplete="off">
                 @csrf
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Create Admin<span style="font-size: 13px"></span></h4>
-                    </div>
-                    
                     <div class="card-body">
+                    <center><h4 class="card-title" style="text-transform: uppercase;">Create Admin<span style="font-size: 13px"></span></h4></center>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -85,7 +73,7 @@
             </form>
         </div>
     </div>
-</section>
+    </div>
 @endsection
 
 @section('vendor-script')
