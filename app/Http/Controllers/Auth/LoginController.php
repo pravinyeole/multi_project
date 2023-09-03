@@ -145,7 +145,7 @@ class LoginController extends Controller
         // $otp = array('Hello','World!','Beautiful','Day!');
         $otp = implode("", $request->otp);
         // uncommnet
-        $userOtp   = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
         // $userOtp = 111111;
         $now = now();
         if (!$userOtp) {
@@ -173,7 +173,6 @@ class LoginController extends Controller
         }
         return redirect()->route('otp.login')->with('error', 'Your Otp is not correct');
     }
-
 
     public function logout(Request $request)
     {
