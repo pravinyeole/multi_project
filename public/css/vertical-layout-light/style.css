@@ -116,7 +116,7 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @-moz-keyframes flash {
   0% {
     opacity: 1;
@@ -19769,7 +19769,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -20038,7 +20038,7 @@ pre {
 code {
   padding: 5px;
   color: #F95F53;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 300;
   font-size: 0.812rem;
   border-radius: 4px;
@@ -20058,7 +20058,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: calc(0.812rem - 0.05rem);
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -24758,7 +24758,7 @@ dl li {
   padding-left: 0;
   position: relative;
   margin-bottom: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .icon-data-list li {
@@ -25856,11 +25856,11 @@ dl li {
 }
 
 .home-tab {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .home-tab .nav-tabs {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   border-bottom: none;
 }
 
@@ -25877,7 +25877,7 @@ dl li {
   padding: 12px 14px;
   border: none;
   border-right: 1px solid #dee2e6;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   background: transparent;
 }
 
@@ -25895,7 +25895,7 @@ dl li {
 
 .home-tab .tab-content {
   padding: 24px 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   border: none;
 }
 
@@ -27447,7 +27447,7 @@ table.dataTable tbody td.select-checkbox:after {
 
 .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
 .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   color: #1F1F1F;
   font-size: 0.875rem;
   font-weight: initial;
@@ -29030,7 +29030,7 @@ div.tagsinput span.tag a {
 .sidebar {
   min-height: calc(100vh - 97px);
   background: #F4F5F7;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 500;
   padding: 0;
   width: 220px;
@@ -29818,7 +29818,7 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .welcome-text {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 28px;
@@ -29832,7 +29832,7 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .welcome-sub-text {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -29849,7 +29849,7 @@ div.tagsinput span.tag a {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   min-width: 170px;
   height: 34px;
   background: #ffffff;
@@ -29865,7 +29865,7 @@ div.tagsinput span.tag a {
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item .navbar-date-picker {
   background: #ffffff;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   height: 36px;
   border: 1px solid #DFDFDF;
   border-radius: 6px;
@@ -31110,7 +31110,7 @@ div.tagsinput span.tag a {
 .settings-panel .settings-heading {
   padding: 16px 0 13px 35px;
   font-size: 0.812rem;
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 500;
   line-height: 1;
   color: rgba(0, 0, 0, 0.9);
@@ -31305,7 +31305,7 @@ div.tagsinput span.tag a {
 }
 
 .settings-panel .events p {
-  font-family: "Poppins", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 400;
 }
 
