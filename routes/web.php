@@ -155,6 +155,10 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('/send-request', [RequestPinController::class,'sendPinRequestToAdmin'])->name('request-pin.send-request');
         Route::get('/direct_ref_user_list', [RequestPinController::class,'direct_ref_user_list'])->name('direct_ref_user_list');
     });
+    Route::group(['prefix' => 'transferpin'], function () {
+        Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);
+        Route::post('/transsubmit', 			    [RequestPinController::class, 'adminTransferPinSubmit']);
+    });
 
 });
 ?>

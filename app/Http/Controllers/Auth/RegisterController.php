@@ -138,7 +138,7 @@ class RegisterController extends Controller
         if($prvCheck > 0){
             return $this->generateUserSlug($fname,$lname,$mn,$prvCheck);
         }
-        return $user_slug;
+        return strtoupper($user_slug);
     }
     public function register(Request $request)
     {    
@@ -178,12 +178,17 @@ class RegisterController extends Controller
             $user->user_slug = $this->generateUserSlug($request->user_fname,$request->user_lname,$request->mobile_number); // Set the user_slug value
             $user->update();
             
-            $userReferral = new UserReferral();
-            $userReferral->user_id = $user->id;
-            $userReferral->referral_id = $request->referal_code;
-           
-            $userReferral->admin_slug = $admin->user_slug;
-            $userReferral->save();
+            $prvcheck = UserReferral::where('user_id',$user->id)
+                        ->where('referral_id',$request->referal_code)
+                        ->where('admin_slug',$admin->user_slug)
+                        ->count();
+            if($prvcheck == 0){
+                $userReferral = new UserReferral();
+                $userReferral->user_id = $user->id;
+                $userReferral->referral_id = $request->referal_code;
+                $userReferral->admin_slug = $admin->user_slug;
+                $userReferral->save();
+            }
     
             $userRole = new UserRole();
             $userRole->user_id = $user->id;

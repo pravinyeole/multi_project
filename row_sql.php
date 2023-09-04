@@ -1764,3 +1764,7 @@ ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET u
 ALTER TABLE `users` CHANGE `created_at` `created_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `modified_at` `modified_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `deleted_at` `deleted_at` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 composer require hashids/hashids
+
+==================================05 09 2023========================================================
+
+CREATE TABLE `db_hpa`.`transfer_pin_history` (`trans_id` INT(11) NOT NULL AUTO_INCREMENT , `trans_by` INT(5) NOT NULL , `trans_to` INT(5) NOT NULL , `trans_reason` TEXT NULL DEFAULT NULL , `trans_count` INT(5) NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;

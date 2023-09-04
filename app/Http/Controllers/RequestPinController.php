@@ -7,6 +7,7 @@ use App\Models\UserReferral;
 use App\Models\RequestPin;
 use App\Models\User;
 use App\Models\UserPin;
+use App\Models\TransferPin;
 use Carbon\Carbon;
 use Auth;
 use DataTables;
@@ -214,5 +215,35 @@ class RequestPinController extends Controller
     $title = "Direct Referance Users List";
     $data = UserReferral::where('user_id', Auth::user()->id)->get();
     return view('reffral.index', compact('title','data'));
+  }
+  public function adminTransferPinSubmit(Request $request){
+    $checkBalance  = UserPin::where('user_id',Auth::user()->id)->where('pins','>','0')->sum('pins');
+    if($checkBalance >= $request->trans_number){
+      $tarspin = new TransferPin();
+      $tarspin->trans_by = Auth::user()->id;
+      $tarspin->trans_to = $request->trans_id;
+      $tarspin->trans_count = $request->trans_number;
+      $tarspin->trans_reason = $request->trans_reason;
+      $tarspin->save();
+      if(isset($tarspin->trans_id) && $tarspin->trans_id > 0){
+        UserPin::where('user_id',Auth::user()->id)->decrement('pins', $request->trans_number);
+        $inventory = UserPin::firstOrNew(['user_id' => 55]);
+        $inventory->pins = ($inventory->pins + $request->trans_number);
+        $inventory->save();
+        return redirect()->back()->with('success','Pin Transfer Successfully.');
+      }
+    }
+    return redirect()->back()->with('error','You Dont Have Pin Balance to Transfer.');
+  }
+  public function adminTransferPin(Request $request)
+  {
+    $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+            ->select('users.*', 'users.created_at as id_created_date', 'user_status')
+            ->where('user_referral.admin_slug', Auth::user()->user_slug)
+            ->get();
+    $tarnsferHistory = TransferPin::join('users','users.id','=','transfer_pin_history.trans_to')
+                        ->select('users.user_fname','users.user_lname','transfer_pin_history.trans_count','transfer_pin_history.trans_reason','transfer_pin_history.created_at')
+                        ->where('transfer_pin_history.trans_by',Auth::user()->id)->get();
+    return view('admin.pincenter.transfer', compact('normal_udata','tarnsferHistory'));
   }
 }

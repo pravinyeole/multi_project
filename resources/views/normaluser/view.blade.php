@@ -1,7 +1,5 @@
 @extends('layouts/common_template')
 
-@section('title', $title)
-
 @section('vendor-style')
 {{-- vendor css files --}}
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')) }}">

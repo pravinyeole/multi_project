@@ -28,6 +28,11 @@ class NormalUserController extends Controller
     }
     public function index(Request $request)
     {   
+        // $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+        //     ->select('users.*', 'users.created_at as id_created_date', 'user_status')
+        //     ->where('user_referral.admin_slug', Auth::user()->user_slug)
+        //     ->get();
+
         $title = $this->title;
         try {
             if ($request->ajax()) {
