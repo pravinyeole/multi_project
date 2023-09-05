@@ -1,4 +1,17 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <a class="navbar-brand brand-logo navbar-logo" href="{{url('/home')}}">
+        <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo" />
+    </a>
+    <a href="javascript:void()" class="close" data-bs-toggle="minimize">+</a>
+    <div class="user-item">
+        <div class="user-img">
+            <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image">
+        </div>
+        <div class="user-info">
+            <p class="mb-0 mt-0 font-weight-semibold">{{--Auth::User()->$mobileNumber--}}6666663666</p>
+            <p class="fw-light text-muted mb-0">{{Auth::User()->email}}</p>
+        </div>
+    </div>
     <ul class="nav">
         @if(Auth::user()->getRole() == 'A')
         @php $menuData = $menuData[0]; @endphp
@@ -29,7 +42,7 @@
         @endphp
         <li class="nav-item @if(Request::is($menu->slug.'/*') || Request::is($menu->slug)) active  @endif" {{ $custom_classes }}">
             <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
-                <i class="{{$menu->icon}} menu-icon"></i>
+                <i class="menu-icon" data-feather="{{$menu->icon}}"></i>
                 <span class="menu-title text-truncate">{{ __('locale.'.$menu->name) }}</span>
                 @if (isset($menu->badge))
                 <?php $badgeClasses = "badge badge-pill badge-light-primary ml-auto mr-1" ?>
@@ -56,7 +69,7 @@
 
         <li class="nav-item">
             <a class="nav-link" href="{{('/logout')}}" onclick="return confirm('Are you sure to logout?');">
-              <i class="menu-icon mdi mdi-file-document" ></i>
+              <i class="menu-icon" data-feather="power"></i>
               <span class="menu-title">Sign Out</span>
             </a>
           </li>
