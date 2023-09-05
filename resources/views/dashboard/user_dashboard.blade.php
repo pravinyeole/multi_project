@@ -115,8 +115,8 @@
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <div class="heading d-flex align-items-center justify-content-between">
-                      <h3>bPIN Details</h3>
+                    <div class="heading pt-0 d-flex align-items-center justify-content-between">
+                      <h3 class="pt-0">bPIN Details</h3>
                     </div>
                     <div class="row flex-grow pin-details">
                       <div class="col-6">
