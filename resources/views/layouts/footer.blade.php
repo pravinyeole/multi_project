@@ -53,6 +53,38 @@
         ]
     } );
 } );
+function copyText(copyText) {
+        navigator.clipboard.writeText(copyText);
+        console.log(copyText);
+        setTooltip('Copied!');
+        hideTooltip();
+    }
+    $('#copyBtn').tooltip({
+        trigger: 'click',
+        placement: 'bottom'
+    });
+    var clipboard = new Clipboard('#copyBtn');
+    clipboard.on('success', function(e) {
+        setTooltip('Copied!');
+        hideTooltip();
+    });
+
+    clipboard.on('error', function(e) {
+        setTooltip('Failed!');
+        hideTooltip();
+    });
+
+    function setTooltip(message) {
+        $('#copyBtn').tooltip('hide')
+            .attr('data-original-title', message)
+            .tooltip('show');
+    }
+
+    function hideTooltip() {
+        setTimeout(function() {
+            $('#copyBtn').tooltip('hide');
+        }, 1000);
+    }
 </script>
 </body>
 

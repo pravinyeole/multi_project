@@ -31,13 +31,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-4">
-                                <label class="form-label" for="">Reason For Transfer</label>
-                                <input type="text" class="form-control" id="trans_reason" name="trans_reason">
-                            </div>
                             <div class="col-sm-2">
                                 <label class="form-label" for="">Number of Pin</label>
                                 <input type="number" class="form-control" id="trans_number" name="trans_number" required min="0">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label" for="">Comments</label>
+                                <input type="text" class="form-control" id="trans_reason" name="trans_reason">
                             </div>
                             <div class="col-sm-2">
                                 <button type="submit" class="btn btn-primary mt-4">Submit</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\UserReferral;
 use App\Models\RequestPin;
@@ -9,7 +10,6 @@ use App\Models\User;
 use App\Models\UserPin;
 use App\Models\TransferPin;
 use Carbon\Carbon;
-use Auth;
 use DataTables;
 use DB;
 use Illuminate\Validation\Rule;
@@ -49,9 +49,9 @@ class RequestPinController extends Controller
         'no_of_pin_requested.required' => 'The number of pins field is required.',
         'no_of_pin_requested.integer' => 'The number of pins must be an integer.',
       ]);
-      $findAdmin = User::where('user_slug',$request->admin_slug)->count();
+      $findAdmin = User::where('user_slug', $request->admin_slug)->count();
       if (isset($findAdmin) && ($findAdmin <= 0 || $findAdmin == null)) {
-        return redirect()->back()->with('error','Admin Slug is invalid');
+        return redirect()->back()->with('error', 'Admin Slug is invalid');
       }
       // Create a new RequestPin instance
       $requestPin = new RequestPin();
@@ -70,7 +70,7 @@ class RequestPinController extends Controller
       return redirect()->back();
     } catch (\Exception $e) {
       // toastr()->error(Config('messages.500'));
-      return redirect()->back()->with('error','Admin Slug is invalid');
+      return redirect()->back()->with('error', 'Admin Slug is invalid');
     }
   }
 
@@ -121,16 +121,13 @@ class RequestPinController extends Controller
   }
 
   // public function updatePinRequestToAdmin(Request $request){
-
   //   try{
   //     $checkIsSuperAdmin= User::where('id',Auth::user()->id)->where('user_role','S')->first();
-
   //     if (isset($checkIsSuperAdmin)) {
   //       // Code for Superadmin
   //       $userPins = UserPin::where('user_id',$request->req_user_id)->first();
   //       $userPins->pins = $userPins->pins + $request->no_of_pins;
   //       $userPins->update();
-
   //       $requestPins = RequestPin::where('pin_request_id',$request->pin_request_id)->first();
   //       $requestPins->status ='completed'; 
   //       $requestPins->updated_at = Carbon::now();
@@ -147,7 +144,6 @@ class RequestPinController extends Controller
   //       $userPins = UserPin::where('user_id',$request->req_user_id)->first();
   //       $userPins->pins = $userPins->pins + $request->no_of_pins;
   //       $userPins->update();
-
   //       $requestPins = RequestPin::where('pin_request_id',$request->pin_request_id)->first();
   //       $requestPins->status ='completed'; 
   //       $requestPins->updated_at = Carbon::now();
@@ -155,7 +151,6 @@ class RequestPinController extends Controller
   //       toastr()->success('Pins Transfer successfully!!');
   //       return redirect('pins-request');
   //     }
-
   //    }catch(\Exception $e) {
   //     dd($e);
   //       toastr()->error(Config('messages.500'));
@@ -169,10 +164,10 @@ class RequestPinController extends Controller
       $checkIsSuperAdmin = User::where('id', Auth::user()->id)->where('user_role', 'S')->first();
 
       $userPins = UserPin::where('user_id', $request->req_user_id)->first();
-      if($userPins){
+      if ($userPins) {
         $userPins->pins += $request->no_of_pins;
         $userPins->update();
-      }else{
+      } else {
         $userpinstbl = new UserPin();
         $userpinstbl->user_id = $request->req_user_id;
         $userpinstbl->pins = $request->no_of_pins;
@@ -189,14 +184,14 @@ class RequestPinController extends Controller
         return redirect('pins-request');
       } else {
         $updateSelfPins = UserPin::where('user_id', Auth::user()->id)->first();
-        if(isset($updateSelfPins->pins) && $updateSelfPins->pins > 0){
+        if (isset($updateSelfPins->pins) && $updateSelfPins->pins > 0) {
           $adminAvailablePins = $updateSelfPins->pins;
-  
+
           if ($request->no_of_pins >= $adminAvailablePins) {
             toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
             return redirect()->back();
           }
-        }else{
+        } else {
           toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
           return redirect()->back();
         }
@@ -214,36 +209,37 @@ class RequestPinController extends Controller
   {
     $title = "Direct Referance Users List";
     $data = UserReferral::where('user_id', Auth::user()->id)->get();
-    return view('reffral.index', compact('title','data'));
+    return view('reffral.index', compact('title', 'data'));
   }
-  public function adminTransferPinSubmit(Request $request){
-    $checkBalance  = UserPin::where('user_id',Auth::user()->id)->where('pins','>','0')->sum('pins');
-    if($checkBalance >= $request->trans_number){
+  public function adminTransferPinSubmit(Request $request)
+  {
+    $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
+    if ($checkBalance >= $request->trans_number && $request->trans_number > 0) {
       $tarspin = new TransferPin();
       $tarspin->trans_by = Auth::user()->id;
       $tarspin->trans_to = $request->trans_id;
       $tarspin->trans_count = $request->trans_number;
       $tarspin->trans_reason = $request->trans_reason;
       $tarspin->save();
-      if(isset($tarspin->trans_id) && $tarspin->trans_id > 0){
-        UserPin::where('user_id',Auth::user()->id)->decrement('pins', $request->trans_number);
+      if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
+        UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
         $inventory = UserPin::firstOrNew(['user_id' => 55]);
         $inventory->pins = ($inventory->pins + $request->trans_number);
         $inventory->save();
-        return redirect()->back()->with('success','Pin Transfer Successfully.');
+        return redirect()->back()->with('success', 'Pin Transfer Successfully.');
       }
     }
-    return redirect()->back()->with('error','You Dont Have Pin Balance to Transfer.');
+    return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
   }
   public function adminTransferPin(Request $request)
   {
     $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
-            ->select('users.*', 'users.created_at as id_created_date', 'user_status')
-            ->where('user_referral.admin_slug', Auth::user()->user_slug)
-            ->get();
-    $tarnsferHistory = TransferPin::join('users','users.id','=','transfer_pin_history.trans_to')
-                        ->select('users.user_fname','users.user_lname','transfer_pin_history.trans_count','transfer_pin_history.trans_reason','transfer_pin_history.created_at')
-                        ->where('transfer_pin_history.trans_by',Auth::user()->id)->get();
-    return view('admin.pincenter.transfer', compact('normal_udata','tarnsferHistory'));
+      ->select('users.*', 'users.created_at as id_created_date', 'user_status')
+      ->where('user_referral.admin_slug', Auth::user()->user_slug)
+      ->get();
+    $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
+      ->select('users.user_fname', 'users.user_lname', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
+      ->where('transfer_pin_history.trans_by', Auth::user()->id)->get();
+    return view('admin.pincenter.transfer', compact('normal_udata', 'tarnsferHistory'));
   }
 }

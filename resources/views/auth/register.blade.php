@@ -110,7 +110,7 @@
             <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ old('referal_code') }}" maxlength="10">
           </div>
            <div class="mt-2">
-            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter Admin Referal Code" value="{{ old('admin_referal_code') }}">
+            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{ old('admin_referal_code') }}">
           </div>
           <div class="text-center mt-2">
             <button id="registerBtn" class="btn btn-primary">Register</button>

@@ -81,8 +81,13 @@
                 $slo = "Good night";
             }
             ?>
-            <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
-            <h3 class="welcome-sub-text">Your performance summary </h3>
+            <span><h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
+            <h3 class="welcome-sub-text">My performance summary </h3></span>
+            <h3 class="welcome-sub-text">            @php
+              $cryptStr= Crypt::encryptString(Auth::user()->user_slug);
+              $cryptUrl= url('/register/').'/'.$cryptStr;
+            @endphp
+            <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2">Copy Refferal URL</button></h3>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">

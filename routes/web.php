@@ -36,7 +36,11 @@ use App\Http\Controllers\SuperAdminController;
 header('Access-Control-Allow-Origin: *');
 header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 
-
+Route::get('/artisancache', function()
+{
+    Artisan::call('cache:clear');
+    Artisan::call('optimize:clear');
+});
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('/', [LoginController::class, 'showLoginForm']);
