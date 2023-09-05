@@ -64,7 +64,7 @@ $(document).ready(function () {
                 enableDisableInputs(true);
             }
         });
-
+        $('#table_user_processing').hide();
         // Enable/disable pins input and event checkbox based on checkbox click
         $(document).on('change', '.event-checkbox', function () {
             var isChecked = $(this).prop('checked');

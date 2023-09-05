@@ -16,6 +16,9 @@ use Barryvdh\DomPDF\Facade as PDF;
 class ReportController extends Controller
 {
     //
+    public function __construct(){
+        $this->middleware(['auth']);
+    }
     public function index(Request $request ){
          $departments   = Department::where('department_status', 'active')->get();
         return view('report.index',compact('departments'));

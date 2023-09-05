@@ -17,7 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
-                                    {{-- <th>Username</th> --}}
+                                    <th>Username</th>
                                     <th>Refferal Id</th>
                                     <th>Admin Slug</th>
                                 </tr>
@@ -27,6 +27,7 @@
                                 @foreach ($data as $key => $val)
                                 <tr>
                                     <td>{{$i}}</td>
+                                    <td>{{$val->user_fname}} {{$val->user_lname}}</td>
                                     <td>{{$val->referral_id}}</td>
                                     <td>{{$val->admin_slug}}</td>
                                 </tr>

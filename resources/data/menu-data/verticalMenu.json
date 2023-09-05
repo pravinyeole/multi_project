@@ -36,6 +36,12 @@
       "name": "Transfer Pin",
       "icon": "mdi mdi-account-off",
       "slug": "pin_center/transferpin"
+    },
+    {
+        "url" : "request-pin/direct_ref_user_list",
+        "name": "Direct Ref User List",
+        "icon": "message-square",
+        "slug": "direct-ref"
     }
 
   ]
