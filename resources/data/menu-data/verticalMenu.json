@@ -9,32 +9,32 @@
     {
       "url": "pin_center",
       "name": "Pin Center",
-      "icon": "message-square",
+      "icon": "key",
       "slug": "pin_center"
     }
     ,
     {
       "url": "pins-request",
       "name": "Requests",
-      "icon": "zap",
+      "icon": "message-square",
       "slug": "pins-request"
     },
     {
         "url" : "request-pin",
         "name": "Request Pin",
-        "icon": "message-square",
+        "icon": "user-plus",
         "slug": "request-pin"
     },
     {
       "url":  "superadmin/revokepin",
       "name": "Revoke Pin",
-      "icon": "mdi mdi-account-off",
+      "icon": "user-minus",
       "slug": "superadmin/revokepin"
     },
     {
       "url":  "pin_center/transferpin",
       "name": "Transfer Pin",
-      "icon": "mdi mdi-account-off",
+      "icon": "send",
       "slug": "pin_center/transferpin"
     }
 

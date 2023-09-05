@@ -31470,8 +31470,8 @@ div.tagsinput span.tag a {
 .pinBal .info{background: var(--sprimary);position:relative;padding: 8px 30px;color: #fff;}
 .pinBal .info:before{content: "";position: absolute;width: 100%;height: 120%;background: var(--sprimary);left: -30px;transform: skewX(-25deg);top: -10%;z-index: 0;}
 .pinBal .info p{margin: 0;font-size: 1rem;line-height: 1;z-index: 1;position:relative;}
-.pinBal .info h3{font-size: 1.875rem;margin: 0;font-weight: 600;z-index: 1;position:relative;}
-.pinBal h5{margin: 0;padding: 10px 0;font-size: 1.125rem;font-weight: 700;color: #000;}
+.pinBal .info h3,.users h3{font-size: 1.875rem;margin: 0;font-weight: 600;z-index: 1;position:relative;}
+.pinBal h5,.users h5{margin: 0;padding: 10px 0;font-size: 1.125rem;font-weight: 700;color: #000;}
 
 .card.card-orange{background: var(--lightorange);border: 1px solid var(--lightorangeb);}
 .card.card-green{background: var(--lightgreen);border: 1px solid var(--lightgreenb);}
@@ -31494,8 +31494,8 @@ div.tagsinput span.tag a {
 .pin-details p{font-size: 1rem;color: #000;}
 .pin-details h3{font-size: 1.875rem;color: #00024a;margin: 0;font-weight: 600;}
 .bdr-left{border-left: 1px solid #c4c4c4;}
-.floating-btn{position: fixed;right: 20px;bottom: 20px;text-align: center;font-size: 13px;color: #000;text-decoration: none;}
-.floating-btn span{width: 56px;height: 56px;padding: 13px;line-height: 30px;font-size: 3.125rem;font-weight: 300;color: #fff;border-radius: 50%;margin-top: 3px;background: var(--sprimary);box-shadow: var(--box-shadow);display: block;}
+.floating-btn{position: fixed;right: 10px;bottom: 10px;text-align: center;font-size: 13px;color: #000;text-decoration: none;}
+.floating-btn span{width: 42px;height: 42px;padding: 10px;line-height: 24px;font-size: 2.925rem;font-weight: 300;color: #fff;border-radius: 50%;margin-top: 3px;background: var(--sprimary);box-shadow: var(--box-shadow);display: block;}
 .navbar-menu-wrapper .navbar-toggler-right,.navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini{display: none;}
 .navbar .navbar-brand-wrapper .navbar-brand.brand-logo, .navbar .navbar-brand-wrapper .navbar-toggler:not(.navbar-toggler-right) {display: block;}
 .navbar .navbar-brand-wrapper {width: 155px;}
@@ -31515,9 +31515,16 @@ body.sidebar-icon-only .sidebar {
   transform: translateX(0%);
 }
 .sidebar .nav .nav-item .nav-link .menu-title {font-size: 1.1rem;}
+.flex-direction-column{flex-direction:column;}
+.users h5{font-weight: 400;}
+.users svg{width: 24px;height: 24px;color: var(--sprimary);}
+.refForm{background: var(--lightgreen);border: 1px dashed var(--lightgreenb);border-radius: 8px;padding: 2px;}
+.refForm .form-control{background: transparent;padding: 6px 15px;border: 0;margin: 0;line-height: 22px;height: auto;font-size: 16px;}
+.refForm form,.refForm .input-group{margin: 0;}
+.input-group-prepend .input-group-text{background: var(--sprimary);color: #fff;border-radius: 7px;padding: 4px 12px;line-height: 26px;}
 @media (max-width: 991px){
   .navbar .navbar-brand-wrapper {
-      padding: 20px 15px;
+      padding: 6px 15px;
   }
 }
 @media all and (max-width:580px){
