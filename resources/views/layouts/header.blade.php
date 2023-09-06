@@ -81,8 +81,7 @@
                 $slo = "Good night";
             }
             ?>
-            <span><h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
-            <h3 class="welcome-sub-text">My performance summary </h3></span>
+            <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
             <h3 class="welcome-sub-text">            @php
               $cryptStr= Crypt::encryptString(Auth::user()->user_slug);
               $cryptUrl= url('/register/').'/'.$cryptStr;

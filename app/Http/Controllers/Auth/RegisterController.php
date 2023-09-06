@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile_number' => ['required'],
+            'mobile_number' => ['required','numeric','min:10'],
             'referal_code' => ['nullable', 'string', 'max:255'],
             'admin_referal_code'=>['required']
         ], [
@@ -143,6 +143,9 @@ class RegisterController extends Controller
     public function register(Request $request)
     {    
         // $this->validator($request->all())->validate();
+        if(isset($request->mobile_number) && !is_numeric($request->mobile_number) && strlen($request->mobile_number) != 10){
+            return redirect()->back()->withInput()->with('error','Invalid Mobile Number.');
+        }
         $user = User::where('mobile_number',$request->mobile_number)->first();
       
         $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
@@ -160,7 +163,7 @@ class RegisterController extends Controller
                 $mobileNumberD = str_split($request->mobile_number, 4);
                 $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
                 $user = new User();
-                $user->mobile_number = $request->mobile_number;
+                $user->mobile_number = (int)$request->mobile_number;
                 $user->user_status = 'Inactive';
                 if($circle_data){
                     $user->operator = $circle_data->operator;

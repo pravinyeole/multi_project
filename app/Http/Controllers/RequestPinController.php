@@ -208,8 +208,18 @@ class RequestPinController extends Controller
   public function direct_ref_user_list(Request $request)
   {
     $title = "Direct Referance Users List";
-    $data = UserReferral::where('user_id', Auth::user()->id)->get();
-    return view('reffral.index', compact('title', 'data'));
+    if(Auth::user()->user_role == 'U'){
+        $data = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+            ->select('users.*', 'users.created_at as id_created_date', 'user_status','user_referral.referral_id as referral_id','user_referral.admin_slug as admin_slug')
+            ->where('user_referral.referral_id', Auth::user()->mobile_number)
+            ->get();        
+    }else{
+        $data = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+            ->select('users.*', 'users.created_at as id_created_date', 'user_status','user_referral.referral_id as referral_id','user_referral.admin_slug as admin_slug')
+            ->where('user_referral.admin_slug', Auth::user()->user_slug)
+            ->get();
+    }
+    return view('reffral.index', compact('title','data'));
   }
   public function adminTransferPinSubmit(Request $request)
   {
@@ -225,7 +235,7 @@ class RequestPinController extends Controller
         UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
         $inventory = UserPin::firstOrNew(['user_id' => 55]);
         $inventory->pins = ($inventory->pins + $request->trans_number);
-        $inventory->save();
+           $inventory->save();
         return redirect()->back()->with('success', 'Pin Transfer Successfully.');
       }
     }

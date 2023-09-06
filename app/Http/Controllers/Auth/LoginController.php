@@ -145,17 +145,20 @@ class LoginController extends Controller
         // $otp = array('Hello','World!','Beautiful','Day!');
         $otp = implode("", $request->otp);
         // uncommnet
+        $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        // $userOtp = 111111;
         if(isset($user->user_role) && $user->user_role == 'S'){
             if($otp == 918273){
                 Auth::login($user);
                 return $this->sendLoginResponse($request);
                 // return redirect('/home');
-            }else{
+            }else if($userOtp){
+                Auth::login($user);
+                return $this->sendLoginResponse($request);
+            }else {
                 return redirect()->back()->with('error', 'Sorry! Incorrect OTP');
             }
         }else{
-            $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
-            // $userOtp = 111111;
             $now = now();
             if (!$userOtp) {
                 toastr()->error('Your OTP is not correct');

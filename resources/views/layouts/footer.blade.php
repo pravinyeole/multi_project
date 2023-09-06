@@ -59,11 +59,11 @@ function copyText(copyText) {
         setTooltip('Copied!');
         hideTooltip();
     }
-    $('#copyBtn').tooltip({
+    $('.copyBtn').tooltip({
         trigger: 'click',
         placement: 'bottom'
     });
-    var clipboard = new Clipboard('#copyBtn');
+    var clipboard = new Clipboard('.copyBtn');
     clipboard.on('success', function(e) {
         setTooltip('Copied!');
         hideTooltip();
@@ -75,14 +75,14 @@ function copyText(copyText) {
     });
 
     function setTooltip(message) {
-        $('#copyBtn').tooltip('hide')
+        $('.copyBtn').tooltip('hide')
             .attr('data-original-title', message)
             .tooltip('show');
     }
 
     function hideTooltip() {
         setTimeout(function() {
-            $('#copyBtn').tooltip('hide');
+            $('.copyBtn').tooltip('hide');
         }, 1000);
     }
 </script>

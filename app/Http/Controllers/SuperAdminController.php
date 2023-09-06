@@ -350,8 +350,8 @@ class SuperAdminController extends Controller
         // $getOldUser = User::all();
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
-        $from_date = \Carbon\Carbon::today()->subDays(0);
-        $to_date = \Carbon\Carbon::today()->subDays(0);
+        $from_date = \Carbon\Carbon::today()->subDays(8);
+        $to_date = \Carbon\Carbon::today()->subDays(8);
         $to_date = str_replace('00:00:00','23:59:59',$to_date);
         $userIds_res = UserMap::pluck('mobile_id')->all();
         $userIds = $userIds_res;
@@ -371,14 +371,18 @@ class SuperAdminController extends Controller
         // ->select('users.*', 'user_sub_info.mobile_id')
         // ->where('payments.status','completed')
         // ->get();
-
+        $from_date_one = \Carbon\Carbon::today()->subDays(1);
+        $to_date_one = \Carbon\Carbon::today()->subDays(1);
+        $to_date_one = str_replace('00:00:00','23:59:59',$to_date_one);
         // Retrieve recently joined users from "users" table
-        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date,$to_date])->where('user_role', '!=', 'S')->get();
+        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date_one,$to_date_one])
+        ->where('user_role','!=','S')
+        ->where('user_status','Active')->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
 
-        return view('superadmin.assignuser.index', compact('title', 'userIds','getOldUser', 'getRecentlyJoinUser'));
+        return view('superadmin.assignuser.index', compact('title', 'userIds','getOldUser', 'getRecentlyJoinUser','from_date','from_date_one','to_date','to_date_one'));
     }
 
     // public function saveAssignUsers(Request $request){
