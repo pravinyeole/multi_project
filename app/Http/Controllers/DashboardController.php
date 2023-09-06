@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use DataTables;
-use App\Models\UserPin;
-use App\Models\Classes;
-use App\Models\Subject;
-use App\Models\TeacherPaper;
+use App\Models\UserSubInfo;
 use App\Models\RequestPin;
 use App\Models\User;
 use App\Models\UserRole;
@@ -23,17 +20,12 @@ class DashboardController extends Controller
 {
 	use CommonTrait;
 
-
-  	public function __construct(){
+    public function __construct(){
 		$this->title = "Dashboard";
     	$this->middleware(['auth'])->except(['saveUserRoleConfig']);
   	}
 
-
-
-    public function dashboard()
-    {
-    
+    public function dashboard(){   
         //$pageConfigs = ['pageHeader' => false];
         //   $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
         //     ->select('users.*', 'user_pins.pins')
@@ -41,18 +33,18 @@ class DashboardController extends Controller
         //     ->first();
         if(Auth::User()->user_role == 'S')
         {
-
-            $activeAdmin = User::where(['user_role'=>'A','user_status'=>'Active'])->count();
-            $activeUsers = User::where(['user_role'=>'U','user_status'=>'Active'])->count();
-            $pinReuqest = RequestPin::where(['req_user_id'=>Auth::user()->id,'status'=>'pending'])->count();
             Carbon::setWeekStartsAt(Carbon::SUNDAY);
             Carbon::setWeekEndsAt(Carbon::SATURDAY);
+            $activeAdmin = User::where(['user_role'=>'A','user_status'=>'Active'])->count();
+            $activeUsers = User::where(['user_role'=>'U','user_status'=>'Active'])->count();
+            $pinCreated = UserSubInfo::whereDate('created_at',Carbon::today())->count();
+            $pinReuqest = RequestPin::where(['admin_slug'=>Auth::user()->user_slug,'status'=>'pending'])->count();
             $todaysUsers = User::where(['user_role'=>'U'])->whereDate('created_at',Carbon::today())->count();
             $weekUsers = User::where(['user_role'=>'U'])->whereBetween('created_at',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
 
             //return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
 
-             return view('dashboard/new_dashboard',compact('activeAdmin','activeUsers','pinReuqest','todaysUsers','weekUsers'));
+             return view('dashboard/new_dashboard',compact('activeAdmin','pinCreated','activeUsers','pinReuqest','todaysUsers','weekUsers'));
 
         }
         elseif(Auth::User()->user_role == 'A')
