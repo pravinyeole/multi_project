@@ -9,31 +9,31 @@
       {
           "url" : "normal_user",
           "name": "Users",
-          "icon": "normal_user",
+          "icon": "user",
           "slug": "normal_user"
       },
       {
           "url" : "pin_center",
           "name": "Pin Center",
-          "icon": "message-square",
+          "icon": "key",
           "slug": "pin_center"
       },
       {
           "url" : "request-pin",
           "name": "Request Pin",
-          "icon": "message-square",
+          "icon": "user-plus",
           "slug": "request-pin"
       },
       {
           "url" : "transferpin",
           "name": "Transfer Pin",
-          "icon": "message-square",
+          "icon": "user-check",
           "slug": "transferpin"
       },
       {
           "url" : "request-pin/direct_ref_user_list",
           "name": "Direct Ref User List",
-          "icon": "message-square",
+          "icon": "users",
           "slug": "direct-ref"
       }
 

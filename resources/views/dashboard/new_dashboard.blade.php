@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper mobile-wrap">
   <section class="section dashboard">
     <div class="row">
         <div class="col-lg-12">

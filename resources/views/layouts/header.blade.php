@@ -37,8 +37,8 @@
 </head>
 
 <body>
-  <div class="container-scroller">
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-row fixed-top">
+  <div class="container-scroller mobile-wrapper">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
@@ -47,15 +47,15 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="{{url('/home')}}">
-            <img src="{{asset('images/logo/hpa_logo_100_100.png')}}" alt="logo" /> BHARAT
+            <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
-            <img src="{{asset('images/logo/hpa_logo_100_100.png')}}" alt="logo">
+            <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
           </a>
         </div>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-top">
-        <ul class="navbar-nav">
+        {{-- <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
             <?php
             date_default_timezone_set('Asia/Kolkata');
@@ -88,17 +88,17 @@
             @endphp
             <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2">Copy Refferal URL</button></h3>
           </li>
-        </ul>
+        </ul> --}}
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item d-lg-block">
+          {{-- <li class="nav-item d-lg-block">
             <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker datepicker-popup">
               <span class="input-group-addon input-group-prepend border-right">
                 <span class="icon-calendar input-group-text calendar-icon"></span>
               </span>
               <input type="text" class="form-control">
             </div>
-          </li>
-          {{-- <li class="nav-item dropdown d-lg-block user-dropdown">
+          </li> --}}
+          <li class="nav-item dropdown d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -111,7 +111,7 @@
                 <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out
               </a>
             </div>
-          </li> --}}
+          </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>

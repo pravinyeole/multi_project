@@ -29,6 +29,7 @@
   <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{asset('js/custom/feather.min.js')}}"></script>
   
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js')}}"></script>
@@ -37,8 +38,8 @@
   $(window).on('load', function() {
     if (feather) {
       feather.replace({
-        width: 14,
-        height: 14
+        width: 18,
+        height: 18
       })
     }
   })
@@ -87,5 +88,4 @@ function copyText(copyText) {
     }
 </script>
 </body>
-
 </html>
