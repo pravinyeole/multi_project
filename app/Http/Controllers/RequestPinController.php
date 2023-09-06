@@ -243,13 +243,21 @@ class RequestPinController extends Controller
   }
   public function adminTransferPin(Request $request)
   {
-    $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+    if(Auth::user()->user_role == 'U'){
+      $data = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+          ->select('users.*', 'users.created_at as id_created_date', 'user_status','user_referral.referral_id as referral_id','user_referral.admin_slug as admin_slug')
+          ->where('user_referral.referral_id', Auth::user()->mobile_number)
+          ->get();        
+    }else{
+      $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
       ->select('users.*', 'users.created_at as id_created_date', 'user_status')
       ->where('user_referral.admin_slug', Auth::user()->user_slug)
       ->get();
+
+    }
     $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
-      ->select('users.user_fname', 'users.user_lname', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
-      ->where('transfer_pin_history.trans_by', Auth::user()->id)->get();
+    ->select('users.user_fname', 'users.user_lname', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
+    ->where('transfer_pin_history.trans_by', Auth::user()->id)->get();
     return view('admin.pincenter.transfer', compact('normal_udata', 'tarnsferHistory'));
   }
 }

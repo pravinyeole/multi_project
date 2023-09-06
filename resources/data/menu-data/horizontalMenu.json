@@ -1,42 +1,40 @@
 {
   "menu": [
-      {
-          "url" : "home",
-          "name": "Dashboards",
-          "icon": "home",
-          "slug": "home"
-      },
-      {
-          "url" : "normal_user",
-          "name": "Users",
-          "icon": "user",
-          "slug": "normal_user"
-      },
-      {
-          "url" : "pin_center",
-          "name": "Pin Center",
-          "icon": "key",
-          "slug": "pin_center"
-      },
-      {
-          "url" : "request-pin",
-          "name": "Request Pin",
-          "icon": "user-plus",
-          "slug": "request-pin"
-      },
-      {
-          "url" : "transferpin",
-          "name": "Transfer Pin",
-          "icon": "user-check",
-          "slug": "transferpin"
-      },
-      {
-          "url" : "request-pin/direct_ref_user_list",
-          "name": "Direct Ref User List",
-          "icon": "users",
-          "slug": "direct-ref"
-      }
-
-     
+        {
+            "url" : "home",
+            "name": "Dashboards",
+            "icon": "home",
+            "slug": "home"
+        },
+        {
+            "url" : "normal_user",
+            "name": "Users",
+            "icon": "normal_user",
+            "slug": "normal_user"
+        },
+        {
+            "url" : "pin_center",
+            "name": "Pin Center",
+            "icon": "message-square",
+            "slug": "pin_center"
+        },
+        {
+            "url" : "request-pin",
+            "name": "Request Pin",
+            "icon": "message-square",
+            "slug": "request-pin"
+        },
+        {
+            "url":  "transferpin",
+            "name": "Transfer Pin",
+            "icon": "mdi mdi-account-off",
+            "slug": "transferpin"
+        },
+        {
+            "url" : "request-pin/direct_ref_user_list",
+            "name": "Direct Ref User List",
+            "icon": "message-square",
+            "slug": "direct-ref"
+        }  
   ]
 }  
