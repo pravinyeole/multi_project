@@ -1,4 +1,4 @@
- @extends('layouts/common_template')
+@extends('layouts/common_template')
 
 @section('title', $title)
 
@@ -20,6 +20,7 @@
                                     <th>Username</th>
                                     <th>Refferal Id</th>
                                     <th>Admin Slug</th>
+                                    <th>Refferal Link</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,6 +31,11 @@
                                     <td>{{$val->user_fname}} {{$val->user_lname}}</td>
                                     <td>{{$val->referral_id}}</td>
                                     <td>{{$val->admin_slug}}</td>
+                                    <td> @php $cryptStr= Crypt::encryptString($val->admin_slug);
+                                                $cryptUrl= url('/register/').'/'.$cryptStr;
+                                            @endphp
+                                        <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button></td>
+                                    
                                 </tr>
                                 @php $i++; @endphp
                                 @endforeach
