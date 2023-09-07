@@ -224,51 +224,45 @@ class SuperAdminController extends Controller
     }
     
     //show all user list
-    public function showAllUser(Request $request)
-    {
-        $all_users = User::select('*')->orderBy('id', 'DESC')->get();
-        return view('superadmin.allusers.index', compact('all_users'));
+    public function showAllUser(Request $request){
         $title = $this->title;
         try {
             if ($request->ajax()) {
-
-
+                $data = User::select('*')->orderBy('id','DESC')->get();
+                
+        
                 return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->editColumn('user_name', function ($row) {
-                        $user_name = $row->user_fname . ' ' . $row->user_lname;
-                        // dd($user_name);
-                        return $user_name;
-                    })
-                    ->editColumn('user_role', function ($row) {
-                        $user_role = ($row->user_role =='U') ? 'USER' : (($row->user_role =='A') ? 'ADMIN': 'N/A');
-                        // dd($user_role);
-                        return $user_role;
-                    })
-                    ->addColumn('action', function ($row) {
-                        $id  = encrypt($row->id);
-                        $userStatus = $row->user_status;
-                        $blockIcon = $userStatus == 'Inactive' ? 'fas fa-lock' : 'fas fa-lock-open';
-                        $blockColor = $userStatus == 'Inactive' ? 'red' : 'green';
-
-                        // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
-                        if ($userStatus == 'Active') {
-                            $status = '<button type="button" title="Active" data-type="Active" data-model="User" class="badge badge-success" onclick="openModel('."$row->id".','."'Inactive'".')">Active</button>';
-                        } else {
-                            $status = '<button type="button" title="Inactive" data-type="Inactive" data-model="User" class="badge badge-warning" onclick="openModel('."$row->id".','."'Active'".')">Inactive</button>';
-                        }
-                        return $status;
-                        // return $btn;
-                    })
-                    ->rawColumns(['user_name', 'action'])
-                    ->make(true);
+                ->addIndexColumn()
+                ->editColumn('user_name', function ($row) {
+                    $user_name = $row->user_fname.' '.$row->user_lname;
+                    // dd($user_name);
+                    return $user_name;
+                })
+                ->addColumn('action', function ($row) {
+                    $id  = encrypt($row->id);
+                    $userStatus = $row->user_status;
+                    $blockIcon = $userStatus == 'Inactive' ? 'fas fa-lock' : 'fas fa-lock-open';
+                    $blockColor = $userStatus == 'Inactive' ? 'red' : 'green';
+                    
+                    // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
+                    if($userStatus == 'Active'){
+                        $status = "<button title='Active' data-id='$row->id' data-type='Active' data-model='User' class='btn btn-success status'>Active</button>";
+                    }else{
+                        $status = "<button title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='btn btn-danger status'>Inactive</button>";
+                    }
+                    return $status;
+                    // return $btn;
+                })
+                ->rawColumns(['user_name','action'])
+                ->make(true);
             }
-        } catch (\Exception $e) {
+        }catch(\Exception $e) {
             // DB::rollback();
             dd($e);
             toastr()->error(Config('messages.500'));
         }
-
+        
+        return view('superadmin.allusers.index', compact('title'));
     }
 
     //show all user list
