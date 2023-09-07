@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper mobile-wrap">
   <section class="section dashboard">
     <div class="row">
         <div class="col-lg-12">
@@ -49,7 +49,7 @@
                 <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
                     <div class="card info-card customers-card">
                         <div class="card-body">
-                            <h5 class="card-title">Total Pending PIN Request</h5>
+                            <h5 class="card-title">Pending PIN Request</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>
@@ -64,7 +64,7 @@
                 <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
                     <div class="card info-card customers-card">
                         <div class="card-body">
-                            <h5 class="card-title">Today's Total Users</h5>
+                            <h5 class="card-title">Today's Users</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>
@@ -79,7 +79,7 @@
                 <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
                     <div class="card info-card customers-card">
                         <div class="card-body">
-                            <h5 class="card-title">Total One Week Users</h5>
+                            <h5 class="card-title">One Week Users</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>
@@ -94,13 +94,13 @@
                 <div class="col-xxl-4 col-xl-4" style="padding: 10px;">
                   <div class="card info-card customers-card">
                       <div class="card-body">
-                          <h5 class="card-title">Total Pin Genrated</h5>
+                          <h5 class="card-title">Todays Pin Genrated</h5>
                           <div class="d-flex align-items-center">
                               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                   <i class="bi bi-people"></i>
                               </div>
                               <div class="ps-3">
-                                  <h6>{{$activeAdmin}}</h6>
+                                  <h6>{{$pinCreated}}</h6>
                               </div>
                           </div>
                       </div>
@@ -164,7 +164,7 @@
                                         </div>
                                         <div>
                                           <p class="statistics-title">Total Pin Genrated</p>
-                                          <h3 class="rate-percentage">{{$activeAdmin}}</h3>
+                                          <h3 class="rate-percentage">{{$pinCreated}}</h3>
                                         </div>
                                       </div>
                                   </div>

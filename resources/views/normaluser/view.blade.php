@@ -1,7 +1,5 @@
 @extends('layouts/common_template')
 
-@section('title', $title)
-
 @section('vendor-style')
 {{-- vendor css files --}}
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')) }}">
@@ -18,64 +16,52 @@
 <section id="responsive-datatable">
     <div class="row">
         <div class="col-12">
+            <button class="btn-sm create-new btn btn-info m-2">Pins: {{Session::get('myPinBalance')}}</button>
             <div class="card">
-                <div class="card-header border-bottom">
-                    <h4 class="card-title">View</h4>
-                    <div class="dt-action-buttons text-right">
-                        <div class="dt-buttons d-inline-flex">
-                            <p class="m-1">Pins: <span class="text-primary">{{$userDetails->pins ?? ''}}</span></p>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Send Help (SP) for {{$mobileId ?? ' '}}
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-bordered" id="send_help_table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{__("labels.no")}}</th>
+                                            <th>Username</th>
+                                            <th>{{__("labels.action")}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="accordion" id="helpAccordion">
-                        <div class="card-header" id="sendHelpHeading">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sendHelpCollapse" aria-expanded="true" aria-controls="sendHelpCollapse">
-                                    Send Help (SP) for {{$mobileId ?? ' '}}
-                                </button>
-                            </h5>
-                        </div>
-                        <input type="hidden" id="mobileId" name="mobileId" value="{{$mobileId}}">
-                        <div class="card-datatable">
-                            <table class="table table-striped table-bordered" id="send_help_table">
-                                <thead>
-                                    <tr>
-                                        <th>{{__("labels.no")}}</th>
-                                        <th>Username</th>
-                                        <th>{{__("labels.action")}}</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                    <!-- @if(empty($sendHelpData)) -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Get Help (GH) for {{$mobileId ?? ' '}}
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table class="table table-striped table-bordered" id="get_halp_table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{__("labels.no")}}</th>
+                                            <th>Username</th>
+                                            <th>{{__("labels.action")}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <!-- @endif -->
                 </div>
-                @if(empty($sendHelpData))
-                <div class="card-body">
-                    <div class="accordion" id="helpAccordion">
-                        <div class="card-header" id="getHelpHeading">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sendHelpCollapse" aria-expanded="true" aria-controls="sendHelpCollapse">
-                                    Get Help (GH) for {{$mobileId ?? ' '}}
-                                </button>
-                            </h5>
-                        </div>
-                        <div class="card-datatable">
-                            <table class="table table-striped table-bordered" id="get_halp_table">
-                                <thead>
-                                    <tr>
-                                        <th>{{__("labels.no")}}</th>
-                                        <th>Username</th>
-                                        <th>{{__("labels.action")}}</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-                @endif
             </div>
         </div>
     </div>

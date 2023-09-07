@@ -10,94 +10,94 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper mobile-wrap">
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                {{--<div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                   <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
-                    </li>
-                  </ul>
-                </div> --}}
-                <div class="tab-content tab-content-basic">
-                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                    <div class="row">
-                      <div class="col-lg-12 d-flex flex-column">
-                        <div class="row flex-grow">
-                          <div class="col-12 grid-margin stretch-card">
-                            <div class="card card-rounded">
-                              <div class="card-body">
-                                    <div class="statistics-details d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <p class="statistics-title">Referral Code </p>
-                                            <h3 class="rate-percentage">68.8</h3>
-                                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                        </div>
-                                        <div>
-                                            <p class="statistics-title">Total Users</p>
-                                            <h3 class="rate-percentage">32.53%</h3>
-                                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                                        </div>
-                                        <div>
-                                            <p class="statistics-title">Total Pending PIN Request</p>
-                                            <h3 class="rate-percentage">7,682</h3>
-                                            <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
+                <div class="announsement">
+                  <div class="info">
+                    <h5>Welcome to <b>event name!</b></h5>
+                    <p>Wishing you a warm welcome to all of our attendees/ sponsors! Be sure to create your profile to start networking.</p>
+                  </div>
+                  <img src="images/announce.png" alt="" class="img-fuild" />
+                </div>
+                <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
+                    <h5>bPIN Balance</h5>
+                  <div class="info">
+                    <p>Total</p>
+                    <h3>{{Session::get('myPinBalance')}}</h3>
+                  </div>
+                </div>
+                <div class="row flex-grow mb-3">
+                  <div class="col-6 pb-3">
+                    <div class="card card-orange stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details d-block">
+                              <img src="images/pending.png" alt="" class="img-fuild" />
+                                <p class="statistics-title">Pending SH</p>
+                                <h3 class="rate-percentage">68</h3>
                             </div>
-                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="tab-content tab-content-basic">
-                      <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                        <div class="row">
-                          <div class="col-lg-12 d-flex flex-column">
-                            <div class="row flex-grow">
-                              <div class="col-12 grid-margin stretch-card">
-                                <div class="card card-rounded">
-                                  <div class="card-body">
-                                      <div class="statistics-details d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <p class="statistics-title">Total SH Pending </p>
-                                            <h3 class="rate-percentage">68.8</h3>
-                                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                        </div>
-                                        <div>
-                                          <p class="statistics-title">Total GH Pending</p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                        </div>
 
-                                        <div>
-                                          <p class="statistics-title">Total Pin </p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                        </div>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
+                    <div class="col-6 pb-3">
+                    <div class="card card-green stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details d-block">
+                              <img src="images/approved.png" alt="" class="img-fuild" />
+                                <p class="statistics-title">Approved SH</p>
+                                <h3 class="rate-percentage">68</h3>
                             </div>
-                          </div>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+                @if(count($data['myReferalUser']))
+                <div class="heading d-flex align-items-center justify-content-between">
+                  <h3>Direct Ref Users</h3>
+                  <a href="{{url('/normal_user')}}" class="btn btn-view">View All</a>
+                </div>
+                <div class="trans-table dashboard-table pb-4">
+                  <table class="table" width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>User ID</th>
+                        <th>Mobile No.</th>
+                        <th>Creation Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($data['myReferalUser'] AS $key => $ref)
+                      <tr>
+                        <td>{{ucfirst($ref->user_fname.' '.$ref->user_lname)}}</td>
+                        <td>{{$ref->mobile_number}}</td>
+                        <td>{{$ref->created_at}}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                @endif
+                <div class="card">
+                  <div class="card-body">
+                    <div class="heading pt-0 d-flex align-items-center justify-content-between">
+                      <h3 class="pt-0">bPIN Details</h3>
+                    </div>
+                    <div class="row flex-grow pin-details">
+                      <div class="col-6">
+                          <p>No. of bPIN Transferred</p>
+                          <h3>{{$data['pinTransferSend']}}</h3>
+                      </div>
+                      <div class="col-6 bdr-left">
+                        <p>No. of bPIN Requested</p>
+                        <h3>{{$data['pinTransferRequest']}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="#" class="floating-btn">Create ID<span>+</span></a>
             </div>
           </div>
         </div>

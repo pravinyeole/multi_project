@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile_number' => ['required'],
+            'mobile_number' => ['required','numeric','min:10'],
             'referal_code' => ['nullable', 'string', 'max:255'],
             'admin_referal_code'=>['required']
         ], [
@@ -100,15 +100,17 @@ class RegisterController extends Controller
      * @param string|null $invitationID
      * @return void
      */
-    public function showRegistrationForm(string $invitationID = null)
+    public function showRegistrationForm(string $mobile_num=null,string $invitationID = null)
     {
         $invitation_ID='';
         $invitation_mobile='';
         if(isset($invitationID) && strlen($invitationID) >40){
             $invitation_ID = Crypt::decryptString($invitationID);
-            $arrdata = User::where('user_slug',$invitation_ID)->first();
-            if(isset($arrdata->mobile_number) && $arrdata->mobile_number !=null){
-                $invitation_mobile = $arrdata->mobile_number;
+            $invitation_mobile = Crypt::decryptString($mobile_num);
+            $adminSlug = User::where('user_slug',$invitation_ID)->count();
+            $userMobile = User::where('mobile_number',$invitation_mobile)->count();
+            if($adminSlug && $userMobile){
+                $invitation_mobile = $invitation_mobile;
             }else{
                 return redirect('login')->with('error','Invalid Refferal Code!');   
             }
@@ -138,11 +140,14 @@ class RegisterController extends Controller
         if($prvCheck > 0){
             return $this->generateUserSlug($fname,$lname,$mn,$prvCheck);
         }
-        return $user_slug;
+        return strtoupper($user_slug);
     }
     public function register(Request $request)
     {    
         // $this->validator($request->all())->validate();
+        if(isset($request->mobile_number) && !is_numeric($request->mobile_number) && strlen($request->mobile_number) != 10){
+            return redirect()->back()->withInput()->with('error','Invalid Mobile Number.');
+        }
         $user = User::where('mobile_number',$request->mobile_number)->first();
       
         $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
@@ -160,7 +165,7 @@ class RegisterController extends Controller
                 $mobileNumberD = str_split($request->mobile_number, 4);
                 $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
                 $user = new User();
-                $user->mobile_number = $request->mobile_number;
+                $user->mobile_number = (int)$request->mobile_number;
                 $user->user_status = 'Inactive';
                 if($circle_data){
                     $user->operator = $circle_data->operator;
@@ -178,12 +183,17 @@ class RegisterController extends Controller
             $user->user_slug = $this->generateUserSlug($request->user_fname,$request->user_lname,$request->mobile_number); // Set the user_slug value
             $user->update();
             
-            $userReferral = new UserReferral();
-            $userReferral->user_id = $user->id;
-            $userReferral->referral_id = $request->referal_code;
-           
-            $userReferral->admin_slug = $admin->user_slug;
-            $userReferral->save();
+            $prvcheck = UserReferral::where('user_id',$user->id)
+                        ->where('referral_id',$request->referal_code)
+                        ->where('admin_slug',$admin->user_slug)
+                        ->count();
+            if($prvcheck == 0){
+                $userReferral = new UserReferral();
+                $userReferral->user_id = $user->id;
+                $userReferral->referral_id = $request->referal_code;
+                $userReferral->admin_slug = $admin->user_slug;
+                $userReferral->save();
+            }
     
             $userRole = new UserRole();
             $userRole->user_id = $user->id;
@@ -191,7 +201,7 @@ class RegisterController extends Controller
             $userRole->save();
             if($user->user_status == 'Inactive'){
                 toastr()->error('Your account is not active');
-                return redirect()->route('login');
+                return redirect()->route('login')->with('error','Your account is not active');
             }
             Auth::login($user);    
             return redirect('/home');

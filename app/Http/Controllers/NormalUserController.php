@@ -28,6 +28,11 @@ class NormalUserController extends Controller
     }
     public function index(Request $request)
     {   
+        // $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+        //     ->select('users.*', 'users.created_at as id_created_date', 'user_status')
+        //     ->where('user_referral.admin_slug', Auth::user()->user_slug)
+        //     ->get();
+
         $title = $this->title;
         try {
             if ($request->ajax()) {
@@ -57,11 +62,6 @@ class NormalUserController extends Controller
             DB::rollback();
             toastr()->error(Config('messages.500'));
         }
-
-        $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
-            ->select('users.*', 'user_pins.pins')
-            ->where('users.id', Auth::user()->id)
-            ->first();
 
         // Check if the user has already created 8 IDs today
         $today = Carbon::today();
@@ -97,7 +97,7 @@ class NormalUserController extends Controller
             $timer = "stop";
         }
 
-        return view('normaluser.index', compact('title', 'userDetails', 'createIdLimit', 'timer'));
+        return view('normaluser.index', compact('title', 'createIdLimit', 'timer'));
     }
 
     public function createId(Request $request)
@@ -262,16 +262,16 @@ class NormalUserController extends Controller
     //Save Action by SH
     public function saveSendHelp(Request $request)
     {
+        $payment = new Payment();
+        $payment->mobile_id = $request->user_mobile_id;
+        $payment->user_id = Auth::user()->id;
+        $payment->type = "SH";
+        $payment->status = "pending";
+        $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
+        $payment->attachment = $imagePath;
+        $payment->save();
+        echo $payment->payment_id;dd();
         try {
-            $payment = new Payment();
-            $payment->mobile_id = $request->user_mobile_id;
-            $payment->user_id = Auth::user()->id;
-            $payment->type = "SH";
-            $payment->status = "pending";
-            $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
-            $payment->attachment = $imagePath;
-            $payment->save();
-
             //get login user enter refferal id at register time  
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
 
@@ -280,18 +280,16 @@ class NormalUserController extends Controller
             if ($referredMobileUser) {
                 $referredMobileUser->increment('total_invited');
             }
-
             // Increment total_invited for admin_slug referral
             $referredAdminUser = User::where('user_slug', $refferalUser->admin_slug)->first();
             if ($referredAdminUser) {
                 $referredAdminUser->increment('total_invited');
             }
-
-            toastr()->success('Send Help Process Completed !!');
-            return redirect()->back();
+            return redirect()->back()->with('success','Send Help Process Completed !!');
         } catch (\Exception $e) {
-            toastr()->error(config('messages.500'));
-            return redirect()->back();
+            print_r($e);
+            dd();
+            return redirect()->back()->with('error',config('messages.500'));
         }
     }
 

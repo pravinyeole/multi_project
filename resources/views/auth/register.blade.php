@@ -110,7 +110,7 @@
             <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ old('referal_code') }}" maxlength="10">
           </div>
            <div class="mt-2">
-            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter Admin Referal Code" value="{{ old('admin_referal_code') }}">
+            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{ old('admin_referal_code') }}">
           </div>
           <div class="text-center mt-2">
             <button id="registerBtn" class="btn btn-primary">Register</button>
@@ -123,7 +123,7 @@
         <form id="registrationForm" method="POST" action="{{route('register_user')}}">
           @csrf <!-- Add CSRF token field -->
           <div class="mt-2">
-            <input type="text" class="form-control" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
+            <input type="text" pattern="[0-9]{10}" class="form-control" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
           </div>
           <div class="mt-2">
             <input type="text" class="form-control" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
@@ -138,7 +138,7 @@
             <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif>
           </div>
            <div class="mt-2">
-            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter Admin Referal Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif>
+            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif>
           </div>
           <div class="text-center mt-2">
             <button id="registerBtn" class="btn btn-primary">Register</button>

@@ -1,16 +1,6 @@
 @extends('layouts/common_template')
 
-{{-- @section('title', $title) --}}
-
-@section('vendor-style')
-{{-- vendor css files --}}
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap4.min.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
-@endsection
-
 @section('page-style')
-{{-- Page Css files --}}
 <link rel="stylesheet" type="text/css" href="{{ asset('css/base/plugins/forms/pickers/form-flat-pickr.css') }}">
 @endsection
 
@@ -29,12 +19,8 @@
             <div class="card" style="padding: 10px;">
                 <div class="card-header border-bottom">
                     <div>
-                        <div style="float:left;margin-top:-20px;">
-                            <h4 class="card-title">
-                                <p class="m-1">Pins: <span class="text-primary">{{ $userDetails->pins ?? '' }}</span></p>
-                            </h4>
-                        </div>
-                        <div style="float:right">
+                            <button class="btn-sm create-new btn btn-info mt-1">Pins: {{Session::get('myPinBalance')}}</button>
+                            <div style="float:right">
                             <div class="dt-action-buttons text-right">
                                 <div class="dt-buttons d-inline-flex">
                                     @if(Auth::user()->user_role != "S")
@@ -43,20 +29,15 @@
                                     $slo = '';
                                     $time = date("H");
                                     $timezone = date("e");
-                                    
-                                    if($time >= "10" && $time <= "16")
-                                    {
-                                        $slo = "10";
-                                    }
-                                    else 
-                                    {
-                                        $slo = "not_login";
-                                    }
+                                    // if($time >= "10" && $time <= "16")
+                                    // {   $slo = "10";}
+                                    // else 
+                                    // {  $slo = "not_login";}
                                     ?>
                                     
                                     {{-- @if($timer == 'start' || !empty($timer)) --}}
                                         @if($slo != 'not_login')
-                                            <button class="dt-button create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
+                                            <button class="btn-sm create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
                                                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -113,10 +94,9 @@
                 </div>
                 <br>
                 <div class="d-flex flex-column-reverse flex-md-row gap-20 justify-content-end">
-                    
                     <form id="createIdForm" action="{{ route('normal_user.create_id') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="user_id" value="{{ $userDetails->id ?? '' }}">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         <button type="submit" id="createButton" class="btn btn-primary mb-2">Create</button>
                         <button type="button" class="btn btn-danger mb-2 " data-dismiss="modal">Cancel</button>
                     </form>
@@ -125,6 +105,15 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('vendor-script')
+{{-- vendor files --}}
+<script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 @endsection
 
 @section('page-script')

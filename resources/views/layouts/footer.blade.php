@@ -1,8 +1,8 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-    <div class="copyright">
+    <!-- <div class="copyright">
       &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
+    </div> -->
     <div class="credits">
     </div>
   </footer><!-- End Footer -->
@@ -29,6 +29,7 @@
   <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{asset('js/custom/feather.min.js')}}"></script>
   
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js')}}"></script>
@@ -37,8 +38,8 @@
   $(window).on('load', function() {
     if (feather) {
       feather.replace({
-        width: 14,
-        height: 14
+        width: 18,
+        height: 18
       })
     }
   })
@@ -53,7 +54,38 @@
         ]
     } );
 } );
+function copyText(copyText) {
+        navigator.clipboard.writeText(copyText);
+        console.log(copyText);
+        setTooltip('Copied!');
+        hideTooltip();
+    }
+    $('.copyBtn').tooltip({
+        trigger: 'click',
+        placement: 'bottom'
+    });
+    var clipboard = new Clipboard('.copyBtn');
+    clipboard.on('success', function(e) {
+        setTooltip('Copied!');
+        hideTooltip();
+    });
+
+    clipboard.on('error', function(e) {
+        setTooltip('Failed!');
+        hideTooltip();
+    });
+
+    function setTooltip(message) {
+        $('.copyBtn').tooltip('hide')
+            .attr('data-original-title', message)
+            .tooltip('show');
+    }
+
+    function hideTooltip() {
+        setTimeout(function() {
+            $('.copyBtn').tooltip('hide');
+        }, 1000);
+    }
 </script>
 </body>
-
 </html>

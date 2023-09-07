@@ -172,22 +172,16 @@
                         <div id="message_div"></div>
                         @if (Session::has('invalidId'))
                         <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">
-                            </button>
                             <strong>Invalid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('invalidId')) }}
                         </div>
                         @endif
                         @if (Session::has('validMapped'))
                         <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">
-                            </button>
                             <strong>Valid ID !</strong> {{ str_replace(['[',']','"',"'"],'',session('validMapped')) }}
                         </div>
                         @endif
                         @if (Session::has('alreadyMapped'))
                         <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">
-                            </button>
                             <strong>ALready Mapped !</strong> {{ str_replace(['[',']','"',"'"],'',session('alreadyMapped')) }}
                         </div>
                         @endif
@@ -196,7 +190,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>User ID</th>
+                                            <th>Added On {{$from_date.'-'.$to_date}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignRadio">
@@ -221,7 +215,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>User ID</th>
+                                        <th>Added On {{$from_date_one.'-'.$to_date_one}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignCheck">

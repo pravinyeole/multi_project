@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper mobile-wrap">
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
@@ -30,73 +30,88 @@
                     </li>
                   </ul>
                 </div> --}}
-                <div class="tab-content tab-content-basic">
-                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                    <div class="row">
-                      <div class="col-lg-12 d-flex flex-column">
-                        <div class="row flex-grow">
-                          <div class="col-12 grid-margin stretch-card">
-                            <div class="card card-rounded">
-                              <div class="card-body">
-                                    <div class="statistics-details d-flex align-items-center justify-content-between">
-                                      <div>
-                                        <p class="statistics-title">Total Admin</p>
-                                        <h3 class="rate-percentage">32.53%</h3>
-                                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                                      </div>
-                                      <div>
-                                        <p class="statistics-title">Total Users</p>
-                                        <h3 class="rate-percentage">7,682</h3>
-                                        <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
-                                      </div>
-                                      <div>
-                                        <p class="statistics-title">Total Pending PIN Request </p>
-                                        <h3 class="rate-percentage">68.8</h3>
-                                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
+                <div class="announsement">
+                  <div class="info">
+                    <h5>Welcome to <b>event name!</b></h5>
+                    <p>Wishing you a warm welcome to all of our attendees/ sponsors! Be sure to create your profile to start networking.</p>
+                  </div>
+                  <img src="images/announce.png" alt="" class="img-fuild" />
+                </div>
+                <div class="users mb-3 d-flex flex-direction-column">
+                  <div class="card card-orange">
+                    <div class="card-body">
+                      <i data-feather="users"></i>
+                      <h5>No of Users Registers</h5>
+                      <h3>510</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
+                    <h5>bPIN Balance</h5>
+                  <div class="info">
+                    <p>Total</p>
+                    <h3>510</h3>
+                  </div>
+                </div>
+                <div class="row flex-grow mb-3">
+                  <div class="col-6 pb-3">
+                    <div class="card card-orange stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details d-block">
+                              <img src="images/pending.png" alt="" class="img-fuild" />
+                                <p class="statistics-title">Total Pending SH</p>
+                                <h3 class="rate-percentage">68</h3>
                             </div>
-                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="tab-content tab-content-basic">
-                      <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                        <div class="row">
-                          <div class="col-lg-12 d-flex flex-column">
-                            <div class="row flex-grow">
-                              <div class="col-12 grid-margin stretch-card">
-                                <div class="card card-rounded">
-                                  <div class="card-body">
-                                      <div class="statistics-details d-flex align-items-center justify-content-between">
-                                        <div>
-                                          <p class="statistics-title">Today's Total Users</p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                        </div>
-                                        <div>
-                                          <p class="statistics-title">Total One Week Users </p>
-                                          <h3 class="rate-percentage">68.8</h3>
-                                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                        </div>
-                                        <div>
-                                          <p class="statistics-title">Total Pin Genrated</p>
-                                          <h3 class="rate-percentage">2m:35s</h3>
-                                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                        </div>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
+
+                    <div class="col-6 pb-3">
+                    <div class="card card-green stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details d-block">
+                              <img src="images/approved.png" alt="" class="img-fuild" />
+                                <p class="statistics-title">Total Pending GH</p>
+                                <h3 class="rate-percentage">68</h3>
                             </div>
-                          </div>
                         </div>
                       </div>
+                    </div>
+
                   </div>
                 </div>
-              </div>
+                <div class="heading d-flex align-items-center justify-content-between">
+                  <h3>Referral Code</h3>
+                </div>
+                <div class="refForm mb-4">
+                  <form action="#">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="a521541" readonly>
+                    <div class="input-group-prepend">
+                      <div class="input-group-text" id="idcopy">Copy</div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+                <div class="card">
+                  <div class="card-body">
+                    <!-- <div class="heading pt-0 d-flex align-items-center justify-content-between">
+                      <h3 class="pt-0">bPIN Details</h3>
+                    </div> -->
+                    <div class="row flex-grow pin-details pt-0">
+                      <div class="col-6">
+                          <p>bPIN Request Recieved</p>
+                          <h3>15</h3>
+                      </div>
+                      <div class="col-6 bdr-left">
+                        <p>Revoke Pins</p>
+                        <h3>20</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="#" class="floating-btn">Create ID<span>+</span></a>
             </div>
           </div>
         </div>

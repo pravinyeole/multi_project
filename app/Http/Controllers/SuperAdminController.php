@@ -14,6 +14,7 @@ use DB;
 use Auth;
 use Redirect;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class SuperAdminController extends Controller
 {
@@ -33,7 +34,11 @@ class SuperAdminController extends Controller
     // admin listing
     public function admins(Request $request)
     {
-        $admin_data = User::select('*')->where('user_role', 'A')->orderBy('id', 'DESC')->get();
+        $admin_data = User::join('user_referral AS ur','ur.user_id','users.id')
+                        ->select('users.*','ur.admin_slug')
+                        ->where('users.user_role', 'A')
+                        ->orderBy('users.id', 'DESC')
+                        ->get();
         return view('superadmin.admins.index',compact('admin_data'));
     }
 
@@ -113,10 +118,10 @@ class SuperAdminController extends Controller
         }
     }
     //show edit adminform
-    public function showEditAdminFrom(Request $request)
+    public function showEditAdminFrom(string $crypid=null,Request $request)
     {
         $title = $this->title;
-        $id     = decrypt($request->id);
+        $id     = Crypt::decryptString($crypid);
         $admin = User::where('id', $id)->first();
         return view('superadmin.admins.edit', compact('title', 'admin'));
     }
@@ -344,8 +349,8 @@ class SuperAdminController extends Controller
         // $getOldUser = User::all();
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
-        $from_date = \Carbon\Carbon::today()->subDays(0);
-        $to_date = \Carbon\Carbon::today()->subDays(0);
+        $from_date = \Carbon\Carbon::today()->subDays(8);
+        $to_date = \Carbon\Carbon::today()->subDays(8);
         $to_date = str_replace('00:00:00','23:59:59',$to_date);
         $userIds_res = UserMap::pluck('mobile_id')->all();
         $userIds = $userIds_res;
@@ -365,14 +370,18 @@ class SuperAdminController extends Controller
         // ->select('users.*', 'user_sub_info.mobile_id')
         // ->where('payments.status','completed')
         // ->get();
-
+        $from_date_one = \Carbon\Carbon::today()->subDays(1);
+        $to_date_one = \Carbon\Carbon::today()->subDays(1);
+        $to_date_one = str_replace('00:00:00','23:59:59',$to_date_one);
         // Retrieve recently joined users from "users" table
-        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date,$to_date])->where('user_role', '!=', 'S')->get();
+        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date_one,$to_date_one])
+        ->where('user_role','!=','S')
+        ->where('user_status','Active')->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
 
-        return view('superadmin.assignuser.index', compact('title', 'userIds','getOldUser', 'getRecentlyJoinUser'));
+        return view('superadmin.assignuser.index', compact('title', 'userIds','getOldUser', 'getRecentlyJoinUser','from_date','from_date_one','to_date','to_date_one'));
     }
 
     // public function saveAssignUsers(Request $request){

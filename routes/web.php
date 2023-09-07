@@ -36,11 +36,15 @@ use App\Http\Controllers\SuperAdminController;
 header('Access-Control-Allow-Origin: *');
 header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 
-
+Route::get('/artisancache', function()
+{
+    Artisan::call('cache:clear');
+    Artisan::call('optimize:clear');
+});
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('/', [LoginController::class, 'showLoginForm']);
-    Route::get('register/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
+    Route::get('register/{mobile_num}/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
     Route::get('register', [RegisterController::class,'showRegistrationForm']);
     Route::get('show-enter-otp/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterOtp'])->name('show-enter-otp');
 
@@ -154,6 +158,10 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/', 			    [RequestPinController::class, 'index']);
         Route::post('/send-request', [RequestPinController::class,'sendPinRequestToAdmin'])->name('request-pin.send-request');
         Route::get('/direct_ref_user_list', [RequestPinController::class,'direct_ref_user_list'])->name('direct_ref_user_list');
+    });
+    Route::group(['prefix' => 'transferpin'], function () {
+        Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);
+        Route::post('/transsubmit', 			    [RequestPinController::class, 'adminTransferPinSubmit']);
     });
 
 });
