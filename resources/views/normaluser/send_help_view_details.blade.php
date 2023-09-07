@@ -2,17 +2,7 @@
 
 @section('title', $title)
 
-@section('vendor-style')
-  <!-- vendor css files -->
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
-  {{-- <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}"> --}}
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/datatables.min.css')) }}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap.min.css')) }}">
-@endsection
-
 @section('page-style')
-    {{-- Page Css files --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/base/plugins/forms/pickers/form-flat-pickr.css') }}">
     <style type="text/css">
         .table td, .table th{
             padding: 0.72rem 0.5rem !important;
@@ -32,7 +22,22 @@
 @section('content')
 <section class="bs-validation">
     <div class="row">
-        
+        @if (Session::has('error'))
+        <div class="alert alert-error alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Success !</strong> {{ session('alert') }}
+        </div>
+        @endif
+        @if (Session::has('success'))
+        <div class="alert alert-error alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Success !</strong> {{ session('success') }}
+        </div>
+        @endif
         <div class="col-12">
             <form id="addDepartment" method="POST" class="addDepartment" action="{{url('normal_user/save-send-help')}}" autocomplete="off" enctype="multipart/form-data">
                 @csrf

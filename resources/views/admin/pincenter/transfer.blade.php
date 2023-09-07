@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <center>
-                        <h4 class="card-title" style="text-transform: uppercase;">Transfer Pin<span style="font-size: 13px"></span></h4>
+                        <h4 class="card-title" style="text-transform: uppercase;">Transfer Pin<span style="margin-left: 100px"><button class="btn-sm create-new btn btn-info mt-1">Pins: {{Session::get('myPinBalance')}}</button></span></h4>
                     </center>
                     @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">

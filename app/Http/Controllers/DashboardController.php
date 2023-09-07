@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use DataTables;
 use App\Models\UserSubInfo;
 use App\Models\RequestPin;
+use App\Models\TransferPin;
+use App\Models\UserPin;
 use App\Models\User;
 use App\Models\UserRole;
 use DB;
@@ -53,7 +55,17 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'U')
         {
-            return view('dashboard/user_dashboard');
+            $myPinBalance = UserPin::where('user_id',Auth::user()->id)->first()->pins;
+            $data['pinTransferRequest'] = RequestPin::where('req_user_id',Auth::user()->id)->sum('no_of_pin');
+            $data['pinTransferSend'] = TransferPin::where('trans_by',Auth::user()->id)->sum('trans_count');
+            $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
+                            ->where('ur.referral_id',Auth::user()->mobile_number)
+                            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                            ->orderBy('users.id','DESC')
+                            ->take(5)
+                            ->get();
+            Session::put('myPinBalance',$myPinBalance);
+            return view('dashboard/user_dashboard',compact('data'));
         }
         
   

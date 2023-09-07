@@ -100,15 +100,17 @@ class RegisterController extends Controller
      * @param string|null $invitationID
      * @return void
      */
-    public function showRegistrationForm(string $invitationID = null)
+    public function showRegistrationForm(string $mobile_num=null,string $invitationID = null)
     {
         $invitation_ID='';
         $invitation_mobile='';
         if(isset($invitationID) && strlen($invitationID) >40){
             $invitation_ID = Crypt::decryptString($invitationID);
-            $arrdata = User::where('user_slug',$invitation_ID)->first();
-            if(isset($arrdata->mobile_number) && $arrdata->mobile_number !=null){
-                $invitation_mobile = $arrdata->mobile_number;
+            $invitation_mobile = Crypt::decryptString($mobile_num);
+            $adminSlug = User::where('user_slug',$invitation_ID)->count();
+            $userMobile = User::where('mobile_number',$invitation_mobile)->count();
+            if($adminSlug && $userMobile){
+                $invitation_mobile = $invitation_mobile;
             }else{
                 return redirect('login')->with('error','Invalid Refferal Code!');   
             }
@@ -199,7 +201,7 @@ class RegisterController extends Controller
             $userRole->save();
             if($user->user_status == 'Inactive'){
                 toastr()->error('Your account is not active');
-                return redirect()->route('login');
+                return redirect()->route('login')->with('error','Your account is not active');
             }
             Auth::login($user);    
             return redirect('/home');

@@ -14,6 +14,7 @@ use DB;
 use Auth;
 use Redirect;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class SuperAdminController extends Controller
 {
@@ -33,7 +34,11 @@ class SuperAdminController extends Controller
     // admin listing
     public function admins(Request $request)
     {
-        $admin_data = User::select('*')->where('user_role', 'A')->orderBy('id', 'DESC')->get();
+        $admin_data = User::join('user_referral AS ur','ur.user_id','users.id')
+                        ->select('users.*','ur.admin_slug')
+                        ->where('users.user_role', 'A')
+                        ->orderBy('users.id', 'DESC')
+                        ->get();
         return view('superadmin.admins.index',compact('admin_data'));
     }
 
@@ -113,10 +118,10 @@ class SuperAdminController extends Controller
         }
     }
     //show edit adminform
-    public function showEditAdminFrom(Request $request)
+    public function showEditAdminFrom(string $crypid=null,Request $request)
     {
         $title = $this->title;
-        $id     = decrypt($request->id);
+        $id     = Crypt::decryptString($crypid);
         $admin = User::where('id', $id)->first();
         return view('superadmin.admins.edit', compact('title', 'admin'));
     }

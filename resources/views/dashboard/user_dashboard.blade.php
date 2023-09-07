@@ -14,22 +14,6 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                {{--<div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                   <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
-                    </li>
-                  </ul>
-                </div> --}}
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event name!</b></h5>
@@ -41,7 +25,7 @@
                     <h5>bPIN Balance</h5>
                   <div class="info">
                     <p>Total</p>
-                    <h3>510</h3>
+                    <h3>{{Session::get('myPinBalance')}}</h3>
                   </div>
                 </div>
                 <div class="row flex-grow mb-3">
@@ -68,12 +52,12 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
+                @if(count($data['myReferalUser']))
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Direct Ref Users</h3>
-                  <a href="#" class="btn btn-view">View All</a>
+                  <a href="{{url('/normal_user')}}" class="btn btn-view">View All</a>
                 </div>
                 <div class="trans-table dashboard-table pb-4">
                   <table class="table" width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -85,34 +69,17 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($data['myReferalUser'] AS $key => $ref)
                       <tr>
-                        <td>U00111082023</td>
-                        <td>7777777777</td>
-                        <td>2023-08-11 10:20:16</td>
+                        <td>{{ucfirst($ref->user_fname.' '.$ref->user_lname)}}</td>
+                        <td>{{$ref->mobile_number}}</td>
+                        <td>{{$ref->created_at}}</td>
                       </tr>
-                      <tr>
-                        <td>U00111082023</td>
-                        <td>7777777777</td>
-                        <td>2023-08-11 10:20:16</td>
-                      </tr>
-                      <tr>
-                        <td>U00111082023</td>
-                        <td>7777777777</td>
-                        <td>2023-08-11 10:20:16</td>
-                      </tr>
-                      <tr>
-                        <td>U00111082023</td>
-                        <td>7777777777</td>
-                        <td>2023-08-11 10:20:16</td>
-                      </tr>
-                      <tr>
-                        <td>U00111082023</td>
-                        <td>7777777777</td>
-                        <td>2023-08-11 10:20:16</td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
+                @endif
                 <div class="card">
                   <div class="card-body">
                     <div class="heading pt-0 d-flex align-items-center justify-content-between">
@@ -121,11 +88,11 @@
                     <div class="row flex-grow pin-details">
                       <div class="col-6">
                           <p>No. of bPIN Transferred</p>
-                          <h3>15</h3>
+                          <h3>{{$data['pinTransferSend']}}</h3>
                       </div>
                       <div class="col-6 bdr-left">
                         <p>No. of bPIN Requested</p>
-                        <h3>20</h3>
+                        <h3>{{$data['pinTransferRequest']}}</h3>
                       </div>
                     </div>
                   </div>

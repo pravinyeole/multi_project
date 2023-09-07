@@ -3,6 +3,18 @@ dhananjaykhillari@gmail.com
 Password: IcNsP3g(5
 
 <!-- MObile Circle Table Start -->
+ALTER TABLE `user_otp` CHANGE `user_otp_id` `user_otp_id` BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users` CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_pins` CHANGE `user_pin_id` `user_pin_id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_referral` CHANGE `user_referral_id` `user_referral_id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_sub_info` CHANGE `user_sub_info_id` `user_sub_info_id` BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_roles` CHANGE `user_role_id` `user_role_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_map_new` CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `transfer_pin_history` CHANGE `trans_id` `trans_id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `request_pin` CHANGE `pin_request_id` `pin_request_id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payments` CHANGE `payment_id` `payment_id` INT(11) NOT NULL AUTO_INCREMENT;
+
+
 CREATE TABLE `db_hpa`.`mobile_circle` (`ID` INT NOT NULL AUTO_INCREMENT , `serial` VARCHAR(10) NOT NULL , `operator` VARCHAR(10) NOT NULL , `circle` VARCHAR(10) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 
 

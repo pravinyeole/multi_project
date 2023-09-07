@@ -82,13 +82,24 @@
             }
             ?>
             <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
-            <h3 class="welcome-sub-text">            @php
-              $cryptStr= Crypt::encryptString(Auth::user()->user_slug);
-              $cryptUrl= url('/register/').'/'.$cryptStr;
-            @endphp
+            <h3 class="welcome-sub-text">
             <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2">Copy Refferal URL</button></h3>
           </li>
         </ul> --}}
+            @php
+                use App\Models\UserReferral;
+                if(Auth::user()->user_role != 'S' ){
+                    $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
+                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                    $cryptSlug= Crypt::encryptString($myadminSlug);
+                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+                }else{
+                    $myadminSlug = Auth::user()->user_slug;
+                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                    $cryptSlug= Crypt::encryptString($myadminSlug);
+                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+                }
+            @endphp
         <ul class="navbar-nav ms-auto">
           {{-- <li class="nav-item d-lg-block">
             <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker datepicker-popup">
