@@ -9,6 +9,7 @@ use App\Models\UserMap;
 use App\Models\UserSubInfo;
 use Illuminate\Support\Carbon;
 use App\Models\Parameter;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Session;
 use Auth;
@@ -250,11 +251,14 @@ class NormalUserController extends Controller
     //Show SH  User Details   
     public function showSendHelpFrom($id, $mobileId)
     {
-        $id = decrypt($id);
-        $mobileId = decrypt($mobileId);
+        $id = Crypt::decryptString($id);
+        $mobileId = Crypt::decryptString($mobileId);
         $title = $this->title;
         $senderUserDetails = User::where('users.id', $id)->first();
-
+        echo $id;
+        echo "=======================";
+        echo $mobileId;
+        dd();
         $getPaymentStatus = Payment::where('mobile_id', $mobileId)->where('user_id', $id)->first();
         // dd($getPaymentStatus);
         return view('normaluser.send_help_view_details', compact('title', 'senderUserDetails', 'mobileId', 'getPaymentStatus'));
