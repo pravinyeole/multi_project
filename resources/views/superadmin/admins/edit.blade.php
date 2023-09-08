@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <button type="submit" class="btn btn-success">Update</button>
-                                <a href="{{ url('superadmin/admin') }}"> <button type="button" class="btn btn-danger">{{__("labels.cancel")}}</button></a>
+                                <a href="{{ url('superadmin/users') }}"> <button type="button" class="btn btn-danger">{{__("labels.cancel")}}</button></a>
                             </div>
                         </div>
                     </div>

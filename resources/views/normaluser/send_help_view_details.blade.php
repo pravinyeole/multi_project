@@ -22,22 +22,6 @@
 @section('content')
 <section class="bs-validation">
     <div class="row">
-        @if (Session::has('error'))
-        <div class="alert alert-error alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="fa fa-times"></i>
-            </button>
-            <strong>Success !</strong> {{ session('alert') }}
-        </div>
-        @endif
-        @if (Session::has('success'))
-        <div class="alert alert-error alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="fa fa-times"></i>
-            </button>
-            <strong>Success !</strong> {{ session('success') }}
-        </div>
-        @endif
         <div class="col-12">
             <form id="addDepartment" method="POST" class="addDepartment" action="{{url('normal_user/save-send-help')}}" autocomplete="off" enctype="multipart/form-data">
                 @csrf
@@ -46,6 +30,16 @@
                         <h4><center>Send Help </center><span style="font-size: 13px;" class="pl-2 text-warning">{{ucwords($getPaymentStatus->payment_status ?? '')}}</span></h4>
                     </div>
                     
+                    @if (Session::has('error'))
+                    <div class="alert alert-error alert-dismissible" role="alert">
+                        <strong>Error !</strong> {{ session('error') }}
+                    </div>
+                    @endif
+                    @if (Session::has('success'))
+                    <div class="alert alert-error alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('success') }}
+                    </div>
+                    @endif
                     <div class="card-body">
                         <div class="row">
                                 <input type="hidden" name="user_mobile_id" value="{{$mobileId}}">
@@ -193,7 +187,7 @@
                     email: {
                         required: 'Please enter an email address.',
                         email: 'Please enter a valid email address.'
-                    },
+                    }
                     no_of_pins: {
                         required: 'Please enter the number of pins.',
                         number: 'Please enter a valid number.'
