@@ -15,7 +15,6 @@ use App\Models\UserRole;
 use DB;
 use App\Traits\CommonTrait;
 use App\Traits\AuditTrait;
-
 use Session;
 
 class DashboardController extends Controller
@@ -55,20 +54,16 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'U')
         {
-            $myPinBalance = UserPin::where('user_id',Auth::user()->id)->first()->pins;
             $data['pinTransferRequest'] = RequestPin::where('req_user_id',Auth::user()->id)->sum('no_of_pin');
             $data['pinTransferSend'] = TransferPin::where('trans_by',Auth::user()->id)->sum('trans_count');
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
-                            ->where('ur.referral_id',Auth::user()->mobile_number)
-                            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
-                            ->orderBy('users.id','DESC')
-                            ->take(5)
-                            ->get();
-            Session::put('myPinBalance',$myPinBalance);
+                                        ->where('ur.referral_id',Auth::user()->mobile_number)
+                                        ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                                        ->orderBy('users.id','DESC')
+                                        ->take(5)
+                                        ->get();
             return view('dashboard/user_dashboard',compact('data'));
         }
-        
-  
     }
 
 	public function getInsuranceAgency(Request $request){

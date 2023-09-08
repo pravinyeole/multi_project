@@ -3,10 +3,24 @@
 namespace App\Helpers;
 
 use Config;
+use Auth;
+use Session;
+use App\Models\UserPin;
 use Illuminate\Support\Str;
 
 class Helper
 {
+    public static function commonValues()
+    {
+        $myPinBalance_a = UserPin::where('user_id', 8)->first();
+        if ($myPinBalance_a) {
+            $myPinBalance = $myPinBalance_a->pins;
+        } else {
+            $myPinBalance = 0;
+        }
+        Session::put('myPinBalance', $myPinBalance);
+    }
+
     public static function applClasses()
     {
         // Demo
@@ -24,23 +38,23 @@ class Helper
 
         // default data array
         $DefaultData = [
-          'mainLayoutType' => 'vertical',
-          'theme' => 'light',
-          'sidebarCollapsed' => false,
-          'navbarColor' => '',
-          'horizontalMenuType' => 'floating',
-          'verticalMenuNavbarType' => 'floating',
-          'footerType' => 'static', //footer
-          'layoutWidth' => 'full',
-          'showMenu' => true,
-          'bodyClass' => '', 
-          'bodyStyle' => '',
-          'pageClass' => '',
-          'pageHeader' => false,
-          'contentLayout' => 'default',
-          'blankPage' => false,
-          'defaultLanguage'=>'en',
-          'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'),
+            'mainLayoutType' => 'vertical',
+            'theme' => 'light',
+            'sidebarCollapsed' => false,
+            'navbarColor' => '',
+            'horizontalMenuType' => 'floating',
+            'verticalMenuNavbarType' => 'floating',
+            'footerType' => 'static', //footer
+            'layoutWidth' => 'full',
+            'showMenu' => true,
+            'bodyClass' => '',
+            'bodyStyle' => '',
+            'pageClass' => '',
+            'pageHeader' => false,
+            'contentLayout' => 'default',
+            'blankPage' => false,
+            'defaultLanguage' => 'en',
+            'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'),
         ];
 
         // if any key missing of array from custom.php file it will be merge and set a default value from dataDefault array and store in data variable
@@ -64,7 +78,7 @@ class Helper
             'blankPage' => array(false, true),
             'sidebarPositionClass' => array('content-left-sidebar' => 'sidebar-left', 'content-right-sidebar' => 'sidebar-right', 'content-detached-left-sidebar' => 'sidebar-detached sidebar-left', 'content-detached-right-sidebar' => 'sidebar-detached sidebar-right', 'default' => 'default-sidebar-position'),
             'contentsidebarClass' => array('content-left-sidebar' => 'content-right', 'content-right-sidebar' => 'content-left', 'content-detached-left-sidebar' => 'content-detached content-right', 'content-detached-right-sidebar' => 'content-detached content-left', 'default' => 'default-sidebar'),
-            'defaultLanguage'=>array('en'=>'en','fr'=>'fr','de'=>'de','pt'=>'pt'),
+            'defaultLanguage' => array('en' => 'en', 'fr' => 'fr', 'de' => 'de', 'pt' => 'pt'),
             'direction' => array('ltr', 'rtl'),
         ];
 
@@ -119,11 +133,11 @@ class Helper
             'sidebarPositionClass' => $allOptions['sidebarPositionClass'][$data['contentLayout']],
             'contentsidebarClass' => $allOptions['contentsidebarClass'][$data['contentLayout']],
             'mainLayoutType' => $data['mainLayoutType'],
-            'defaultLanguage'=>$allOptions['defaultLanguage'][$data['defaultLanguage']],
+            'defaultLanguage' => $allOptions['defaultLanguage'][$data['defaultLanguage']],
             'direction' => $data['direction'],
         ];
         // set default language if session hasn't locale value the set default language
-        if(!session()->has('locale')){
+        if (!session()->has('locale')) {
             app()->setLocale($layoutClasses['defaultLanguage']);
         }
 
@@ -160,5 +174,4 @@ class Helper
             }
         }
     }
-
 }

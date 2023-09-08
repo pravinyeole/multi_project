@@ -2,6 +2,8 @@
 
 @php
 $configData = Helper::applClasses();
+$commonValues = Helper::commonValues();
+print_r($commonValues);
 @endphp
 
 @yield('content')

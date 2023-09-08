@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserMap;
 use App\Models\UserPin;
 use App\Models\UserRole;
+use App\Models\RevokePin;
 use App\Models\UserReferral;
 use App\Models\Announcement;
 use DataTables;
@@ -269,8 +270,30 @@ class SuperAdminController extends Controller
     public function showRevokePin(Request $request)
     {
         $title = $this->title;
-        $getAllUser = User::all();
-        return view('superadmin.revokepin.index', compact('title', 'getAllUser'));
+        if(Auth::user()->user_role == 'U'){
+            $getAllUser = User::join('user_referral AS ur','ur.user_id','users.id')
+                        ->join('user_pins AS up','up.user_id','users.id')
+                        ->where('ur.admin_slug',Auth::user()->user_slug)
+                        ->OrWhere('ur.referral_id',Auth::user()->mobile_number)
+                        ->where('users.user_role','U')
+                        ->where('up.pins','>',0)
+                        ->where('users.user_status','Active')
+                        ->get();
+        }else if(Auth::user()->user_role == 'A'){
+            $getAllUser = User::join('user_referral AS ur','ur.user_id','users.id')
+                        ->join('user_pins AS up','up.user_id','users.id')
+                        ->where('ur.admin_slug',Auth::user()->user_slug)
+                        ->OrWhere('ur.referral_id',Auth::user()->mobile_number)
+                        ->where('users.user_status','Active')
+                        ->where('up.pins','>',0)
+                        ->get();
+        }else if(Auth::user()->user_role == 'S'){
+            $getAllUser = User::join('user_pins AS up','up.user_id','users.id')
+                        ->where('users.user_status','Active')
+                        ->where('up.pins','>',0)->get(); 
+        }
+        $revokeHistory=RevokePin::join('users','users.id','revoke_from')->select('users.user_fname','users.user_lname','revoke_count','revoke_pin_history.revoke_reason','revoke_pin_history.created_at')->where('revoke_by',Auth::user()->id)->get();
+        return view('superadmin.revokepin.index', compact('title', 'getAllUser','revokeHistory'));
     }
 
     //show all user list
@@ -315,31 +338,34 @@ class SuperAdminController extends Controller
     {
         try {
             $getUserPins = UserPin::where('user_id', $request->user_id)->first();
-
             if (empty($request->revoke_pins)) {
-                toastr()->error('Please enter the number of pins to revoke');
-                return back();
+                return back()->with('error','Please enter the number of pins to revoke');
             }
-
             if ($getUserPins) {
                 $updatedPins = $getUserPins->pins - $request->revoke_pins;
-
                 if ($updatedPins < 0) {
                     toastr()->error('User has ' . $getUserPins->pins . ' pins and you are trying to revoke ' . $request->revoke_pins . ' pins.');
                     return back();
                 }
-
                 $getUserPins->pins = $updatedPins;
                 $getUserPins->update();
-                toastr()->success('Pins revoked successfully');
-                return back();
+                RevokePin::create(['revoke_by'=>Auth::user()->id,'revoke_from'=>$request->user_id,'revoke_count'=>$request->revoke_pins]);
+                $userPins = UserPin::where('user_id', Auth::user()->id)->first();
+                if ($userPins) {
+                    $userPins->pins += $request->revoke_pins;
+                    $userPins->update();
+                } else {
+                    $userpinstbl = new UserPin();
+                    $userpinstbl->user_id = $request->req_user_id;
+                    $userpinstbl->pins = $request->revoke_pins;
+                    $userpinstbl->save();
+                }
+                return back()->with('success','Pins revoked successfully');
             } else {
-                toastr()->error('User pins not found');
-                return back();
+                return back()->with('error','User pins not found');
             }
         } catch (Exception $e) {
-            toastr()->error('Something went wrong');
-            return back();
+            return back()->with('error','Something went wrong');
         }
     }
 
