@@ -47,7 +47,7 @@ class DashboardController extends Controller
             $pinReuqest = RequestPin::where(['admin_slug'=>Auth::user()->user_slug,'status'=>'pending'])->count();
             $todaysUsers = User::where(['user_role'=>'U'])->whereDate('created_at',Carbon::today())->count();
             $weekUsers = User::where(['user_role'=>'U'])->whereBetween('created_at',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-
+            
             //return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
 
              return view('dashboard/new_dashboard',compact('activeAdmin','pinCreated','activeUsers','pinReuqest','todaysUsers','weekUsers'));
@@ -55,7 +55,7 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'A')
         {
-            $data['Announcement'] = Announcement::get()->last();
+            $data['Announcement'] = Announcement::whereIn('type',['Admin','All'])->get()->last();
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
                             ->where('ur.referral_id',Auth::user()->mobile_number)
                             ->orWhere('ur.admin_slug',Auth::user()->user_slug)
@@ -70,6 +70,7 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'U')
         {
+            $data['Announcement'] = Announcement::whereIn('type',['User','All'])->get()->last();
             $data['pinTransferRequest'] = RequestPin::where('req_user_id',Auth::user()->id)->sum('no_of_pin');
             $data['pinTransferSend'] = TransferPin::where('trans_by',Auth::user()->id)->sum('trans_count');
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')

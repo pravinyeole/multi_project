@@ -356,7 +356,7 @@ class SuperAdminController extends Controller
                     $userPins->update();
                 } else {
                     $userpinstbl = new UserPin();
-                    $userpinstbl->user_id = $request->req_user_id;
+                    $userpinstbl->user_id = Auth::user()->id;
                     $userpinstbl->pins = $request->revoke_pins;
                     $userpinstbl->save();
                 }

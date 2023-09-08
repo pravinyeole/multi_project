@@ -33,12 +33,14 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event!</b></h5>
-                    @if($data['Announcement']['type'] == 'Admin' || $data['Announcement']['type'] == 'All')
+                    @if(isset($data['Announcement']) && count($data['Announcement']))
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
-                      <p>{{$data['Announcement']['announce']}}</p>
+                        <p>{{$data['Announcement']['announce']}}</p>
                       @else
-                      <p>New event coming soon....</p>
+                        <p>New event coming soon....</p>
                       @endif
+                    @else
+                      <p>New event coming soon....</p>
                     @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />
@@ -56,7 +58,7 @@
                     <h5>bPIN Balance</h5>
                   <div class="info">
                     <p>Total</p>
-                    <h3>{{$data['myPinBalance']}}</h3>
+                    <h3>{{Session::get('myPinBalance')}}</h3>
                   </div>
                 </div>
                 <div class="row flex-grow mb-3">
@@ -89,27 +91,12 @@
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Referral Code</h3>
                 </div>
-                @php
-                use App\Models\UserReferral;
-                $cryptUrl = '';
-                if(Auth::user()->user_role != 'S' ){
-                    $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                    $cryptSlug= Crypt::encryptString($myadminSlug);
-                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
-                }else{
-                    $myadminSlug = Auth::user()->user_slug;
-                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                    $cryptSlug= Crypt::encryptString($myadminSlug);
-                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
-                }
-                @endphp
                 <div class="refForm mb-4">
                   <form action="#">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{$myadminSlug}}" readonly>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{Session::get('myadminSlug')}}" readonly>
                     <div class="input-group-prepend">
-                      <div class="input-group-text" id="idcopy copyBtn" onclick="copyText('{{$cryptUrl}}')">Copy</div>
+                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{Session::get('cryptUrl')}}')">Copy</button>
                     </div>
                   </div>
                   </form>

@@ -190,7 +190,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Added On {{$from_date.'-'.$to_date}}</th>
+                                            <!-- {{$from_date.'-'.$to_date}} -->
+                                            <th>Added On {{date('d F Y',strtotime($from_date))}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignRadio">
@@ -215,7 +216,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                        <th>Added On {{$from_date_one.'-'.$to_date_one}}</th>
+                                            <!-- $from_date_one.'-'.$to_date_one -->
+                                        <th>Added On {{date('d F Y',strtotime($from_date_one))}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignCheck">

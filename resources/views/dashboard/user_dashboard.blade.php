@@ -17,12 +17,14 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event name!</b></h5>
-                    @if($data['Announcement']['type'] == 'User' || $data['Announcement']['type'] == 'All')
+                    @if(isset($data['Announcement']) && count($data['Announcement']))
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
-                      <p>{{$data['Announcement']['announce']}}</p>
+                        <p>{{$data['Announcement']['announce']}}</p>
                       @else
-                      <p>New event coming soon....</p>
+                        <p>New event coming soon....</p>
                       @endif
+                    @else
+                      <p>New event coming soon....</p>
                     @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />
@@ -86,6 +88,19 @@
                   </table>
                 </div>
                 @endif
+                <div class="heading d-flex align-items-center justify-content-between">
+                  <h3>Referral Code</h3>
+                </div>
+                <div class="refForm mb-4">
+                  <form action="#">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{Session::get('myadminSlug')}}" readonly>
+                    <div class="input-group-prepend">
+                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{Session::get('cryptUrl')}}')">Copy</button>
+                    </div>
+                  </div>
+                  </form>
+                </div>
                 <div class="card">
                   <div class="card-body">
                     <div class="heading pt-0 d-flex align-items-center justify-content-between">

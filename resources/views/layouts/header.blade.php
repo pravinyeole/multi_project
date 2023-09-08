@@ -87,25 +87,10 @@
                 $slo = "Good night";
             }
             ?>
-              @php
-                use App\Models\UserReferral;
-                $cryptUrl = '';
-                if(Auth::user()->user_role != 'S' ){
-                    $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                    $cryptSlug= Crypt::encryptString($myadminSlug);
-                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
-                }else{
-                    $myadminSlug = Auth::user()->user_slug;
-                    $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                    $cryptSlug= Crypt::encryptString($myadminSlug);
-                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
-                }
-            @endphp
             @if(Auth::user()->user_role == 'S' )
             <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
             <h3 class="welcome-sub-text">
-            <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2">Copy Refferal URL</button></h3>
+            <button type="button" onclick="copyText('{{Session::get('cryptUrl')}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button></h3>
             @endif
           </li>
         </ul>

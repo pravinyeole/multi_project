@@ -3,22 +3,38 @@
 namespace App\Helpers;
 
 use Config;
-use Auth;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\UserPin;
+use App\Models\UserReferral;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 class Helper
 {
     public static function commonValues()
     {
-        $myPinBalance_a = UserPin::where('user_id', 8)->first();
+        $cryptUrl = '';
+        $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
         if ($myPinBalance_a) {
             $myPinBalance = $myPinBalance_a->pins;
         } else {
             $myPinBalance = 0;
         }
+        if(Auth::user()->user_role != 'S' ){
+            $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
+            $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            $cryptSlug= Crypt::encryptString($myadminSlug);
+            $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+        }else{
+            $myadminSlug = Auth::user()->user_slug;
+            $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            $cryptSlug= Crypt::encryptString($myadminSlug);
+            $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+        }
         Session::put('myPinBalance', $myPinBalance);
+        Session::put('myadminSlug', $myadminSlug);
+        Session::put('cryptUrl', $cryptUrl);
     }
 
     public static function applClasses()
