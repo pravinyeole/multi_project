@@ -32,10 +32,10 @@
       "slug": "superadmin/revokepin"
     },
     {
-      "url":  "pin_center/transferpin",
+      "url":  "transferpin",
       "name": "Transfer Pin",
       "icon": "send",
-      "slug": "pin_center/transferpin"
+      "slug": "transferpin"
     },
     {
         "url" : "request-pin/direct_ref_user_list",
