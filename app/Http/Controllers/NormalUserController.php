@@ -9,6 +9,7 @@ use App\Models\UserMap;
 use App\Models\UserSubInfo;
 use Illuminate\Support\Carbon;
 use App\Models\Parameter;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Session;
 use Auth;
@@ -50,7 +51,7 @@ class NormalUserController extends Controller
                         return $Status;
                     })
                     ->addColumn('action', function ($row) {
-                        $id  = encrypt($row->mobile_id);
+                        $id  = Crypt::encryptString($row->mobile_id);
                         $btn = "<a href='" . url('/normal_user/view/' . $id) . "' class='item-edit text-dark'  title='View'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> 
                     ";
                         return $btn;
@@ -177,7 +178,7 @@ class NormalUserController extends Controller
         $userDetails = UserPin::where('user_id', Auth::user()->id)
             ->first();
         // dd($userDetails);
-        $mobileId = decrypt($request->id);
+        $mobileId = Crypt::decryptString($request->id);
         $loggedInUserId = Auth::user()->id;
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
             ->join('users', 'users.id', '=', 'user_sub_info.user_id')
@@ -196,7 +197,7 @@ class NormalUserController extends Controller
     {
         // Retrieve the data for the "Send Help" section from your data source
         $loggedInUserId = Auth::user()->id;
-
+        
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
             ->join('users', 'users.id', '=', 'user_sub_info.user_id')
             ->where('user_map_new.user_id', $loggedInUserId)
@@ -209,9 +210,9 @@ class NormalUserController extends Controller
                 return $username;
             })
             ->addColumn('action', function ($row) use ($request) {
-                $id = encrypt($row->id);
-                $mobileId = encrypt($request->mobileId);
-                $btn = "<a href='" . url('/normal_user/show-send-help-form/' . $id . '/' . $mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
+                $id = Crypt::encryptString($row->id);
+                $mobileId = Crypt::encryptString($request->mobileId);
+                $btn = "<a href='".url('/normal_user/show-send-help-form/'.$id.'/'.$mobileId)."' class='item-edit text-dark'  title='Send Help'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
                 return $btn;
             })
             ->rawColumns(['action', 'user_name'])
@@ -237,10 +238,10 @@ class NormalUserController extends Controller
                 return $username;
             })
             ->addColumn('action', function ($row) use ($request) {
-                $id = encrypt($row->id);
-                $mobileId = encrypt($request->mobileId);
+                $id = Crypt::encryptString($row->id);
+                $mobileId = Crypt::encryptString($request->mobileId);
                 //  $btn = "<a href='" . url('/normal_user/show-send-help-form/' . $id.'/'.$mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
-                $btn = "<a href='" . url('/normal_user/show-get-help-form/' . $id . '/' . $mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
+                $btn = "<a href='" . url('/normal_user/show-get-help-form/'.$id.'/'.$mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
 
                 return $btn;
             })
@@ -250,11 +251,11 @@ class NormalUserController extends Controller
     //Show SH  User Details   
     public function showSendHelpFrom($id, $mobileId)
     {
-        $id = decrypt($id);
-        $mobileId = decrypt($mobileId);
+        // echo $mobileId;
+        $mobileId1 = Crypt::decryptString(trim($mobileId));
+        $id = Crypt::decryptString($id);
         $title = $this->title;
         $senderUserDetails = User::where('users.id', $id)->first();
-
         $getPaymentStatus = Payment::where('mobile_id', $mobileId)->where('user_id', $id)->first();
         // dd($getPaymentStatus);
         return view('normaluser.send_help_view_details', compact('title', 'senderUserDetails', 'mobileId', 'getPaymentStatus'));
@@ -262,17 +263,21 @@ class NormalUserController extends Controller
     //Save Action by SH
     public function saveSendHelp(Request $request)
     {
-        $payment = new Payment();
-        $payment->mobile_id = $request->user_mobile_id;
-        $payment->user_id = Auth::user()->id;
-        $payment->type = "SH";
-        $payment->status = "pending";
-        $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
-        $payment->attachment = $imagePath;
-        $payment->save();
-        echo $payment->payment_id;dd();
         try {
+            $pay_mobile_id = Crypt::decryptString($request->user_mobile_id);
             //get login user enter refferal id at register time  
+            $prv_check = Payment::where('mobile_id',$pay_mobile_id)->where('user_id',Auth::user()->id)->count();
+            if($prv_check){
+                return redirect()->back()->with('error','This Send help all ready Processed.');
+            }
+            $payment = new Payment();
+            $payment->mobile_id = $pay_mobile_id;
+            $payment->user_id = Auth::user()->id;
+            $payment->type = "SH";
+            $payment->status = "pending";
+            $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
+            $payment->attachment = $imagePath;
+            $payment->save();
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
 
             // Increment total_invited for mobile_number referral
@@ -287,8 +292,6 @@ class NormalUserController extends Controller
             }
             return redirect()->back()->with('success','Send Help Process Completed !!');
         } catch (\Exception $e) {
-            print_r($e);
-            dd();
             return redirect()->back()->with('error',config('messages.500'));
         }
     }

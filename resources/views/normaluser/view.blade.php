@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- @if(empty($sendHelpData)) -->
+                    @if(empty($sendHelpData))
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- @endif -->
+                    @endif
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                 ajax: {
                     url: base_url + "/normal_user/send_help",
                     data: function(d) {
-                        d.mobileId = $('#mobileId').val(); // Set the value of mobileId
+                        d.mobileId = '<?php echo $mobileId;?>' // Set the value of mobileId
                     }
                 },
                 "columns": [{
@@ -118,7 +118,7 @@
                 ajax: {
                     url: base_url + "/normal_user/get_help",
                     data: function(d) {
-                        d.mobileId = $('#mobileId').val(); // Set the value of mobileId
+                        d.mobileId = '<?php echo $mobileId;?>' // Set the value of mobileId
                     }
                 },
                 "columns": [{
