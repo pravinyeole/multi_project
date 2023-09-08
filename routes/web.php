@@ -129,6 +129,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
 
         Route::get('/assignuser', 			    [SuperAdminController::class, 'showAssignUserFrom']);
         Route::post('/save-assigne-user', [SuperAdminController::class, 'saveAssignUsers'])->name('superadmin.save-assigne-user');
+        Route::get('/announcement', [SuperAdminController::class, 'showannouncement']);
+        Route::any('/announce_create', [SuperAdminController::class, 'announce_create']);
 
     });
 

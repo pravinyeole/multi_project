@@ -29,13 +29,12 @@
                                     $slo = '';
                                     $time = date("H");
                                     $timezone = date("e");
-                                    // if($time >= "10" && $time <= "16")
-                                    // {   $slo = "10";}
-                                    // else 
-                                    // {  $slo = "not_login";}
+                                    if($time >= "10" && $time <= "16")
+                                    {   $slo = "10";}
+                                    else 
+                                    {  $slo = "not_login";}
                                     ?>
                                     
-                                    {{-- @if($timer == 'start' || !empty($timer)) --}}
                                         @if($slo != 'not_login')
                                             <button class="btn-sm create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
                                                 <span>
@@ -47,7 +46,6 @@
                                                 </span>
                                             </button>
                                         @endif
-                                    {{-- @endif --}}
                                     @endif
                                 </div>
                             </div>

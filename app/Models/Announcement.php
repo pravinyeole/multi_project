@@ -10,10 +10,11 @@ class Announcement extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id', 'type','announce','start_date', 'end_date'
+        'id', 'type','announce','start_date', 'end_date','updated_at','created_at'
     ];
 
 
     public $primaryKey = 'id';
     protected $table    = 'announcement';
+    public $timestamps = false;
 }

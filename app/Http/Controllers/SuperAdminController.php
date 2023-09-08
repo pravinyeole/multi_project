@@ -553,7 +553,7 @@ class SuperAdminController extends Controller
     }
     public function announce_create(Request $request)
     {
-        $data['type'] = $request->type;
+        $data['type'] = "'".$request->type."'";
         $data['start_date'] = date('Y-m-d',strtotime($request->start_date));
         $data['end_date'] = date('Y-m-d',strtotime($request->end_date));
         $data['announce'] = $request->anno;
