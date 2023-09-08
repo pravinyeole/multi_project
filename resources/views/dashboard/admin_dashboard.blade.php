@@ -33,10 +33,12 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event!</b></h5>
-                    @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
-                    <p>{{$data['Announcement']['announce']}}</p>
-                    @else
-                    <p>New event coming soon....</p>
+                    @if($data['Announcement']['type'] == 'Admin' || $data['Announcement']['type'] == 'All')
+                      @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
+                      <p>{{$data['Announcement']['announce']}}</p>
+                      @else
+                      <p>New event coming soon....</p>
+                      @endif
                     @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />

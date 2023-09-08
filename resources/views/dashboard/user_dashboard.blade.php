@@ -17,7 +17,13 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event name!</b></h5>
-                    <p>Wishing you a warm welcome to all of our attendees/ sponsors! Be sure to create your profile to start networking.</p>
+                    @if($data['Announcement']['type'] == 'User' || $data['Announcement']['type'] == 'All')
+                      @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
+                      <p>{{$data['Announcement']['announce']}}</p>
+                      @else
+                      <p>New event coming soon....</p>
+                      @endif
+                    @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />
                 </div>
