@@ -12,6 +12,7 @@ use App\Models\TransferPin;
 use Carbon\Carbon;
 use DataTables;
 use DB;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 
 class RequestPinController extends Controller
@@ -95,7 +96,7 @@ class RequestPinController extends Controller
           })
           ->addColumn('action', function ($row) {
 
-            $pin_request_id  = encrypt($row->pin_request_id);
+            $pin_request_id  = Crypt::encryptString($row->pin_request_id);
             $btn = "<a href='" . url('/pins-request/edit/' . $pin_request_id) . "' class='item-edit text-dark'  title='View'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a>";
             return $btn;
           })
@@ -112,7 +113,7 @@ class RequestPinController extends Controller
   public function editPinRequestToAdminPage($pin_request_id)
   {
     $title = $this->title;
-    $pin_request_id = decrypt($pin_request_id);
+    $pin_request_id = Crypt::decryptString($pin_request_id);
     $user = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')
       ->leftJoin('users', 'users.id', '=', 'request_pin.req_user_id')
       ->where('request_pin.pin_request_id', $pin_request_id)

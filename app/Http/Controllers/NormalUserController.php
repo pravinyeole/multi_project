@@ -299,8 +299,8 @@ class NormalUserController extends Controller
     // show get help form working 
     public function showGetHelpFrom($id, $mobileId)
     {
-        $id = decrypt($id);
-        $mobileId = decrypt($mobileId);
+        $id = Crypt::decryptString($id);
+        $mobileId = Crypt::decryptString($mobileId);
         $title = $this->title;
         $senderUserDetails = User::where('users.id', $id)->first();
 

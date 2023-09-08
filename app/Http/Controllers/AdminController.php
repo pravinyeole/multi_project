@@ -9,6 +9,7 @@ use App\Models\Team;
 use App\Models\UserAceessTeam;
 use App\Models\UsersRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use DataTables;
 use Auth;
@@ -17,6 +18,7 @@ use Mail;
 use DB;
 use Config;
 use Session;
+
 
 use App\Traits\CommonTrait;
 
@@ -55,7 +57,7 @@ class AdminController extends Controller
                 })
 
                 ->addColumn('action', function($row){
-                    $id = encrypt($row->id);
+                    $id = Crypt::encryptString($row->id);
                     $btn = "<a href='admins/view/$id' class='item-edit  text-warning'  title='View Admin'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> &nbsp;" ;
 
                     // if(Session::get('USER_TYPE') == 'U' || Session::get('USER_TYPE') == 'T'){
@@ -215,7 +217,7 @@ class AdminController extends Controller
     public function edit(Request $request,$id){
         $title = $this->title;
         try {
-            $id=decrypt($id);
+            $id=Crypt::decryptString($id);
             //Check is agency admin  or not
             // if(!$this->isAdmin()){
             //     $insurance_agency_id =    Auth::user()->insurance_agencies->insurance_agency_id;
@@ -306,12 +308,12 @@ class AdminController extends Controller
                     $msg='Insurance Agency already exist with this email !!';
                 }
                 toastr()->error($msg);
-                $id = encrypt($input['id']);
+                $id = Crypt::encryptString($input['id']);
                 return redirect('admins/edit/'.$id);
             }
         }catch (\Exception $e){
             toastr()->error('Something went wrong !!');
-            $id = encrypt($input['id']);
+            $id = Crypt::encryptString($input['id']);
             return redirect('admins/edit/'.$id);
         }
     }
@@ -319,7 +321,7 @@ class AdminController extends Controller
     public function view(Request $request,$id){
         $title = $this->title;
         try {
-            $id=decrypt($id);
+            $id=Crypt::decryptString($id);
             //Check is agency admin  or not
             // if(!$this->isAdmin()){
             //     $insurance_agency_id =    Auth::user()->insurance_agencies->insurance_agency_id;

@@ -240,7 +240,7 @@ class SuperAdminController extends Controller
                     return $user_name;
                 })
                 ->addColumn('action', function ($row) {
-                    $id  = encrypt($row->id);
+                    $id  = Crypt::encryptString($row->id);
                     $userStatus = $row->user_status;
                     $blockIcon = $userStatus == 'Inactive' ? 'fas fa-lock' : 'fas fa-lock-open';
                     $blockColor = $userStatus == 'Inactive' ? 'red' : 'green';
@@ -560,7 +560,7 @@ class SuperAdminController extends Controller
                         return $end_date;
                     })
                     ->addColumn('action', function ($row) {
-                        $id  = encrypt($row->id);
+                        $id  = Crypt::encryptString($row->id);
                         $btn = "<a href='" . url('/superadmin/delete/' . $id) . "' class='item-edit text-blue'  title='Delete'><svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='50' height='50' viewBox='0 0 48 48'>
                         <path fill='#F44336' d='M21.5 4.5H26.501V43.5H21.5z' transform='rotate(45.001 24 24)'></path><path fill='#F44336' d='M21.5 4.5H26.5V43.501H21.5z' transform='rotate(135.008 24 24)'></path>
                         </svg></a>";
@@ -579,7 +579,7 @@ class SuperAdminController extends Controller
     }
     public function announce_create(Request $request)
     {
-        $data['type'] = $request->type;
+        $data['type'] = "'".$request->type."'";
         $data['start_date'] = date('Y-m-d',strtotime($request->start_date));
         $data['end_date'] = date('Y-m-d',strtotime($request->end_date));
         $data['announce'] = $request->anno;
@@ -588,7 +588,7 @@ class SuperAdminController extends Controller
     }
     public function delete(Request $request)
     {
-        $id = decrypt($request->id);
+        $id = Crypt::decryptString($request->id);
         $res = Announcement::where('id',$id)->delete();
         return back();
     }

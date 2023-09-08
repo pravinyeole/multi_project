@@ -15,6 +15,7 @@ use App\Models\Group;
 use App\Models\InsuranceAgencyContact;
 use App\Models\InsuranceAgencyGroupHistory;
 use App\Models\UserInvitation;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\UserRole;
 use DataTables;
 use Auth;
@@ -216,7 +217,7 @@ class UserController extends Controller
                 })
 
                 ->addColumn('action', function($row){
-                    $id = encrypt($row->id);
+                    $id = Crypt::encryptString($row->id);
                     if($row->role == 'O'){
                         $btn = "<a href='users/view/$id' class='item-edit  text-warning'  title='View User'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> &nbsp;";
                     }
@@ -362,7 +363,7 @@ class UserController extends Controller
     public function edit(Request $request,$id){
         $title = $this->title;
         try {
-            $id=decrypt($id);
+            $id=Crypt::decryptString($id);
             $user = User::find($id);
             if(in_array(Session('USER_TYPE'),['SA','A','O','OA'])){
                 $teams = $this->getInsuranceByassignedTeams($user->getInsuranceAgencyID());
@@ -599,7 +600,7 @@ class UserController extends Controller
                         return redirect('users');
                     } else {
                         toastr()->error('User already exist with this email !!');
-                        $id = encrypt($user_id);
+                        $id = Crypt::encryptString($user_id);
                         return redirect('users/edit/'.$id);
                     }
                 } 
@@ -608,7 +609,7 @@ class UserController extends Controller
             
         }catch (\Exception $e){
             toastr()->error('Something went wrong !!');
-            $id = encrypt($user_id);
+            $id = Crypt::encryptString($user_id);
             return redirect('users/edit/'.$id);
         }
     }
@@ -617,7 +618,7 @@ class UserController extends Controller
         $title = $this->title;
         try {
             if ($request->ajax()) {
-                $id = decrypt($id);
+                $id = Crypt::decryptString($id);
                 $user = User::with('UserRole')->find($id);
                 return Datatables::of($user->userRole)
                 ->addIndexColumn()
@@ -632,7 +633,7 @@ class UserController extends Controller
                 })
                 ->make(true);
             } else {
-                $id = decrypt($id);
+                $id = Crypt::decryptString($id);
                 $user = User::with('UserRole')->find($id);
 
                 //get assigned teams
@@ -1028,7 +1029,7 @@ class UserController extends Controller
     public function getTeamByUser(Request $request){
         try{
             if(in_array(Session('USER_TYPE') , ['A','SA'])){
-                $agencyID = decrypt($request->agencyKey);
+                $agencyID = Crypt::decryptString($request->agencyKey);
                 $insurance_agency_id = InsuranceAgency::where('user_id',$agencyID)->value('insurance_agency_id');
             }else{
                 $insurance_agency_id = Session('INSURANCE_AGENCY_ID');
@@ -1164,7 +1165,7 @@ class UserController extends Controller
                     return $team;
                 })
                 ->addColumn('action', function ($row) {
-                    $id = encrypt($row->invitation_id);
+                    $id = Crypt::encryptString($row->invitation_id);
                     $btn = "<a  class='item-edit text-warning resend_invitaion' data-id='$id' data-url='invited_users/resend_invitation'  title='Resend Invitation'><svg viewBox='0 0 24 24' width='20' height='20' stroke='currentColor' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'><polyline points='1 4 1 10 7 10'></polyline><polyline points='23 20 23 14 17 14'></polyline><path d='M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15'></path></svg></a>";
                     return $btn;
                 }) 
@@ -1178,7 +1179,7 @@ class UserController extends Controller
     public function resendInvitation(Request $request){
         try{
             $input = $request->all();
-            $data = UserInvitation::find(decrypt($input['id']));
+            $data = UserInvitation::find(Crypt::decryptString($input['id']));
             $email = $data->email;
             $signUpURL = route('register').'/'.($input['id']);
             $template = Notification::where('notification_for','user_invitation')->first();

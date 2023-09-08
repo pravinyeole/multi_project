@@ -8,6 +8,7 @@ use App\Models\UserPin;
 use DataTables;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Crypt;
 use Redirect;
 class PinCenterController extends Controller
 {
@@ -45,7 +46,7 @@ class PinCenterController extends Controller
                     return '<input type="checkbox" name="event[]" class="form-check-input event-checkbox" disabled>';
                 })
                 ->addColumn('action', function ($row) {
-                    $id  = encrypt($row->id);
+                    $id  = Crypt::encryptString($row->id);
                     $btn = "<a href='".url('/pin_center/edit/'.$id)."' class='item-edit text-dark'  title='View'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a>"; 
                     // $btn = "<a href='".url('/pin_center/edit/'.$id)."' class='item-edit text-blue'  title='Edit Class'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit font-small-4'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg></a>";
                     return $btn;
@@ -66,7 +67,7 @@ class PinCenterController extends Controller
     public function edit($id) {
         try {
             $title  = $this->title;
-            $id     = decrypt($id); 
+            $id     = Crypt::decryptString($id); 
             // $countryAll = Department::all();
              $user = User::select('*')
                 ->where('id', $id)
@@ -85,7 +86,7 @@ class PinCenterController extends Controller
             'no_of_pins' => 'required|integer',
         ]);
     try {
-        $id = decrypt($id);
+        $id = Crypt::decryptString($id);
 
         $loginUser = Auth::user();
         $loginUsreId = $loginUser->id;

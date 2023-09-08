@@ -12,9 +12,12 @@ use App\Models\TransferPin;
 use App\Models\UserPin;
 use App\Models\User;
 use App\Models\UserRole;
+use App\Models\Announcement;
 use DB;
 use App\Traits\CommonTrait;
 use App\Traits\AuditTrait;
+use App\Models\UserReferral;
+use Illuminate\Support\Facades\Crypt;
 use Session;
 
 class DashboardController extends Controller
@@ -32,6 +35,8 @@ class DashboardController extends Controller
         //     ->select('users.*', 'user_pins.pins')
         //     ->where('users.id', Auth::user()->id)
         //     ->first();
+
+
         if(Auth::User()->user_role == 'S')
         {
             Carbon::setWeekStartsAt(Carbon::SUNDAY);
@@ -50,7 +55,18 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'A')
         {
-            return view('dashboard/admin_dashboard');
+            $data['Announcement'] = Announcement::get()->last();
+            $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
+                            ->where('ur.referral_id',Auth::user()->mobile_number)
+                            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                            ->orderBy('users.id','DESC')
+                            ->count();
+            $data['requestedPins'] = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
+                            ->where('request_pin.req_user_id', Auth::user()->id)
+                            ->count();
+            
+            
+            return view('dashboard/admin_dashboard',compact('data'));
         }
         elseif(Auth::User()->user_role == 'U')
         {
@@ -250,7 +266,7 @@ class DashboardController extends Controller
 
     public function saveUserRoleConfig($id){
         try{
-            $id = decrypt($id);
+            $id = Crypt::decryptString($id);
             $userRoleData = UserRole::where('user_role_id',$id)->first();
 
             Session::put(['INSURANCE_AGENCY_ID' => $userRoleData->insurance_agency_id, 'USER_TYPE' => $userRoleData->role, 'SHOW_MENU' => 'Yes']);
