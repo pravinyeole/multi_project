@@ -8,7 +8,7 @@
             <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image">
         </div>
         <div class="user-info">
-            <p class="mb-0 mt-0 font-weight-semibold">{{--Auth::User()->$mobileNumber--}}6666663666</p>
+            <p class="mb-0 mt-0 font-weight-semibold">{{Auth::User()->mobile_number}}</p>
             <p class="fw-light text-muted mb-0">{{Auth::User()->email}}</p>
         </div>
     </div>

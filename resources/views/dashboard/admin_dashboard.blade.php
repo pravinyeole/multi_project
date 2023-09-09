@@ -14,22 +14,6 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                {{--<div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                   <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
-                    </li>
-                  </ul>
-                </div> --}}
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event!</b></h5>
@@ -50,7 +34,7 @@
                     <div class="card-body">
                       <i data-feather="users"></i>
                       <h5>No of Users Registers</h5>
-                      <h3>{{$data['myReferalUser']}}</h3>
+                      <h3><a href="{{url('request-pin/direct_ref_user_list')}}">{{$data['myReferalUser']}}</a></h3>
                     </div>
                   </div>
                 </div>
@@ -109,12 +93,12 @@
                     </div> -->
                     <div class="row flex-grow pin-details pt-0">
                       <div class="col-6">
-                          <p>bPIN Request Recieved</p>
-                          <h3>{{$data['requestedPins']}}</h3>
+                      <a href="{{url('request-pin')}}"><p>bPIN Request Recieved</p>
+                          <h3>{{$data['requestedPins']}}</h3></a>
                       </div>
                       <div class="col-6 bdr-left">
-                        <p>Revoke Pins</p>
-                        <h3>{{$data['revokePins']}}</h3>
+                        <a href="{{url('superadmin/revokepin')}}"><p>Revoke Pins</p>
+                        <h3>{{$data['revokePins']}}</h3></a>
                       </div>
                     </div>
                   </div>
