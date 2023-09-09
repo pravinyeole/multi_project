@@ -33,7 +33,7 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event!</b></h5>
-                    @if(isset($data['Announcement']) && count($data['Announcement']))
+                    @if(isset($data['Announcement']))
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
                         <p>{{$data['Announcement']['announce']}}</p>
                       @else
@@ -114,7 +114,7 @@
                       </div>
                       <div class="col-6 bdr-left">
                         <p>Revoke Pins</p>
-                        <h3>20</h3>
+                        <h3>{{$data['revokePins']}}</h3>
                       </div>
                     </div>
                   </div>

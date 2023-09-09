@@ -17,6 +17,7 @@ use DB;
 use App\Traits\CommonTrait;
 use App\Traits\AuditTrait;
 use App\Models\UserReferral;
+use App\Models\RevokePin;
 use Illuminate\Support\Facades\Crypt;
 use Session;
 
@@ -64,6 +65,7 @@ class DashboardController extends Controller
             $data['requestedPins'] = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
                             ->where('request_pin.req_user_id', Auth::user()->id)
                             ->count();
+            $data['revokePins'] = RevokePin::where('revoke_by', Auth::user()->id)->sum('revoke_count');
             
             
             return view('dashboard/admin_dashboard',compact('data'));

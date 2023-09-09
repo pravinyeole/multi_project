@@ -17,7 +17,7 @@
                 <div class="announsement">
                   <div class="info">
                     <h5>Welcome to <b>event name!</b></h5>
-                    @if(isset($data['Announcement']) && count($data['Announcement']))
+                    @if(isset($data['Announcement']))
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
                         <p>{{$data['Announcement']['announce']}}</p>
                       @else
