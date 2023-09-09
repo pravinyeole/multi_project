@@ -24,7 +24,7 @@
                         <p>New event coming soon.... </p>
                       @endif
                     @else
-                      <p>New event coming soon....</p>
+                      <p>New event coming soon.... a</p>
                     @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />
