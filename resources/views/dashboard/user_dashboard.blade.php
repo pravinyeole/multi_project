@@ -21,7 +21,7 @@
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
                         <p>{{$data['Announcement']['announce']}}</p>
                       @else
-                        <p>New event coming soon....</p>
+                        <p>New event coming soon.... </p>
                       @endif
                     @else
                       <p>New event coming soon....</p>
