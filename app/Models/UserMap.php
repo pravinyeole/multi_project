@@ -12,6 +12,6 @@ class UserMap extends Model
     protected $primaryKey = 'user_map_id';
     // protected $dates = ['deleted_at'];
     public $timestamps = ['created_at', 'updated_at'];
-    protected $fillable = ['mobile_id', 'new_user_id','user_id', 'type'];
+    protected $fillable = ['mobile_id', 'new_user_id','user_id','user_mobile_id', 'type'];
 
 }

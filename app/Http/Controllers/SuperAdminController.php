@@ -8,6 +8,7 @@ use App\Models\UserMap;
 use App\Models\UserPin;
 use App\Models\UserRole;
 use App\Models\RevokePin;
+use App\Models\UserSubInfo;
 use App\Models\UserReferral;
 use App\Models\Announcement;
 use DataTables;
@@ -375,8 +376,8 @@ class SuperAdminController extends Controller
         // $getOldUser = User::all();
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
-        $from_date = \Carbon\Carbon::today()->subDays(8);
-        $to_date = \Carbon\Carbon::today()->subDays(8);
+        $from_date = \Carbon\Carbon::today()->subDays(7);
+        $to_date = \Carbon\Carbon::today()->subDays(7);
         $to_date = str_replace('00:00:00','23:59:59',$to_date);
         $userIds_res = UserMap::pluck('mobile_id')->all();
         $userIds = $userIds_res;
@@ -386,23 +387,22 @@ class SuperAdminController extends Controller
             ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
             ->get();
         
-        // $getOldUser = User::whereDate('users.created_at', '=', date('Y-m-d', strtotime('-7 days')))
-        //     ->where('user_role', '!=', 'S')
-        //     ->whereNotIn('users.id',[$userIds])
-        //     ->get();  
-        
-        // $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-        // ->join('payments', 'user_sub_info.mobile_id', '=', 'payments.mobile_id')
-        // ->select('users.*', 'user_sub_info.mobile_id')
-        // ->where('payments.status','completed')
-        // ->get();
-        $from_date_one = \Carbon\Carbon::today()->subDays(1);
-        $to_date_one = \Carbon\Carbon::today()->subDays(1);
+        $from_date_one = \Carbon\Carbon::today()->subDays(0);
+        $to_date_one = \Carbon\Carbon::today()->subDays(0);
         $to_date_one = str_replace('00:00:00','23:59:59',$to_date_one);
+        
         // Retrieve recently joined users from "users" table
-        $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date_one,$to_date_one])
-        ->where('user_role','!=','S')
-        ->where('user_status','Active')->get();
+        // $getRecentlyJoinUser = User::whereBetween('created_at',[$from_date_one,$to_date_one])
+        // ->where('user_role','!=','S')
+        // ->where('user_status','Active')->get();
+        
+        $mobile_user_res = UserMap::pluck('user_mobile_id')->all();
+        $mobileUserRes = $mobile_user_res;
+        $getRecentlyJoinUser = UserSubInfo::join('users', 'users.id', '=', 'user_sub_info.user_id')
+            ->select('users.*', 'user_sub_info.mobile_id')
+            ->whereBetween('user_sub_info.created_at',[$from_date_one,$to_date_one])
+            ->whereNotIn('user_sub_info.mobile_id',$mobileUserRes)
+            ->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 
         // $getRecentlyJoinUser = User::whereDate('created_at', '=', now()->toDateString())->get();
@@ -457,7 +457,6 @@ class SuperAdminController extends Controller
             $formData = $request->all();
             // Remove unwanted keys
             unset($formData['type'], $formData['_token']);
-            
             // Extract the mobile ID key
             // $mobileIdKey = key($formData);
             $mobileIdKey = array_keys($formData);
@@ -498,11 +497,13 @@ class SuperAdminController extends Controller
     
                     foreach ($userIds as $userId) {
                         // Create a row array for each user ID
+                        $ids_users = explode('_',$userId);
                         if($userId>0){
                             $row = [
                                 'mobile_id' => $mobileID,
                                 'new_user_id' => $exploded[0],
-                                'user_id' => $userId,
+                                'user_id' => $ids_users[0],
+                                'user_mobile_id' => $ids_users[1],
                                 'type' => 'GH', // Hard-coded type as 'GH'
                             ];
         

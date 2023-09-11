@@ -129,9 +129,9 @@ class NormalUserController extends Controller
                 // Calculate the initial number of count for the current wx`x`eek
                 $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
 
-                if ($userIds >= 3) {
+                if ($userIds >= $initialsNoOfCount) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
-                }else if ($userIds >= $initialsNoOfCount) {
+                }else if ($userIds >= 3) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }
 
@@ -181,14 +181,11 @@ class NormalUserController extends Controller
         $mobileId = Crypt::decryptString($request->id);
         $loggedInUserId = Auth::user()->id;
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
-            ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            ->where('user_map_new.user_id', $loggedInUserId)
-            ->get();
-        // $getGetHelpData = UserMap::where([
-        //     ['mobile_id', $request->mobileId],
-        //     ['type', 'GH']
-        // ])->get();
-        // $getHelpuserIds = $getGetHelpData->pluck('user_id')->toArray();
+                            ->join('users', 'users.id', '=', 'user_sub_info.user_id')
+                            ->where('user_map_new.user_id', $loggedInUserId)
+                            ->get();
+        $getGetHelpData = UserMap::where([['mobile_id', $mobileId],['type', 'GH']])->get();
+        $getHelpuserIds = $getGetHelpData->pluck('user_id')->toArray();
 
         return view('normaluser.view', compact('userDetails', 'title', 'mobileId', 'sendHelpData'));
     }
@@ -200,7 +197,9 @@ class NormalUserController extends Controller
         
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
             ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            ->where('user_map_new.user_id', $loggedInUserId)
+            // ->where('user_map_new.user_id', $loggedInUserId)
+            ->where('user_map_new.user_mobile_id', $request->mobileId)
+            ->where('user_map_new.type', 'GH')
             ->get();
 
         return Datatables::of($sendHelpData)
@@ -275,8 +274,8 @@ class NormalUserController extends Controller
             $payment->user_id = Auth::user()->id;
             $payment->type = "SH";
             $payment->status = "pending";
-            $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
-            $payment->attachment = $imagePath;
+            // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
+            $payment->attachment = $request->transaction_number;
             $payment->save();
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
 

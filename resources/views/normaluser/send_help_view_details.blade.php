@@ -118,11 +118,17 @@
                         
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label class="form-label" for="transaction_number">Transaction Number<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="transaction_number" name="transaction_number" required>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                                <div class="form-group">
                                     <label class="form-label" for="attached_screenshot">Attached Screenshot<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="attached_screenshot" name="attached_screenshot" required="">
                                     <img id="image_preview" src="#" alt="Attached Screenshot" width="200px" style="display: none;">
                                 </div>
-                            </div>
+                            </div> -->
                             
                         </div>
                         <div class="row mt-2">

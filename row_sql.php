@@ -1780,3 +1780,7 @@ composer require hashids/hashids
 ==================================05 09 2023========================================================
 
 CREATE TABLE `db_hpa`.`transfer_pin_history` (`trans_id` INT(11) NOT NULL AUTO_INCREMENT , `trans_by` INT(5) NOT NULL , `trans_to` INT(5) NOT NULL , `trans_reason` TEXT NULL DEFAULT NULL , `trans_count` INT(5) NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+==================================10 09 2023========================================================
+
+    ALTER TABLE `user_map_new` ADD `user_mobile_id` VARCHAR(30) NOT NULL AFTER `user_id`;
