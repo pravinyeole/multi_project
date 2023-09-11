@@ -21,7 +21,7 @@
     ,
     {
       "url":  "superadmin/users",
-      "name": "Users",
+      "name": "Unassigned Users",
       "icon": "mdi mdi-account-multiple",
       "slug": "superadmin/users"
     },
@@ -52,7 +52,7 @@
     {
         "url" : "request-pin/direct_ref_user_list",
         "name": "Direct Ref User List",
-        "icon": "message-square",
+        "icon": "mdi mdi-account-multiple-plus",
         "slug": "direct-ref"
     }
   ]

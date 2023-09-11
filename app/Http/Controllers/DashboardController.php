@@ -66,7 +66,24 @@ class DashboardController extends Controller
                             ->where('request_pin.req_user_id', Auth::user()->id)
                             ->count();
             $data['revokePins'] = RevokePin::where('revoke_by', Auth::user()->id)->sum('revoke_count');
-            
+            $cryptUrl = '';
+            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
+            if ($myPinBalance_a) {
+                $data['myPinBalance'] = $myPinBalance_a->pins;
+            } else {
+                $data['myPinBalance'] = 0;
+            }
+            if(Auth::user()->user_role != 'S' ){
+                $data['myadminSlug']= $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
+                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+            }else{
+                $data['myadminSlug']= $myadminSlug = Auth::user()->user_slug;
+                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+            }
             
             return view('dashboard/admin_dashboard',compact('data'));
         }
@@ -81,6 +98,23 @@ class DashboardController extends Controller
                                         ->orderBy('users.id','DESC')
                                         ->take(5)
                                         ->get();
+            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
+            if ($myPinBalance_a) {
+                $data['myPinBalance'] = $myPinBalance_a->pins;
+            } else {
+                $data['myPinBalance'] = 0;
+            }
+            if(Auth::user()->user_role != 'S' ){
+                $data['myadminSlug'] = $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
+                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+            }else{
+                $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
+                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+            }
             return view('dashboard/user_dashboard',compact('data'));
         }
     }
