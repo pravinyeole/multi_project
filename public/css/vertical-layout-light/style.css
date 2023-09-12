@@ -28913,6 +28913,9 @@ div.tagsinput span.tag a {
   line-height: 1.6;
   margin: 0;padding: 0px 0;font-weight: 400;    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
+.login-body h3.text-small{
+  font-size: 0.825rem;
+}
 
 .auth form .form-group .form-control{
   border: 1px solid #adadad;
@@ -28920,6 +28923,12 @@ div.tagsinput span.tag a {
   box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);
   background: #fff;
   text-align: center;
+}
+
+.auth form .form-group .form-control.form-control-md{
+  padding: 5px 15px;
+  line-height: 30px;
+  height: auto;
 }
 
 .seprator{display: block;background: rgba(255, 255, 255, 0.6);height: 1px;margin: .5rem 0;}

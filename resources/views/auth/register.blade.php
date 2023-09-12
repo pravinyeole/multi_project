@@ -4,9 +4,18 @@
 
 @section('page-style')
 {{-- Page Css files --}}
-<link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-auth.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+  <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
+  <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+  <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-auth.css')) }}">
 <style>
+  html body{
+  background: rgb(255,255,255);
+background: -moz-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,241,226,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#fff1e2",GradientType=1);
+}
   @media (max-width: 576px) {
     .auth-inner {
       margin: 0 30px;
@@ -87,67 +96,74 @@
 @endsection
 
 @section('content')
-<div class="auth-wrapper auth-v1" style="background-color: #66C3F4;">
-  <div class="auth-inner py-2">
-    <div class="d-flex justify-content-center align-items-center container">
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper login-wrapper background-none d-flex align-items-center auth px-0 justify-content-center">
+            <div class="auth-form-light text-center p-0">
+              <div class="brand-logo">
+                <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
+              </div>
+              <div class="login-body">
       @if(isset($user->mobile_number) && $user->mobile_number != null)
-      <div class="card py-5 px-3">
-        <h5 class="m-0">Register</h5>
-        <h5 class="m-0">Mobile phone verification <span class="text-primary">{{$user->mobile_number}}</span></h5>
+              <div class="header pb-2">
+                <h1>Register</h1>
+                <h3 class="text-dark text-small">Mobile phone verification <span class="text-primary">{{$user->mobile_number}}</span></h3>
+              </div>
+     
         <form id="registrationForm" method="POST" action="{{route('register_user')}}">
           @csrf <!-- Add CSRF token field -->
-          <div class="mt-2">
+          <div class="form-group mb-2">
             <input type="hidden" name="mobile_number" value="{{$user->mobile_number}}">
-            <input type="text" class="form-control" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
+            <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="user_lname" id="user_lname"  placeholder="Enter Last Name"  value="{{ old('user_lname') }}">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname"  placeholder="Enter Last Name"  value="{{ old('user_lname') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your email id" value="{{ old('email') }}">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="email" id="email"  placeholder="Enter your email id" value="{{ old('email') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ old('referal_code') }}" maxlength="10">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ old('referal_code') }}" maxlength="10">
           </div>
-           <div class="mt-2">
-            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{ old('admin_referal_code') }}">
+           <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{ old('admin_referal_code') }}">
           </div>
-          <div class="text-center mt-2">
-            <button id="registerBtn" class="btn btn-primary">Register</button>
+          <div class="text-center form-group mb-0">
+            <button id="registerBtn" class="btn auth-form-btn text-white">Register</button>
           </div>
         </form>
-      </div>
-      @else     
-      <div class="card py-5 px-3">
-        <h5 class="m-0">Register</h5>
+      @else 
+        <div class="header pb-2">
+          <h1>Register</h1>
+        </div>
         <form id="registrationForm" method="POST" action="{{route('register_user')}}">
           @csrf <!-- Add CSRF token field -->
-          <div class="mt-2">
-            <input type="text" pattern="[0-9]{10}" class="form-control" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
+          <div class="form-group mb-2">
+            <input type="text" pattern="[0-9]{10}" class="form-control form-control-md" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname"  placeholder="Enter First Name" value="{{ old('user_fname') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="user_lname" id="user_lname"  placeholder="Enter Last Name"  value="{{ old('user_lname') }}">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname"  placeholder="Enter Last Name"  value="{{ old('user_lname') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your email id" value="{{ old('email') }}">
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="email" id="email"  placeholder="Enter your email id" value="{{ old('email') }}">
           </div>
-          <div class="mt-2">
-            <input type="text" class="form-control" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif>
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="referal_code" id="referal_code"  placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif>
           </div>
-           <div class="mt-2">
-            <input type="text" class="form-control" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif>
+          <div class="form-group mb-2">
+            <input type="text" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code"  placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif>
           </div>
           <div class="text-center mt-2">
-            <button id="registerBtn" class="btn btn-primary">Register</button>
+            <button id="registerBtn" class="btn auth-form-btn text-white">Register</button>
           </div>
         </form>
-      </div>
       @endif
     </div>
   </div>
+</div>
 </div>
 @endsection
 
