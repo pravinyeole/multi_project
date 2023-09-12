@@ -87,8 +87,6 @@ class NormalUserController extends Controller
         $parameterStartTime = Parameter::where('parameter_key', 'starting_time')->first();
         $startingTime = Carbon::parse($parameter->parameter_value);
         $startingTime = $startingTime->format('H:i');
-
-
         $parameterEndTime = Parameter::where('parameter_key', 'end_time')->first();
         $endTime = Carbon::parse($parameterEndTime->parameter_value);
 
@@ -98,7 +96,6 @@ class NormalUserController extends Controller
         } else {
             $timer = "stop";
         }
-
         return view('normaluser.index', compact('title', 'createIdLimit', 'timer'));
     }
 
