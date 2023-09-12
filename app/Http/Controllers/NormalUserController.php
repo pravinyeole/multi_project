@@ -72,12 +72,13 @@ class NormalUserController extends Controller
 
         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week
-
+        
         // Calculate the number of weeks since the starting week
         $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
-
+        // echo $userIds;
         // Calculate the initial number of count for the current wx`x`eek
-        $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
+        $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+
         $createIdLimit = '';
         if ($userIds >= $initialsNoOfCount) {
             $createIdLimit = 'd-none';
@@ -86,8 +87,6 @@ class NormalUserController extends Controller
         $parameterStartTime = Parameter::where('parameter_key', 'starting_time')->first();
         $startingTime = Carbon::parse($parameter->parameter_value);
         $startingTime = $startingTime->format('H:i');
-
-
         $parameterEndTime = Parameter::where('parameter_key', 'end_time')->first();
         $endTime = Carbon::parse($parameterEndTime->parameter_value);
 
@@ -97,7 +96,6 @@ class NormalUserController extends Controller
         } else {
             $timer = "stop";
         }
-
         return view('normaluser.index', compact('title', 'createIdLimit', 'timer'));
     }
 
@@ -127,8 +125,7 @@ class NormalUserController extends Controller
                 $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
 
                 // Calculate the initial number of count for the current wx`x`eek
-                $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
-
+                $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
                 if ($userIds >= $initialsNoOfCount) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }else if ($userIds >= 3) {
@@ -142,10 +139,10 @@ class NormalUserController extends Controller
                     ->first();
 
                 // Generate the mobile_id
-                $mobileIdCount = UserSubInfo::where('user_id', $request->user_id)
-                    ->whereDate('created_at', $today)
+                $mobileIdCount = UserSubInfo::whereDate('created_at', $today)
+                    // ->where('user_id', $request->user_id)
                     ->count() + 1;
-
+                    
                 $initials = substr($userDetails->user_fname, 0, 1) . substr($userDetails->user_lname, 0, 1);
                 $mobileId = $initials . str_pad($mobileIdCount, 2, '0', STR_PAD_LEFT) .
                     substr($userDetails->mobile_no, -4) .
@@ -153,7 +150,7 @@ class NormalUserController extends Controller
                 // Save the new UserSubInfo record
                 $userSubInfo = new UserSubInfo();
                 $userSubInfo->user_id = $userDetails->id;
-                $userSubInfo->mobile_id = $mobileId;
+                $userSubInfo->mobile_id = strtoupper($mobileId);
                 $userSubInfo->status = 'red';
                 $userSubInfo->created_at =  Carbon::now();
                 $userSubInfo->save();
