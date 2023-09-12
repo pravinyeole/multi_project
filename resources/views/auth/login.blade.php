@@ -46,7 +46,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               <div class="login-body">
               <div class="header">
                 <h1>Login</h1>
-                <h3 class="text-white">Hello! let's get started</h3>
+                <h3 class="text-white">Gateway to Financial Freedom</h3>
               </div>
               @if (session('error'))
               <div class="alert alert-error m-1" role="alert" style="padding: 2%">
