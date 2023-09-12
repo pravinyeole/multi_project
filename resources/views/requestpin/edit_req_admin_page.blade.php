@@ -37,8 +37,8 @@
             <form id="addDepartment" method="POST" class="addDepartment" action="{{url('pins-request/update-request')}}" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title"><span class="text-primary">{{$user->user_fname}} {{$user->user_lname}} </span>Requested Of Pin <span style="font-size: 13px;" class="pl-2 text-warning">{{ucwords($getPaymentStatus->status ?? '')}}</span></h4>
+                    <div class="page-title">
+                        <h4><span class="text-primary">{{$user->user_fname}} {{$user->user_lname}} </span>Requested Of Pin <span style="font-size: 13px;" class="pl-2 text-warning">{{ucwords($getPaymentStatus->status ?? '')}}</span></h4>
                     </div>
                     
                     <div class="card-body">

@@ -7,11 +7,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header border-bottom">
+                <div class="page-title">
                     <h4>
-                        <center>{{__("labels.user.list")}}</center>
+                        {{__("labels.user.list")}}
                     </h4>
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
                 <table class="table table-striped" id="table_user">
                     <thead>
                         <tr>
@@ -25,6 +27,7 @@
                         </tr>
                     </thead>
                 </table>
+                </div></div>
             </div>
         </div>
     </div>

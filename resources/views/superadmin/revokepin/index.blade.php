@@ -16,10 +16,10 @@
     <div class="row">
         <div class="col-sm-12 grid-margin stretch-card">
             <div class="card">
+                    <div class="page-title">
+                        <h4>Revoke Pin</h4>
+                    </div>
                 <div class="card-body">
-                    <center>
-                        <h4 class="card-title" style="text-transform: uppercase;">Revoke Pin<span style="margin-left: 100px"></span></h4>
-                    </center>
                     @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
                         <strong>Success !</strong> {{ session('success') }}
@@ -80,17 +80,21 @@
                                     <input type="text" class="form-control" id="revoke_pins" name="revoke_pins" value="" maxlength="100" required="" disabled>
                                 </div>
                             </div>
-                            <div class="col-sm-6 row mt-4">
-                                <div class="col-sm-6">
-                                    <a href="{{ url('superadmin/admin') }}"> <button type="button" class="btn btn-danger" style="width:100%">{{__("labels.cancel")}}</button></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-success" style="width:100%">Revoke</button>
+                            <div class="col-sm-12 mt-2">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="{{ url('superadmin/admin') }}"> <button type="button" class="btn btn-danger" style="width:100%">{{__("labels.cancel")}}</button></a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-success" style="width:100%">Revoke</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                     @if(count($revokeHistory))
+                    
+                    <div class="table-responsive">
                     <table class="table table-striped common-table m-2">
                         <thead>
                             <tr>
@@ -113,6 +117,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                     @endif
                 </div>
             </div>

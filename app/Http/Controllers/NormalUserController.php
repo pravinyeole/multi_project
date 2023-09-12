@@ -52,7 +52,7 @@ class NormalUserController extends Controller
                     })
                     ->addColumn('action', function ($row) {
                         $id  = Crypt::encryptString($row->mobile_id);
-                        $btn = "<a href='" . url('/normal_user/view/' . $id) . "' class='item-edit text-dark'  title='View'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> 
+                        $btn = "<a href='" . url('/normal_user/view/' . $id) . "' class='item-edit btn btn-outline-dark btn-md px-2 py-1 text-dark'  title='View'><svg xmlns='http://www.w3.org/2000/svg' width=16 height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> 
                     ";
                         return $btn;
                     })
@@ -212,7 +212,7 @@ class NormalUserController extends Controller
             ->addColumn('action', function ($row) use ($request) {
                 $id = Crypt::encryptString($row->id);
                 $mobileId = Crypt::encryptString($request->mobileId);
-                $btn = "<a href='".url('/normal_user/show-send-help-form/'.$id.'/'.$mobileId)."' class='item-edit text-dark'  title='Send Help'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
+                $btn = "<a href='".url('/normal_user/show-send-help-form/'.$id.'/'.$mobileId)."' class='item-edit btn btn-outline-dark btn-md px-2 py-1 text-dark'  title='Send Help'><svg xmlns='http://www.w3.org/2000/svg' width=16 height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
                 return $btn;
             })
             ->rawColumns(['action', 'user_name'])
@@ -241,7 +241,7 @@ class NormalUserController extends Controller
                 $id = Crypt::encryptString($row->id);
                 $mobileId = Crypt::encryptString($request->mobileId);
                 //  $btn = "<a href='" . url('/normal_user/show-send-help-form/' . $id.'/'.$mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
-                $btn = "<a href='" . url('/normal_user/show-get-help-form/'.$id.'/'.$mobileId) . "' class='item-edit text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
+                $btn = "<a href='" . url('/normal_user/show-get-help-form/'.$id.'/'.$mobileId) . "' class='item-edit btn btn-outline-dark btn-md px-2 py-1 text-dark'  title='View Department'><svg xmlns='http://www.w3.org/2000/svg' width=16 height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
 
                 return $btn;
             })
