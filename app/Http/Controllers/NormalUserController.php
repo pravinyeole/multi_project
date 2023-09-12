@@ -69,6 +69,8 @@ class NormalUserController extends Controller
         $userIds = UserSubInfo::where('user_id', Auth::user()->id)
             ->whereDate('created_at', $today)
             ->count();
+        
+        $allid = UserSubInfo::whereDate('created_at', $today)->count();
 
         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week
@@ -80,7 +82,7 @@ class NormalUserController extends Controller
         $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
 
         $createIdLimit = '';
-        if ($userIds >= $initialsNoOfCount) {
+        if ($allid == $initialsNoOfCount) {
             $createIdLimit = 'd-none';
         }
 
@@ -112,6 +114,10 @@ class NormalUserController extends Controller
             $userIds = UserSubInfo::where('user_id', $request->user_id)
                 ->whereDate('created_at', $today)
                 ->count();
+
+            $allid = UserSubInfo::whereDate('created_at', $today)
+                ->count();
+
             // if ($userIds >= 3 || ) {
             //     toastr()->error('You have reached the maximum limit of ID creations for today!');
             //     return redirect()->back();
@@ -126,7 +132,8 @@ class NormalUserController extends Controller
 
                 // Calculate the initial number of count for the current wx`x`eek
                 $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
-                if ($userIds >= $initialsNoOfCount) {
+                
+                if ($allid == $initialsNoOfCount) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }else if ($userIds >= 3) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
