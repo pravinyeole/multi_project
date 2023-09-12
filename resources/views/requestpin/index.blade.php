@@ -34,7 +34,7 @@
                     <thead>
                         <tr>
                             <th>Pin Request ID</th>
-                            <th>Admin Slug</th>
+                            <th>SAC</th>
                             <th>No of Pins</th>
                             <th>Status</th>
                             <th>Created At</th>
