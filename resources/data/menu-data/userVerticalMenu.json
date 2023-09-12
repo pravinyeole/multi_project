@@ -44,6 +44,12 @@
       "slug": "superadmin/announcement"
     },
     {
+      "url":  "transferpin",
+      "name": "Transfer Pin",
+      "icon": "mdi mdi-account-off",
+      "slug": "transferpin"
+    },
+    {
       "url": "pins-request",
       "name": "Requests",
       "icon": "mdi mdi-account-multiple-plus",
