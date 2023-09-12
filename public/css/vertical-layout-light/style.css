@@ -31498,8 +31498,8 @@ div.tagsinput span.tag a {
 .floating-btn span{width: 42px;height: 42px;padding: 10px;line-height: 24px;font-size: 2.925rem;font-weight: 300;color: #fff;border-radius: 50%;margin-top: 3px;background: var(--sprimary);box-shadow: var(--box-shadow);display: block;}
 .navbar-menu-wrapper .navbar-toggler-right,.navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini{display: none;}
 .navbar .navbar-brand-wrapper .navbar-brand.brand-logo, .navbar .navbar-brand-wrapper .navbar-toggler:not(.navbar-toggler-right) {display: block;}
-.navbar .navbar-brand-wrapper {width: 155px;}
-.navbar .navbar-menu-wrapper {width: calc(100% - 155px);}
+.navbar .navbar-brand-wrapper {width: 180px;}
+.navbar .navbar-menu-wrapper {width: calc(100% - 180px);}
 .sidebar-offcanvas {
   position: fixed;
   max-height: calc(100vh - 0px);
