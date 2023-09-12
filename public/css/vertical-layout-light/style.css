@@ -31542,6 +31542,12 @@ body.sidebar-icon-only .sidebar {
 }
 .page-title{font-weight: 600;font-size: 1.3rem;padding: .8rem 1.5rem;BACKGROUND: #4b70cb;border-radius: 12px 12px 0 0;}
 .page-title h4{font-weight: 600;font-size: 1.1rem;padding: 0;margin: 0;color: #fff;}
+.dataTables_wrapper label {
+  font-size: .8125rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 @media (max-width: 991px){
   .navbar .navbar-brand-wrapper {
       padding: 6px 15px;
