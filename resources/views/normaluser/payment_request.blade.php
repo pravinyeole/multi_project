@@ -15,6 +15,8 @@
                     <th>User Name</th>
                     <th>Mobile Number </th>
                     <th>Mobile Id </th>
+                    <th>Payment Type</th>
+                    <th>Transaction Id</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,6 +27,9 @@
                     <td>{{$tu['payment_has']['user_fname'].' '.$tu['payment_has']['user_lname']}}</td>
                     <td>{{$tu['payment_has']['mobile_number']}}</td>
                     <td>{{$tu['mobile_id']}}</td>
+                    <td>{{$tu['payment_type']}}</td>
+                    <td>{{$tu['attachment']}}</td>
+
                     <td><a href="{{url('/normal_user/payment_accept')}}/{{$tu['payment_id']}}/{{$tu['mobile_id']}}" class="btn btn-primary" onclick="return confirm('Are you sure you would like to accept Payment?');">Payment Accept</a></td>
                 </tr>
                 @endforeach
@@ -42,6 +47,8 @@
                     <th>User Name</th>
                     <th>Mobile Number </th>
                     <th>Mobile Id </th>
+                    <th>Payment Type</th>
+                    <th>Transaction Id</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +58,8 @@
                     <td>{{$tu['payment_has']['user_fname'].' '.$tu['payment_has']['user_lname']}}</td>
                     <td>{{$tu['payment_has']['mobile_number']}}</td>
                     <td>{{$tu['mobile_id']}}</td>
+                    <td>{{$tu['payment_type']}}</td>
+                    <td>{{$tu['attachment']}}</td>
                 </tr>
                 @endforeach
             </tbody>
