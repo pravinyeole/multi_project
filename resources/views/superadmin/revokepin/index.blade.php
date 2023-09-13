@@ -80,23 +80,12 @@
                                     <input type="text" class="form-control" id="revoke_pins" name="revoke_pins" value="" maxlength="100" required="" disabled>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                            <div class="col-sm-12 mt-2">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <a href="{{ url('superadmin/admin') }}"> <button type="button" class="btn btn-danger" style="width:100%">{{__("labels.cancel")}}</button></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button type="submit" class="btn btn-success" style="width:100%">Revoke</button>
-                                    </div>
-=======
                             <div class="col-sm-6 row mt-4">
                                 <div class="col-sm-6">
                                     <button type="button" class="btn btn-danger" style="width:100%">{{__("labels.cancel")}}</button>
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="submit" class="btn btn-success" style="width:100%">Revoke</button>
->>>>>>> new_pravin
                                 </div>
                             </div>
                         </div>
