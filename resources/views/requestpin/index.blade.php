@@ -8,27 +8,29 @@
     <div class="row">
         <div class="col-12">
             <div class="card" style="padding: 2%;">
-                <div class="card-header border-bottom">
+            <div class="page-title">
                     <h4>
-                        <center>PIN Request</center>
+                        PIN Request
                     </h4>
                 </div>
+                <div class="card-body">
                 <div class="row">
                     <form id="requestPinForm" action="{{ route('request-pin.send-request') }}" method="POST">
                         @csrf
                         <div class="col-sm-12 row">
                             <input type="hidden" name="admin_slug" value="{{$adminAssingToLoginUser->admin_slug ?? ''}}">
-                            <div class="col-sm-6">
+                            <div class="col-xs-7 col-sm-6">
                                 <label class="form-label" for="org_name">Enter Pins<span class="text-danger">*</span></label>
                                 <input type="number" min="0" class="form-control" id="no_of_pin_requested" name="no_of_pin_requested" placeholder='Enter no of pins required' required="">
                             </div>
-                            <div class="col-sm-3 mt-3">
+                            <div class="col-xs-5 col-sm-5 mt-3">
                                 <button type="submit" class="btn btn-success mt-2">Send Request</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 @if(isset($requestedPins))
+                    <div class="table-responsive">
 
                 <table class="table table-striped common-table">
                     <thead>
@@ -62,7 +64,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
                 @endif
+            </div>
             </div>
         </div>
     </div>

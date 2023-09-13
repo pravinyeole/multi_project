@@ -40,8 +40,8 @@
                 @csrf
                 <input type="hidden" name="id" value="{{$user->id}}"/>
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">View User<span style="font-size: 13px"></span></h4>
+                    <div class="page-title">
+                        <h4 class="card-title">View User</h4>
                     </div>
                    <div class="card-body">
                         <div class="row">

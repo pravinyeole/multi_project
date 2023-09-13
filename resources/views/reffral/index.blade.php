@@ -8,10 +8,10 @@
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
+                    <div class="page-title">
+                        <h4>Direct Referance Users List</h4>
+                    </div>
                 <div class="card-body">
-                    <center>
-                        <h4 class="card-title">Direct Referance Users List</h4>
-                    </center>
                     <div class="table-responsive">
                         <table class="table table-striped display common-table" id="table_user">
                             <thead>

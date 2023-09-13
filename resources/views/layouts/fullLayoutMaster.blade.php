@@ -53,7 +53,7 @@ $configData = Helper::applClasses();
       </div>
     </div>
   <!-- BEGIN: Content-->
-  <div class="app-content content {{ $configData['pageClass'] }}">
+  <div class="content {{ $configData['pageClass'] }}">
     <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed' ? 'container p-0' : '' }}">
       <div class="content-body">
 

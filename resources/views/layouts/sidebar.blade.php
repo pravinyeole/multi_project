@@ -41,7 +41,7 @@
         }
         @endphp
         <li class="nav-item @if(Request::is($menu->slug.'/*') || Request::is($menu->slug)) active  @endif" {{ $custom_classes }}">
-            <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
+            <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed @if(isset($menu->submenu)) submenu @endif" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
                 <i class="menu-icon" data-feather="{{$menu->icon}}"></i>
                 <span class="menu-title text-truncate">{{ __('locale.'.$menu->name) }}</span>
                 @if (isset($menu->badge))
@@ -51,6 +51,7 @@
             </a>
 
             @if(isset($menu->submenu))
+            <span class="submenu-achor dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></span>
             @include('panels/submenu', ['menu' => $menu->submenu])
             @endif
         </li>

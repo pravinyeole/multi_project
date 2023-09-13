@@ -28913,6 +28913,9 @@ div.tagsinput span.tag a {
   line-height: 1.6;
   margin: 0;padding: 0px 0;font-weight: 400;    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
+.login-body h3.text-small{
+  font-size: 0.825rem;
+}
 
 .auth form .form-group .form-control{
   border: 1px solid #adadad;
@@ -28920,6 +28923,12 @@ div.tagsinput span.tag a {
   box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);
   background: #fff;
   text-align: center;
+}
+
+.auth form .form-group .form-control.form-control-md{
+  padding: 5px 15px;
+  line-height: 30px;
+  height: auto;
 }
 
 .seprator{display: block;background: rgba(255, 255, 255, 0.6);height: 1px;margin: .5rem 0;}
@@ -29003,7 +29012,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 767px) {
   .content-wrapper {
-    padding: 0 1.5rem;
+    padding: 0 20px;
   }
   .auth .auth-form-light{
     max-width: none;border-radius: 0px;
@@ -31471,6 +31480,7 @@ div.tagsinput span.tag a {
 .pinBal .info:before{content: "";position: absolute;width: 100%;height: 120%;background: var(--sprimary);left: -30px;transform: skewX(-25deg);top: -10%;z-index: 0;}
 .pinBal .info p{margin: 0;font-size: 1rem;line-height: 1;z-index: 1;position:relative;}
 .pinBal .info h3,.users h3{font-size: 1.875rem;margin: 0;font-weight: 600;z-index: 1;position:relative;}
+.pinBal .info h3 a, .users h3 a,.card.stat-card .statistics-details .rate-percentage a{color: #00024a;text-decoration: none;}
 .pinBal h5,.users h5{margin: 0;padding: 10px 0;font-size: 1.125rem;font-weight: 700;color: #000;}
 
 .card.card-orange{background: var(--lightorange);border: 1px solid var(--lightorangeb);}
@@ -31491,15 +31501,16 @@ div.tagsinput span.tag a {
 .btn.btn-view{border-radius: 30px;background: var(--primary);padding: 4px 18px;line-height: 22px;color: #fff;font-weight: 500;}
 .btn.btn-view:hover{background: var(--sprimary);}
 .pin-details{padding-top: 15px;}
-.pin-details p{font-size: 1rem;color: #000;}
-.pin-details h3{font-size: 1.875rem;color: #00024a;margin: 0;font-weight: 600;}
+.pin-details p{font-size: 1rem;color: #000;text-decoration: none;}
+.pin-details h3{font-size: 1.875rem;color: #00024a;margin: 0;font-weight: 600;text-decoration: none;}
+.pin-details a{text-decoration: none;}
 .bdr-left{border-left: 1px solid #c4c4c4;}
 .floating-btn{position: fixed;right: 10px;bottom: 10px;text-align: center;font-size: 13px;color: #000;text-decoration: none;}
 .floating-btn span{width: 42px;height: 42px;padding: 10px;line-height: 24px;font-size: 2.925rem;font-weight: 300;color: #fff;border-radius: 50%;margin-top: 3px;background: var(--sprimary);box-shadow: var(--box-shadow);display: block;}
 .navbar-menu-wrapper .navbar-toggler-right,.navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini{display: none;}
 .navbar .navbar-brand-wrapper .navbar-brand.brand-logo, .navbar .navbar-brand-wrapper .navbar-toggler:not(.navbar-toggler-right) {display: block;}
-.navbar .navbar-brand-wrapper {width: 155px;}
-.navbar .navbar-menu-wrapper {width: calc(100% - 155px);}
+.navbar .navbar-brand-wrapper {width: 180px;}
+.navbar .navbar-menu-wrapper {width: calc(100% - 180px);}
 .sidebar-offcanvas {
   position: fixed;
   max-height: calc(100vh - 0px);
@@ -31522,6 +31533,21 @@ body.sidebar-icon-only .sidebar {
 .refForm .form-control{background: transparent;padding: 6px 15px;border: 0;margin: 0;line-height: 22px;height: auto;font-size: 16px;}
 .refForm form,.refForm .input-group{margin: 0;}
 .input-group-prepend .input-group-text{background: var(--sprimary);color: #fff;border-radius: 7px;padding: 4px 12px;line-height: 26px;}
+.dataTables_wrapper{
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+.page-title{font-weight: 600;font-size: 1.3rem;padding: .8rem 1.5rem;BACKGROUND: #4b70cb;border-radius: 12px 12px 0 0;}
+.page-title h4{font-weight: 600;font-size: 1.1rem;padding: 0;margin: 0;color: #fff;}
+.dataTables_wrapper label {
+  font-size: .8125rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 @media (max-width: 991px){
   .navbar .navbar-brand-wrapper {
       padding: 6px 15px;
