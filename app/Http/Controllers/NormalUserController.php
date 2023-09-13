@@ -41,6 +41,7 @@ class NormalUserController extends Controller
                 $data = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
                     ->select('users.*', 'user_sub_info.mobile_id', 'user_sub_info.created_at as id_created_date', 'user_sub_info.status as id_status')
                     ->where('users.id', Auth::user()->id)
+                    ->orderBy('user_sub_info.created_at', 'DESC')
                     ->get();
 
                 return Datatables::of($data)
@@ -201,9 +202,10 @@ class NormalUserController extends Controller
         
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
             ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            // ->where('user_map_new.user_id', $loggedInUserId)
+            ->where('user_map_new.user_id', $loggedInUserId)
             ->where('user_map_new.user_mobile_id', $request->mobileId)
             ->where('user_map_new.type', 'GH')
+            ->where('user_sub_info.status', 'red')
             ->get();
 
         return Datatables::of($sendHelpData)
