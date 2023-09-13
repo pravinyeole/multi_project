@@ -69,25 +69,26 @@ class NormalUserController extends Controller
         $userIds = UserSubInfo::where('user_id', Auth::user()->id)
             ->whereDate('created_at', $today)
             ->count();
+        
+        $allid = UserSubInfo::whereDate('created_at', $today)->count();
 
         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week
-
+        
         // Calculate the number of weeks since the starting week
         $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
-
+        // echo $userIds;
         // Calculate the initial number of count for the current wx`x`eek
-        $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
+        $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+
         $createIdLimit = '';
-        if ($userIds >= $initialsNoOfCount) {
+        if ($allid == $initialsNoOfCount) {
             $createIdLimit = 'd-none';
         }
 
         $parameterStartTime = Parameter::where('parameter_key', 'starting_time')->first();
         $startingTime = Carbon::parse($parameter->parameter_value);
         $startingTime = $startingTime->format('H:i');
-
-
         $parameterEndTime = Parameter::where('parameter_key', 'end_time')->first();
         $endTime = Carbon::parse($parameterEndTime->parameter_value);
 
@@ -97,7 +98,6 @@ class NormalUserController extends Controller
         } else {
             $timer = "stop";
         }
-
         return view('normaluser.index', compact('title', 'createIdLimit', 'timer'));
     }
 
@@ -114,6 +114,10 @@ class NormalUserController extends Controller
             $userIds = UserSubInfo::where('user_id', $request->user_id)
                 ->whereDate('created_at', $today)
                 ->count();
+
+            $allid = UserSubInfo::whereDate('created_at', $today)
+                ->count();
+
             // if ($userIds >= 3 || ) {
             //     toastr()->error('You have reached the maximum limit of ID creations for today!');
             //     return redirect()->back();
@@ -127,11 +131,11 @@ class NormalUserController extends Controller
                 $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
 
                 // Calculate the initial number of count for the current wx`x`eek
-                $initialsNoOfCount = ($currentWeek === 0) ? 8 : 8 * pow(2, $currentWeek);
-
-                if ($userIds >= 3) {
+                $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+                
+                if ($allid == $initialsNoOfCount) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
-                }else if ($userIds >= $initialsNoOfCount) {
+                }else if ($userIds >= 3) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }
 
@@ -142,10 +146,10 @@ class NormalUserController extends Controller
                     ->first();
 
                 // Generate the mobile_id
-                $mobileIdCount = UserSubInfo::where('user_id', $request->user_id)
-                    ->whereDate('created_at', $today)
+                $mobileIdCount = UserSubInfo::whereDate('created_at', $today)
+                    // ->where('user_id', $request->user_id)
                     ->count() + 1;
-
+                    
                 $initials = substr($userDetails->user_fname, 0, 1) . substr($userDetails->user_lname, 0, 1);
                 $mobileId = $initials . str_pad($mobileIdCount, 2, '0', STR_PAD_LEFT) .
                     substr($userDetails->mobile_no, -4) .
@@ -153,7 +157,7 @@ class NormalUserController extends Controller
                 // Save the new UserSubInfo record
                 $userSubInfo = new UserSubInfo();
                 $userSubInfo->user_id = $userDetails->id;
-                $userSubInfo->mobile_id = $mobileId;
+                $userSubInfo->mobile_id = strtoupper($mobileId);
                 $userSubInfo->status = 'red';
                 $userSubInfo->created_at =  Carbon::now();
                 $userSubInfo->save();
@@ -181,14 +185,11 @@ class NormalUserController extends Controller
         $mobileId = Crypt::decryptString($request->id);
         $loggedInUserId = Auth::user()->id;
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
-            ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            ->where('user_map_new.user_id', $loggedInUserId)
-            ->get();
-        // $getGetHelpData = UserMap::where([
-        //     ['mobile_id', $request->mobileId],
-        //     ['type', 'GH']
-        // ])->get();
-        // $getHelpuserIds = $getGetHelpData->pluck('user_id')->toArray();
+                            ->join('users', 'users.id', '=', 'user_sub_info.user_id')
+                            ->where('user_map_new.user_id', $loggedInUserId)
+                            ->get();
+        $getGetHelpData = UserMap::where([['mobile_id', $mobileId],['type', 'GH']])->get();
+        $getHelpuserIds = $getGetHelpData->pluck('user_id')->toArray();
 
         return view('normaluser.view', compact('userDetails', 'title', 'mobileId', 'sendHelpData'));
     }
@@ -200,7 +201,9 @@ class NormalUserController extends Controller
         
         $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
             ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            ->where('user_map_new.user_id', $loggedInUserId)
+            // ->where('user_map_new.user_id', $loggedInUserId)
+            ->where('user_map_new.user_mobile_id', $request->mobileId)
+            ->where('user_map_new.type', 'GH')
             ->get();
 
         return Datatables::of($sendHelpData)
@@ -275,8 +278,8 @@ class NormalUserController extends Controller
             $payment->user_id = Auth::user()->id;
             $payment->type = "SH";
             $payment->status = "pending";
-            $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
-            $payment->attachment = $imagePath;
+            // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
+            $payment->attachment = $request->transaction_number;
             $payment->save();
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
 

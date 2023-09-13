@@ -84,10 +84,10 @@ class PinCenterController extends Controller
            // Validate the form data
            $validatedData = request()->validate([
             'no_of_pins' => 'required|integer',
-        ]);
+        ]); 
     try {
-        $id = Crypt::decryptString($id);
-
+        $id = decrypt($id);
+        
         $loginUser = Auth::user();
         $loginUsreId = $loginUser->id;
         // dd($loginUser);
@@ -98,7 +98,6 @@ class PinCenterController extends Controller
             // If the user role is 'S' (superadmin), do not deduct pins
             // Handle the scenario where 'S' user has unlimited pins
         } else {
-            
             // Find the user record by ID and deduct pins from the current login user
             $loginUserPin = UserPin::where('user_id', $loginUsreId)->first();
             if($loginUserPin->pins < $validatedData['no_of_pins']){

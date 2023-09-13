@@ -19,7 +19,7 @@
                                     <th>{{__("labels.no")}}</th>
                                     <th>Username</th>
                                     <th>Refferal Id</th>
-                                    <th>Admin Slug</th>
+                                    <th>SAC</th>
                                     <th>Refferal Link</th>
                                 </tr>
                             </thead>

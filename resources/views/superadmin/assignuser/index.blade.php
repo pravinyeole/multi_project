@@ -186,7 +186,7 @@
                         </div>
                         @endif
                         <div class="col-sm-12 row">
-                            <div class="col-sm-4 scrolldiv">
+                            <div class="col-sm-3 scrolldiv">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -195,44 +195,59 @@
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignRadio">
+                                        @php $j=0; @endphp
                                         @foreach ($getOldUser as $key => $user)
-                                            @if(!in_array($user->mobile_id,$userIds))
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="user_id" id="{{ $user->id }}_{{ $user->mobile_id }}" data-username="{{ $user->mobile_id }}" data-oid="{{ $user->id }}">
-                                                    <label radiovalue="{{ $user->id }}_{{ $user->mobile_id }}" radioname="{{ $user->user_fname }}_{{ $user->user_lname }}" class="col-sm-4 control-label" id="manaual_radio_{{$key}}">
-                                                        <center>{{ $user->mobile_id }} ({{ $user->user_fname }} {{ $user->user_lname }})</center>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            @endif
+                                        @if(!in_array($user->mobile_id,$userIds))
+                                        <tr>
+                                            <td>
+                                                <input type="radio" name="user_id" id="{{ $user->id }}_{{ $user->mobile_id }}" data-username="{{ $user->mobile_id }}" data-oid="{{ $user->id }}">
+                                                <label radiovalue="{{ $user->id }}_{{ $user->mobile_id }}" radioname="{{ $user->user_fname }}_{{ $user->user_lname }}" class="col-sm-4 control-label" id="manaual_radio_{{$j}}">
+                                                    <center>{{ $user->mobile_id }}</br> ({{ $user->mobile_number }})</center>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        @php $j++; @endphp
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-4 scrolldiv" id="htmlassign">
+                            <div class="col-sm-6 scrolldiv" id="htmlassign">
                             </div>
-                            <div class="col-sm-4 scrolldiv">
+                            <div class="col-sm-3 scrolldiv">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <!-- $from_date_one.'-'.$to_date_one -->
-                                        <th>Added On {{date('d F Y',strtotime($from_date_one))}}</th>
+                                            <th>Added On {{date('d F Y',strtotime($from_date_one))}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignCheck">
-                                        @php $r=0; @endphp
-                                        @foreach ($getRecentlyJoinUser as $recentUser)
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="new_user_id" value="{{ $recentUser->id }}" data-checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" data-nid="{{ $recentUser->id }}">
-                                                <label checkvalue="{{ $recentUser->id }}" checkname="{{ $recentUser->user_fname }}_{{ $recentUser->user_lname }}" class="col-sm-4 control-label" id="manuel_check_{{$r}}">
-                                                    <center>{{ $recentUser->user_fname }} {{ $recentUser->user_lname }} ({{ $recentUser->mobile_number }})</center>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        @php $r++;@endphp
-                                        @endforeach
+                                        @php $r=0;$cr=0; @endphp
+                                        @php $checkPrv=[]; $checkPrvTwo=[];
+                                        $rec_count = count($getRecentlyJoinUser);
+                                        @endphp
+                                        @for($er=0;$er < $rec_count; $er++) @foreach ($getRecentlyJoinUser as $recentUser) @if(!in_array($recentUser->mobile_number,$checkPrv))
+                                            @if(!in_array($recentUser->id.'_'.$recentUser->mobile_id,$checkPrvTwo))
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="new_user_id" value="{{ $recentUser->id }}_{{ $recentUser->mobile_id }}" data-checkname="{{ $recentUser->mobile_id }}" data-nid="{{ $recentUser->id }}">
+                                                    <label checkvalue="{{ $recentUser->id }}" checkname="{{ $recentUser->mobile_id }}" class="col-sm-4 control-label" id="manuel_check_{{$r}}">
+                                                        <center>{{ $recentUser->mobile_id }}</br> ({{ $recentUser->mobile_number }}) </center>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            @php
+                                            array_push($checkPrv,$recentUser->mobile_number);
+                                            array_push($checkPrvTwo,$recentUser->id.'_'.$recentUser->mobile_id);
+                                            @endphp
+                                            @php $r++;@endphp
+                                            @endif
+                                            @endif
+                                            @php $cr++;@endphp
+                                            @endforeach
+                                            @php $checkPrv=[];@endphp
+                                            @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -265,27 +280,27 @@
     var htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
     $(document).ready(function() {
         $('#auto-assign-checkbox').on('click', function() {
-            if($('#assign_inputs input').length >= 1){
-                var msg = 'You Lost Manual Assign Data, Confirm ? ';
-                var result = confirm(msg);
-                if (result) {
-                    $('#assign_inputs').empty();
-                    $('#htmlassign').html('');
-                    $('#htmlassign').empty();
-                    var htmlassign_one = '';
-                    htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
-                    $('#assign_inputs').empty();
-                    $( 'input[type="checkbox"]' ).each(function( index ) {
-                        $('input[type="checkbox"]').attr("disabled", false);
-                        $('input[type="checkbox"]').prop('checked', false);
-                    });
-                    if ($('#autocheck').val() == 1) {
-                        location.reload();
+                if ($('#assign_inputs input').length >= 1) {
+                    var msg = 'You Lost Manual Assign Data, Confirm ? ';
+                    var result = confirm(msg);
+                    if (result) {
+                        $('#assign_inputs').empty();
+                        $('#htmlassign').html('');
+                        $('#htmlassign').empty();
+                        var htmlassign_one = '';
+                        htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
+                        $('#assign_inputs').empty();
+                        $('input[type="checkbox"]').each(function(index) {
+                            $('input[type="checkbox"]').attr("disabled", false);
+                            $('input[type="checkbox"]').prop('checked', false);
+                        });
+                        if ($('#autocheck').val() == 1) {
+                            location.reload();
+                        }
+                    } else {
+                        return false;
                     }
-                }else{
-                    return false;
                 }
-            }
                 var i = 1;
                 var fr = 0;
                 var to = 2;
@@ -314,7 +329,7 @@
                             if (assignee != undefined) {
                                 var assignee_name = $('#manuel_check_' + fr).attr('checkname');
                                 htmlassign += '<li><div class="member-details"><h5>' + assignee_name + '</h5></div></li>';
-                                assignee_user[user].push(assignee);
+                                assignee_user[user].push(assignee+"_"+assignee_name);
                             }
                             fr++;
                         }
@@ -322,16 +337,16 @@
                         // break;
                         j++;
                         assignee_user_array.push(assignee_user);
-                        $('#manaualAssign #assign_inputs').append('<input type="text" name="' + user + '[]" value="' + assignee_user[user] + '">');
+                        $('#manaualAssign #assign_inputs').append('<input type="hidden" name="' + user + '[]" value="' + assignee_user[user] + '">');
                     }
                     htmlassign += '</div></div>';
                     $('#htmlassign').html('');
                     $('#htmlassign').append(htmlassign);
-                    $( 'input[type="checkbox"]' ).each(function( index ) {
+                    $('input[type="checkbox"]').each(function(index) {
                         $('input[type="checkbox"]').attr("disabled", true);
                         $('input[type="checkbox"]').prop('checked', true);
                     });
-                    $( 'input[type="radio"]' ).each(function( index ) {
+                    $('input[type="radio"]').each(function(index) {
                         $('input[type="radio"]').attr("disabled", true);
                         $('input[type="radio"]').prop('checked', true);
                     });
@@ -347,9 +362,13 @@
                 var manual_form = $('#assign_inputs').find('input[type=text]').filter(':input:first').attr('data-checkcount');
                 if (assignee_user_array.length) {
                     // Submit Form
-                    $('#manaualAssign').submit();
-                } else if(manual_form == 2){
-                    $('#manaualAssign').submit();
+                    if (confirm('Once Submit cant reset this Data, Confirm ?')) {
+                        $('#manaualAssign').submit();
+                    }
+                } else if (manual_form == 2) {
+                    if (confirm('Once Submit cant reset this Data, Confirm ?')) {
+                        $('#manaualAssign').submit();
+                    }
                 } else {
                     var msg = 'Select Users and Assignee to submit form';
                     var classname = 'danger';
@@ -366,7 +385,8 @@
                     var usid = $('input[type="radio"]:checked').attr('data-oid');
                     var ass_usid = $(this).attr('data-nid');
                     var ass_checkname = $(this).attr('data-checkname');
-                    var common_id = usid+'_'+us_radioname;
+                    var ass_checkname_usid = ass_usid+"_"+ass_checkname;
+                    var common_id = usid + '_' + us_radioname;
                     var checkcount;
                     // if ($.inArray(usid,assignee_user_array) >  -1){
                     //     assignee_user_array[usid].push(ass_usid);
@@ -376,26 +396,27 @@
                     //     console.log("else==="+assignee_user_array);
                     //     assignee_user_array[usid]=[];
                     // }
-                    if($('.'+common_id).length == 0){
-                        $('#manaualAssign #assign_inputs').append('<input type="text" class="'+common_id+'" name="'+common_id+'[]" value="' + ass_usid + '" data-uname="'+ass_checkname+'" data-checkcount="1">');
+                    if ($('.' + common_id).length == 0) {
+                        $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + ass_usid + '" data-uname="' + ass_checkname + '" data-checkcount="1">');
                         htmlassign_one += '<ul class="active"><li><div class="member-details"><h5>' + common_id + '</h5></div><ul>';
-                    }else{
-                        var old_val = $('.'+common_id).val();
-                        var old_name = $('.'+common_id).attr('data-uname');
-                        checkcount = $('.'+common_id).attr('data-checkcount');
-                        if(checkcount != 2){
-                            $('.'+common_id).remove();;
-                            $('#manaualAssign #assign_inputs').append('<input type="text" class="'+common_id+'" name="'+common_id+'[]" value="' +old_val+','+ ass_usid + '" data-checkcount="2">');
+                    } else {
+                        var old_val = $('.' + common_id).val();
+                        var old_name = $('.' + common_id).attr('data-uname');
+                        var old_val_name = old_val+"_"+old_name;
+                        checkcount = $('.' + common_id).attr('data-checkcount');
+                        if (checkcount != 2) {
+                            $('.' + common_id).remove();;
+                            $('#manaualAssign #assign_inputs').append('<input type="text" class="' + common_id + '" name="' + common_id + '[]" value="' + old_val_name + ',' + ass_checkname_usid + '" data-checkcount="2">');
                             htmlassign_one += '<li><div class="member-details"><h5>' + old_name + '</h5></div></li>';
                             htmlassign_one += '<li><div class="member-details"><h5>' + ass_checkname + '</h5></div></li>';
                             htmlassign_one += '</ul></li></ul>';
                             $('#htmlassign').html(htmlassign_one);
-                        }else{
+                        } else {
                             var msg = 'You Can select only 2 ID`s per User';
                             var classname = 'danger';
                             showMessage(msg, classname);
                             $(this).prop('checked', false);
-                            return false;                            
+                            return false;
                         }
                     }
                     $(this).attr("disabled", true);
@@ -414,6 +435,7 @@
             }
         })
     });
+
     function showMessage(msg, classname) {
         $('#message_div').html('<button type="button" class="btn btn-outline-' + classname + ' btn-fw" style="text-align: left;width:auto">' + msg + '</button>');
         setTimeout(function() {

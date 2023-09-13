@@ -249,10 +249,14 @@ class RequestPinController extends Controller
         ->select('users.*', 'users.created_at as id_created_date', 'user_status', 'user_referral.referral_id as referral_id', 'user_referral.admin_slug as admin_slug')
         ->where('user_referral.referral_id', Auth::user()->mobile_number)
         ->get();
-    } else {
+    } else if (Auth::user()->user_role == 'A') {
       $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
         ->select('users.*', 'users.created_at as id_created_date', 'user_status')
         ->where('user_referral.admin_slug', Auth::user()->user_slug)
+        ->get();
+    } else {
+      $normal_udata = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+        ->select('users.*', 'users.created_at as id_created_date', 'user_status')
         ->get();
     }
     $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')

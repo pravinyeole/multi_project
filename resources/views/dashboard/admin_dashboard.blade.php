@@ -16,15 +16,15 @@
               <div class="home-tab">
                 <div class="announsement">
                   <div class="info">
-                    <h5>Welcome to <b>event's!</b></h5>
+                    <h5><b>Announcement Section</b></h5>
                     @if(isset($data['Announcement']))
                       @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
                         <p>{{$data['Announcement']['announce']}}</p>
                       @else
-                        <p>New event coming soon....</p>
+                        <p>No new Announcement</p>
                       @endif
                     @else
-                      <p>New event coming soon....</p>
+                      <p>No new Announcement</p>
                     @endif
                   </div>
                   <img src="images/announce.png" alt="" class="img-fuild" />
@@ -42,7 +42,7 @@
                     <h5>bPIN Balance</h5>
                   <div class="info">
                     <p>Total</p>
-                    <h3>{{Session::get('myPinBalance')}}</h3>
+                    <h3>{{$data['myPinBalance']}}</h3>
                   </div>
                 </div>
                 <div class="row flex-grow mb-3">
@@ -78,9 +78,9 @@
                 <div class="refForm mb-4">
                   <form action="#">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{Session::get('myadminSlug')}}" readonly>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{$data['myadminSlug']}}" readonly>
                     <div class="input-group-prepend">
-                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{Session::get('cryptUrl')}}')">Copy</button>
+                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{$data['cryptUrl']}}')">Copy</button>
                     </div>
                   </div>
                   </form>
@@ -93,7 +93,7 @@
                     </div> -->
                     <div class="row flex-grow pin-details pt-0">
                       <div class="col-6">
-                      <a href="{{url('request-pin')}}"><p>bPIN Request Recieved</p>
+                      <a href="{{url('request-pin')}}"><p>Request Sent Count</p>
                           <h3>{{$data['requestedPins']}}</h3></a>
                       </div>
                       <div class="col-6 bdr-left">

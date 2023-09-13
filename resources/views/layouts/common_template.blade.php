@@ -1,9 +1,8 @@
 @include('layouts.header')
 
 @php
-$configData = Helper::applClasses();
 $commonValues = Helper::commonValues();
-print_r($commonValues);
+$configData = Helper::applClasses();
 @endphp
 
 @yield('content')
