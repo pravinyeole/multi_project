@@ -17,6 +17,7 @@
     <div class="row">
         <div class="col-12">
             <button class="btn-sm create-new btn btn-info m-2">Pins: {{Session::get('myPinBalance')}}</button>
+            <span style="float:right;"><a href="{{url('/normal_user')}}" class="btn-sm create-new btn btn-info m-2 waves-effect waves-float waves-light">Back</a></span>
             <div class="card">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
