@@ -56,6 +56,12 @@
       "slug": "pins-request"
     },
     {
+      "url":  "normal_user/paymentrequest",
+      "name": "Payment Request",
+      "icon": "send",
+      "slug": "paymentrequest"
+    },
+    {
         "url" : "request-pin/direct_ref_user_list",
         "name": "Direct Ref User List",
         "icon": "mdi mdi-account-multiple-plus",

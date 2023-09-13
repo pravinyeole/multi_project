@@ -148,6 +148,9 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         // save-get-help-form
         Route::post('save-get-help-form', [NormalUserController::class, 'saveGetHelp'])->name('normal_user.save_gh');
 
+        Route::get('paymentrequest', [NormalUserController::class, 'paymentrequest']);
+        Route::get('payment_accept/{id}/{mobileId}', [NormalUserController::class, 'payment_accept']);
+
 
     });
     //for admin to accepet pins request

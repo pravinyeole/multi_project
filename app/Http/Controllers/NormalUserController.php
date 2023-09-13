@@ -80,7 +80,7 @@ class NormalUserController extends Controller
         // echo $userIds;
         // Calculate the initial number of count for the current wx`x`eek
         $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
-
+        
         $createIdLimit = '';
         if ($allid == $initialsNoOfCount) {
             $createIdLimit = 'd-none';
@@ -276,6 +276,7 @@ class NormalUserController extends Controller
             $payment = new Payment();
             $payment->mobile_id = $pay_mobile_id;
             $payment->user_id = Auth::user()->id;
+            $payment->receivers_id = $request->recevier_id;
             $payment->type = "SH";
             $payment->status = "pending";
             // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
@@ -318,5 +319,21 @@ class NormalUserController extends Controller
         $getPaymentStatus->status = "completed";
         $getPaymentStatus->update();
         return view('normaluser.get_help_view_details', compact('title', 'senderUserDetails', 'mobileId', 'getPaymentStatus'));
+    }
+
+    public function paymentrequest(Request $request)
+    {
+        $title = "Payment Request";
+        $data = Payment::with('paymentHas')->where(['receivers_id'=> Auth::user()->id,'status'=>'pending'])->get()->toArray();
+        $complted = Payment::with('paymentHas')->where(['receivers_id'=> Auth::user()->id,'status'=>'completed'])->get()->toArray();
+        return view('normaluser.payment_request', compact('title', 'data','complted'));
+    }
+
+    public function payment_accept($id, $mobileId)
+    {
+        $title = "Payment Request";
+        $data = Payment::where('payment_id', $id)->update(['status'=>'completed']);
+        $data = UserSubInfo::where('mobile_id', $mobileId)->update(['status'=>'green']);
+        return back();
     }
 }

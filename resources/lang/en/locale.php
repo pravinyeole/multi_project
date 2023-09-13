@@ -218,5 +218,6 @@ return [
   "Transfer Pin"=>"Transfer Pin",
   "Direct Ref User List"=>"Direct Ref User List",
   "Unassigned Users"=>"Unassigned Users",
-
+  "My Id's"=>"My Id's",
+  "Payment Request" => "Payment Request",
 ];
