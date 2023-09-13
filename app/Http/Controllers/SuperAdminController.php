@@ -385,6 +385,7 @@ class SuperAdminController extends Controller
         $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
             ->select('users.*', 'user_sub_info.mobile_id')
             ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
+            ->orderBy('user_sub_info.user_id')
             ->get();
         
         $from_date_one = \Carbon\Carbon::today()->subDays(0);
@@ -402,6 +403,7 @@ class SuperAdminController extends Controller
             ->select('users.*', 'user_sub_info.mobile_id')
             ->whereBetween('user_sub_info.created_at',[$from_date_one,$to_date_one])
             ->whereNotIn('user_sub_info.mobile_id',$mobileUserRes)
+            ->orderBy('user_sub_info.user_id','DESC')
             ->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 

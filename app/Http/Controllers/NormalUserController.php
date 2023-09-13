@@ -199,14 +199,23 @@ class NormalUserController extends Controller
     {
         // Retrieve the data for the "Send Help" section from your data source
         $loggedInUserId = Auth::user()->id;
+        $getUserIds = UserMap::where('user_mobile_id',$request->mobileId)->where('user_map_new.type', 'GH')->pluck('new_user_id')->toArray();
         
-        $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.mobile_id')
-            ->join('users', 'users.id', '=', 'user_sub_info.user_id')
-            ->where('user_map_new.user_id', $loggedInUserId)
-            ->where('user_map_new.user_mobile_id', $request->mobileId)
-            ->where('user_map_new.type', 'GH')
-            ->where('user_sub_info.status', 'red')
-            ->get();
+        // $sendHelpData = UserMap::join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
+        //     ->join('users', 'users.id', '=', 'user_sub_info.user_id')
+        //     ->where('user_map_new.user_i', $loggedInUserId)
+        //     // ->where('user_map_new.user_mobile_id', $request->mobileId)
+        //     // ->where('user_map_new.type', 'GH')
+        //     // ->where('user_sub_info.status', 'red')
+        //     ->whereIn('users.id', $getUserIds)
+        //     ->get();
+        if(count($getUserIds)){
+            $getUserIds = implode(',',$getUserIds);
+            $sendHelpData = DB::select(DB::raw('select users.id AS sid,users.user_fname,users.mobile_number,users.user_lname,user_map_new.* from `user_map_new` left join `users` on `users`.`id` = `user_map_new`.`new_user_id` where `user_map_new`.`user_mobile_id` = "'.$request->mobileId.'" AND `user_map_new`.`user_id` = '.$loggedInUserId.' and `users`.`id` in ('.$getUserIds.')'));
+        }else{
+            $sendHelpData = [];
+        }
+
 
         return Datatables::of($sendHelpData)
             ->addIndexColumn()
@@ -215,7 +224,7 @@ class NormalUserController extends Controller
                 return $username;
             })
             ->addColumn('action', function ($row) use ($request) {
-                $id = Crypt::encryptString($row->id);
+                $id = Crypt::encryptString($row->sid);
                 $mobileId = Crypt::encryptString($request->mobileId);
                 $btn = "<a href='".url('/normal_user/show-send-help-form/'.$id.'/'.$mobileId)."' class='item-edit text-dark'  title='Send Help'><svg xmlns='http://www.w3.org/2000/svg' width=24 height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-eye font-small-4'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path><circle cx='12' cy='12' r='3''></circle></svg></a> ";
                 return $btn;
