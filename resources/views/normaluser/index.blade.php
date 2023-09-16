@@ -19,33 +19,36 @@
             <div class="card" style="padding: 10px;">
                 <div class="card-header border-bottom">
                     <div>
-                            <button class="btn-sm create-new btn btn-info mt-1">Pins: {{Session::get('myPinBalance')}}</button>
-                            <div style="float:right">
+                        <button class="btn-sm create-new btn btn-info mt-1">Pins: {{Session::get('myPinBalance')}}</button>
+                        <div style="float:right">
                             <div class="dt-action-buttons text-right">
                                 <div class="dt-buttons d-inline-flex">
                                     @if(Auth::user()->user_role != "S")
+                                    @if(date('l') != 'Sunday')
                                     <?php
                                     date_default_timezone_set('Asia/Kolkata');
                                     $slo = '';
                                     $time = date("H");
                                     $timezone = date("e");
-                                    if($time >= "10" && $time <= "16")
-                                    {   $slo = "10";}
-                                    else 
-                                    {  $slo = "not_login";}
+                                    if ($time >= "10" && $time <= "16") {
+                                        $slo = "10";
+                                    } else {
+                                        $slo = "not_login";
+                                    }
                                     ?>
-                                    
-                                        @if($slo != 'not_login')
-                                        @endif
-                                            <button class="btn-sm create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                    Create Id
-                                                </span>
-                                            </button>
+
+                                    @if($slo != 'not_login')
+                                    <button class="btn-sm create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            </svg>
+                                            Create Id
+                                        </span>
+                                    </button>
+                                    @endif
+                                    @endif
                                     @endif
                                 </div>
                             </div>
@@ -69,9 +72,7 @@
             </div>
         </div>
     </div>
-</section>
-
-
+</div>
 <div class="modal fade" id="modals-slide-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalSlideLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
