@@ -96,7 +96,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="" value="{{$data['myadminSlug']}}" readonly>
                     <div class="input-group-prepend">
-                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{$data['cryptUrl']}}')}}')">Copy</button>
+                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{$data['cryptUrl']}}')">Copy</button>
                     </div>
                   </div>
                   </form>
