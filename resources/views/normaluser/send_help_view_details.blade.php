@@ -73,37 +73,27 @@
                                 <div class="form-group">
                                     {{-- @dd($senderUserDetails); --}}
                                     <label class="form-label" for="payment_mode">Select Payment Mode<span class="text-danger">*</span></label>
-                                    @if (isset($senderUserDetails->google_pay))
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_mode" id="google_pay" value="google_pay" @if(old('google_pay', $senderUserDetails->google_pay) === 'google_pay') checked @endif>
                                         <label class="form-check-label" for="google_pay">Google Pay</label>
                                     </div>
-                                    @endif
-                                    @if (isset($senderUserDetails->phone_pay))
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_mode" id="phone_pay" value="phone_pay" @if(old('phone_pay', $senderUserDetails->phone_pay) === 'phone_pay') checked @endif>
                                         <label class="form-check-label" for="phonepay">PhonePay</label>
                                     </div>
-                                    @endif
-                                    @if (isset($senderUserDetails->upi))
-
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_mode" id="upi" value="upi" @if(old('upi', $senderUserDetails->upi) === 'upi') checked @endif>
                                         <label class="form-check-label" for="upi">UPI</label>
                                     </div>
-                                    @endif
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_mode" id="other_payment_mode" value="other_payment_mode" @if(old('other_payment_mode', $senderUserDetails->other_payment_mode) === 'other_payment_mode') checked @endif>
                                         <label class="form-check-label" for="other_payment_mode">Other Payment Mode</label>
                                     </div>
-                                    @if (isset($senderUserDetails->paytm))
-
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_mode" id="paytm" value="paytm" @if(old('payment_mode', $senderUserDetails->paytm) === 'paytm') checked @endif>
                                         <label class="form-check-label" for="paytm">Paytm</label>
                                     </div>
-                                    @endif
                                     
                                 </div>
                             </div>

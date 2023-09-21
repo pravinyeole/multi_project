@@ -130,7 +130,7 @@
                 serverSide: true,
                 bLengthChange: false,
                 responsive: true,
-                order: [1, 'ASC'],
+                order: [2, 'DESC'],
                 // dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-3"l><"row col-sm-12  col-md-5 customDropDown"><"col-sm-12 col-md-4"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 ajax: {
                     url: base_url + "/normal_user",

@@ -158,6 +158,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/', 			    [RequestPinController::class, 'showAdminRequestAcceptPage'])->name('pins-request.admin');
         Route::get('/edit/{pin_request_id}', [RequestPinController::class,'editPinRequestToAdminPage'])->name('request-pin.edit-request');
         Route::post('/update-request', [RequestPinController::class,'updatePinRequestToAdmin'])->name('request-pin.update-request');
+        Route::post('/cal', [RequestPinController::class,'cal']);
     });
 
     //for normal user send rquest to admin

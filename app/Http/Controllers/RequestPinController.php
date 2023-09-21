@@ -264,4 +264,8 @@ class RequestPinController extends Controller
       ->where('transfer_pin_history.trans_by', Auth::user()->id)->get();
     return view('admin.pincenter.transfer', compact('normal_udata', 'tarnsferHistory'));
   }
+  public function cal(Request $request)
+  {
+    return view('admin.pincenter.cal');
+  }
 }

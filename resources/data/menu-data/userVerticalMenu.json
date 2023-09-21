@@ -63,9 +63,16 @@
     },
     {
         "url" : "request-pin/direct_ref_user_list",
-        "name": "Direct Ref User List",
+        "name": "My Referrals",
+        "icon": "mdi mdi-account-multiple-plus",
+        "slug": "direct-ref"
+    },
+    {
+        "url" : "request-pin/cal",
+        "name": "Calculation",
         "icon": "mdi mdi-account-multiple-plus",
         "slug": "direct-ref"
     }
+
   ]
 }

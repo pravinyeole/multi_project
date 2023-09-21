@@ -45,7 +45,7 @@
     },
     {
         "url" : "request-pin/direct_ref_user_list",
-        "name": "Direct Ref User List",
+        "name": "My Referrals",
         "icon": "message-square",
         "slug": "direct-ref"
     }
