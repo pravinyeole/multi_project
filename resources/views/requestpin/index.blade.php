@@ -7,7 +7,7 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12">
-            <div class="card" style="padding: 2%;">
+            <div class="card">
             <div class="page-title">
                     <h4>
                         PIN Request
