@@ -23675,7 +23675,7 @@ code {
 .form-control, .asColorPicker-input, .dataTables_wrapper select, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead,
 .tt-query,
 .tt-hint {
-  border: 1px solid #dee2e6;
+  border: 1px solid #bcc7d3;
   font-weight: 400;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -23687,8 +23687,8 @@ select.tt-query,
 select.tt-hint {
   padding: .4375rem .75rem;
   border: 0;
-  outline: 1px solid #dee2e6;
-  color: #c9c8c8;
+  outline: 1px solid #bcc7d3;
+  color: #000000;
 }
 
 select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus, .select2-container--default select.select2-selection--single:focus, .select2-container--default .select2-selection--single select.select2-search__field:focus, select.typeahead:focus,
@@ -31540,7 +31540,7 @@ body.sidebar-icon-only .sidebar {
   margin: 0;
   overflow: auto;
 }
-.page-title{font-weight: 600;font-size: 1.3rem;padding: .8rem 1.5rem;BACKGROUND: #4b70cb;border-radius: 12px 12px 0 0;}
+.page-title{font-weight: 600;font-size: 1.3rem;padding: .8rem 1.5rem;BACKGROUND: #072664;border-radius: 12px 12px 0 0;}
 .page-title h4{font-weight: 600;font-size: 1.1rem;padding: 0;margin: 0;color: #fff;}
 .dataTables_wrapper label {
   font-size: .8125rem;
@@ -31548,6 +31548,51 @@ body.sidebar-icon-only .sidebar {
   align-items: center;
   gap: 8px;
 }
+
+.earning{
+  background: rgb(50,159,40);
+    background: -moz-linear-gradient(90deg, rgba(50,159,40,1) 0%, rgba(215,113,12,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(50,159,40,1) 0%, rgba(215,113,12,1) 100%);
+    background: linear-gradient(90deg, rgba(50,159,40,1) 0%, rgba(215,113,12,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#329f28",endColorstr="#d7710c",GradientType=1);
+}
+.earning .card-body{
+  background: url(../../images/rupee-indian.png) 95% center no-repeat;
+  background-size: auto 110%;
+  gap: 15px;
+}
+.earning p{font-size: 1rem;opacity: .8;margin: 0;}
+.earning h1{font-size: 2.3rem;font-weight: 600;margin: 0;}
+.earning h1 sup{font-size: 1.5rem;padding-right: 3px;top: -8px;display: inline-block;}
+.earning img{max-width: 56px;height: 56px;}
+
+.list-item{
+  border-bottom: 1px solid #f5f5f5;
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.list-item:last-child{
+  border-bottom: 0px solid #f5f5f5;
+}
+.list-item span{
+  display: flex;align-items: center;
+}
+.list-item img{
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.list-item h3{
+  font-size: 1.5rem;font-weight: 600;color: #399d27;margin: 0;
+}
+.investment .list-item h3{color: #e04046;}
+.list-item h3 sup{
+  top: -5px;
+  font-size: 1.1rem;
+}
+
 @media (max-width: 991px){
   .navbar .navbar-brand-wrapper {
       padding: 6px 15px;
