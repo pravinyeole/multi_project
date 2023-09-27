@@ -246,9 +246,10 @@ class SuperAdminController extends Controller
                     $blockIcon = $userStatus == 'Inactive' ? 'fas fa-lock' : 'fas fa-lock-open';
                     $blockColor = $userStatus == 'Inactive' ? 'red' : 'green';
                     
-                    // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
                     if($userStatus == 'Active'){
                         $status = "<button title='Active' data-id='$row->id' data-type='Active' data-model='User' class='btn btn-success status'>Active</button>";
+                        if($row->user_role != 'A') 
+                            $status .= "  <button title='Active' data-id='$row->id' data-type='Admin' data-model='User' class='btn btn-primary status'>Admin</button>";
                     }else{
                         $status = "<button title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='btn btn-danger status'>Inactive</button>";
                     }

@@ -106,11 +106,10 @@
 
     function openModel(user_id,type) {
         if(user_id <= 0 || user_id == null){
-            alert('pppppppppp');
+            alert('Any thing is wrong');
             return false;
         }
-        // var endpoint = base_url+'/'+$(this).data('url')+'/status';
-        var endpoint = '{{ route("users.update-status") }}';
+        var endpoint = base_url + '/common/users/update-status';
         var token = $("input[name='_token']").val();
         var message = "Are you sure you want to change the status?";
         var id = user_id;
@@ -141,7 +140,6 @@
                         },
                         dataType: "json",
                         success: function(data) {
-                            console.log(data);
                             if (data.title == 'Error') {
                                 $('#loader').hide();
                                 toastr.error(data.message, data.title);
@@ -155,7 +153,7 @@
                     })
                 }
             }
-        });
+        });       
     }
 </script>
 @endsection
