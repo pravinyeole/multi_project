@@ -24,6 +24,6 @@ class Payment extends Model
 
     public function paymentHas()
     {
-        return $this->belongsTo('App\Models\User','receivers_id','id');
+        return $this->belongsTo('App\Models\User','user_id','id');
     }
 }

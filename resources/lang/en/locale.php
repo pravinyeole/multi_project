@@ -216,8 +216,9 @@ return [
   "Requests"=>'Requests',
   "Announcement"=>'Announcement',
   "Transfer Pin"=>"Transfer Pin",
-  "Direct Ref User List"=>"Direct Ref User List",
+  "My Referrals"=>"My Referrals",
   "Unassigned Users"=>"Unassigned Users",
   "My Id's"=>"My Id's",
   "Payment Request" => "Payment Request",
+  "Calculation" => "Calculation",
 ];
