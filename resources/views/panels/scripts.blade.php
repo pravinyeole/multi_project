@@ -1,5 +1,4 @@
-{{-- Vendor Scripts --}}
-<script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
+
 
 @yield('vendor-script')
 {{-- Theme Scripts --}}

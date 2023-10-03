@@ -31,6 +31,14 @@ trait CommonTrait {
         $prefix = '\App\Models';
         $model_name = $prefix. "\\". $model;
         $data = $model_name::findOrFail($request->id);
+        if($request->type == "Inactive")
+        {
+            $new_type = "Active";
+        }
+        else
+        {
+            $new_type = "Inactive";
+        }
         $data->$field = $request->type;
         $data->save();
         $resultArr['title'] = 'Success';
@@ -41,7 +49,6 @@ trait CommonTrait {
 
     // delete entry from table
     public function deleteRecord($request, $model, $field){
-        dd($model);
         $prefix = '\App\Models';
         $model_name = $prefix. "\\". $model;
         $data = $model_name::findOrFail($request->id);

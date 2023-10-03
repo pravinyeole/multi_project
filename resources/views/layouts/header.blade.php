@@ -32,6 +32,8 @@
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style1.css')}}">
   @endif
   <!-- Template Main CSS File -->
+  {{-- Vendor Scripts --}}
+<script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
   <style>
     .brand-logo-mini{
       height: 50px;

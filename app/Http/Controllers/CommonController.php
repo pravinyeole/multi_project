@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use App\Traits\CommonTrait;
 use App\Models\User;
 use App\Models\UserOtp;
+use App\Models\UserRole;
 use App\Models\MobileCircle;
 use Auth;
 use Session;
@@ -26,11 +27,41 @@ class CommonController extends Controller
     // Common function for update status
     public function updateStatus(Request $request)
     {
-        // $this->modifyStatus($request, 'status');
-        $this->modifyStatus($request, 'User', 'user_status');
+        $resultArr = [];
+        if($request->type == "Admin")
+        {
+            $result = UserRole::where('user_id',$request->id)->count();
+            
+            if($result != 0)
+            {
+                $res = User::where('id',$request->id)->update(['user_role'=>'A']);
+                $res = UserRole::where('user_id',$request->id)->update(['role'=>'A']);
+                $resultArr['title'] = 'Success';
+                $resultArr['message'] = 'Status updated successfully';
+            }
+            else
+            {
+                $resultArr['title'] = 'Error';
+                $resultArr['message'] = 'User Role Not Defined';
+            }
+        }
+        else
+        {
+            if($request->type == "Inactive")
+            {
+                $new_type = "Active";
+            }
+            else
+            {
+                $new_type = "Inactive";
+            }
+            $res = User::where('id',$request->id)->update(['user_status'=>$new_type]);
+            $resultArr['title'] = 'Success';
+            $resultArr['message'] = 'Status updated successfully';
+        }
 
+        return json_encode($resultArr);
     }
-
  
     // Common function for impersnate
     public function loginUser(Request $request, $id)

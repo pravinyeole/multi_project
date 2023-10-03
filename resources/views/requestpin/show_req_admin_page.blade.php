@@ -18,8 +18,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header border-bottom">
-                        <h4 class="card-title">Pin Request</h4>
+                    <div class="page-title">
+                        <h4>Pin Request</h4>
                         <div class="dt-action-buttons text-right">
                         </div>
                     </div>
