@@ -25,7 +25,7 @@ class NormalUserController extends Controller
     public function __construct()
     {
         $this->title = "Dashboard";
-        $this->middleware(['auth'])->except(['saveUserRoleConfig']);
+        $this->middleware(['auth'])->except(['createIdClone']);
     }
     public function index(Request $request)
     {   
@@ -145,35 +145,103 @@ class NormalUserController extends Controller
                     ->select('users.*', 'user_pins.pins')
                     ->where('users.id', $request->user_id)
                     ->first();
-
-                // Generate the mobile_id
-                $mobileIdCount = UserSubInfo::whereDate('created_at', $today)
-                    // ->where('user_id', $request->user_id)
-                    ->count() + 1;
-                    
-                $initials = substr($userDetails->user_fname, 0, 1) . substr($userDetails->user_lname, 0, 1);
-                $mobileId = $initials . str_pad($mobileIdCount, 2, '0', STR_PAD_LEFT) .
-                    substr($userDetails->mobile_no, -4) .
-                    $today->format('dmY');
-                // Save the new UserSubInfo record
-                $userSubInfo = new UserSubInfo();
-                $userSubInfo->user_id = $userDetails->id;
-                $userSubInfo->mobile_id = strtoupper($mobileId);
-                $userSubInfo->status = 'red';
-                $userSubInfo->created_at =  Carbon::now();
-                $userSubInfo->save();
-
-                // Update the pins for the user
-                $userPins = UserPin::where('user_id', $request->user_id)->first();
-                $userPins->pins = $userPins->pins - 1;
-                $userPins->save();
-                // Return a response
-                toastr()->success('User ID created successfully!');
-                return redirect()->back();
+                if(isset($userDetails->pins) && $userDetails->pins > 0){
+                    // Generate the mobile_id
+                    $mobileIdCount = UserSubInfo::whereDate('created_at', $today)
+                        // ->where('user_id', $request->user_id)
+                        ->count() + 1;
+                        
+                    $initials = substr($userDetails->user_fname, 0, 1) . substr($userDetails->user_lname, 0, 1);
+                    $mobileId = $initials . str_pad($mobileIdCount, 2, '0', STR_PAD_LEFT) .
+                        substr($userDetails->mobile_no, -4) .
+                        $today->format('dmY');
+                    // Save the new UserSubInfo record
+                    $userSubInfo = new UserSubInfo();
+                    $userSubInfo->user_id = $userDetails->id;
+                    $userSubInfo->mobile_id = strtoupper($mobileId);
+                    $userSubInfo->status = 'red';
+                    $userSubInfo->created_at =  Carbon::now();
+                    $userSubInfo->save();
+    
+                    // Update the pins for the user
+                    $userPins = UserPin::where('user_id', $request->user_id)->first();
+                    $userPins->pins = $userPins->pins - 1;
+                    $userPins->save();
+                    // Return a response
+                    return redirect()->back()->with('success','User ID created successfully!');
+                }else{
+                    return redirect()->back()->with('error','You don`t have a PIN Balance.');
+                }
             // }
         } catch (\Exception $e) {
             toastr()->error(config('messages.500'));
             return redirect()->back();
+        }
+    }
+
+    public function createIdClone()
+    {
+        if(date('l') != 'Sunday'){
+            $mobileNumber = ['9096093799','7620801801','7083124124','9922226114','9922020123','9860838087','7778882312'];
+            $k=1;
+            $createdIds=[];
+            for($i=0;$i < count($mobileNumber);$i++){
+                $mobilenum = $mobileNumber[$i];
+                $user_id =0;
+                if(isset($mobilenum) && !empty($mobilenum)){
+                    $userdata = User::where('mobile_number',$mobilenum)->first();
+                    if($userdata == null){
+                        $mob_error[] = $mobilenum;
+                    }else{
+                        $user_id = $userdata->id;
+                    }
+                }else{
+                    $mob_error[] = $mobilenum;
+                }
+                if($user_id > 0){
+                    for($j=0; $j < 3;$j++){
+                        $today = Carbon::today();
+                        $userIds = UserSubInfo::where('user_id', $user_id)
+                            ->whereDate('created_at', $today)
+                            ->count();
+                        $allid = UserSubInfo::whereDate('created_at', $today)->count();        
+                        $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
+                        $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week      
+                        $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
+                        $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+                        if ($allid == $initialsNoOfCount) {
+                            echo $k.' You have reached the maximum limit of ID creations for today!'.'<br>';
+                        }else if ($userIds >= 3) {
+                            echo $k.' You have reached the maximum limit of ID creations for today!'.'<br>';
+                        }else{
+                            $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')
+                                    ->select('users.*', 'user_pins.pins')
+                                    ->where('users.id', $user_id)
+                                    ->first();
+                            $mobileIdCount = UserSubInfo::whereDate('created_at', $today)
+                                    // ->where('user_id', $user_id)
+                                    ->count() + 1;
+                            $initials = substr($userDetails->user_fname, 0, 1) . substr($userDetails->user_lname, 0, 1);
+                            $mobileId = $initials . str_pad($mobileIdCount, 2, '0', STR_PAD_LEFT) .substr($userDetails->mobile_no, -4) .$today->format('dmY');
+                                // Save the new UserSubInfo record
+                            $userSubInfo = new UserSubInfo();
+                            $userSubInfo->user_id = $userDetails->id;
+                            $userSubInfo->mobile_id = strtoupper($mobileId);
+                            $userSubInfo->status = 'red';
+                            $userSubInfo->created_at =  Carbon::now();
+                            $userSubInfo->save();
+                            $createdIds[] = $mobileId;
+                            $userPins = UserPin::where('user_id', $user_id)->first();
+                            $userPins->pins = $userPins->pins - 1;
+                            $userPins->save();
+                            echo $i.' User ID created successfully!'.'<br>';
+                        }
+                        $k++;
+                    }
+                }
+            }
+            print_r($createdIds);
+            exit;
         }
     }
 

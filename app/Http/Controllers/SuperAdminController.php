@@ -385,6 +385,7 @@ class SuperAdminController extends Controller
         $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
             ->select('users.*', 'user_sub_info.mobile_id')
             ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
+            ->where('user_sub_info.status','green')
             ->orderBy('user_sub_info.user_id')
             ->get();
         
