@@ -67,9 +67,9 @@ class DashboardController extends Controller
                             ->count();
             $data['revokePins'] = RevokePin::where('revoke_by', Auth::user()->id)->sum('revoke_count');
             $cryptUrl = '';
-            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
+            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
             if ($myPinBalance_a) {
-                $data['myPinBalance'] = $myPinBalance_a->pins;
+                $data['myPinBalance'] = $myPinBalance_a;
             } else {
                 $data['myPinBalance'] = 0;
             }
@@ -98,9 +98,9 @@ class DashboardController extends Controller
                                         ->orderBy('users.id','DESC')
                                         ->take(5)
                                         ->get();
-            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
+            $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
             if ($myPinBalance_a) {
-                $data['myPinBalance'] = $myPinBalance_a->pins;
+                $data['myPinBalance'] = $myPinBalance_a;
             } else {
                 $data['myPinBalance'] = 0;
             }
