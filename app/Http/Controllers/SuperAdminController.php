@@ -594,4 +594,14 @@ class SuperAdminController extends Controller
         $res = Announcement::where('id',$id)->delete();
         return back();
     }
+
+    public function redid(Request $request)
+    {
+        $data = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+        ->select('users.*', 'user_sub_info.mobile_id','user_sub_info.created_at as date')
+        ->where('user_sub_info.status','red')
+        ->orderBy('user_sub_info.user_sub_info_id','desc')
+        ->get();
+        return view('superadmin.payment_pending_list', compact('data'));
+    }
 }
