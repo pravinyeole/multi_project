@@ -40,7 +40,7 @@
                   Today’s Quota is Full. Please try after <p id="demo"></p>
                   <script>
                     // Set the date we're counting down to
-                    var countDownDate = new Date("Sep 30, 2023 10:00:00").getTime();
+                    var countDownDate = new Date("Oct 05, 2023 10:00:00").getTime();
                     // Update the count down every 1 second
                     var x = setInterval(function() {
                       // Get today's date and time
@@ -53,6 +53,9 @@
                       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                       // Output the result in an element with id="demo"
+                      if (hours < "10") { hours = "0" + hours; }
+                      if (minutes < "10") { minutes = "0" + minutes; }
+                      if (seconds < "10") { seconds = "0" + seconds; }
                       document.getElementById("demo").innerHTML = hours + "H : "
                       + minutes + "M : " + seconds + "S";
                       // If the count down is over, write some text 
@@ -97,41 +100,54 @@
                   <h1><sup>₹</sup>20000</h1>
                   </a>
                 <div class="row flex-grow mb-3">
-                  <div class="col-12 pb-3">
+                  <div class="col-6 pb-3">
+                    <div class="card card-green stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details">
+                              <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
+                                <a href="#">
+                                  <p class="statistics-title pt-0">Completed SH</p>
+                                  <h3 class="rate-percentage">68</h3>
+                                </a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 pb-3">
                     <div class="card card-orange stat-card">
                       <div class="card-body">
                             <div class="statistics-details">
                               <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
-                              <div class="row">
-                                <a href="#" class="col-6">
-                                  <p class="statistics-title pt-0">Completed SH</p>
-                                  <h3 class="rate-percentage">68</h3>
-                                </a>
-                                <a href="#" class="col-6">
+                                <a href="#">
                                   <p class="statistics-title pt-0">Pending SH</p>
                                   <h3 class="rate-percentage">68</h3>
                                 </a>
-                              </div>
                             </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="col-12 pb-3">
-                    <div class="card card-green stat-card">
+                    <div class="col-6 pb-3">
+                    <div class="card card-orange stat-card">
                       <div class="card-body">
                             <div class="statistics-details">
-                              <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
-                              <div class="row">
                                 <a href="#" class="col-6">
                                   <p class="statistics-title pt-0">Completed GH</p>
                                   <h3 class="rate-percentage">68</h3>
                                 </a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 pb-3">
+                    <div class="card card-green stat-card">
+                      <div class="card-body">
+                            <div class="statistics-details">
+                              <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
                                 <a href="#" class="col-6">
                                   <p class="statistics-title pt-0">Pending GH</p>
                                   <h3 class="rate-percentage">68</h3>
                                 </a>
-                              </div>
                             </div>
                         </div>
                       </div>
@@ -194,7 +210,7 @@
                     ?>
                     
                 @if($slo != 'not_login')
-                  <a href="{{url('/normal_user')}}" class="floating-btn">Create ID<span>+</span></a>
+                  <!-- <a href="{{url('/normal_user')}}" class="floating-btn">Create ID<span>+</span></a> -->
                 @endif  
             </div>
           </div>

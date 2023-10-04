@@ -268,4 +268,16 @@ class RequestPinController extends Controller
   {
     return view('admin.pincenter.cal');
   }
+  public function sendhelp(Request $request)
+  {
+    return view('admin.pincenter.sh');
+  }
+  public function gethelp(Request $request)
+  {
+    return view('admin.pincenter.gh');
+  }
+  public function mynetwork(Request $request)
+  {
+    return view('admin.pincenter.mynetwork');
+  }
 }
