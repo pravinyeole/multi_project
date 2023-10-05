@@ -104,19 +104,24 @@ class PinCenterController extends Controller
                 toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
                 return redirect()->back();
             }
-            $loginUserPinBalances = $loginUserPin->pins - $validatedData['no_of_pins'];
-            $loginUserPin->pins = $loginUserPinBalances;
-            $loginUserPin->save();
+
+            $inventory = UserPin::firstOrNew(['user_id'=>$loginUsreId]);
+            $inventory->pins = ($loginUserPin->pins - $validatedData['no_of_pins']);
+            $inventory->save();
         }
         // Create a new user pin record
-        $userPin = new UserPin();
-        $userPin->user_id = $id;
-        $userPin->pins = $validatedData['no_of_pins'];
-        // Save the new user pin record
-        $userPin->save();
+        // $userPin = new UserPin();
+        // $userPin->user_id = $id;
+        // $userPin->pins = $validatedData['no_of_pins'];
+        // // Save the new user pin record
+        // $userPin->save();
+
+        $inventory = UserPin::firstOrNew(['user_id'=>Auth::user()->id]);
+        $inventory->pins = $validatedData['no_of_pins'];
+        $inventory->save();
 
         // Update the user status to 'Active'
-        $getUser = User::findOrFail($id);
+        $getUser = User::findOrFail(Auth::user()->id);
         $getUser->user_status = 'Active';
         $getUser->save();
 
