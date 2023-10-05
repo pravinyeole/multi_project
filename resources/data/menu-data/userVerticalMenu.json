@@ -68,6 +68,12 @@
         "slug": "direct-ref"
     },
     {
+      "url":  "superadmin/red_id",
+      "name": "Pending Payment List",
+      "icon": "mdi mdi-account-network",
+      "slug": "superadmin/red_id"
+    },
+    {
         "url" : "request-pin/cal",
         "name": "Calculation",
         "icon": "mdi mdi-account-multiple-plus",

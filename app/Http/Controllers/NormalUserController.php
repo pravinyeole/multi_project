@@ -99,7 +99,15 @@ class NormalUserController extends Controller
         } else {
             $timer = "stop";
         }
-        return view('normaluser.index', compact('title', 'createIdLimit', 'timer'));
+        $Pins = 0;
+        $userPins = UserPin::where('user_id', Auth::User()->id)->sum('pins');
+
+        if(isset($userPins))
+        {
+            $Pins = $userPins;
+        }
+
+        return view('normaluser.index', compact('title', 'createIdLimit', 'timer','Pins'));
     }
 
     public function createId(Request $request)
@@ -249,7 +257,7 @@ class NormalUserController extends Controller
     {
         $title = $this->title;
         $userDetails = UserPin::where('user_id', Auth::user()->id)
-            ->first();
+            ->sum('pins');
         // dd($userDetails);
         $mobileId = Crypt::decryptString($request->id);
         $loggedInUserId = Auth::user()->id;

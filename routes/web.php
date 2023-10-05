@@ -132,7 +132,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/announcement', [SuperAdminController::class, 'showannouncement']);
         Route::any('/announce_create', [SuperAdminController::class, 'announce_create']);
         Route::any('/delete/{id}', [SuperAdminController::class, 'delete']);
-        
+        Route::get('/red_id', [SuperAdminController::class, 'redid']);
 
     });
 

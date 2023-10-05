@@ -232,6 +232,7 @@ class RequestPinController extends Controller
       $tarspin->trans_count = $request->trans_number;
       $tarspin->trans_reason = $request->trans_reason;
       $tarspin->save();
+      
       if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
         UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
         $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);

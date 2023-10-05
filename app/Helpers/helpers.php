@@ -15,9 +15,9 @@ class Helper
     public static function commonValues()
     {
         $cryptUrl = '';
-        $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->first();
+        $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
         if ($myPinBalance_a) {
-            $myPinBalance = $myPinBalance_a->pins;
+            $myPinBalance = $myPinBalance_a;
         } else {
             $myPinBalance = 0;
         }
