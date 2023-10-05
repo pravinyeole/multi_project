@@ -221,4 +221,6 @@ return [
   "My Id's"=>"My Id's",
   "Payment Request" => "Payment Request",
   "Calculation" => "Calculation",
+  "Calculation" => "Calculation",
+  "Pending Payment List" => "Pending Payment List"
 ];

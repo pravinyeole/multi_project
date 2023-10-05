@@ -246,9 +246,10 @@ class SuperAdminController extends Controller
                     $blockIcon = $userStatus == 'Inactive' ? 'fas fa-lock' : 'fas fa-lock-open';
                     $blockColor = $userStatus == 'Inactive' ? 'red' : 'green';
                     
-                    // $btn = "<a href='".url('/superadmin/admin/block/'.$id)."' class='delete-record item-block' style='color: $blockColor;' title='".($userStatus == 'Inactive' ? 'Unlock' : 'Block')."' data-model='Department'><i class='$blockIcon'></i></a>";
                     if($userStatus == 'Active'){
                         $status = "<button title='Active' data-id='$row->id' data-type='Active' data-model='User' class='btn btn-success status'>Active</button>";
+                        if($row->user_role != 'A') 
+                            $status .= "  <button title='Active' data-id='$row->id' data-type='Admin' data-model='User' class='btn btn-primary status'>Admin</button>";
                     }else{
                         $status = "<button title='Inactive' data-id='$row->id' data-type='Inactive' data-model='User' class='btn btn-danger status'>Inactive</button>";
                     }
@@ -592,5 +593,15 @@ class SuperAdminController extends Controller
         $id = Crypt::decryptString($request->id);
         $res = Announcement::where('id',$id)->delete();
         return back();
+    }
+
+    public function redid(Request $request)
+    {
+        $data = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+        ->select('users.*', 'user_sub_info.mobile_id','user_sub_info.created_at as date')
+        ->where('user_sub_info.status','red')
+        ->orderBy('user_sub_info.user_sub_info_id','desc')
+        ->get();
+        return view('superadmin.payment_pending_list', compact('data'));
     }
 }

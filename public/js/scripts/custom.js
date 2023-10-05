@@ -1,6 +1,5 @@
 $(document).on('click', '.status', function(e) {
-    // var endpoint = base_url+'/'+$(this).data('url')+'/status';
-    var endpoint = '{{ route("users.update-status") }}';
+    var endpoint = base_url + '/common/users/update-status';
     var token = $("input[name='_token']").val();
     var message = "Are you sure you want to change the status?";
     var id = $(this).data('id');

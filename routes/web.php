@@ -33,10 +33,6 @@ use App\Http\Controllers\SuperAdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* Route::get('/contact', function () {
-    return view('contact');
-}); */
 header('Access-Control-Allow-Origin: *');
 header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 
@@ -136,7 +132,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/announcement', [SuperAdminController::class, 'showannouncement']);
         Route::any('/announce_create', [SuperAdminController::class, 'announce_create']);
         Route::any('/delete/{id}', [SuperAdminController::class, 'delete']);
-        
+        Route::get('/red_id', [SuperAdminController::class, 'redid']);
 
     });
 
@@ -162,7 +158,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/', 			    [RequestPinController::class, 'showAdminRequestAcceptPage'])->name('pins-request.admin');
         Route::get('/edit/{pin_request_id}', [RequestPinController::class,'editPinRequestToAdminPage'])->name('request-pin.edit-request');
         Route::post('/update-request', [RequestPinController::class,'updatePinRequestToAdmin'])->name('request-pin.update-request');
-        Route::get('/cal', [RequestPinController::class,'cal']);
+        Route::post('/cal', [RequestPinController::class,'cal']);
         Route::get('/sendhelp', [RequestPinController::class,'sendhelp']);
         Route::get('/gethelp', [RequestPinController::class,'gethelp']);
         Route::get('/mynetwork', [RequestPinController::class,'mynetwork']);
@@ -176,7 +172,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     });
     Route::group(['prefix' => 'transferpin'], function () {
         Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);
-        Route::post('/transsubmit', 	[RequestPinController::class, 'adminTransferPinSubmit']);
+        Route::post('/transsubmit', 			    [RequestPinController::class, 'adminTransferPinSubmit']);
     });
 
 });
