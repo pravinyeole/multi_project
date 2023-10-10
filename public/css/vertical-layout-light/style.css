@@ -21450,7 +21450,7 @@ code {
 
 .btn.btn-sm, .btn-group-sm > .btn, .ajax-upload-dragdrop .btn-group-sm > .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-group-sm > .swal2-styled, .ajax-upload-dragdrop .btn-sm.ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-sm.swal2-styled {
   font-size: 0.812rem;
-  border-radius: 15px;
+  border-radius: 12px;
 }
 
 .btn.btn-lg, .btn-group-lg > .btn, .ajax-upload-dragdrop .btn-group-lg > .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-group-lg > .swal2-styled, .ajax-upload-dragdrop .btn-lg.ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-lg.swal2-styled {
@@ -25600,6 +25600,7 @@ dl li {
 
 .table td {
   font-size: 0.812rem;
+  white-space: wrap;
 }
 
 .table td img {
@@ -31778,8 +31779,8 @@ table.dataTable tbody th, table.dataTable tbody td{
 .table thead th {
   border: none;
   font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-transform: none;
   background: transparent;
 }
 
@@ -31927,6 +31928,9 @@ div.dataTables_wrapper div.dataTables_filter label {
 table.dataTable {
   margin-top: 12px !important;
 }
+table.dataTable.mt-0 {
+  margin-top: 0px !important;
+}
 
 .icon > .bx {
   display: block;
@@ -31939,7 +31943,7 @@ table.dataTable {
 .btn {
   font-size: 0.9375rem;
   font-weight: 500;
-  padding: 0.725rem 1.5rem;
+  padding: 0.525rem 1.5rem;
 }
 
 .avatar-blue {
@@ -32038,6 +32042,49 @@ input:checked + .slider:before {
 }
 .b-l-r-0{border-top-left-radius: 0;border-bottom-left-radius: 0;}
 .b-r-r-0{border-top-right-radius: 0;border-bottom-right-radius: 0;}
+.bpin-balance{
+  position: relative;
+  background: #4166ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+.bpin-balance::before, .bpin-balance::after{
+  content: "";
+  background: #fff;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  opacity: .1;
+  position: absolute;
+}
+.bpin-balance::before{bottom: 40%;right: 60%;}
+.bpin-balance::after{top: 40%;left: 60%;}
+.bpin-balance h2{
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+.bpin-balance p{
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+}
+
+.flex-100{
+    flex: 0 0 100% !important;
+}
+.page-heading{
+  font-size: 2rem;
+  font-weight: 600;
+  color: #072664;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
 
 
 @media (max-width: 991px){

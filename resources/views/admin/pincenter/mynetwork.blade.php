@@ -1,33 +1,190 @@
 @extends('layouts/common_template')
 
-@section('title', $title)
-
 @section('content')
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <h2 class="page-heading">My Network</h2>
+            <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
+                    <h5>Total Affiliate IDs</h5>
+                  <div class="info">
+                    <p>No. of IDs</p>
+                    <h3>195</h3>
+                  </div>
+                </div>
+            <div class="card mb-4">
                 <div class="page-title">
                     <h4>
-                        {{__("labels.user.list")}}
+                        Pending for Approvals
                     </h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                <table class="table table-striped" id="table_user">
+                <table class="table" id="table_user">
                     <thead>
                         <tr>
-                            <th>{{__("labels.no")}}</th>
-                            <th>Username</th>
-                            <th>Email</th>
+                            <th>Sr.No</th>
+                            <th>Name</th>
                             <th>Mobile No</th>
-                            {{-- <th>Pins</th>
-                                <th>Event</th> --}}
+                            <th>Comment</th>
                             <th>{{__("labels.action")}}</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                        </tr>
+                    </tbody>
                 </table>
-                </div></div>
+                </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="page-title">
+                    <h4>
+                        Affiliate Users
+                    </h4>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                <table class="table dataTable no-footer" id="affilate_user">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Name</th>
+                            <th>Mobile No</th>
+                            <th>Lavel</th>
+                            <th>No of ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>3</td>
+                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>2</td>
+                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>First Last Name</td>
+                            <td>8400000000</td>
+                            <td>1</td>
+                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -35,16 +192,72 @@
 @endsection
 
 @section('page-script')
+<div class="modal fade" id="idlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Affiliate Level</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body py-0">
+            <div class="alert alert-success note" role="alert">
+                <h4 class="alert-heading">05</h4>
+                <p>Total No of ID</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table dataTable no-footer" id="affilate_user">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Date</th>
+                            <th>ID Count</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>10/10/2023</td>
+                            <td>03</td>
+                            <td><span class="badge badge-outline-primary badge-pill">2 Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>10/10/2023</td>
+                            <td>01</td>
+                            <td><span class="badge badge-outline-primary badge-pill">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>10/10/2023</td>
+                            <td>01</td>
+                            <td><span class="badge badge-outline-danger badge-pill">Inactive</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+        </div>
+        <!-- <div class="modal-footer border-top-0 d-flex justify-content-start">
+          <button type="submit" class="btn btn-secondary w-50 m-0 b-r-r-0 waves-effect waves-float waves-light" data-dismiss="modal" aria-label="Close">Cancel</button>
+          <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0 waves-effect waves-float waves-light">Submit</button>
+        </div> -->
+      </form>
+    </div>
+  </div>
+</div>
 <script>
     $(document).ready(function() {
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
                 processing: true,
-                serverSide: true,
+                //serverSide: true,
                 bLengthChange: false,
                 responsive: true,
-                order: [1, 'ASC'],
+                /* order: [1, 'ASC'],
                 ajax: {
                     url: base_url + "/pin_center",
                     data: function(data) {}
@@ -78,7 +291,7 @@
                 drawCallback: function(settings) {
                     // Enable/disable pins input and event checkboxes for all rows
                     enableDisableInputs(true);
-                }
+                } */
             });
             $("#table_user_processing").hide();
             // Enable/disable pins input and event checkbox based on checkbox click

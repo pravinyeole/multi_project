@@ -162,6 +162,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/sendhelp', [RequestPinController::class,'sendhelp']);
         Route::get('/gethelp', [RequestPinController::class,'gethelp']);
         Route::get('/mynetwork', [RequestPinController::class,'mynetwork']);
+        Route::get('/pendingrequests', [RequestPinController::class,'pendingrequests']);
+        Route::get('/transactionhistory', [RequestPinController::class,'transactionhistory']);
     });
 
     //for normal user send rquest to admin

@@ -280,4 +280,12 @@ class RequestPinController extends Controller
   {
     return view('admin.pincenter.mynetwork');
   }
+  public function pendingrequests(Request $request)
+  {
+    return view('admin.pincenter.pendingrequests');
+  }
+  public function transactionhistory(Request $request)
+  {
+    return view('admin.pincenter.transactionhistory');
+  }
 }
