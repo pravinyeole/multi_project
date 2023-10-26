@@ -19,7 +19,6 @@ class PinCenterController extends Controller
         $this->title_msg    = "Pin Ceter";
         $this->middleware(['auth']);
     }
-
      
     public function index(Request $request) {
        
@@ -81,57 +80,47 @@ class PinCenterController extends Controller
     }
 
     public function update($id){
-           // Validate the form data
-           $validatedData = request()->validate([
+        $validatedData = request()->validate([
             'no_of_pins' => 'required|integer',
-        ]); 
-    try {
-        $id = decrypt($id);
-        
-        $loginUser = Auth::user();
-        $loginUsreId = $loginUser->id;
-        // dd($loginUser);
-        // Find the user record by ID and deduct pins from current login user;
-        $user = User::findOrFail($id);
-        // $loginUserPin  = UserPin::where('user_id',$loginUsreId)->first();
-        if ($loginUser->user_role === 'S') {
-            // If the user role is 'S' (superadmin), do not deduct pins
-            // Handle the scenario where 'S' user has unlimited pins
-        } else {
-            // Find the user record by ID and deduct pins from the current login user
-            $loginUserPin = UserPin::where('user_id', $loginUsreId)->first();
-            if($loginUserPin->pins < $validatedData['no_of_pins']){
-                toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
-                return redirect()->back();
+        ]);
+        try {
+            $id = decrypt($id);
+            $loginUser = Auth::user()->id;
+            // Find the user record by ID and deduct pins from current login user;
+            $user = User::findOrFail($id);
+            if (Auth::user()->user_role === 'S') {
+                // If the user role is 'S' (superadmin), do not deduct pins
+                // Handle the scenario where 'S' user has unlimited pins
+            } else {
+                $loginUserPin = UserPin::where('user_id', $loginUser)->first();
+                if($loginUserPin){
+                    if($loginUserPin->pins < $validatedData['no_of_pins']){
+                        return redirect()->back()->with('error','Your Available Pins Balance is low. Please connect to Superadmin');
+                    }
+                    $inventory = UserPin::firstOrNew(['user_id'=>$loginUser]);
+                    if($loginUserPin->pins >= $validatedData['no_of_pins']){
+                        $inventory->pins = ($loginUserPin->pins - $validatedData['no_of_pins']);
+                    }else{
+                        return redirect()->back()->with('error','Your Available Pins Balance is low. Please connect to Superadmin');
+                    }
+                    $inventory->save();
+                    
+                    $inventoryTwo = UserPin::firstOrNew(['user_id'=>$id]);
+                    $inventoryTwo->pins = $inventoryTwo->pins+$validatedData['no_of_pins'];
+                    $inventoryTwo->save();
+    
+                    $getUser = User::findOrFail($id);
+                    $getUser->user_status = 'Active';
+                    $getUser->save();
+                }else{
+                    return redirect()->back()->with('error','Your Available Pins Balance is low. Please connect to Superadmin');
+                }
             }
-
-            $inventory = UserPin::firstOrNew(['user_id'=>$loginUsreId]);
-            $inventory->pins = ($loginUserPin->pins - $validatedData['no_of_pins']);
-            $inventory->save();
+            return redirect('pin_center')->with('success','User approved successfully!!');
+            // return redirect('pin_center')->with('success', 'User information updated successfully');
+        } catch (\Exception $e) {
+            // Handle any exceptions or errors that occur during the update process
+            return redirect()->route('pin_center.edit', $id)->with('error',$e);
         }
-        // Create a new user pin record
-        // $userPin = new UserPin();
-        // $userPin->user_id = $id;
-        // $userPin->pins = $validatedData['no_of_pins'];
-        // // Save the new user pin record
-        // $userPin->save();
-
-        $inventory = UserPin::firstOrNew(['user_id'=>Auth::user()->id]);
-        $inventory->pins = $validatedData['no_of_pins'];
-        $inventory->save();
-
-        // Update the user status to 'Active'
-        $getUser = User::findOrFail(Auth::user()->id);
-        $getUser->user_status = 'Active';
-        $getUser->save();
-
-        toastr()->success('User approved successfully!!');
-        return redirect('pin_center');
-        // return redirect('pin_center')->with('success', 'User information updated successfully');
-    } catch (\Exception $e) {
-        toastr()->error(Config('messages.500'));
-        // Handle any exceptions or errors that occur during the update process
-        return redirect()->route('pin_center.edit', $id);
-    }
     }
 }

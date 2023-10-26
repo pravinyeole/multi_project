@@ -601,30 +601,56 @@ class SuperAdminController extends Controller
 
     public function redid(Request $request)
     {
-        $payment = Payment::where('status','pending')->pluck('mobile_id')->all();
-        if($payment)
-        {
-            $redids = UserSubInfo::where('status','red')->whereNotIn('mobile_id',[$payment])->pluck('mobile_id')->all();
+        $from_date = \Carbon\Carbon::today()->subDays(7);
+        $to_date = \Carbon\Carbon::today()->subDays(7);
+        $to_date = str_replace('00:00:00','23:59:59',$to_date);
+        
+        $payment = Payment::where('status','pending')->pluck('mobile_id')->toArray();
+        $pid = "'".implode("','",$payment)."'";
+        if($payment){
+
+            $data = DB::select(DB::raw('SELECT CONCAT(users.user_fname," ",users.user_lname) AS receiver_user_name,
+            CONCAT(u.user_fname," ",u.user_lname) AS sender_user_name, `user_map_new`.`mobile_id`,users.mobile_number AS receiver_mobile,u.mobile_number AS sender_mobile ,"Payment has not been sent." AS reason from `user_map_new` INNER JOIN `users` on `users`.`id` = `user_map_new`.`user_id`
+            INNER JOIN `users` AS u on `u`.`id` = `user_map_new`.`new_user_id` 
+            INNER JOIN `user_sub_info` on `user_sub_info`.`mobile_id` = `user_map_new`.`user_mobile_id` 
+            WHERE `user_map_new`.`user_mobile_id` NOT IN ('.$pid.') 
+            AND 
+            user_sub_info.status="red" 
+            AND 
+            user_sub_info.created_at BETWEEN "'.$from_date.'" AND "'.$to_date.'"
+            UNION 
+            SELECT CONCAT(users.user_fname," ",users.user_lname) AS receiver_user_name,
+            CONCAT(u.user_fname," ",u.user_lname) AS sender_user_name, `user_map_new`.`mobile_id`,users.mobile_number AS receiver_mobile,u.mobile_number AS sender_mobile, "Payment Not Approved." AS reason from `user_map_new` 
+            INNER JOIN `users` on `users`.`id` = `user_map_new`.`user_id` 
+            INNER JOIN `users` AS u on `u`.`id` = `user_map_new`.`new_user_id` 
+            INNER JOIN `user_sub_info` on `user_sub_info`.`mobile_id` = `user_map_new`.`user_mobile_id` 
+            WHERE `user_map_new`.`user_mobile_id` IN ('.$pid.') 
+            AND 
+            user_sub_info.status="red"
+            AND 
+            user_sub_info.created_at BETWEEN "'.$from_date.'" AND "'.$to_date.'"
+            '));
+        }else{
+            $data = DB::select(DB::raw('SELECT CONCAT(users.user_fname," ",users.user_lname) AS receiver_user_name,
+            CONCAT(u.user_fname," ",u.user_lname) AS sender_user_name, `user_map_new`.`mobile_id`,users.mobile_number AS receiver_mobile,u.mobile_number AS sender_mobile ,"Payment has not been sent." AS reason from `user_map_new` INNER JOIN `users` on `users`.`id` = `user_map_new`.`user_id`
+            INNER JOIN `users` AS u on `u`.`id` = `user_map_new`.`new_user_id` 
+            INNER JOIN `user_sub_info` on `user_sub_info`.`mobile_id` = `user_map_new`.`user_mobile_id` 
+            AND 
+            user_sub_info.status="red" 
+            AND 
+            user_sub_info.created_at BETWEEN "'.$from_date.'" AND "'.$to_date.'"
+            UNION 
+            SELECT CONCAT(users.user_fname," ",users.user_lname) AS receiver_user_name,
+            CONCAT(u.user_fname," ",u.user_lname) AS sender_user_name, `user_map_new`.`mobile_id`,users.mobile_number AS receiver_mobile,u.mobile_number AS sender_mobile, "Payment Not Approved." AS reason from `user_map_new` 
+            INNER JOIN `users` on `users`.`id` = `user_map_new`.`user_id` 
+            INNER JOIN `users` AS u on `u`.`id` = `user_map_new`.`new_user_id` 
+            INNER JOIN `user_sub_info` on `user_sub_info`.`mobile_id` = `user_map_new`.`user_mobile_id` 
+            AND 
+            user_sub_info.status="red"
+            AND 
+            user_sub_info.created_at BETWEEN "'.$from_date.'" AND "'.$to_date.'"
+            '));
         }
-        else
-        {
-            $redids = UserSubInfo::where('status','red')->pluck('mobile_id')->all();
-        }
-
-
-        $query = UserMap::join('user_sub_info', 'user_map_new.mobile_id', '=', 'user_sub_info.mobile_id')
-        ->join('users', 'user_sub_info.mobile_id', '=', 'user_sub_info.mobile_id')
-        ->join('users', 'user_sub_info.mobile_id', '=', 'users.id')
-        ->whereIn('mobile_id', [$redids]);
-        exit();  
-
-
-        $data = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-        ->join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-        ->select('users.*', 'user_sub_info.mobile_id','user_sub_info.created_at as date')
-        ->where('user_sub_info.status','red')
-        ->where('users.mobile_number','!=','7745859535')
-        ->get();
         return view('superadmin.payment_pending_list', compact('data'));
     }
 }

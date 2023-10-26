@@ -150,6 +150,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('save-get-help-form', [NormalUserController::class, 'saveGetHelp'])->name('normal_user.save_gh');
 
         Route::get('paymentrequest', [NormalUserController::class, 'paymentrequest']);
+        Route::get('assignUserList', [NormalUserController::class, 'assignUserList']);
         Route::get('payment_accept/{id}/{mobileId}', [NormalUserController::class, 'payment_accept']);
 
 

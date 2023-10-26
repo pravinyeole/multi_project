@@ -416,6 +416,14 @@ class NormalUserController extends Controller
         return view('normaluser.payment_request', compact('title', 'data','complted'));
     }
 
+    public function assignUserList(Request $request)
+    {
+        $title = "Payment Request";
+        $data = Payment::with('paymentHas')->where(['receivers_id'=> Auth::user()->id,'status'=>'pending'])->get()->toArray();
+        $complted = Payment::with('paymentHas')->where(['receivers_id'=> Auth::user()->id,'status'=>'completed'])->get()->toArray();
+        return view('normaluser.payment_request', compact('title', 'data','complted'));
+    }
+
     public function payment_accept($id, $mobileId)
     {
         $title = "Payment Request";
