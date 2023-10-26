@@ -77,7 +77,7 @@
                    <div class="list-item d-flex align-items-center justify-content-between">
                         <span>
                             <img src="{{asset('images/cash.png')}}" alt="">
-                            Adnin Income
+                            Admin Income
                         </span>
                         <h3><sup>₹</sup>5000.00</h3>
                     </div>
