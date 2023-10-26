@@ -167,7 +167,6 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/pendingrequests', [RequestPinController::class,'pendingrequests']);
         Route::get('/transactionhistory', [RequestPinController::class,'transactionhistory']);
     });
-
     //for normal user send rquest to admin
     Route::group(['prefix' => 'request-pin'], function () {
         Route::get('/', 			    [RequestPinController::class, 'index']);
@@ -178,6 +177,5 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);
         Route::post('/transsubmit', 			    [RequestPinController::class, 'adminTransferPinSubmit']);
     });
-
 });
 ?>
