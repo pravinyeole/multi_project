@@ -11,6 +11,7 @@ use App\Models\RevokePin;
 use App\Models\UserSubInfo;
 use App\Models\UserReferral;
 use App\Models\Announcement;
+use App\Models\Payment;
 use DataTables;
 use DB;
 use Auth;
@@ -597,10 +598,29 @@ class SuperAdminController extends Controller
 
     public function redid(Request $request)
     {
+        $payment = Payment::where('status','pending')->pluck('mobile_id')->all();
+        if($payment)
+        {
+            $redids = UserSubInfo::where('status','red')->whereNotIn('mobile_id',[$payment])->pluck('mobile_id')->all();
+        }
+        else
+        {
+            $redids = UserSubInfo::where('status','red')->pluck('mobile_id')->all();
+        }
+
+
+        $query = UserMap::join('user_sub_info', 'user_map_new.mobile_id', '=', 'user_sub_info.mobile_id')
+        ->join('users', 'user_sub_info.mobile_id', '=', 'user_sub_info.mobile_id')
+        ->join('users', 'user_sub_info.mobile_id', '=', 'users.id')
+        ->whereIn('mobile_id', [$redids]);
+        exit();  
+
+
         $data = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+        ->join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
         ->select('users.*', 'user_sub_info.mobile_id','user_sub_info.created_at as date')
         ->where('user_sub_info.status','red')
-        ->orderBy('user_sub_info.user_sub_info_id','desc')
+        ->where('users.mobile_number','!=','7745859535')
         ->get();
         return view('superadmin.payment_pending_list', compact('data'));
     }
