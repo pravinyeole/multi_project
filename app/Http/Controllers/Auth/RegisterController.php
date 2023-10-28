@@ -2,24 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
-use App\Mail\CommonMail;
-use App\Models\InsuranceAgency;
-use App\Models\UserRefferal;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\UserInvitation;
 use App\Models\UserReferral;
 use App\Models\UserRole;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 use App\Models\MobileCircle;
+use App\Models\UserMpin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Auth;
 
@@ -66,7 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'my_upi_id' => ['required', 'string', 'max:13'],
             'mobile_number' => ['required','numeric','min:10'],
             'referal_code' => ['nullable', 'string', 'max:255'],
             'admin_referal_code'=>['required']
@@ -176,7 +168,8 @@ class RegisterController extends Controller
             }
             $user->user_fname = $request->user_fname;
             $user->user_lname = $request->user_lname;
-            $user->email = $request->email;
+            $user->email = $request->user_fname.$request->user_lname.$request->mobile_number.'@'.'yahoo.com';
+            $user->upi = $request->my_upi_id;
             $user->user_status = 'Inactive';
             $user->user_role = 'U';
 

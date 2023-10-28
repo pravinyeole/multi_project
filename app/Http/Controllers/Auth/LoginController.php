@@ -8,11 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
-use App\Models\InsuranceAgency;
-use App\Models\Team;
-use App\Models\UserAceessTeam;
+use App\Models\UserMpin;
 use App\Models\UserRole;
-
 use App\Models\UserOtp;
 
 use Session;
@@ -173,8 +170,8 @@ class LoginController extends Controller
                 $userOtp->update([
                     'expire_at' => now()
                 ]);
-                if ($user->email == null) {
-                    // return redirect()->route('register')->with('user');
+                $userMpin = UserMpin::where('uid',$user->id)->get();
+                if (count($userMpin) == 0) {
                     return view('auth.register', compact('user'));
                 } elseif ($user->user_status == 'Inactive') {
                     return redirect()->route('login')->with('error', 'Inactive Account! Contact Admin to Activate');
