@@ -60,7 +60,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
                 </div>
                 <div class="">
-                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Get OTP</button>
+                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
                 </div>
                 <!-- <div class="resent_otp text-muted text-small">
                   If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-dark" disabled>Resend OTP</a>

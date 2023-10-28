@@ -122,6 +122,20 @@ class RegisterController extends Controller
     public function showEnterMpin(Request $request, $user_id, $mobileNumber) {
         return view('auth.login_mpin', compact('user_id', 'mobileNumber'));
     }
+    public function showResetMpin(Request $request, $user_id, $mobileNumber) {
+        return view('auth.reset_mpin', compact('user_id', 'mobileNumber'));
+    }
+    public function updateMpin(Request $request) {
+        $otpOne = implode($request->otp);
+        $otpTwo = implode($request->otpTwo);
+        if($otpOne == $otpTwo){
+            UserMpin::updateOrCreate(['uid'=>$request->id],['mpin'=>$otpOne]);
+            return redirect()->route('login')->with('success','mPIN Reset susscessfully.');
+        }else{
+            return redirect()->back()->with('error','Somthing went wrong,Please try again.');
+        }
+        print_r($request->all());
+    }
     
     public function generateUserSlug($fname,$lname,$mn,$check=''){
         if(isset($check) && $check >= 1){

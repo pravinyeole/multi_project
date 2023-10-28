@@ -145,8 +145,10 @@ class LoginController extends Controller
         // uncommnet
         if(strlen($otp) == 4){
             $userOtp = UserMpin::where('uid', $user->id)->where('mpin', $otp)->first();
+            $errorMsg = 'Sorry! Incorrect mPIN';
         }else{
             $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+            $errorMsg = 'Sorry! Incorrect OTP';
         }
         // $userOtp = 111111;
         if(isset($user->user_role) && $user->user_role == 'S'){
@@ -158,13 +160,12 @@ class LoginController extends Controller
                 Auth::login($user);
                 return $this->sendLoginResponse($request);
             }else {
-                return redirect()->back()->with('error', 'Sorry! Incorrect OTP');
+                return redirect()->back()->with('error', $errorMsg);
             }
         }else{
             $now = now();
             if (!$userOtp) {
-                toastr()->error('Your OTP is not correct');
-                return redirect()->back()->with('error', 'Sorry! Incorrect OTP');
+                return redirect()->back()->with('error', $errorMsg);
             } else if ($userOtp && $now->isAfter($userOtp->expire_at)) {
                 // uncommne
                 return redirect()->route('otp.login')->with('error', 'Your OTP has been expired');

@@ -123,6 +123,11 @@
     background: #f96868;
     color: white;
   }
+  .mpin_err {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+  }
 
   #timer {
     color: #989696b8;
@@ -141,7 +146,7 @@
           </div>
           <div class="login-body">
             <div class="header">
-              <h1>OTP Verification</h1>
+              <h1>Reset mPIN</h1>
               <!-- <h3 class="text-white">Code has send to</h3> -->
             </div>
             @if (session('error'))
@@ -150,26 +155,34 @@
             </div>
             @endif
             <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
-            <form id="mobileForm" method="POST" action="{{url('login')}}">
+            <form id="mobileForm" method="POST" action="{{url('update-mpin')}}">
               @csrf <!-- Add CSRF token field -->
               <div class="mt-0 text-center text-dark pb-1">
                 <p>mPIN to login as {{$mobileNumber}}</p>
               </div>
               <input type="hidden" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
               <input type="hidden" name="id" value="{{$user_id}}">
+              <h5>Enter New mPIN</h5>
               <div id="otp-section" class="mt-2">
                 <div class="otp-input-group d-flex align-items-center justify-content-center">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
                 </div>
               </div>
-              <div class="text-center">
-                <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Login</button>
+              <h5>Confirm New mPIN</h5>
+              <div id="otp-section-two" class="mt-2">
+                <div class="otp-input-group d-flex align-items-center justify-content-center">
+                  <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
+                  <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
+                  <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
+                  <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
+                </div>
               </div>
+              <p class="mpin_err"></p>
               <div class="text-center">
-                <a href="{{url('reset-mpin/'.$user_id.'/'.$mobileNumber)}}" class="font-weight-medium">Reset mPIN ?</a>
+                <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Update</button>
               </div>
             </form>
             <div class="seprator"></div>
@@ -230,11 +243,13 @@
       feather.replace()
       var jqForm = $('#mobileForm');
       var otpSection = $('#otp-section');
+      var otpSectionTwo = $('#otp-section-two');
       var timer = $('#timer');
       var mobileNumberInput = $('#mobileNumber');
       var getOtpBtn = $('#getOtpBtn');
       var resendOtpBtn = $('#resendOtpBtn');
       var otpInputs = otpSection.find('.otp-input');
+      var otpInputsTwo = otpSectionTwo.find('.otp-input-two');
       var loginBtn = $('#loginBtn');
       var loginTitle = $('.login-title');
       var loginOtpIcon1 = $('.enterphone');
@@ -319,25 +334,45 @@
       });
 
       // OTP input change event
+      var otp;
+      var otpTwo;
       otpInputs.on('input', function(e) {
         var currentInput = $(this);
-        var otp = otpInputs.map(function() {
+        otp = otpInputs.map(function() {
           return $(this).val();
         }).get().join('');
-
-        if (otp.length === 4) {
+        if (otp.length === 4 && otpTwo == otp) {
           loginBtn.show();
+          $('.mpin_err').text('');
         } else {
+          $('.mpin_err').text('New mPIN & Confirm mPIN does not match.');
           loginBtn.hide();
-          // if (currentInput.next().length) {
-          //   currentInput.next().focus(); // Focus on the next OTP input field
-          // }
         }
         // Handle focus moving to the next input
         if (e.originalEvent.inputType !== 'deleteContentBackward' && currentInput.next().length) {
           currentInput.next().focus();
         }
-
+        // Handle focus moving to the previous input on backspace/delete
+        if (e.originalEvent.inputType === 'deleteContentBackward' && currentInput.prev().length) {
+          currentInput.prev().focus();
+        }
+      });
+      otpInputsTwo.on('input', function(e) {
+        var currentInput = $(this);
+        var otpTwo = otpInputsTwo.map(function() {
+          return $(this).val();
+        }).get().join('');
+        if (otpTwo.length === 4 && otpTwo == otp) {
+          loginBtn.show();
+          $('.mpin_err').text('');
+        } else {
+          $('.mpin_err').text('New mPIN & Confirm mPIN does not match.');
+          loginBtn.hide();
+        }
+        // Handle focus moving to the next input
+        if (e.originalEvent.inputType !== 'deleteContentBackward' && currentInput.next().length) {
+          currentInput.next().focus();
+        }
         // Handle focus moving to the previous input on backspace/delete
         if (e.originalEvent.inputType === 'deleteContentBackward' && currentInput.prev().length) {
           currentInput.prev().focus();
