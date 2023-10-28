@@ -141,28 +141,26 @@
           </div>
           <div class="login-body">
             <div class="header">
-              <h1>OTP Verification</h1>
-              <!-- <h3 class="text-white">Code has send to</h3> -->
+              <h1>LOGIN</h1>
             </div>
             @if (session('error'))
             <div class="alert alert-error m-1" role="alert" style="padding: 2%">
               {{ session('error') }}
             </div>
             @endif
-            <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
             <form id="mobileForm" method="POST" action="{{url('login')}}">
-              @csrf <!-- Add CSRF token field -->
+              @csrf
               <div class="mt-0 text-center text-dark pb-1">
-                <p>mPIN to login as {{$mobileNumber}}</p>
+                <p>Enter your mPIN</p>
               </div>
               <input type="hidden" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
               <input type="hidden" name="id" value="{{$user_id}}">
               <div id="otp-section" class="mt-2">
                 <div class="otp-input-group d-flex align-items-center justify-content-center">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
-                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="password" class="otp-input" maxlength="1" name="otp[]">
                 </div>
               </div>
               <div class="text-center">
