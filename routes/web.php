@@ -59,7 +59,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('/users/update-status', [CommonController::class, 'updateStatus'])->name('users.update-status');
         Route::post('/send-otp', [CommonController::class, 'sendOTP'])->name('send-otp');
         Route::post('/resend-otp', [CommonController::class, 'resendOTP'])->name('resend-otp');
-
+        Route::post('/verify-otp', [CommonController::class, 'verifyOTP'])->name('verify-otp');
     });
     /* Route Common */
     

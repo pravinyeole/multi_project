@@ -110,7 +110,8 @@
     margin-right: 5px;
   }
 
-  #loginBtn {
+  #loginBtn,
+  #otpCheckBtn {
     display: none;
   }
 
@@ -123,6 +124,7 @@
     background: #f96868;
     color: white;
   }
+
   .mpin_err {
     color: black;
     font-size: 20px;
@@ -132,6 +134,10 @@
   #timer {
     color: #989696b8;
     font-size: 14px;
+  }
+
+  .reset-otp-o {
+    display: none;
   }
 </style>
 </head>
@@ -147,23 +153,35 @@
           <div class="login-body">
             <div class="header">
               <h1>Reset mPIN</h1>
-              <!-- <h3 class="text-white">Code has send to</h3> -->
             </div>
             @if (session('error'))
             <div class="alert alert-error m-1" role="alert" style="padding: 2%">
               {{ session('error') }}
             </div>
             @endif
-            <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
-            <form id="mobileForm" method="POST" action="{{url('update-mpin')}}">
-              @csrf <!-- Add CSRF token field -->
-              <div class="mt-0 text-center text-dark pb-1">
-                <p>mPIN to login as {{$mobileNumber}}</p>
+            <div id="otp-section-reset" class="mt-2 reset-otp-t">
+              <h5>Enter OTP</h5>
+              <div class="otp-input-group d-flex align-items-center justify-content-center">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
+                <input type="password" class="otp-input-reset" maxlength="1" name="resetotp[]">
               </div>
+              <div class="text-center">
+                <a href="javaScript:void(0);" class="font-weight-medium resentOTP">Resend OTP ?</a>
+              </div>
+              <div class="text-center">
+                <button id="otpCheckBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Verify OTP</button>
+              </div>
+            </div>
+            <form id="mobileForm" method="POST" action="{{url('update-mpin')}}">
+              @csrf
               <input type="hidden" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
               <input type="hidden" name="id" value="{{$user_id}}">
-              <h5>Enter New mPIN</h5>
-              <div id="otp-section" class="mt-2">
+              <div id="otp-section" class="mt-2 reset-otp-o">
+                <h5>Enter New mPIN</h5>
                 <div class="otp-input-group d-flex align-items-center justify-content-center">
                   <input type="password" class="otp-input" maxlength="1" name="otp[]">
                   <input type="password" class="otp-input" maxlength="1" name="otp[]">
@@ -171,8 +189,8 @@
                   <input type="password" class="otp-input" maxlength="1" name="otp[]">
                 </div>
               </div>
-              <h5>Confirm New mPIN</h5>
-              <div id="otp-section-two" class="mt-2">
+              <div id="otp-section-two" class="mt-2 reset-otp-o">
+                <h5>Confirm New mPIN</h5>
                 <div class="otp-input-group d-flex align-items-center justify-content-center">
                   <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
                   <input type="password" class="otp-input-two" maxlength="1" name="otpTwo[]">
@@ -185,35 +203,6 @@
                 <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Update</button>
               </div>
             </form>
-            <div class="seprator"></div>
-            <div class="pb-2 social text-white">
-              <h4>Follow us</h4>
-              <div class="social-icon d-flex justify-content-between flex-nowrap">
-                <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i class="icon" data-feather="facebook"></i>
-                </a>
-                <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i class="icon" data-feather="youtube"></i>
-                </a>
-                <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i class="icon" data-feather="twitter"></i>
-                </a>
-                <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i class="icon" data-feather="instagram"></i>
-                </a>
-                <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
-                </a>
-                <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
-                  <i class="icon" data-feather="send"></i>
-                </a>
-              </div>
-            </div>
-            <div class="mt-1 mb-2">
-              <span id="siteseal">
-                <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -240,8 +229,11 @@
   <!-- endinject -->
   <script>
     $(function() {
-      feather.replace()
+      feather.replace();
+      var base_url = "{{url('/')}}";
       var jqForm = $('#mobileForm');
+      var otpSectionReset = $('#otp-section-reset');
+      var otpInputsReset = otpSectionReset.find('.otp-input-reset');
       var otpSection = $('#otp-section');
       var otpSectionTwo = $('#otp-section-two');
       var timer = $('#timer');
@@ -251,6 +243,7 @@
       var otpInputs = otpSection.find('.otp-input');
       var otpInputsTwo = otpSectionTwo.find('.otp-input-two');
       var loginBtn = $('#loginBtn');
+      var otpCheckBtn = $('#otpCheckBtn');
       var loginTitle = $('.login-title');
       var loginOtpIcon1 = $('.enterphone');
       var loginOtpIcon2 = $('.veritifcation-otp');
@@ -280,7 +273,7 @@
           },
         },
       });
-      var base_url = "{{url('/')}}";
+
       // Get OTP button click event
       getOtpBtn.click(function(e) {
         e.preventDefault();
@@ -311,7 +304,6 @@
           });
         }
       });
-
       // Resend OTP button click event
       resendOtpBtn.click(function(e) {
         e.preventDefault();
@@ -331,6 +323,27 @@
             // Handle the error response here
           }
         });
+      });
+      // OTP Reset
+      var resetOtp;
+      otpInputsReset.on('input', function(e) {
+        var currentInput = $(this);
+        resetOtp = otpInputsReset.map(function() {
+          return $(this).val();
+        }).get().join('');
+        if (resetOtp.length === 6) {
+          otpCheckBtn.show();
+        } else {
+          otpCheckBtn.hide();
+        }
+        // Handle focus moving to the next input
+        if (e.originalEvent.inputType !== 'deleteContentBackward' && currentInput.next().length) {
+          currentInput.next().focus();
+        }
+        // Handle focus moving to the previous input on backspace/delete
+        if (e.originalEvent.inputType === 'deleteContentBackward' && currentInput.prev().length) {
+          currentInput.prev().focus();
+        }
       });
 
       // OTP input change event
@@ -400,7 +413,60 @@
           }
         }, 1000);
       }
-
+      $('.resentOTP').click(function() {
+        var userid = '{{$user_id}}';
+        var usermobile = '{{$mobileNumber}}';
+        $.ajax({
+          // url: jqForm.attr('action'),
+          url: base_url + "/common/resend-otp",
+          method: 'POST',
+          data: {
+            "_token": "{{ csrf_token() }}",
+            'mobileNumber': usermobile
+          },
+          success: function(response) {
+            console.log(response);
+            // Handle the success response here
+            toastr.success(response.message);
+          },
+          error: function(error) {
+            console.log(error);
+            // Handle the error response here
+            toastr.error('Failed to send OTP');
+          }
+        });
+      });
+      $('#otpCheckBtn').click(function() {
+        var userid = '{{$user_id}}';
+        var usermobile = '{{$mobileNumber}}';
+        $.ajax({
+          // url: jqForm.attr('action'),
+          url: base_url + "/common/verify-otp",
+          method: 'POST',
+          data: {
+            "_token": "{{ csrf_token() }}",
+            'mobileNumber': usermobile,
+            'userid': userid,
+            'resetOtp':resetOtp
+          },
+          success: function(response) {
+            console.log(response);
+            // Handle the success response here
+            if(response.status == 'success'){
+              toastr.success(response.message);
+              $('.reset-otp-t').css('display','none');
+              $('.reset-otp-o').css('display','block');
+            }else{
+              toastr.error(response.message);
+            }
+          },
+          error: function(error) {
+            console.log(error);
+            // Handle the error response here
+            toastr.error('Failed to send OTP');
+          }
+        });
+      });
     });
   </script>
 </body>

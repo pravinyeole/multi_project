@@ -208,4 +208,12 @@ class CommonController extends Controller
         $userOtp = UserOtp::where('user_id', $user->id)->first();
         return response()->json(['message' => 'OTP resent successfully'], 200);
     }
+    public function verifyOTP(Request $request){
+        $userOtp = UserOtp::where('user_id', $request->userid)->where('phone_otp', $request->resetOtp)->first();
+        if($userOtp){
+            return response()->json(['status'=>'success','message' => 'OTP verified successfully'], 200);
+        }else{
+            return response()->json(['status'=>'failed','message' => 'Sorry, Incorrect OTP!'], 201);
+        }
+    }
 }
