@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use App\Traits\CommonTrait;
 use App\Models\User;
 use App\Models\UserOtp;
+use App\Models\UserMpin;
 use App\Models\UserRole;
 use App\Models\MobileCircle;
 use Auth;
@@ -139,6 +140,12 @@ class CommonController extends Controller
                         User::where('id',$user->id)->update(['operator'=>$circle_data->operator,'circle'=>$circle_data->circle]);
                     }
                 }
+            }
+
+            $checkMypin = UserMpin::where('uid',$user->id)->get();
+            if(count($checkMypin) == 1){
+                $redirectUrl = route('show-enter-mpin', ['user_id' => $user->id,'mobileNumber'=>$mobileNumber,'mpincheck'=>1]);
+                return response()->json(['message' => 'Enter your mPIN for Login',"redirect_url"=>$redirectUrl], 200); 
             }
             $now = Carbon::now();
             $otpvalidtime = config('custom.custom.otpvalidtime');

@@ -84,7 +84,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                     </a>
                     <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" class="btn-icon">
                       <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
-                    </a>
+                    </a>  
                     <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" class="btn-icon">
                     <i class="icon" data-feather="send"></i>
                     </a>

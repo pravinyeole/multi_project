@@ -37,6 +37,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('register/{mobile_num}/{invitation_id}', [RegisterController::class,'showRegistrationForm']);
     Route::get('register', [RegisterController::class,'showRegistrationForm']);
     Route::get('show-enter-otp/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterOtp'])->name('show-enter-otp');
+    Route::get('show-enter-mpin/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterMpin'])->name('show-enter-mpin');
 
     Route::post('login', [LoginController::class,'login'])->name('login');
     Route::post('register_user', [RegisterController::class,'register'])->name('register_user');

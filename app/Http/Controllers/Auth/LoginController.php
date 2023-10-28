@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use App\Models\UserMpin;
+use App\Models\UserReferral;
 use App\Models\UserRole;
 use App\Models\UserOtp;
 
@@ -142,7 +143,11 @@ class LoginController extends Controller
         // $otp = array('Hello','World!','Beautiful','Day!');
         $otp = implode("", $request->otp);
         // uncommnet
-        $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        if(strlen($otp) == 4){
+            $userOtp = UserMpin::where('uid', $user->id)->where('mpin', $otp)->first();
+        }else{
+            $userOtp = UserOtp::where('user_id', $user->id)->where('phone_otp', $otp)->first();
+        }
         // $userOtp = 111111;
         if(isset($user->user_role) && $user->user_role == 'S'){
             if($otp == 918273){
@@ -171,8 +176,12 @@ class LoginController extends Controller
                     'expire_at' => now()
                 ]);
                 $userMpin = UserMpin::where('uid',$user->id)->get();
+                $referal_check = UserReferral::where('user_id',$user->id)->first();
                 if (count($userMpin) == 0) {
-                    return view('auth.register', compact('user'));
+                    if($referal_check == null){
+                        return redirect()->route('login')->with('error', 'Invalid User! No Refferal code found');
+                    }
+                    return view('auth.register', compact('user','referal_check'));
                 } elseif ($user->user_status == 'Inactive') {
                     return redirect()->route('login')->with('error', 'Inactive Account! Contact Admin to Activate');
                 }

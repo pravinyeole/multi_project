@@ -108,10 +108,10 @@
             @csrf <!-- Add CSRF token field -->
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ old('user_fname') }}">
+                <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ $user->user_fname }}">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ old('user_lname') }}">
+                <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ $user->user_lname }}">
               </div>
             </div>
             <P class="error name_err"></P>
@@ -120,16 +120,16 @@
                 <input type="text" class="form-control form-control-md" readonly id="mobile_number" name="mobile_number" value="{{$user->mobile_number}}">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ old('my_upi_id') }}">
+                <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ $user->upi }}">
               </div>
             </div>
             <P class="error email_err"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ old('referal_code') }}" maxlength="10">
+                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $referal_check->referral_id }}" maxlength="10">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{ old('admin_referal_code') }}">
+                <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{ $referal_check->admin_slug }}">
               </div>
             </div>
             <P class="error code_err"></P>
@@ -177,10 +177,10 @@
             <P class="error email_err"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false">
+                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
+                <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
               </div>
             </div>
             <P class="error code_err"></P>
@@ -232,8 +232,8 @@
           $('.email_err').text('Valid UPI ID Required.');
           return false;
         }else{$('.email_err').text('');}
-        if($('#my_mpin').val() !== $('#confirm_my_mpin').val() || $('#confirm_my_mpin').val() == null){
-          $('.mpin_err').text('Entered mPIN is not valid');
+        if($('#my_mpin').val() !== $('#confirm_my_mpin').val() || $('#confirm_my_mpin').val().length != 4){
+          $('.mpin_err').text('Entered valid 4 digit mPIN only');
           return false;
         }else{$('.mpin_err').text('');}
         $('#registrationForm').submit();

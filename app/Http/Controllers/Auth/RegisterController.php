@@ -119,6 +119,9 @@ class RegisterController extends Controller
     public function showEnterOtp(Request $request, $user_id, $mobileNumber) {
         return view('auth.login_otp', compact('user_id', 'mobileNumber'));
     }
+    public function showEnterMpin(Request $request, $user_id, $mobileNumber) {
+        return view('auth.login_mpin', compact('user_id', 'mobileNumber'));
+    }
     
     public function generateUserSlug($fname,$lname,$mn,$check=''){
         if(isset($check) && $check >= 1){
@@ -141,9 +144,7 @@ class RegisterController extends Controller
             return redirect()->back()->withInput()->with('error','Invalid Mobile Number.');
         }
         $user = User::where('mobile_number',$request->mobile_number)->first();
-      
-        $admin = User::where('user_slug',$request->admin_referal_code)->where('user_role','A')->first();
-
+        $admin = User::where('user_slug',$request->admin_referal_code)->whereIn('user_role',['A','S'])->first();
         if (!$admin) {
             return redirect()->back()->withInput()->with('error','Admin Referral Code does not exist');
         }else{
@@ -168,11 +169,12 @@ class RegisterController extends Controller
             }
             $user->user_fname = $request->user_fname;
             $user->user_lname = $request->user_lname;
-            $user->email = $request->user_fname.$request->user_lname.$request->mobile_number.'@'.'yahoo.com';
+            if(isset($user->email) && $user->email == null){
+                $user->email = $request->user_fname.$request->mobile_number.'@'.'yahoo.com';
+            }
             $user->upi = $request->my_upi_id;
-            $user->user_status = 'Inactive';
+            // $user->user_status = 'Inactive';
             $user->user_role = 'U';
-
             $user->user_slug = $this->generateUserSlug($request->user_fname,$request->user_lname,$request->mobile_number); // Set the user_slug value
             $user->update();
             
@@ -180,6 +182,9 @@ class RegisterController extends Controller
                         ->where('referral_id',$request->referal_code)
                         ->where('admin_slug',$admin->user_slug)
                         ->count();
+            if(isset($request->my_mpin) && isset($request->confirm_my_mpin) && $request->confirm_my_mpin == $request->my_mpin){
+                UserMpin::updateOrCreate(['uid'=>$user->id],['mpin'=>$request->confirm_my_mpin]);
+            }
             if($prvcheck == 0){
                 $userReferral = new UserReferral();
                 $userReferral->user_id = $user->id;
@@ -187,7 +192,7 @@ class RegisterController extends Controller
                 $userReferral->admin_slug = $admin->user_slug;
                 $userReferral->save();
             }
-    
+            
             $userRole = new UserRole();
             $userRole->user_id = $user->id;
             $userRole->role = 'U';
