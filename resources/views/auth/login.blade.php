@@ -61,9 +61,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                 <div class="">
                   <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
                 </div>
-                <!-- <div class="resent_otp text-muted text-small">
-                  If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-dark" disabled>Resend OTP</a>
-                </div> -->
                 </form>
                 <div class="seprator"></div>
                 <div class="pb-2 social text-white">
@@ -172,7 +169,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
             success: function(response) {
               console.log(response);
               // Handle the success response here
-              toastr.success('OTP sent successfully');
+              toastr.success(response.message);
               window.location.href = response.redirect_url;
             },
             error: function(error) {

@@ -142,7 +142,6 @@
           <div class="login-body">
             <div class="header">
               <h1>OTP Verification</h1>
-              <!-- <h3 class="text-white">Code has send to</h3> -->
             </div>
             @if (session('error'))
             <div class="alert alert-error m-1" role="alert" style="padding: 2%">
@@ -153,7 +152,7 @@
             <form id="mobileForm" method="POST" action="{{url('login')}}">
               @csrf <!-- Add CSRF token field -->
               <div class="mt-0 text-center text-dark pb-1">
-                <p>Code has send to {{$mobileNumber}}</p>
+                <p>OTP has been sent to {{$mobileNumber}}</p>
               </div>
               <input type="hidden" class="form-control" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number" value="{{$mobileNumber}}" readonly>
               <input type="hidden" name="id" value="{{$user_id}}">
@@ -168,7 +167,7 @@
                 </div>
               </div>
               <div class="resent_otp text-muted text-small">
-                If you have not received OTP <a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend OTP</a>
+                Didn't receive OTP ?<a href="javascript:void(0)" id="resendOtpBtn" class="text-white" disabled>Resend</a>
               </div>
               <div class="text-center">
                 <button id="loginBtn" class="btn btn-block btn-primary btn-lg font-weight-medium login-btn">Login</button>
