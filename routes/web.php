@@ -12,6 +12,7 @@ use App\Http\Controllers\RequestPinController;
 use App\Http\Controllers\NormalUserController;
 use App\Http\Controllers\PinCenterController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\HelpIncomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +72,12 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('verifyOtp', [TwoFactorController::class, 'verifyOtp']);
         Route::get('resend', [TwoFactorController::class, 'resend']);
         Route::post('/profile/update', [TwoFactorController::class, 'updateProfileAction'])->name('profile.update');
-
+    });
+    Route::group(['prefix' => 'help'], function () {
+        Route::get('sh_panel', [HelpIncomeController::class, 'shPanel']);
+        Route::get('gh_panel', [HelpIncomeController::class, 'ghPanel']);
+        Route::get('my_income', [HelpIncomeController::class, 'myIncome']);
+        Route::get('my_network', [HelpIncomeController::class, 'myNetwork']);
     });
 
     Route::group(['prefix' => 'users'], function () {

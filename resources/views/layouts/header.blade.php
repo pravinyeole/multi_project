@@ -33,9 +33,9 @@
   @endif
   <!-- Template Main CSS File -->
   {{-- Vendor Scripts --}}
-<script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
+  <script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
   <style>
-    .brand-logo-mini{
+    .brand-logo-mini {
       height: 50px;
       width: 40px;
     }
@@ -60,9 +60,7 @@
           </a>
         </div>
       </div>
-      
       <div class="navbar-menu-wrapper d-flex align-items-top">
-        
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
             <?php
@@ -76,30 +74,29 @@
             if ($time < "12") {
               $slo = "Good morning";
             } else
-            /* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */
-            if ($time >= "12" && $time < "17") {
+              /* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */
+              if ($time >= "12" && $time < "17") {
                 $slo = "Good afternoon";
-            } else
-            /* Should the time be between or equal to 1700 and 1900 hours, show good evening */
-            if ($time >= "17" && $time < "19") {
-                $slo = "Good evening";
-            } else
-            /* Finally, show good night if the time is greater than or equal to 1900 hours */
-            if ($time >= "19") {
-                $slo = "Good night";
-            }
+              } else
+                /* Should the time be between or equal to 1700 and 1900 hours, show good evening */
+                if ($time >= "17" && $time < "19") {
+                  $slo = "Good evening";
+                } else
+                  /* Finally, show good night if the time is greater than or equal to 1900 hours */
+                  if ($time >= "19") {
+                    $slo = "Good night";
+                  }
             ?>
             @if(Auth::user()->user_role == 'S' )
             <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
             <h3 class="welcome-sub-text">
-            <button type="button" onclick="copyText('{{Session::get('cryptUrl')}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button></h3>
+              <button type="button" onclick="copyText('{{Session::get('cryptUrl')}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button>
+            </h3>
             @endif
           </li>
         </ul>
-        
-
         <ul class="navbar-nav ms-auto">
-        @if(Auth::user()->user_role == 'S' )
+          @if(Auth::user()->user_role == 'S' )
           <li class="nav-item d-lg-block">
             <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker datepicker-popup">
               <span class="input-group-addon input-group-prepend border-right">
@@ -107,22 +104,8 @@
               </span>
               <input type="text" class="form-control">
             </div>
-          </li> 
-        @endif  
-          <!-- <li class="nav-item dropdown d-lg-block user-dropdown">
-            <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <div class="dropdown-header text-center">
-                <img class="img-md rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image">
-                <p class="mb-1 mt-3 font-weight-semibold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</p>
-                <p class="fw-light text-muted mb-0">{{Auth::User()->email}}</p>
-              </div>
-              <a class="dropdown-item" href="{{('/logout')}}">
-                <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out
-              </a>
-            </div>
-          </li> -->
+          </li>
+          @endif
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>
@@ -130,17 +113,12 @@
       </div>
     </nav>
     <!-- User NAme Top Bar End -->
-
     <div class="container-fluid page-body-wrapper pt-0 proBanner-padding-top">
-
-     
-
       <!-- partial:partials/_sidebar.html -->
       @if(Auth::user()->user_role != 'S' )
-        @include('layouts.sidebar')
+      @include('layouts.sidebar')
       @else
-        @include('layouts.sidebar_superadmin')
+      @include('layouts.sidebar_superadmin')
       @endif
-      
       <!-- partial -->
       <div class="main-panel">

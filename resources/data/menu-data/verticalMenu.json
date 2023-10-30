@@ -11,8 +11,31 @@
       "name": "Pin Center",
       "icon": "key",
       "slug": "pin_center"
-    }
-    ,
+    },
+    {
+      "url": "help/sh_panel",
+      "name": "SH Panel",
+      "icon": "key",
+      "slug": "help/sh_panel"
+    },
+    {
+      "url": "help/gh_panel",
+      "name": "GH Panel",
+      "icon": "key",
+      "slug": "help/gh_panel"
+    },
+    {
+      "url": "help/my_income",
+      "name": "My Income",
+      "icon": "key",
+      "slug": "help/my_income"
+    },
+    {
+      "url": "help/my_network",
+      "name": "My Network",
+      "icon": "key",
+      "slug": "help/my_network"
+    },
     {
       "url": "pins-request",
       "name": "Requests",
@@ -49,7 +72,6 @@
         "icon": "message-square",
         "slug": "direct-ref"
     }
-
   ]
 }
 
