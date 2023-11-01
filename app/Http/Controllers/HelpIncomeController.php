@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
+use App\Models\UserMap;
 use App\Models\User;
-use App\Mail\TwoFactor;
-use App\Models\InsuranceAgency;
-use App\Models\Notification;
-use AWS;
-use Mail;
-use Config;
-use App\Traits\CommonTrait;
+use Auth;
+use DB;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +20,15 @@ class HelpIncomeController extends Controller
         $this->middleware(['auth']);
     }
     public function shPanel(Request $request){
-        return view('admin.pincenter.sh');
+        $sendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+                        ->where('users.id', Auth::user()->id)
+                        ->where('user_sub_info.status', 'red')
+                        ->orderBy('user_sub_info.created_at', 'DESC')
+                        ->pluck('user_sub_info.mobile_id')->toArray();
+        $getGetHelpData = UserMap::whereIn('user_mobile_id', $sendHelpDataA)->where('type', 'GH')->get();
+        $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
+        $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
+        return view('admin.pincenter.sh',compact('sendHelpData'));
     }
     public function ghPanel(Request $request){
         return view('admin.pincenter.gh');

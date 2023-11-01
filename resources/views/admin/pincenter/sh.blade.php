@@ -37,150 +37,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <div class="">
-                                    <a href="#update" data-target="#update" data-toggle="modal" class="link">Tiger Nixon
-                                    <p class="text-muted mb-0">M: 5555555555</p></a>
-                                </div>
-                            </td>
-                            <td>25 Apr</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Garrett Winters
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>25 Jul</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">San Francisco
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>12 Jan</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Cedric Kelly
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>29 Mar</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Airi Satou
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>25 Nov</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Brielle Williamson
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>02 Dec</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Herrod Chandler
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>06 Aug</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Rhona Davidson
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>14 Oct</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Colleen Hurst
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>15 Sep</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Sonya Frost
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>13 Dec</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Tiger Nixon
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>25 Apr</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Garrett Winters
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>25 Jul</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">San Francisco
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>12 Jan</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Cedric Kelly
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>29 Feb</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Airi Satou
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>28 Mar</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Brielle Williamson
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>02 Apr</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Herrod Chandler
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>06 May</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Rhona Davidson
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>14 Jun</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Colleen Hurst
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>15 Jul</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="link">Sonya Frost
-                                    <p class="text-muted mb-0">M: 5555555555</p></a></td>
-                            <td>13 Aug</td>
-                            <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                        </tr>
+                        @if(count($sendHelpData))
+                            @foreach($sendHelpData AS $key => $sh)
+                            <tr>
+                                <td>{{($key+1)}}</td>
+                                <td>
+                                    <div class="">
+                                        <a href="#update" data-target="#update" data-toggle="modal" class="link">{{$sh->user_fname}} {{$sh->user_lname}}
+                                        <p class="text-muted mb-0">{{$sh->mobile_number}}</p></a>
+                                    </div>
+                                </td>
+                                <td>25 Apr</td>
+                                <td><a href="upi://pay?pa=8149136961@ybl&pn=AniketTandale&cu=INR&am=500.00&&url=https://testinrb.in/home" class="btn btn-warning btn-sm">Pay Now</a></td>
+                                <!-- <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td> -->
+                            </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
                 </div></div>
