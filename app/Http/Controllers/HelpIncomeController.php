@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserMap;
 use App\Models\User;
+use App\Models\UserSubInfo;
 use Auth;
 use DB;
 
@@ -31,7 +32,13 @@ class HelpIncomeController extends Controller
         return view('admin.pincenter.sh',compact('sendHelpData'));
     }
     public function ghPanel(Request $request){
-        return view('admin.pincenter.gh');
+        $getHelpData = User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
+                    ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
+                    ->select('users.id','users.user_lname','users.user_fname','users.mobile_number')
+                    ->where('user_map_new.new_user_id',Auth::user()->id)
+                    ->where('user_sub_info.status','red')
+                    ->get();
+        return view('admin.pincenter.gh',compact('getHelpData'));
     }
     public function myIncome(Request $request){
         return view('admin.pincenter.cal');

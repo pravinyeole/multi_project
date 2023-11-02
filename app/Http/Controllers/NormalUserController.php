@@ -318,7 +318,6 @@ class NormalUserController extends Controller
             ['type', 'GH']
         ])->get();
         $userIds = $getGetHelpData->pluck('user_id')->toArray();
-
         $ghUsers = User::whereIn('id', $userIds)->get();
 
         return Datatables::of($ghUsers)
