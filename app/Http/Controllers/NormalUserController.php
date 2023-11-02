@@ -431,4 +431,11 @@ class NormalUserController extends Controller
         $data = UserSubInfo::where('mobile_id', $mobileId)->update(['status'=>'green']);
         return back();
     }
+
+    public function active_user($id)
+    {
+        $title = "Payment Request";
+        $data = User::where('id', $id)->update(['user_status'=>'Active']);
+        return back();
+    }
 }

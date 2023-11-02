@@ -9,7 +9,7 @@
                     <h5>Total Affiliate IDs</h5>
                   <div class="info">
                     <p>No. of IDs</p>
-                    <h3>195</h3>
+                    <h3>{{$myReferalUser}}</h3>
                   </div>
                 </div>
             <div class="card mb-4">
@@ -31,111 +31,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php $i = 1; @endphp
+                        @foreach($data as $k=>$v)
                         <tr>
-                            <td>1</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
+                            <td>{{$i}}</td>
+                            <td>{{$v->user_fname}} {{$v->user_lname}}</td>
+                            <td>{{$v->mobile_number}}</td>
                             <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                            <td><a href="{{url('/normal_user/active_user/'.$v->id)}}" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
+                            @php $i++; @endphp
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td><a href="#" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 </div>

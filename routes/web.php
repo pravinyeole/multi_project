@@ -152,6 +152,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('assignUserList', [NormalUserController::class, 'assignUserList']);
         Route::get('payment_accept/{id}/{mobileId}', [NormalUserController::class, 'payment_accept']);
 
+        Route::get('/active_user/{id}', [NormalUserController::class, 'active_user']);
+
 
     });
     //for admin to accepet pins request

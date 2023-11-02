@@ -37,6 +37,17 @@ class HelpIncomeController extends Controller
         return view('admin.pincenter.cal');
     }
     public function myNetwork(Request $request){
-        return view('admin.pincenter.mynetwork');
+        $myReferalUser = User::join('user_referral AS ur','ur.user_id','users.id')
+                            ->where('ur.referral_id',Auth::user()->mobile_number)
+                            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                            ->orderBy('users.id','DESC')
+                            ->count();
+        $data = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
+        ->select('users.*')
+        ->where('user_referral.referral_id', Auth::user()->mobile_number)
+        ->where('user_status','Inactive')
+        ->orderBy('users.id', 'DESC')
+        ->get();
+        return view('admin.pincenter.mynetwork',compact('myReferalUser','data'));
     }
 }
