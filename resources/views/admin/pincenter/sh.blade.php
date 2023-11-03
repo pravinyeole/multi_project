@@ -31,14 +31,19 @@
                         <tr>
                             <th>{{__("labels.no")}}</th>
                             <th>User ID</th>
-                            <th>Timestamp</th>
-                            <th>Status</th>
+                            <th>QR</th>
+                            <th>Action</th>
                             <!-- <th>{{__("labels.action")}}</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         @if(count($sendHelpData))
                             @foreach($sendHelpData AS $key => $sh)
+                                <?php  
+                                $tr = 'INRB'.date("dmYHis").($key+1);
+                                $url = 'upi://pay?pa='.$sh->upi.'&pn='.$sh->user_fname.$sh->user_lname.'&cu=INR&am=1.00&tn=INRB'.$tr;
+                                // $url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
+                                ?>
                             <tr>
                                 <td>{{($key+1)}}</td>
                                 <td>
@@ -47,13 +52,15 @@
                                         <p class="text-muted mb-0">{{$sh->mobile_number}}</p></a>
                                     </div>
                                 </td>
-                                <?php  
-                                $tr = 'INRB'.date("dmYHis").($key+1);
-                                $url = 'upi://pay?pa='.$sh->upi.'&pn='.$sh->user_fname.$sh->user_lname.'&cu=INR&am=1.00&tn=INRB'.$tr;
-                                ?>
-                                @php $from = [255, 0, 0];$to = [0, 0, 255];@endphp
-                                <td id="inr{{($key+1)}}">{!! QrCode::size(100)->mergeString($tr)->style('dot')->eye('circle')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(1)->generate('{{$url}}') !!}<br> {{$tr}}</td>
-                                <td><a href="javascript:void(0)" class="btn btn-warning btn-sm" onClick="svgdown({{($key+1)}},'{{$tr}}')">Pay Now</a></td>
+                                    <!-- $qrhtml = QrCode::size(100)->mergeString('$tr')->style('dot')->eye('circle')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(6)->generate($url); -->
+                                @php $from = [255, 0, 0];$to = [0, 0, 255];
+                                    $qrhtml = QrCode::size(110)->mergeString('$tr')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(8)->generate($url);
+                                    $qrhtml = str_replace('</svg>','<text fill="#a3a3a3" font-size="9" font-family="FranklinGothic-Heavy, Franklin Gothic"><tspan x="5" y="110" id="LA">'.$tr.'</tspan></text></svg>',$qrhtml);
+                                @endphp
+                                <td id="inr{{($key+1)}}">{!! $qrhtml !!}</td>
+                                <td><a href="javascript:void(0)" class="btn btn-warning btn-sm" onClick="svgdown({{($key+1)}},'{{$tr}}')">Download QR</a>
+                                <a href="#update" data-target="#update" data-toggle="modal" class="btn btn-primary btn-sm" >Update Status</a>
+                                </td>
                                 <!-- <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td> -->
                             </tr>
                             @endforeach
