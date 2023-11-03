@@ -47,8 +47,13 @@
                                         <p class="text-muted mb-0">{{$sh->mobile_number}}</p></a>
                                     </div>
                                 </td>
-                                <td>25 Apr</td>
-                                <td><a href="upi://pay?pa=8149136961@ybl&pn=AniketTandale&cu=INR&am=500.00&&url=https://testinrb.in/home" class="btn btn-warning btn-sm">Pay Now</a></td>
+                                <?php  
+                                $tr = 'INRB'.date("dmYHis").($key+1);
+                                $url = 'upi://pay?pa='.$sh->upi.'&pn='.$sh->user_fname.$sh->user_lname.'&cu=INR&am=1.00&tn=INRB'.$tr;
+                                ?>
+                                @php $from = [255, 0, 0];$to = [0, 0, 255];@endphp
+                                <td id="inr{{($key+1)}}">{!! QrCode::size(100)->mergeString($tr)->style('dot')->eye('circle')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(1)->generate('{{$url}}') !!}<br> {{$tr}}</td>
+                                <td><a href="javascript:void(0)" class="btn btn-warning btn-sm" onClick="svgdown({{($key+1)}},'{{$tr}}')">Pay Now</a></td>
                                 <!-- <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td> -->
                             </tr>
                             @endforeach
@@ -160,8 +165,40 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 <script>
+    // Initiate download of blob
+    function download(
+    filename, // string
+    blob // Blob
+    ) {
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            const elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.download = filename;
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+        }
+    }
+
+    function svgdown(id,imname){
+        var svg = document.querySelector('#inr'+id+' svg');
+        var data = (new XMLSerializer()).serializeToString(svg);
+        // We can just create a canvas element inline so you don't even need one on the DOM. Cool!
+        var canvas = document.createElement('canvas');
+        canvg(canvas, data, {
+        renderCallback: function() {
+            canvas.toBlob(function(blob) {
+                download(imname+'.png', blob);
+            });
+        }
+        });
+    }
     $(document).ready(function() {
+
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
