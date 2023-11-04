@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
-                    <button type="submit" class="btn btn-danger w-50 m-0 b-r-r-0">Reject</button>
+                    <button type="button" class="btn btn-danger w-50 m-0 b-r-r-0 close">Close</button>
                     <button type="button" class="btn btn-success w-50 m-0 b-l-r-0" onclick="btnReqUpdate()">Approve</button>
                 </div>
             </form>
