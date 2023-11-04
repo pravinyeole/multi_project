@@ -56,6 +56,7 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'A')
         {
+            if(isset(Auth::user()->upi) && Auth::user()->upi == null) { return redirect()->route('two-fact-auth/updateProfile');}
             $data['Announcement'] = Announcement::whereIn('type',['Admin','All'])->get()->last();
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
                             ->where('ur.referral_id',Auth::user()->mobile_number)
@@ -89,6 +90,7 @@ class DashboardController extends Controller
         }
         elseif(Auth::User()->user_role == 'U')
         {
+            if(isset(Auth::user()->upi) && Auth::user()->upi == null) { return redirect()->route('two-fact-auth/updateProfile');}
             $data['Announcement'] = Announcement::whereIn('type',['User','All'])->get()->last();
             $data['pinTransferRequest'] = RequestPin::where('req_user_id',Auth::user()->id)->sum('no_of_pin');
             $data['pinTransferSend'] = TransferPin::where('trans_by',Auth::user()->id)->sum('trans_count');
