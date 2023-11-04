@@ -406,34 +406,4 @@ class DashboardController extends Controller
             return redirect('login');
         }
     }
-
-    public function changeAgency(){
-        Session::forget('super_admin_id'); 
-        Session::forget('sub_org_id'); 
-        Session::forget('org_id'); 
-        Session::forget('team_id'); 
-
-        Auth::logout();
-        Auth::loginUsingId(Session::get('USER_ORG_ID'));
-
-        $users = User::where('email',Auth::user()->email)->pluck('id')->toArray();
-
-        $userRoleData =  UserRole::select('user_roles.*','insurance_agencies.insurance_agency_name')
-                    ->join('insurance_agencies','insurance_agencies.insurance_agency_id','user_roles.insurance_agency_id')
-                    ->join('users', 'users.id', 'insurance_agencies.user_id')
-                    // ->where('users.user_status','Active')
-                    ->where('user_roles.user_role_status','Active')
-                    // ->where('user_roles.user_id', Session::get('USER_ORG_ID'))
-                    ->whereIn('user_roles.user_id', $users)
-                    ->get();
-
-        $pageConfigs = [
-            'bodyClass' => "bg-full-screen-image",
-            'blankPage' => true
-        ];
-        return view('/auth/orgType', [
-            'pageConfigs' => $pageConfigs,
-            'userRoleData' => $userRoleData
-        ]);
-    }
 }

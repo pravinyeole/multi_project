@@ -1,4 +1,5 @@
-
+====================================04-11-2023==========================================================
+ALTER TABLE `payments` ADD `comments` TEXT NULL DEFAULT NULL AFTER `payment_type`;
 ====================================28-10-2023==========================================================
 CREATE TABLE `db_hpa`.`user_mpin` (`mid` INT(11) NOT NULL AUTO_INCREMENT , `uid` INT(11) NOT NULL , `mpin` INT(11) NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , INDEX (`mid`)) ENGINE = InnoDB;
 

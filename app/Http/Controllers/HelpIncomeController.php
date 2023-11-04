@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserMap;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\UserSubInfo;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
@@ -27,16 +28,23 @@ class HelpIncomeController extends Controller
                         ->where('user_sub_info.status', 'red')
                         ->orderBy('user_sub_info.created_at', 'DESC')
                         ->pluck('user_sub_info.mobile_id')->toArray();
-        $getGetHelpData = UserMap::whereIn('user_mobile_id', $sendHelpDataA)->where('type', 'GH')->get();
-        $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
-        $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
+        $notInPayment = Payment::where('user_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+        $sendHelpData = UserMap::join('users','users.id','user_map_new.new_user_id')
+                        ->select('users.id','users.user_fname','users.upi','users.user_lname','user_map_new.user_mobile_id')
+                        ->whereIn('user_mobile_id', $sendHelpDataA)
+                        ->whereNotIn('user_mobile_id', $notInPayment)
+                        ->where('type', 'GH')->get();
+        // $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
+        // $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
         return view('admin.pincenter.sh',compact('sendHelpData'));
     }
     public function ghPanel(Request $request){
+        // $notInPayment = Payment::where('receivers_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
         $getHelpData = User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
                     ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
-                    ->select('users.id','users.user_lname','users.user_fname','users.mobile_number')
+                    ->select('users.id','users.user_lname','users.user_fname','users.mobile_number','user_map_new.user_mobile_id','user_map_new.new_user_id')
                     ->where('user_map_new.new_user_id',Auth::user()->id)
+                    // ->whereNotIn('user_map_new.user_mobile_id', $notInPayment)
                     ->where('user_sub_info.status','red')
                     ->get();
         return view('admin.pincenter.gh',compact('getHelpData'));

@@ -6,6 +6,10 @@
     .footer {
         padding: 0
     }
+
+    .noshow {
+        display: none;
+    }
 </style>
 <div class="content-wrapper">
     <div class="row">
@@ -17,17 +21,22 @@
                     </h4>
                 </div>
                 <div class="card-body gray-bg">
-                    <div class="title tbl-heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                    <div class="alert alert-danger alert-dismissible noshow" role="alert">
+                        <strong class="dangertext"></strong>
+                    </div>
+                    <div class="alert alert-success alert-dismissible noshow" role="alert">
+                        <strong class="successtext"></strong>
+                    </div>
+                    <!-- <div class="title tbl-heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
-                        </svg> GH1</div>
+                        </svg> GH1</div> -->
                     <div class="table-responsive">
                         <table class="table table-hover responsive nowrap" style="width:100%" id="table_user">
                             <thead>
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
                                     <th>User ID</th>
-                                    <th>Timestamp</th>
                                     <th>Status</th>
                                     <!-- <th>{{__("labels.action")}}</th> -->
                                 </tr>
@@ -39,13 +48,12 @@
                                     <td>{{($key+1)}}</td>
                                     <td>
                                         <div class="">
-                                            <a href="#update" data-target="#update" data-toggle="modal" class="link">{{$gh->user_fname}} {{$gh->user_lname}}
-                                                <p class="text-muted mb-0">M: {{$gh->mobile_number}}</p>
+                                            <a href="javascript:void(0);" class="link">{{$gh->user_fname}} {{$gh->user_lname}}
+                                                <!-- <p class="text-muted mb-0">M: {{$gh->mobile_number}}</p> -->
                                             </a>
                                         </div>
                                     </td>
-                                    <td>25 Apr</td>
-                                    <td><a href="#update" data-target="#update" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
+                                    <td><a href="javascript:void(0);" class="btn btn-warning btn-sm" onClick="getPaymentDetails({{$gh->new_user_id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
                                 </tr>
                                 @endforeach
                                 @endif
@@ -90,50 +98,50 @@
                         <h4 class="alert-heading">Note</h4>
                         <p>Kindly verify if the payment is received for below details. This cannot be reversed once approved.</p>
                     </div>
+                    <input type="hidden" id="payrowid">
+                    <input type="hidden" id="mobile_id">
                     <div class="row info">
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Name</label>
-                                <h4>First Last Name</h4>
+                                <h4 class="user_name">First Last Name</h4>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Mobile</label>
-                                <h4>7777777777</h4>
+                                <h4 class="user_mobile">7777777777</h4>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Email</label>
-                                <h4>info@domain.com</h4>
+                                <h4 class="user_email">info@domain.com</h4>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Payment Method</label>
-                                <h4><img src="{{asset('images/Google-Pay-logo.png')}}" alt="" class="img-fuild" style="max-width:80px;" /></h4>
+                                <h4><img class="payment_mode" src="{{asset('images/Google-Pay-logo.png')}}" alt="" class="img-fuild" style="max-width:80px;" /></h4>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Transaction ID / UTR No.</label>
-                                <h4>ABCB0000012456</h4>
+                                <h4 class="user_tarns">ABCB0000012456</h4>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Comments</label>
-                                <p>test comment</p>
+                                <p class="tarns_comments">test comment</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
                     <button type="submit" class="btn btn-danger w-50 m-0 b-r-r-0">Reject</button>
-                    <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Approve</button>
+                    <button type="button" class="btn btn-success w-50 m-0 b-l-r-0" onclick="btnReqUpdate()">Approve</button>
                 </div>
             </form>
         </div>
@@ -145,7 +153,37 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script>
+    function btnReqUpdate() {
+        var result = confirm("Kindly verify if the payment is received for below details. This cannot be reversed once approved?");
+        if (result) {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            jQuery.ajax({
+                type: "POST",
+                url: base_url + "/payment/requestupdate",
+                data: {
+                    _token: CSRF_TOKEN,
+                    'row_id': $('#payrowid').val(),
+                    'mobile_id': $('#mobile_id').val(),
+                },
+                success: function(data) {
+                    var obj = jQuery.parseJSON(data);
+                    if(obj.msg == 'success'){
+                        $('.alert-success').removeClass('noshow');
+                        $('.successtext').text('Payment Confirmed Successfully.');
+                        location.reload();
+                    }else{
+                        $('.alert-danger').removeClass('noshow');
+                        $('.dangertext').text(obj.msg);
+                        location.reload();
+                    }
+                }
+            });
+        }
+    }
     $(document).ready(function() {
+        $('.close').click(function() {
+            $('#update').modal('toggle');
+        });
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
@@ -246,5 +284,48 @@
             }
         });
     });
+
+    function getPaymentDetails(user_id, mobile_id) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        jQuery.ajax({
+            type: "POST",
+            url: base_url + "/payment/requestshow",
+            data: {
+                _token: CSRF_TOKEN,
+                'user_id': user_id,
+                'mobile_id': mobile_id,
+            },
+            success: function(data) {
+                if (data == 'null') {
+                    $('.alert-danger').removeClass('noshow');
+                    $('.dangertext').text('Error ! No Payment Request made by Sender.');
+                    return false;
+                } else {
+                    $('.alert-danger').addClass('noshow');
+                    $('#update').modal('toggle');
+                    $('#update').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    })
+                    var obj = jQuery.parseJSON(data);
+                    $('.user_name').text(obj.user_fname + ' ' + obj.user_lname);
+                    $('.user_mobile').text(obj.mobile_number);
+                    $('#payrowid').val(obj.payment_id);
+                    $('#mobile_id').val(obj.mobile_id);
+                    $('.user_email').text(obj.email);
+                    $('.user_tarns').text(obj.attachment);
+                    if (obj.payment_type == 'google_pay') {
+                        var imgsrc = base_url + '/images/Google-Pay-logo.png';
+                    } else if (obj.payment_type == 'phone_pay') {
+                        var imgsrc = base_url + '/images/phonePe.png';
+                    } else if (obj.payment_type == 'paytm') {
+                        var imgsrc = base_url + '/images/paytm_logo.png';
+                    }
+                    $('.payment_mode').attr('src', imgsrc);
+                    $('.tarns_comments').text(obj.comments);
+                }
+            }
+        });
+    }
 </script>
 @endsection

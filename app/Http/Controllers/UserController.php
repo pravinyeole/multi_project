@@ -36,7 +36,7 @@ class UserController extends Controller
     public function __construct(){
         $this->title = "Users";
         $this->middleware(['auth','paymentMethod']);
-        $this->middleware('twoFactorAuth')->except(['checkOTPexist','resendOTP','updateProfileAction']);
+        $this->middleware('twoFactorAuth')->except(['checkOTPexist','resendOTP','updateProfileAction','userByID']);
     }
     
     public function index(Request $request){
@@ -1248,15 +1248,9 @@ class UserController extends Controller
         exit;
     }
 
-    public function checkEmail(Request $request){
-        $user = User::where('email',$request->email)->get();
-        if($user->isEmpty()){
-            $data['title'] = 'Success';
-        }else{
-            $data['title'] = 'Error';
-        }
-
-        echo json_encode($data);
-        exit;
+    public function userByID(Request $request){
+        $user = User::select('id','user_fname','user_lname','mobile_number','email','upi')
+                ->where('id',$request->user_id)->first();
+        return json_encode($user);
     }
 }

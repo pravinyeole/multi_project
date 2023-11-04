@@ -13,6 +13,7 @@ use App\Http\Controllers\NormalUserController;
 use App\Http\Controllers\PinCenterController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\HelpIncomeController;
+use App\Http\Controllers\IncomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,11 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('my_income', [HelpIncomeController::class, 'myIncome']);
         Route::get('my_network', [HelpIncomeController::class, 'myNetwork']);
     });
+    Route::group(['prefix' => 'payment'], function () {
+        Route::post('requestsave', [IncomeController::class, 'requestSave']);
+        Route::post('requestshow', [IncomeController::class, 'requestShow']);
+        Route::post('requestupdate', [IncomeController::class, 'requestUpdate']);
+    });
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 			    [UserController::class, 'index']);
@@ -100,7 +106,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('checkOTP',         [UserController::class, 'checkOTPexist']);
         Route::post('resendOTP',        [UserController::class, 'resendOTP']);
         Route::get('/map-user',         [MapUserController::class, 'index']);
-        Route::post('checkEmail',       [UserController::class, 'checkEmail']);
+        Route::post('userbyid',       [UserController::class, 'userByID']);
     });
 
     Route::group(['prefix' => 'pin_center'], function () {
