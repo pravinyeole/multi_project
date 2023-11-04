@@ -213,7 +213,7 @@
                       </div>
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <?php
                     date_default_timezone_set('Asia/Kolkata');
                     $slo = '';

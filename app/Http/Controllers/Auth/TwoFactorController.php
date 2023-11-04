@@ -165,7 +165,7 @@ class TwoFactorController extends Controller
                 'user_fname' => 'required|string|max:100',
                 'user_lname' => 'required|string|max:100',
                 'email' => 'required|email',
-                'payment_modes' => 'array',
+                'user_upi' => 'required|min:10|max:15',
             ]);
     
             if ($validator->fails()) {
@@ -179,25 +179,13 @@ class TwoFactorController extends Controller
             $user->user_fname = $request->input('user_fname');
             $user->user_lname = $request->input('user_lname');
             $user->email = $request->input('email');
+            $user->upi = $request->input('user_upi');
             // Save the changes
             $user->save();
-            // Update the payment details
-            $paymentModes = $request->input('payment_modes');
-            $paymentDetails = $request->input('payment_details');
-
-            $user->upi = $paymentDetails['upi'];
-            $user->google_pay = $paymentDetails['google_pay'];
-            $user->phone_pay = $paymentDetails['phone_pay'];
-            $user->paytm = $paymentDetails['paytm'];
-
-            // Save the changes to payment details
-            $user->save();
             // Return a success message
-            toastr()->success('Profile updated successfully!');
-            return redirect()->back();
+            return redirect()->back()->with('success','Profile updated successfully!');
         } catch (\Exception $e) {
-            toastr()->error('Something went wrong!');
-            return redirect()->back()->withInput($request->input());
+            return redirect()->back()->with('error','Something went wrong!');
         }
     }
     
