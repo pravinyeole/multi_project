@@ -226,5 +226,6 @@ return [
   "Payment Request" => "Payment Request",
   "Calculation" => "Calculation",
   "Calculation" => "Calculation",
-  "Pending Payment List" => "Pending Payment List"
+  "Pending Payment List" => "Pending Payment List",
+  "Reports"=>"Reports"
 ];
