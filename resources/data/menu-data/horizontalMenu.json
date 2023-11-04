@@ -7,18 +7,6 @@
             "slug": "home"
         },
         {
-            "url" : "normal_user",
-            "name": "My Id's",
-            "icon": "users",
-            "slug": "normal_user"
-        },
-        {
-          "url":  "normal_user/paymentrequest",
-          "name": "Payment Request",
-          "icon": "send",
-          "slug": "paymentrequest"
-        },
-        {
             "url" : "pin_center",
             "name": "Pin Center",
             "icon": "key",
@@ -47,24 +35,6 @@
           "name": "My Network",
           "icon": "key",
           "slug": "help/my_network"
-        },
-        {
-          "url" : "request-pin",
-          "name": "Request Pin",
-          "icon": "corner-up-right",
-          "slug": "request-pin"
-        },
-        {
-          "url":  "transferpin",
-          "name": "Transfer Pin",
-          "icon": "corner-up-left",
-          "slug": "transferpin"
-        },
-        {
-            "url" : "request-pin/direct_ref_user_list",
-            "name": "My Referrals",
-            "icon": "users",
-            "slug": "direct-ref"
         }  
   ]
 }  

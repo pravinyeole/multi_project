@@ -37,40 +37,10 @@
       "slug": "help/my_network"
     },
     {
-      "url": "pins-request",
-      "name": "Requests",
-      "icon": "message-square",
-      "slug": "pins-request"
-    },
-    {
-        "url" : "request-pin",
-        "name": "Request Pin",
-        "icon": "user-plus",
-        "slug": "request-pin"
-    },
-    {
-      "url":  "superadmin/revokepin",
-      "name": "Revoke Pin",
-      "icon": "user-minus",
-      "slug": "superadmin/revokepin"
-    },
-    {
-      "url":  "transferpin",
-      "name": "Transfer Pin",
-      "icon": "send",
-      "slug": "transferpin"
-    },
-    {
-      "url":  "normal_user/paymentrequest",
-      "name": "Payment Request",
-      "icon": "send",
-      "slug": "paymentrequest"
-    },
-    {
-        "url" : "request-pin/direct_ref_user_list",
-        "name": "My Referrals",
-        "icon": "message-square",
-        "slug": "direct-ref"
+      "url": "help/my_network",
+      "name": "Reports",
+      "icon": "key",
+      "slug": "help/my_network"
     }
   ]
 }
