@@ -26,7 +26,7 @@
                     <form method="POST" action="{{ route('profile.update') }}">
                         @csrf
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">First Name</label>
                                     @error('user_fname')
@@ -37,7 +37,7 @@
                                     <input id="user_fname" type="text" class="form-control @error('user_fname') is-invalid @enderror" name="user_fname" value="{{ old('user_fname', $user->user_fname) }}" required autofocus>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Last Name</label>
                                     @error('user_lname')
@@ -48,7 +48,7 @@
                                     <input id="user_lname" type="text" class="form-control @error('user_lname') is-invalid @enderror" name="user_lname" value="{{ old('user_lname', $user->user_lname) }}" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Email ID</label>
                                     @error('email')
@@ -59,7 +59,7 @@
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">UPI ID</label>
                                     @error('user_upi')
