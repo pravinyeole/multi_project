@@ -34,7 +34,7 @@ class IncomeController extends Controller
             $payment->mobile_id = $request->user_mobile_id;
             $payment->user_id = Auth::user()->id;
             $payment->receivers_id = $request->uid;
-            $payment->comments = (isset($request->comments) && !empty($request->comments)) ? $request->comments :'No Comments';
+            $payment->comments = (isset($request->comments) && !empty($request->comments)) ? $request->comments : 'No Comments';
             $payment->type = "SH";
             $payment->status = "pending";
             // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
@@ -56,83 +56,85 @@ class IncomeController extends Controller
             return redirect()->back()->with('error', config('messages.500'));
         }
     }
-    public function requestShow(Request $request){
-        $getPaymentStatus = Payment::join('users','users.id','payments.receivers_id')
-                            ->select('users.id','users.user_fname','users.user_lname','users.mobile_number','users.email','payments.comments','payments.mobile_id','payments.payment_id','payments.payment_type','payments.attachment')
-                            ->where('payments.mobile_id', $request->mobile_id)
-                            ->where('payments.receivers_id', $request->user_id)
-                            ->first();
+    public function requestShow(Request $request)
+    {
+        $getPaymentStatus = Payment::join('users', 'users.id', 'payments.receivers_id')
+            ->select('users.id', 'users.user_fname', 'users.user_lname', 'users.mobile_number', 'users.email', 'payments.comments', 'payments.mobile_id', 'payments.payment_id', 'payments.payment_type', 'payments.attachment')
+            ->where('payments.mobile_id', $request->mobile_id)
+            ->where('payments.receivers_id', $request->user_id)
+            ->first();
         return json_encode($getPaymentStatus);
     }
-    public function requestUpdate(Request $request){
-        try{
-            $data = Payment::where('payment_id', $request->row_id)->update(['status'=>'completed']);
-            $dataGreen = UserSubInfo::where('mobile_id', $request->mobile_id)->update(['status'=>'green']);
-            if($dataGreen == 1){
+    public function requestUpdate(Request $request)
+    {
+        try {
+            $data = Payment::where('payment_id', $request->row_id)->update(['status' => 'completed']);
+            $dataGreen = UserSubInfo::where('mobile_id', $request->mobile_id)->update(['status' => 'green']);
+            if ($dataGreen == 1) {
                 $userId = UserSubInfo::where('mobile_id', $request->mobile_id)->first()->user_id;
-                $userRefeDetail = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                ->join('users AS u','u.user_slug','user_referral.admin_slug')
-                                ->select('users.id AS referal_id','users.user_role AS referal_id_role','u.id AS admin_id','user_referral.referral_id AS level_two_mobile')
-                                ->where('user_referral.user_id', $userId)->first();
-                if($userRefeDetail){
+                $userRefeDetail = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                    ->join('users AS u', 'u.user_slug', 'user_referral.admin_slug')
+                    ->select('users.id AS referal_id', 'users.user_role AS referal_id_role', 'u.id AS admin_id', 'user_referral.referral_id AS level_two_mobile')
+                    ->where('user_referral.user_id', $userId)->first();
+                if ($userRefeDetail) {
                     $referal_id = $userRefeDetail->referal_id;
                     $admin_id = $userRefeDetail->admin_id;
-                    $data=[];
-                    $data[] = ['sender_id'=>$userId,'reciver_id'=>$admin_id,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.admin_income'),'level'=>'ADMIN'];
-                    if($userRefeDetail->referal_id_role == 'L'){
-                        $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.leader_income'),'level'=>'LEADER'];
+                    $data = [];
+                    $data[] = ['sender_id' => $userId, 'reciver_id' => $admin_id, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.admin_income'), 'level' => 'ADMIN'];
+                    if ($userRefeDetail->referal_id_role == 'L') {
+                        $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.leader_income'), 'level' => 'LEADER'];
                     }
-                    $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_1'),'level'=>'LVL1'];
-                    $referal_id_2 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                    ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                    ->select('u.id AS level_two')
-                                    ->where('user_referral.user_id', $referal_id)->first();
-                    if($referal_id_2){
-                        $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_2->level_two,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_2'),'level'=>'LVL2'];
-                        $referal_id_3 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                    ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                    ->select('u.id AS level_three')
-                                    ->where('user_referral.user_id', $referal_id_2->level_two)->first();
-                        if($referal_id_3){
-                            $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_3->level_three,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_3'),'level'=>'LVL3'];
-                            $referal_id_4 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                            ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                            ->select('u.id AS level_four')
-                                            ->where('user_referral.user_id', $referal_id_3->level_three)->first();
-                            if($referal_id_4){
-                                $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_4->level_four,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_4'),'level'=>'LVL4'];
-                                $referal_id_5 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                                ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                                ->select('u.id AS level_five')
-                                                ->where('user_referral.user_id', $referal_id_4->level_four)->first();
-                                if($referal_id_5){
-                                    $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_5->level_five,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_5'),'level'=>'LVL5'];
-                                    $referal_id_6 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                                    ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                                    ->select('u.id AS level_six')
-                                                    ->where('user_referral.user_id', $referal_id_5->level_five)->first();
-                                    if($referal_id_6){
-                                        $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_6->level_six,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_6'),'level'=>'LVL6'];
-                                        $referal_id_7 = UserReferral::join('users','users.mobile_number','user_referral.referral_id')
-                                                        ->join('users AS u','u.mobile_number','user_referral.referral_id')
-                                                        ->select('u.id AS level_seven')
-                                                        ->where('user_referral.user_id', $referal_id_6->level_six)->first();
-                                        if($referal_id_7){
-                                            $data[] = ['sender_id'=>$userId,'reciver_id'=>$referal_id_7->level_seven,'mobile_id'=>$request->mobile_id,'amount'=>config('custom.custom.level_7'),'level'=>'LVL7'];
+                    $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_1'), 'level' => 'LVL1'];
+                    $referal_id_2 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                        ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                        ->select('u.id AS level_two')
+                        ->where('user_referral.user_id', $referal_id)->first();
+                    if ($referal_id_2) {
+                        $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_2->level_two, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_2'), 'level' => 'LVL2'];
+                        $referal_id_3 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                            ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                            ->select('u.id AS level_three')
+                            ->where('user_referral.user_id', $referal_id_2->level_two)->first();
+                        if ($referal_id_3) {
+                            $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_3->level_three, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_3'), 'level' => 'LVL3'];
+                            $referal_id_4 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                ->select('u.id AS level_four')
+                                ->where('user_referral.user_id', $referal_id_3->level_three)->first();
+                            if ($referal_id_4) {
+                                $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_4->level_four, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_4'), 'level' => 'LVL4'];
+                                $referal_id_5 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                    ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                    ->select('u.id AS level_five')
+                                    ->where('user_referral.user_id', $referal_id_4->level_four)->first();
+                                if ($referal_id_5) {
+                                    $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_5->level_five, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_5'), 'level' => 'LVL5'];
+                                    $referal_id_6 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                        ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                        ->select('u.id AS level_six')
+                                        ->where('user_referral.user_id', $referal_id_5->level_five)->first();
+                                    if ($referal_id_6) {
+                                        $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_6->level_six, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_6'), 'level' => 'LVL6'];
+                                        $referal_id_7 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                            ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                            ->select('u.id AS level_seven')
+                                            ->where('user_referral.user_id', $referal_id_6->level_six)->first();
+                                        if ($referal_id_7) {
+                                            $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_7->level_seven, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_7'), 'level' => 'LVL7'];
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    if(count($data)){
+                    if (count($data)) {
                         PaymentDistribution::insert($data);
                     }
                 }
             }
-            return json_encode(['msg'=>'success']);
-        }catch (\Exception $e){
-            return json_encode(['msg'=>$e]);
+            return json_encode(['msg' => 'success']);
+        } catch (\Exception $e) {
+            return json_encode(['msg' => $e]);
         }
     }
 }

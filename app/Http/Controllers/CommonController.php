@@ -122,6 +122,9 @@ class CommonController extends Controller
             if (!$user) {
                 // Handle the case where the user does not exist
                 // return redirect()->route('register');
+                $redirectUrl = route('login');
+                return response()->json(['message' => 'Mobile Number Not Registerd',"redirect_url"=>$redirectUrl], 400); 
+
                 $mobileNumberD = str_split($mobileNumber, 4);
                 $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
                 $user = new User();

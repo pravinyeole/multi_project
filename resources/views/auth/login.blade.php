@@ -173,9 +173,13 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               window.location.href = response.redirect_url;
             },
             error: function(error) {
-              console.log(error);
               // Handle the error response here
-              toastr.error('Failed to send OTP');
+              if (error.responseJSON.message == null || error.responseJSON.message==''){
+                toastr.error('Failed to Send OTP');
+              }else{
+                toastr.error(error.responseJSON.message);
+              }
+
             }
           });
         }
