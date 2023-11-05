@@ -89,7 +89,7 @@ class SuperAdminController extends Controller
             $user->user_lname = $request['last_name'];
             $user->mobile_number = $request['mobile_number'];
             $user->email = $request['email'];
-            $user->upi_id = $request['upiid'];
+            $user->upi = $request['upiid'];
             $admin_slug = substr($request['first_name'], 0, 1) . substr($request['last_name'], 0, 1) . substr($request['mobile_number'], 0, 4);
             $user->user_slug = $admin_slug;
             $user->user_role = 'A';
