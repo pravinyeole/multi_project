@@ -90,7 +90,6 @@ class DashboardController extends Controller
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
             $myincome = $this->myincome();
-            echo "hii";exit();
             return view('dashboard/admin_dashboard',compact('data','myincome'));
         }
         elseif(Auth::User()->user_role == 'U')
