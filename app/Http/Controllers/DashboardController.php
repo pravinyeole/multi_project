@@ -9,10 +9,13 @@ use DataTables;
 use App\Models\UserSubInfo;
 use App\Models\RequestPin;
 use App\Models\TransferPin;
+use App\Models\UserMap;
 use App\Models\UserPin;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Announcement;
+use App\Models\PaymentDistribution;
+use App\Models\Payment;
 use DB;
 use App\Traits\CommonTrait;
 use App\Traits\AuditTrait;
@@ -67,6 +70,7 @@ class DashboardController extends Controller
                             ->where('request_pin.req_user_id', Auth::user()->id)
                             ->count();
             $data['revokePins'] = RevokePin::where('revoke_by', Auth::user()->id)->sum('revoke_count');
+            $data['pinused'] = UserSubInfo::where('user_id', Auth::user()->id)->count();
             $cryptUrl = '';
             $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
             if ($myPinBalance_a) {
@@ -85,8 +89,8 @@ class DashboardController extends Controller
                 $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
-            
-            return view('dashboard/admin_dashboard',compact('data'));
+            $myincome = $this->myincome();
+            return view('dashboard/admin_dashboard',compact('data','myincome'));
         }
         elseif(Auth::User()->user_role == 'U')
         {
@@ -94,6 +98,7 @@ class DashboardController extends Controller
             $data['Announcement'] = Announcement::whereIn('type',['User','All'])->get()->last();
             $data['pinTransferRequest'] = RequestPin::where('req_user_id',Auth::user()->id)->sum('no_of_pin');
             $data['pinTransferSend'] = TransferPin::where('trans_by',Auth::user()->id)->sum('trans_count');
+            $data['pinused'] = UserSubInfo::where('user_id', Auth::user()->id)->count();
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
                                         ->where('ur.referral_id',Auth::user()->mobile_number)
                                         ->orWhere('ur.admin_slug',Auth::user()->user_slug)
@@ -117,7 +122,50 @@ class DashboardController extends Controller
                 $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
-            return view('dashboard/user_dashboard',compact('data'));
+            $myincome = $this->myincome();
+            $sendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->where('user_sub_info.status', 'red')
+            ->orderBy('user_sub_info.created_at', 'DESC')
+            ->pluck('user_sub_info.mobile_id')->toArray();
+            $notInPayment = Payment::where('user_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+            $sendHelpData = UserMap::join('users','users.id','user_map_new.new_user_id')
+            ->select('users.id','users.user_fname','users.upi','users.user_lname','user_map_new.user_mobile_id')
+            ->whereIn('user_mobile_id', $sendHelpDataA)
+            ->whereNotIn('user_mobile_id', $notInPayment)
+            ->where('type', 'GH')->count();
+
+            $complsendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->where('user_sub_info.status', 'green')
+            ->orderBy('user_sub_info.created_at', 'DESC')
+            ->pluck('user_sub_info.mobile_id')->toArray();
+            //$notInPayment = Payment::where('user_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+            $compltesendHelpData = UserMap::join('users','users.id','user_map_new.new_user_id')
+            ->select('users.id','users.user_fname','users.upi','users.user_lname','user_map_new.user_mobile_id')
+            ->whereIn('user_mobile_id', $complsendHelpDataA)
+            // ->whereNotIn('user_mobile_id', $notInPayment)
+            ->where('type', 'GH')->count();
+
+            $getHelpData = User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
+                    ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
+                    ->select('users.id','users.user_lname','users.user_fname','users.mobile_number','user_map_new.user_mobile_id','user_map_new.new_user_id')
+                    ->where('user_map_new.new_user_id',Auth::user()->id)
+                    ->where('user_sub_info.status','red')
+                    ->count();
+            $compltegetHelpData = User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
+                    ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
+                    ->select('users.id','users.user_lname','users.user_fname','users.mobile_number','user_map_new.user_mobile_id','user_map_new.new_user_id')
+                    ->where('user_map_new.new_user_id',Auth::user()->id)
+                    ->where('user_sub_info.status','green')
+                    ->count();
+            $myReferalUser = User::join('user_referral AS ur','ur.user_id','users.id')
+                    ->where('ur.referral_id',Auth::user()->mobile_number)
+                    ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                    ->orderBy('users.id','DESC')
+                    ->count();
+            
+            return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','myReferalUser'));
         }
     }
 
@@ -408,4 +456,13 @@ class DashboardController extends Controller
             return redirect('login');
         }
     }
+
+    public function  myincome()
+    {
+        $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)
+            ->where('status', 'green')->count('user_sub_info_id');
+        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_income_amt');
+        $allTotal['admin_income'] = PaymentDistribution::where('reciver_id', Auth::user()->id)->sum('amount');
+        return  array_sum($allTotal);
+    } 
 }
