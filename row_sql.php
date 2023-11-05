@@ -1,3 +1,41 @@
+UPDATE `user_sub_info` SET `created_at` = '2023-10-30 20:59:42' WHERE `created_at` = '2023-11-06 20:59:42';
+UPDATE `user_sub_info` SET `created_at` = '2023-10-30 20:59:42' WHERE `created_at` = '2023-11-05 20:59:42';
+
+
+$date  = date('Y-m-12 20:59:42');
+$id = '12112023';
+for($i=1;$i <= 5; $i++){
+    $mobile_id = 'AJ0'.$i.$id;
+    $values = array('user_id'=> 5,'mobile_id' => $mobile_id,'status' => "red",'created_at' => $date);
+    print_r($values);
+    UserSubInfo::insert($values);
+}
+for($i=1;$i <= 5; $i++){
+    $mobile_id = 'SK0'.$i.$id;
+    $values = array('user_id'=> 10,'mobile_id' => $mobile_id,'status' => "red",'created_at' => $date);
+    print_r($values);
+    UserSubInfo::insert($values);
+}
+for($i=1;$i <= 5; $i++){
+    $mobile_id = 'DK0'.$i.$id;
+    $values = array('user_id'=> 11,'mobile_id' => $mobile_id,'status' => "red",'created_at' => $date);
+    print_r($values);
+    UserSubInfo::insert($values);
+}
+for($i=1;$i <= 5; $i++){
+    $mobile_id = 'AK0'.$i.$id;
+    $values = array('user_id'=> 12,'mobile_id' => $mobile_id,'status' => "red",'created_at' => $date);
+    print_r($values);
+    UserSubInfo::insert($values);
+}
+for($i=1;$i <= 5; $i++){
+    $mobile_id = 'SP0'.$i.$id;
+    $values = array('user_id'=> 14,'mobile_id' => $mobile_id,'status' => "red",'created_at' => $date);
+    print_r($values);
+    UserSubInfo::insert($values);
+}
+ dd('ddd');
+
 ====================================06-11-23====================================================
 ALTER TABLE `users` ADD `upi_id` varchar(255) COLLATE 'utf8mb4_unicode_ci' NULL AFTER `email`;
 ====================================05-11-2023==========================================================

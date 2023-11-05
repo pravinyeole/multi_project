@@ -97,7 +97,20 @@ class RegisterController extends Controller
     {
         $invitation_ID = '';
         $invitation_mobile = '';
-        if (isset($invitationID) && strlen($invitationID) > 40) {
+        if ((isset($mobile_num) && strlen($mobile_num) == 10) && (isset($invitationID) && strlen($invitationID) == 6)) {
+            // $invitation_ID = Crypt::decryptString($invitationID);
+            // $invitation_mobile = Crypt::decryptString($mobile_num);
+            $invitation_mobile = $mobile_num;
+            $invitation_ID = $invitationID;
+            $adminSlug = User::where('user_slug', $invitation_ID)->count();
+            $userMobile = User::where('mobile_number', $invitation_mobile)->count();
+            if ($adminSlug && $userMobile) {
+                $invitation_mobile = $invitation_mobile;
+            } else {
+                return redirect('login')->with('error', 'Invalid Refferal Code!');
+            }
+        }
+        if ((isset($mobile_num) && strlen($mobile_num) > 30) && (isset($invitationID) && strlen($invitationID) > 30)) {
             $invitation_ID = Crypt::decryptString($invitationID);
             $invitation_mobile = Crypt::decryptString($mobile_num);
             $adminSlug = User::where('user_slug', $invitation_ID)->count();
@@ -221,7 +234,15 @@ class RegisterController extends Controller
             }
             $user->upi = $request->my_upi_id;
             // $user->user_status = 'Inactive';
-            $user->user_role = 'U';
+            if($user->user_role == 'S'){
+                $user->user_role = 'S';
+            }elseif($user->user_role == 'A'){
+                $user->user_role = 'A';
+            }elseif($user->user_role == 'L'){
+                $user->user_role = 'L';
+            }else{
+                $user->user_role = 'U';
+            }
             $user->user_slug = $this->generateUserSlug($request->user_fname, $request->user_lname, $request->mobile_number); // Set the user_slug value
             $user->update();
 

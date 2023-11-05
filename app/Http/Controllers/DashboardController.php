@@ -113,13 +113,17 @@ class DashboardController extends Controller
             }
             if(Auth::user()->user_role != 'S' ){
                 $data['myadminSlug'] = $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }else{
                 $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
             $myincome = $this->myincome();
