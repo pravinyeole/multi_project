@@ -5,21 +5,25 @@
 @section('content')
 <div class="content-wrapper">
     <div class="bpin-balance">
-        <h2>512</h2>
+        <h2>{{$getNoOfPins}}</h2>
         <p>Total ƀPIN Balance</p>
     </div>
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Request ƀPINs</h4>
         </div>
-        <div class="row">
-        <div class="col-8 col-lg-8 pe-0">
-            <div class="form-group m-0">
-                <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="Enter No. Of ƀPINs" />
+        <form id="requestPinForm" action="{{ route('request-pin.send-request') }}" method="POST">
+        @csrf
+            <div class="row">
+            <div class="col-8 col-lg-8 pe-0">
+                <input type="hidden" name="admin_slug" value="{{$adminAssingToLoginUser->admin_slug ?? ''}}">
+                <div class="form-group m-0">
+                    <input type="number" class="form-control" name="no_of_pin_requested" id="requestBpin" placeholder="Enter No. Of ƀPINs" required/>
+                </div>
             </div>
-        </div>
-        <div class="col-4 btn-group pt-0">
-        <button type="button" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key menu-icon"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg> Request</button>
+            <div class="col-4 btn-group pt-0">
+            <button type="submit" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key menu-icon"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg> Request</button>
+        </form>
         </div>
         </div>
     </div>
@@ -46,41 +50,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $i=1; @endphp
+                                @foreach ($requestedPins as $request)
                                 <tr>
-                                    <td>1</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    <td>{{$i }}</td>
+                                    <td>{{ $request->no_of_pin }}</td>
+                                    <td>{{ date('d-m-Y',strtotime($request->req_created_at)) }}</td>
+                                    @if ($request->status == 'pending')                                                            
                                     <td>Out</td>
                                     <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    @else
                                     <td>In</td>
                                     <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-success btn-sm">Received</a></td>
+                                    @endif
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>Out</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>In</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-success btn-sm">Received</a></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>Out</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
+                                @php $i++; @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -93,20 +78,29 @@
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Send ƀPINs</h4>
         </div>
-        <div class="row">
-        <div class="col-4 col-lg-4 pe-0">
-            <div class="form-group m-0">
-                <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="Enter Mobile No." />
+        @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @endif
+        <form  action="{{url('/transferpin/transsubmit_everyone')}}" method="POST">
+            @csrf
+            <div class="row">
+            
+                <div class="col-4 col-lg-4 pe-0">
+                    <div class="form-group m-0">
+                        <input type="number" class="form-control" name="mobile_no" id="mobile_no" placeholder="Enter Mobile No." required/>
+                        <input type="hidden" name="current_bpin" value="{{$getNoOfPins}}">
+                    </div>
+                </div>
+                <div class="col-4 col-lg-4 pe-0">
+                    <div class="form-group m-0">
+                        <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of ƀPIN" required/>
+                    </div>
+                </div>
+                <div class="col-4 btn-group pt-0">
+                <button type="submit" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send</button>
+            
             </div>
-        </div>
-        <div class="col-4 col-lg-4 pe-0">
-            <div class="form-group m-0">
-                <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of ƀPIN" />
-            </div>
-        </div>
-        <div class="col-4 btn-group pt-0">
-        <button type="button" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send</button>
-        </div>
+        </form>
         </div>
     </div>
     <div class="row">
@@ -126,48 +120,21 @@
                                 <tr>
                                     <th>Sr.No</th>
                                     <th>User Name</th>
-                                    <!-- <th>Mobile No.</th> -->
                                     <th>ƀPIN Qty</th>
                                     <th>Trxn Type</th>
                                     <th>Date Time</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($tarnsferHistory as $k=>$v)
                                 <tr>
-                                    <td>1</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
+                                    <td>{{$k + 1}}</td>
+                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v->user_fname.' '.$v->user_lname}}</h6>{{$v->mobile_number}}</td>
+                                    <td>{{$v->trans_count}}</td>
                                     <td><span class="text-danger font-weight-bold">Dr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    <td>{{date('d F Y',strtotime($v->created_at))}}</td>
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-danger font-weight-bold">Dr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

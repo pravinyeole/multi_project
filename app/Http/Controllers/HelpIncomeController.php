@@ -8,6 +8,7 @@ use App\Models\UserMap;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\UserSubInfo;
+use App\Models\UserPin;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
 use DB;
@@ -64,6 +65,7 @@ class HelpIncomeController extends Controller
         ->where('user_status','Inactive')
         ->orderBy('users.id', 'DESC')
         ->get();
-        return view('admin.pincenter.mynetwork',compact('myReferalUser','data'));
+        $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
+        return view('admin.pincenter.mynetwork',compact('myReferalUser','data','myPinBalance_a'));
     }
 }

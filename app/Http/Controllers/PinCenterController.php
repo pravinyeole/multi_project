@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserPin;
+use App\Models\UserReferral;
+use App\Models\RequestPin;
+use App\Models\TransferPin;
 use DataTables;
 use DB;
 use Auth;
@@ -58,8 +61,15 @@ class PinCenterController extends Controller
             toastr()->error(Config('messages.500'));
         }
         
-        $getNoOfPins = UserPin::where('user_id',Auth::user()->id)->first();
-        return view('admin.pincenter.index', compact('title','getNoOfPins'));
+        $getNoOfPins = UserPin::where('user_id',Auth::user()->id)->sum('pins');
+        $adminAssingToLoginUser = UserReferral::where('user_id', Auth::user()->id)->first();
+        $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
+        ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+        $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
+        ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
+        ->where('transfer_pin_history.trans_by', Auth::user()->id)->limit(5)->get();
+
+        return view('admin.pincenter.index', compact('title','getNoOfPins','adminAssingToLoginUser','requestedPins','tarnsferHistory'));
     }
     
 

@@ -24,41 +24,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @php $i=1; @endphp
+                                @foreach ($requestedPins as $request)
                                 <tr>
-                                    <td>1</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    <td>{{$i }}</td>
+                                    <td>{{ $request->no_of_pin }}</td>
+                                    <td>{{ date('d-m-Y',strtotime($request->req_created_at)) }}</td>
+                                    @if ($request->status == 'pending')                                                            
                                     <td>Out</td>
                                     <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    @else
                                     <td>In</td>
                                     <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-success btn-sm">Received</a></td>
+                                    @endif
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>Out</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>In</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-success btn-sm">Received</a></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="link">54</a></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                    <td>Out</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                </tr>
+                                @php $i++; @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

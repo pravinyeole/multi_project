@@ -14,6 +14,7 @@ use DataTables;
 use DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
+use Session;
 
 class RequestPinController extends Controller
 {
@@ -51,6 +52,7 @@ class RequestPinController extends Controller
         'no_of_pin_requested.integer' => 'The number of pins must be an integer.',
       ]);
       $findAdmin = User::where('user_slug', $request->admin_slug)->count();
+     
       if (isset($findAdmin) && ($findAdmin <= 0 || $findAdmin == null)) {
         return redirect()->back()->with('error', 'Admin Slug is invalid');
       }
@@ -283,10 +285,93 @@ class RequestPinController extends Controller
   }
   public function pendingrequests(Request $request)
   {
-    return view('admin.pincenter.pendingrequests');
+    $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
+        ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+    return view('admin.pincenter.pendingrequests',compact('requestedPins'));
   }
   public function transactionhistory(Request $request)
   {
-    return view('admin.pincenter.transactionhistory');
+    $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
+    ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as dr', 'transfer_pin_history.created_at')
+    ->where('transfer_pin_history.trans_by', Auth::user()->id)->get()->toArray();
+    $tarnsferto = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
+    ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as cr', 'transfer_pin_history.created_at')
+    ->where('transfer_pin_history.trans_to', Auth::user()->id)->get()->toArray();
+    $arra = array_merge($tarnsferHistory,$tarnsferto);
+    return view('admin.pincenter.transactionhistory',compact('arra'));
+  }
+
+  public function useradminTransferPinSubmit(Request $request)
+  { 
+    $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
+    
+    if ($checkBalance >= $request->trans_number && $request->trans_number > 0) {
+      $tarspin = new TransferPin();
+      $tarspin->trans_by = Auth::user()->id;
+      $tarspin->trans_to = $request->trans_id;
+      $tarspin->trans_count = $request->trans_number;
+      $tarspin->save();
+      
+      
+      
+      if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
+        UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
+        $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);
+        $inventory->pins = ($inventory->pins + $request->trans_number);
+        $inventory->save();
+        
+        $data = User::where('id', $request->trans_id)->update(['user_status'=>'Active']);
+        return ["data"=>'success','res'=> 'Pin Transfer Successfully.'];
+      }
+    }
+    return ["data"=>'error','res'=>'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.'];
+  }
+
+  public function anyoneTransferPinSubmit(Request $request)
+  { 
+    
+    $user = User::where('mobile_number',$request->mobile_no)->count();
+
+    if($user != 0)
+    {
+      if($request->current_bpin <= $request->requestBpin)
+      {
+        $user = User::where('mobile_number',$request->mobile_no)->first();
+        $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
+        
+        if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {
+          $tarspin = new TransferPin();
+          $tarspin->trans_by = Auth::user()->id;
+          $tarspin->trans_to = $user->id;
+          $tarspin->trans_count = $request->requestBpin;
+          $tarspin->save();
+          
+          
+          
+          if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
+            UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->requestBpin);
+            $inventory = UserPin::firstOrNew(['user_id' => $user->id]);
+            $inventory->pins = ($inventory->pins + $request->requestBpin);
+            $inventory->save();
+            
+            return redirect()->back()->with('success', 'Pin Transfer Successfully.');
+          }
+      }
+      else
+      {
+          Session::flash('message', "Your Bpin is less than your trasfer pin"); 
+          Session::flash('alert-class', 'alert-danger'); 
+          return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
+      }
+    }
+    else
+    {
+        Session::flash('message', "$request->mobile_no this mobile number is not register"); 
+        Session::flash('alert-class', 'alert-danger'); 
+        return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
+    }
+    
+    }
+    return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
   }
 }
