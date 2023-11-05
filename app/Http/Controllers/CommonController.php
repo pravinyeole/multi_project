@@ -10,7 +10,7 @@ use App\Models\UserOtp;
 use App\Models\UserMpin;
 use App\Models\UserRole;
 use App\Models\MobileCircle;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use DB;
 

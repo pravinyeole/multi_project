@@ -14,7 +14,7 @@ use App\Models\UserOtp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {

@@ -11,7 +11,7 @@ use App\Models\UserSubInfo;
 use App\Models\PaymentDistribution;
 use App\Models\UserReferral;
 use App\Models\Payment;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use Exception;
 use Session;

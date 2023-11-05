@@ -183,6 +183,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::group(['prefix' => 'transferpin'], function () {
         Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);
         Route::post('/transsubmit', 			    [RequestPinController::class, 'adminTransferPinSubmit']);
+        Route::post('/usertranssubmit', 			    [RequestPinController::class, 'useradminTransferPinSubmit']);
+        Route::post('/transsubmit_everyone', 			    [RequestPinController::class, 'anyoneTransferPinSubmit']);
     });
 });
 ?>

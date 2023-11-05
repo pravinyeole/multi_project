@@ -25,41 +25,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($arra as $k=>$v)
                                 <tr>
-                                    <td>1</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
+                                    <td>{{$k + 1}}</td>
+                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v['user_fname'].' '.$v['user_lname']}}</h6>{{$v['mobile_number']}}</td>
+                                    <td>{{$v['trans_count']}}</td>
+                                    @if(isset($v['cr']))
                                     <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
+                                    @else
                                     <td><span class="text-danger font-weight-bold">Dr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
+                                    @endif
+                                    <td>{{date('d F Y',strtotime($v['created_at']))}}</td>
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><h6 class="m-0 p-0 font-weight-bold pb-2">First Last Name</h6>+918408809900</td>
-                                    <td>10</td>
-                                    <td><span class="text-danger font-weight-bold">Dr.</span></td>
-                                    <td>10/10/2023<br />12:30 AM</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

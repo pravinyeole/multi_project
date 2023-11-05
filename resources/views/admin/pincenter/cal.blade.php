@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{url('help/my_income')}}" method="post" id="income_qry">
+            <form action="{{url('help/my_income')}}" method="post" id="income_qry" style="display: none;">
                 @csrf
                 <div class="form row form-row">
                     <div class="col-6 col-md-4">
