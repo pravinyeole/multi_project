@@ -35,12 +35,6 @@
       "name": "My Network",
       "icon": "key",
       "slug": "help/my_network"
-    },
-    {
-      "url": "help/my_network",
-      "name": "Reports",
-      "icon": "key",
-      "slug": "help/my_network"
     }
   ]
 }
