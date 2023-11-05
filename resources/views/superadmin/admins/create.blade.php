@@ -61,6 +61,12 @@
                                     <input type="text" class="form-control" id="no_of_pins" name="no_of_pins" placeholder="Enter Number of Pin's" value="" maxlength="100" >
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="country_id"> Upi ID<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="upi" name="upiid" placeholder="Enter Upi id" value="" maxlength="100" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">

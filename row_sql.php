@@ -1,3 +1,5 @@
+====================================06-11-23====================================================
+ALTER TABLE `users` ADD `upi_id` varchar(255) COLLATE 'utf8mb4_unicode_ci' NULL AFTER `email`;
 ====================================05-11-2023==========================================================
 CREATE TABLE `db_hpa_local`.`payment_distribution` (`pd_id` INT(11) NOT NULL AUTO_INCREMENT , `sender_id` INT(10) NOT NULL , `reciver_id` INT(10) NOT NULL , `mobile_id` VARCHAR(20) NOT NULL , `amount` FLOAT(10,2) NOT NULL , `level` INT NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`pd_id`)) ENGINE = InnoDB;
 
