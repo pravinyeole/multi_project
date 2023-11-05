@@ -144,7 +144,7 @@ class NormalUserController extends Controller
                 
                 if ($allid == $initialsNoOfCount) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
-                }else if ($userIds >= 3) {
+                }else if ($userIds >= config('custom.custom.user_id_limit')) {
                     return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
                 }
 
@@ -207,7 +207,7 @@ class NormalUserController extends Controller
                     $mob_error[] = $mobilenum;
                 }
                 if($user_id > 0){
-                    for($j=0; $j < 3;$j++){
+                    for($j=0; $j < config('custom.custom.user_id_limit'); $j++){
                         $today = Carbon::today();
                         $userIds = UserSubInfo::where('user_id', $user_id)
                             ->whereDate('created_at', $today)
@@ -219,7 +219,7 @@ class NormalUserController extends Controller
                         $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
                         if ($allid == $initialsNoOfCount) {
                             echo $k.' You have reached the maximum limit of ID creations for today!'.'<br>';
-                        }else if ($userIds >= 3) {
+                        }else if ($userIds >= config('custom.custom.user_id_limit')) {
                             echo $k.' You have reached the maximum limit of ID creations for today!'.'<br>';
                         }else{
                             $userDetails = User::join('user_pins', 'users.id', '=', 'user_pins.user_id')

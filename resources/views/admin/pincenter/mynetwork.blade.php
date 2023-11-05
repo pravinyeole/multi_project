@@ -58,12 +58,10 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                <table class="table dataTable no-footer" id="affilate_user">
+                <!-- <table class="table dataTable no-footer" id="affilate_user">
                     <thead>
                         <tr>
                             <th>Sr.No</th>
-                            <th>Name</th>
-                            <th>Mobile No</th>
                             <th>Lavel</th>
                             <th>No of ID</th>
                         </tr>
@@ -71,27 +69,22 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
                             <td>3</td>
                             <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
                             <td>2</td>
                             <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>First Last Name</td>
-                            <td>8400000000</td>
                             <td>1</td>
                             <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
+                    <h1>Comming Soon... </h1>
                 </div>
             </div>
             </div>

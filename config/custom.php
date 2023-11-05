@@ -40,6 +40,7 @@ return [
     'level_5'	=> 5,
     'level_6'	=> 7,
     'level_7'	=> 10,
+    'user_id_limit'=>5,
   ]
 ];
 
