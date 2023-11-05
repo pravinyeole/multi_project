@@ -77,7 +77,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::group(['prefix' => 'help'], function () {
         Route::get('sh_panel', [HelpIncomeController::class, 'shPanel']);
         Route::get('gh_panel', [HelpIncomeController::class, 'ghPanel']);
-        Route::get('my_income', [HelpIncomeController::class, 'myIncome']);
+        Route::any('my_income', [HelpIncomeController::class, 'myIncome']);
         Route::get('my_network', [HelpIncomeController::class, 'myNetwork']);
     });
     Route::group(['prefix' => 'payment'], function () {

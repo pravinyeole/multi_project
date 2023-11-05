@@ -29,6 +29,17 @@ return [
     'instagram_id' => 'https://www.instagram.com/inrbharathelp/',
     'whatsapp_id' => 'https://api.whatsapp.com/send?phone=919975702645',
     'telegram_id' => 'https://t.me/INR_Bharat/',
+    'plan_amount' => 1000,
+    'plan_income_amt' => 2000,
+    'admin_income' => 15,
+    'leader_income' => 10,
+    'level_1'	=> 10,
+    'level_2'	=> 7,
+    'level_3'	=> 5,
+    'level_4'	=> 3,
+    'level_5'	=> 5,
+    'level_6'	=> 7,
+    'level_7'	=> 10,
   ]
 ];
 

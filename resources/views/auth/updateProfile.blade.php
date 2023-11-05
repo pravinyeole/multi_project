@@ -8,9 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="page-title">
-                    <h4>
-                        Update Profile
-                    </h4>
+                    <h4>Update Profile</h4>
                 </div>
                 <div class="card-body gray-bg">
                     @if (Session::has('error'))

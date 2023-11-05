@@ -8,6 +8,9 @@ use App\Models\UserMap;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\UserSubInfo;
+use App\Models\UserReferral;
+use Illuminate\Support\Carbon;
+use App\Models\PaymentDistribution;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
 use DB;
@@ -50,7 +53,61 @@ class HelpIncomeController extends Controller
         return view('admin.pincenter.gh',compact('getHelpData'));
     }
     public function myIncome(Request $request){
-        return view('admin.pincenter.cal');
+        $allTotal=[];
+        $condtion1='';
+        $condtion2='';
+        if(isset($request->Duration) && $request->Duration == 'today'){
+            $allTotal['Duration']=$request->Duration;
+            $allTotal['FromDate'] = $request->FromDate;
+            $condtion1 = "whereDate('created_at', $request->FromDate)";
+        }elseif(isset($request->Duration) && $request->Duration == 'week'){
+            $allTotal['Duration']=$request->Duration;
+            $allTotal['FromDate'] = $request->FromDate;
+            $allTotal['ToDate'] = $request->ToDate;
+            $condtion1 = "whereDate('created_at', $request->FromDate)";
+        }elseif(isset($request->Duration) && $request->Duration == 'month'){
+            $allTotal['Duration']=$request->Duration;
+            $allTotal['DurationMonth'] = $request->DurationMonth;
+            $condtion1 = "whereDate('created_at', $request->FromDate)";
+        }elseif(isset($request->Duration) && $request->Duration == 'lifetime'){
+            $allTotal['Duration']=$request->Duration;
+        }
+        $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)
+                    ->where('status','green')
+                    ->count('user_sub_info_id');
+        // if($dataGreen){
+            $allTotal['plan_income_amt']=$dataGreen*config('custom.custom.plan_income_amt');
+            $allTotal['admin_income'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','ADMIN')
+                                        ->sum('amount');
+            $allTotal['leader_income'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LEADER')
+                                        ->sum('amount');
+            $allTotal['level_1'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL1')
+                                        ->sum('amount');
+            $allTotal['level_2'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL2')
+                                        ->sum('amount');
+            $allTotal['level_3'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL3')
+                                        ->sum('amount');
+            $allTotal['level_4'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL4')
+                                        ->sum('amount');
+            $allTotal['level_5'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL5')
+                                        ->sum('amount');
+            $allTotal['level_6'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL6')
+                                        ->sum('amount');
+            $allTotal['level_7'] = PaymentDistribution::where('reciver_id',Auth::user()->id)
+                                        ->where('level','LVL7')
+                                        ->sum('amount');
+        // }
+        $allTotal['bpin_used']=UserSubInfo::where('user_id',Auth::user()->id)->count('user_sub_info_id');
+        $allTotal['total_sh']=0;
+        return view('admin.pincenter.cal',compact('allTotal'));
     }
     public function myNetwork(Request $request){
         $myReferalUser = User::join('user_referral AS ur','ur.user_id','users.id')
