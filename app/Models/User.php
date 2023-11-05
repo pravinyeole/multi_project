@@ -42,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'user_role',
         'operator',
         'circle',
-        'upi_id',
+        'upi',
     ];
      public $timestamps  = false;
 

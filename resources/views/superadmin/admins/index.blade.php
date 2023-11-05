@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Crypt;
                                     <th>{{__("labels.no")}}</th>
                                     <th>Username</th>
                                     <th>Email</th>
+                                    <th>Upi</th>
                                     <th>Status</th>
                                     <th>Refferal Id</th>
                                     <th>Refferal Link</th>
@@ -58,6 +59,7 @@ use Illuminate\Support\Facades\Crypt;
                                     <td>{{($key+1)}}</td>
                                     <td>{{$au->user_fname.' '.$au->user_lname}}</td>
                                     <td>{{$au->email}}</td>
+                                    <td>{{$au->upi}}</td>
                                     <td>
                                     <button type="button" class="badge badge-success">{{$au->user_status}}</button>    
                                     </td>
