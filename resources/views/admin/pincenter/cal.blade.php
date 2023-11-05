@@ -13,46 +13,46 @@
                     </div>
                 </div>
             </div>
-            <form action="{{url('help/my_income')}}" method="post" id="income_qry" style="display: none;">
+            <form action="{{url('help/my_income')}}" method="post" id="income_qry">
                 @csrf
                 <div class="form row form-row">
                     <div class="col-6 col-md-4">
                         <div class="form-group">
                             <select name="Duration" id="Duration" class="form-control">
                                 <option value="">Select Duration</option>
-                                <option value="today">Today’s Earning</option>
-                                <option value="week">Weekly Earning</option>
-                                <option value="month">Monthly Earning</option>
-                                <option value="lifetime">Lifetime Earning</option>
+                                <option @if(isset($queryArray['Duration']) && $queryArray['Duration'] == 'today') selected @endif value="today">Today’s Earning</option>
+                                <option @if(isset($queryArray['Duration']) && $queryArray['Duration'] == 'week') selected @endif value="week">Weekly Earning</option>
+                                <option @if(isset($queryArray['Duration']) && $queryArray['Duration'] == 'month') selected @endif value="month">Monthly Earning</option>
+                                <option @if(isset($queryArray['Duration']) && $queryArray['Duration'] == 'lifetime') selected @endif value="lifetime">Lifetime Earning</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-6 col-md-4 Duration today week d-none">
+                    <div class="col-6 col-md-4 Duration today week @if(isset($queryArray['Duration']) && ($queryArray['Duration'] == 'week' || $queryArray['Duration'] == 'today')) @else d-none @endif">
                         <div class="form-group">
-                            <input type="date" name="FromDate" id="FromDate" placeholder="Start Date" class="form-control" />
+                            <input type="date" name="FromDate" id="FromDate" placeholder="Start Date" class="form-control" value="@if(isset($queryArray['FromDate']) && $queryArray['FromDate'] != null){{$queryArray['FromDate']}}@endif"/>
                         </div>
                     </div>
-                    <div class="col-6 col-md-4 Duration week d-none">
+                    <div class="col-6 col-md-4 Duration week @if(isset($queryArray['Duration']) && $queryArray['Duration'] != 'week') d-none @endif">
                         <div class="form-group">
-                            <input type="date" name="ToDate" id="ToDate" placeholder="End Date" class="form-control" />
+                            <input type="date" name="ToDate" id="ToDate" placeholder="End Date" class="form-control" value="@if(isset($queryArray['ToDate']) && $queryArray['ToDate'] != null){{$queryArray['ToDate']}}@endif"/>
                         </div>
                     </div>
-                    <div class="col-6 col-md-4 Duration month d-none">
+                    <div class="col-6 col-md-4 Duration month @if(isset($queryArray['Duration']) && $queryArray['Duration'] != 'month') d-none @endif">
                         <div class="form-group">
                             <select name="DurationMonth" id="DurationMonth" class="form-control">
                                 <option selected disabled>Select month</option>
-                                <option value="Jan">Jan</option>
-                                <option value="Feb">Feb</option>
-                                <option value="Mar">Mar</option>
-                                <option value="Apr">Apr</option>
-                                <option value="May">May</option>
-                                <option value="Jun">Jun</option>
-                                <option value="Jul">Jul</option>
-                                <option value="Aug">Aug</option>
-                                <option value="Sep">Sep</option>
-                                <option value="Oct">Oct</option>
-                                <option value="Nov">Nov</option>
-                                <option value="Dec">Dec</option>
+                                <option value="Jan" @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Jan') selected @endif>Jan</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Feb') selected @endif value="Feb">Feb</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Mar') selected @endif value="Mar">Mar</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Apr') selected @endif value="Apr">Apr</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'May') selected @endif value="May">May</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Jun') selected @endif value="Jun">Jun</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Jul') selected @endif value="Jul">Jul</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Aug') selected @endif value="Aug">Aug</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Sep') selected @endif value="Sep">Sep</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Oct') selected @endif value="Oct">Oct</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Nov') selected @endif value="Nov">Nov</option>
+                                <option @if(isset($queryArray['DurationMonth']) && $queryArray['DurationMonth'] == 'Dec') selected @endif value="Dec">Dec</option>
                             </select>
                         </div>
                     </div>
@@ -154,14 +154,14 @@
                             <img src="{{asset('images/cash.png')}}" alt="">
                             ƀPINs Used
                         </span>
-                        <h3><sup>₹</sup>@if(isset($allTotal->bpin_used)) {{$allTotal->bpin_used}} @else {{'0.00'}} @endif</h3>
+                        <h3><sup>₹</sup>@if(isset($allTotalTwo->bpin_used)) {{$allTotalTwo->bpin_used}} @else {{'0.00'}} @endif</h3>
                     </div>
                     <div class="list-item d-flex align-items-center justify-content-between">
                         <span>
                             <img src="{{asset('images/cash.png')}}" alt="">
                             Total SH Done
                         </span>
-                        <h3><sup>₹</sup>@if(isset($allTotal->total_sh)) {{$allTotal->total_sh}} @else {{'0.00'}} @endif</h3>
+                        <h3><sup>₹</sup>@if(isset($allTotalTwo->total_sh)) {{$allTotalTwo->total_sh}} @else {{'0.00'}} @endif</h3>
                     </div>
                 </div>
             </div>
