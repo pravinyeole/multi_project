@@ -93,8 +93,33 @@ class DashboardController extends Controller
                 $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
+
+            $sendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->where('user_sub_info.status', 'red')
+            ->orderBy('user_sub_info.created_at', 'DESC')
+            ->pluck('user_sub_info.mobile_id')->toArray();
+            $notInPayment = Payment::where('user_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+            $sendHelpData = UserMap::join('users','users.id','user_map_new.new_user_id')
+            ->select('users.id','users.user_fname','users.upi','users.user_lname','user_map_new.user_mobile_id')
+            ->whereIn('user_mobile_id', $sendHelpDataA)
+            ->whereNotIn('user_mobile_id', $notInPayment)
+            ->where('type', 'GH')->count();
+
+            $complsendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->where('user_sub_info.status', 'green')
+            ->orderBy('user_sub_info.created_at', 'DESC')
+            ->pluck('user_sub_info.mobile_id')->toArray();
+            //$notInPayment = Payment::where('user_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+            $compltesendHelpData = UserMap::join('users','users.id','user_map_new.new_user_id')
+            ->select('users.id','users.user_fname','users.upi','users.user_lname','user_map_new.user_mobile_id')
+            ->whereIn('user_mobile_id', $complsendHelpDataA)
+            // ->whereNotIn('user_mobile_id', $notInPayment)
+            ->where('type', 'GH')->count();
+
             $myincome = $this->myincome();
-            return view('dashboard/admin_dashboard',compact('data','myincome'));
+            return view('dashboard/admin_dashboard',compact('data','myincome','sendHelpData','compltesendHelpData'));
         }
         elseif(Auth::User()->user_role == 'U')
         {

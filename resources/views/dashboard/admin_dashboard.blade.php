@@ -52,7 +52,7 @@
                             <div class="statistics-details d-block">
                               <img src="images/pending.png" alt="" class="img-fuild" />
                                 <p class="statistics-title">Total Pending SH</p>
-                                <h3 class="rate-percentage">68</h3>
+                                <h3 class="rate-percentage">{{$sendHelpData}}</h3>
                             </div>
                         </div>
                       </div>
@@ -64,7 +64,7 @@
                             <div class="statistics-details d-block">
                               <img src="images/approved.png" alt="" class="img-fuild" />
                                 <p class="statistics-title">Total Pending GH</p>
-                                <h3 class="rate-percentage">68</h3>
+                                <h3 class="rate-percentage">{{$compltesendHelpData}}</h3>
                             </div>
                         </div>
                       </div>

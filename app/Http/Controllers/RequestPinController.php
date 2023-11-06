@@ -330,11 +330,11 @@ class RequestPinController extends Controller
   public function anyoneTransferPinSubmit(Request $request)
   { 
     
-    $user = User::where('mobile_number',$request->mobile_no)->count();
+    // $user = User::where('mobile_number',$request->mobile_no)->count();
 
-    if($user != 0)
-    {
-      if($request->current_bpin <= $request->requestBpin)
+    // if($user == 1)
+    // {
+      if($request->current_bpin >= $request->requestBpin)
       {
       $user = User::where('mobile_number',trim($request->mobile_no))->first();
         $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
@@ -363,13 +363,13 @@ class RequestPinController extends Controller
           Session::flash('alert-class', 'alert-danger'); 
           return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
       }
-    }
-    else
-    {
-        Session::flash('message', "$request->mobile_no this mobile number is not register"); 
-        Session::flash('alert-class', 'alert-danger'); 
-        return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
-    }
+    // }
+    // else
+    // {
+    //     Session::flash('message', "$request->mobile_no this mobile number is not register"); 
+    //     Session::flash('alert-class', 'alert-danger'); 
+    //     return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
+    // }
     
     }
     return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
