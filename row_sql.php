@@ -77,6 +77,10 @@ ALTER TABLE `payments` CHANGE `payment_id` `payment_id` INT(11) NOT NULL AUTO_IN
 composer require hashids/hashids
 
 ==================================05 09 2023========================================================
+SELECT COUNT(user_sub_info_id) AS 09ids FROM `user_sub_info` WHERE `created_at` BETWEEN '2023-10-09 00:00:00' AND '2023-10-09 23:59:59';
+
+SELECT COUNT(id) AS 09ids FROM `user_map_new` WHERE `created_at` BETWEEN '2023-10-09 00:00:00' AND '2023-10-09 23:59:59';
+==================================05 09 2023========================================================
 
 CREATE TABLE `db_hpa`.`transfer_pin_history` (`trans_id` INT(11) NOT NULL AUTO_INCREMENT , `trans_by` INT(5) NOT NULL , `trans_to` INT(5) NOT NULL , `trans_reason` TEXT NULL DEFAULT NULL , `trans_count` INT(5) NOT NULL , `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 

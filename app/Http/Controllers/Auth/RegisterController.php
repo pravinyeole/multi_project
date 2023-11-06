@@ -109,6 +109,7 @@ class RegisterController extends Controller
             } else {
                 return redirect('login')->with('error', 'Invalid Refferal Code!');
             }
+            return view('auth.register', compact('invitation_ID', 'invitation_mobile'));
         }
         if ((isset($mobile_num) && strlen($mobile_num) > 30) && (isset($invitationID) && strlen($invitationID) > 30)) {
             $invitation_ID = Crypt::decryptString($invitationID);
@@ -120,13 +121,9 @@ class RegisterController extends Controller
             } else {
                 return redirect('login')->with('error', 'Invalid Refferal Code!');
             }
-        }
-        try {
             return view('auth.register', compact('invitation_ID', 'invitation_mobile'));
-        } catch (\Exception $e) {
-            // toastr()->error('Something went wrong');
-            return redirect('login');
         }
+        return redirect('login');
     }
 
     public function showEnterOtp(Request $request, $user_id, $mobileNumber)

@@ -107,37 +107,27 @@
           <form id="registrationForm" method="POST" action="{{route('register_user')}}">
             @csrf <!-- Add CSRF token field -->
             <div class="form-group mb-2 form-row">
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ $user->user_fname }}">
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ $user->user_lname }}">
               </div>
-            </div>
-            <P class="error name_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+                <P class="error name_err"></P>
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" readonly id="mobile_number" name="mobile_number" value="{{$user->mobile_number}}">
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ $user->upi }}">
               </div>
-            </div>
-            <P class="error email_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+                <P class="error email_err"></P>
                 <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $referal_check->referral_id }}" maxlength="10">
-              </div>
-              <div class="col">
                 <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{ $referal_check->admin_slug }}">
-              </div>
-            </div>
-            <P class="error code_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+                <P class="error code_err"></P>
+              <div class="col-12 m-1">
                 <input type="password" class="form-control form-control-md" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="password" class="form-control form-control-md" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Confirm mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
@@ -158,37 +148,27 @@
           <form id="registrationForm" method="POST" action="{{route('register_user')}}">
             @csrf <!-- Add CSRF token field -->
             <div class="form-group mb-2 form-row">
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ old('user_fname') }}" autocomplete="false">
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ old('user_lname') }}" autocomplete="false">
               </div>
-            </div>
             <P class="error name_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" pattern="[0-9]{10}" class="form-control form-control-md" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ old('my_upi_id') }}" autocomplete="false">
               </div>
-            </div>
-            <P class="error email_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+              <P class="error email_err"></P>
                 <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false">
-              </div>
-              <div class="col">
                 <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
-              </div>
-            </div>
             <P class="error code_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="password" class="form-control form-control-md" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
-              <div class="col">
+              <div class="col-12 m-1">
                 <input type="password" class="form-control form-control-md" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Confirm mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>

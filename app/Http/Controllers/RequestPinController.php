@@ -336,7 +336,7 @@ class RequestPinController extends Controller
     {
       if($request->current_bpin <= $request->requestBpin)
       {
-        $user = User::where('mobile_number',$request->mobile_no)->first();
+      $user = User::where('mobile_number',trim($request->mobile_no))->first();
         $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
         
         if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {
