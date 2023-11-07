@@ -540,9 +540,13 @@ class DashboardController extends Controller
         return  array_sum($allTotal);
     } 
     public function findMyAdmin($uid){
+        if(Auth::user()->user_role == 'S'){
+            return User::where('id',$uid)->first()->user_slug;
+        }
         $adminslug = UserReferral::where('user_id',$uid)->first();
+        $checkrole = (Auth::user()->user_role == 'U' || Auth::user()->user_role == 'L') ? 'A' : 'S';
         if($adminslug){
-            $levl2 = User::where('user_slug',$adminslug->admin_slug)->where('user_role','A')->first();
+            $levl2 = User::where('user_slug',$adminslug->admin_slug)->where('user_role',$checkrole)->first();
             if($levl2){
                 return $levl2->user_slug;
             }else{

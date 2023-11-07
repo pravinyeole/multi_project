@@ -56,12 +56,12 @@
                                     <td>{{$i }}</td>
                                     <td>{{ $request->no_of_pin }}</td>
                                     <td>{{ date('d-m-Y',strtotime($request->req_created_at)) }}</td>
-                                    @if ($request->status == 'pending')                                                            
-                                    <td>Out</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
-                                    @else
-                                    <td>In</td>
-                                    <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-success btn-sm">Received</a></td>
+                                    @if($request->requesttype == 'inpin')
+                                        <td>IN</td>
+                                        <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
+                                    @elseif($request->requesttype == 'outpin')
+                                        <td>OUT</td>
+                                        <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
                                     @endif
                                 </tr>
                                 @php $i++; @endphp

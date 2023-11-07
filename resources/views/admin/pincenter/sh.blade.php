@@ -55,7 +55,7 @@
                                 $tr = 'INRB' . substr($sh->user_mobile_id, 2);
                                 // $tr = 'INRB' . date("d") . substr($sh->user_mobile_id, 2);
                                 if (isset($sh->upi) && $sh->upi != '') {
-                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am=1.00&tn=' . $tr;
+                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am='.config('custom.custom.upi_pay_amount').'.00&tn=' . $tr;
                                     //$url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
                                 }
                                 ?>
@@ -121,7 +121,7 @@
                             </div>
                             <div class="col"> -->
                             <h4 class="alert-heading">Note</h4>
-                            <p>Kindly send ₹500 to below user and share payment screenshot with the user directly.</p>
+                            <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}}.00 to below user and share payment screenshot with the user directly.</p>
                             <!-- </div>  -->
                         </div>
                     </div>

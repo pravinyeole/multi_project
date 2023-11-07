@@ -30,6 +30,7 @@ return [
     'whatsapp_id' => 'https://api.whatsapp.com/send?phone=919975702645',
     'telegram_id' => 'https://t.me/INR_Bharat/',
     'plan_amount' => 1000,
+    'upi_pay_amount' => 1000,
     'plan_income_amt' => 2000,
     'admin_income' => 15,
     'leader_income' => 10,
