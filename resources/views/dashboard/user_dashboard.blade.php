@@ -36,11 +36,11 @@
                     <h3>{{$data['myPinBalance']}}</h3>
                   </div>
                 </div>
-                <div class="quota-timer">
+                <div class="quota-timer d-none">
                   Today’s Quota is Full. Please try after <p id="demo"></p>
                   <script>
                     // Set the date we're counting down to
-                    var countDownDate = new Date("Oct 05, 2023 10:00:00").getTime();
+                    var countDownDate = new Date("Nov 07, 2023 10:00:00").getTime();
                     // Update the count down every 1 second
                     var x = setInterval(function() {
                       // Get today's date and time
@@ -66,10 +66,10 @@
                     }, 1000);
                   </script>
                 </div>
-                <!-- <a href="#" class="floating-btn">Create Id<span>+</span></a>
+               <a href="#" class="floating-btn">Create Id<span>+</span></a>
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Referral Code</h3>
-                </div> -->
+                </div> 
                 <div class="refForm mb-4">
                   <div class="affilates d-flex justify-content-between px-3 py-3">
                     <h4>Total Affiliates</h4>
