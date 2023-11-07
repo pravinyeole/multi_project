@@ -175,12 +175,14 @@ class NormalUserController extends Controller
                 $userPins->pins = $userPins->pins - 1;
                 $userPins->save();
                 // Return a response
-                return redirect()->route('/help/sh_panel')->with('create_id_success', 'User ID created successfully!');
+                return redirect('/help/sh_panel')->with('create_id_success', 'User ID created successfully!');
             } else {
                 return redirect()->back()->with('create_id_error', 'You don`t have a PIN Balance.');
             }
             // }
         } catch (\Exception $e) {
+            print_r($e);
+            die();
             toastr()->error(config('messages.500'));
             return redirect()->back();
         }
