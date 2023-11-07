@@ -71,7 +71,7 @@
                         @php $i =1; @endphp
                         @foreach($myLveledata as $key => $v)
                             
-                            @if(!is_array($v))
+                            @if(!is_array($v) && $v > 0)
                                 <tr>
                                     
                                 <td>{{$i}}</td>
