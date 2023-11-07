@@ -41,7 +41,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container-scroller mobile-wrapper">
     <nav class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-row">
@@ -122,3 +121,13 @@
       @endif
       <!-- partial -->
       <div class="main-panel">
+        @if (Session::has('create_id_alert'))
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <strong>Warning !</strong> {{ session('create_id_alert') }}
+        </div>
+        @endif
+        @if (Session::has('create_id_error'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <strong>Error !</strong> {{ session('create_id_error') }}
+        </div>
+        @endif

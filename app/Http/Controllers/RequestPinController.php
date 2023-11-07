@@ -123,43 +123,52 @@ class RequestPinController extends Controller
     return view('requestpin.edit_req_admin_page', compact('title', 'user'));
   }
 
-  // public function updatePinRequestToAdmin(Request $request){
-  //   try{
-  //     $checkIsSuperAdmin= User::where('id',Auth::user()->id)->where('user_role','S')->first();
-  //     if (isset($checkIsSuperAdmin)) {
-  //       // Code for Superadmin
-  //       $userPins = UserPin::where('user_id',$request->req_user_id)->first();
-  //       $userPins->pins = $userPins->pins + $request->no_of_pins;
-  //       $userPins->update();
-  //       $requestPins = RequestPin::where('pin_request_id',$request->pin_request_id)->first();
-  //       $requestPins->status ='completed'; 
-  //       $requestPins->updated_at = Carbon::now();
-  //       $requestPins->update();
-  //       toastr()->success('Pins Transfer successfully!!');
-  //       return redirect('pins-request');
-  //     } else {
-  //       $updateSelfPins = UserPin::where('user_id',Auth::user()->id)->first();
-  //       $adminAvaiablePins = $updateSelfPins->pins ;
-  //       if($request->no_of_pins >= $adminAvaiablePins){
-  //         toastr()->error("Your Available Pins Balances is low.Please connect to Superadmin");
-  //         return redirect()->back();
-  //       }
-  //       $userPins = UserPin::where('user_id',$request->req_user_id)->first();
-  //       $userPins->pins = $userPins->pins + $request->no_of_pins;
-  //       $userPins->update();
-  //       $requestPins = RequestPin::where('pin_request_id',$request->pin_request_id)->first();
-  //       $requestPins->status ='completed'; 
-  //       $requestPins->updated_at = Carbon::now();
-  //       $requestPins->update();
-  //       toastr()->success('Pins Transfer successfully!!');
-  //       return redirect('pins-request');
-  //     }
-  //    }catch(\Exception $e) {
-  //     dd($e);
-  //       toastr()->error(Config('messages.500'));
-  //       return redirect()->back();
-  //   }
-  // }
+  public function updatePinRequestByAdmin($reqid,Request $request){
+    $pin_request_id = Crypt::decryptString($reqid);
+    $reqDetails = RequestPin::where('status','pending')->where('request_pin.pin_request_id', $pin_request_id)->first();
+    if($reqDetails){
+        
+    }else{
+        return redirect()->back()->with('error', 'Sorry,Inavlid Request ID or Somthing went wrong.');
+    }
+    try{
+      $checkIsSuperAdmin= User::where('id',Auth::user()->id)->where('user_role','S')->first();
+      if (isset($checkIsSuperAdmin)) {
+        // Code for Superadmin
+        $userPins = UserPin::where('user_id',$reqDetails->req_user_id)->first();
+        $userPins->pins = $userPins->pins + $reqDetails->no_of_pin;
+        $userPins->update();
+        $requestPins = RequestPin::where('pin_request_id',$reqDetails->pin_request_id)->first();
+        $requestPins->status ='completed'; 
+        $requestPins->updated_at = Carbon::now();
+        $requestPins->update();
+        return redirect()->back()->with('success', 'Pins Transfer successfully!!');
+      } else {
+        $updateSelfPins = UserPin::where('user_id',Auth::user()->id)->first();
+        $adminAvaiablePins = $updateSelfPins->pins ;
+        if($reqDetails->no_of_pin >= $adminAvaiablePins){
+          return redirect()->back()->with('error', 'Your Available Pins Balances is low.Please connect to Superadmin');
+        }
+        if($reqDetails->no_of_pin >= $adminAvaiablePins){
+            $updateSelfPins->pins = $reqDetails->no_of_pin - $adminAvaiablePins;
+        }else{
+            $updateSelfPins->pins = $adminAvaiablePins - $reqDetails->no_of_pin;
+        }
+        $updateSelfPins->updated_at = Carbon::now();
+        $updateSelfPins->update();
+        $userPins = UserPin::where('user_id',$reqDetails->req_user_id)->first();
+        $userPins->pins = $userPins->pins + $reqDetails->no_of_pin;
+        $userPins->update();
+        $requestPins = RequestPin::where('pin_request_id',$reqDetails->pin_request_id)->first();
+        $requestPins->status ='completed'; 
+        $requestPins->updated_at = Carbon::now();
+        $requestPins->update();
+        return redirect()->back()->with('success', 'Pins Transfer successfully!!');
+      }
+     }catch(\Exception $e) {
+        return redirect()->back()->with('success', config('messages.500'));
+    }
+  }
 
   public function updatePinRequestToAdmin(Request $request)
   {
@@ -336,7 +345,7 @@ class RequestPinController extends Controller
     // {
       if($request->current_bpin >= $request->requestBpin)
       {
-        $user = User::where('mobile_number',$request->mobile_no)->first();
+      $user = User::where('mobile_number',trim($request->mobile_no))->first();
         $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
         
         if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {

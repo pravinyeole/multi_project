@@ -19,6 +19,57 @@
 </style>
 <div class="content-wrapper">
     <div class="row">
+        @if(count($mycreatedids))
+        <div class="col-12">
+            <div class="card">
+                <div class="page-title">
+                    <h4>
+                        My Affilate ID
+                    </h4>
+                </div>
+                <div class="card-body gray-bg">
+                    @if (Session::has('create_id_success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('create_id_success') }}
+                    </div>
+                    @endif
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error !</strong> {{ session('error') }}
+                    </div>
+                    @endif
+                    @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('success') }}
+                    </div>
+                    @endif
+                    <div class="table-responsive">
+                        <table class="table table-hover responsive nowrap" style="width:100%" id="createid_table_user">
+                            <thead>
+                                <tr>
+                                    <th>{{__("labels.no")}}</th>
+                                    <th>Created ID</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($mycreatedids AS $key => $cr)
+
+                                <tr>
+                                    <td>{{($key+1)}}</td>
+                                    <td>{{$cr->mobile_id}}</td>
+                                    <td style="color:{{$cr->status}}">{{ucfirst($cr->status)}}</td>
+                                    <td>{{date('d-M-Y',strtotime($cr->created_at))}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="col-12">
             <div class="card">
                 <div class="page-title">
@@ -55,7 +106,7 @@
                                 $tr = 'INRB' . substr($sh->user_mobile_id, 2);
                                 // $tr = 'INRB' . date("d") . substr($sh->user_mobile_id, 2);
                                 if (isset($sh->upi) && $sh->upi != '') {
-                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am=1.00&tn=' . $tr;
+                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am=' . config('custom.custom.upi_pay_amount') . '.00&tn=' . $tr;
                                     //$url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
                                 }
                                 ?>
@@ -81,7 +132,9 @@
                                     <input type="hidden" id="tran_inr{{$sh->id}}" value="{{$tr}}">
                                     <input type="hidden" id="tran_mobile{{$sh->id}}" value="{{$sh->user_mobile_id}}">
                                     @if(isset($sh->upi) && $sh->upi != '')
-                                    <td><div id="inr{{$sh->id}}">{!! $qrhtml !!}</div></td>
+                                    <td>
+                                        <div id="inr{{$sh->id}}">{!! $qrhtml !!}</div>
+                                    </td>
                                     <td>
                                         <a href="javascript:void(0)" class="btn btn-warning btn-sm" onClick="svgdown({{$sh->id}},'{{$tr}}')">Download QR</a>
                                         <a href="#update" data-target="#update" data-toggle="modal" class="btn btn-primary btn-sm" onClick="getUserById({{$sh->id}})" data-backdrop="static" data-keyboard="false">Pay Now</a>
@@ -121,7 +174,7 @@
                             </div>
                             <div class="col"> -->
                             <h4 class="alert-heading">Note</h4>
-                            <p>Kindly send ₹500 to below user and share payment screenshot with the user directly.</p>
+                            <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}} to below user and share payment screenshot with the user directly.</p>
                             <!-- </div>  -->
                         </div>
                     </div>
@@ -136,20 +189,6 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="lname" aria-describedby="lname" placeholder="Last Name" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="number" class="form-control" id="mnumber" aria-describedby="mnumber" placeholder="Mobile Number" readonly>
-                                <a href="#" class="copy-btn copyBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg> Copy</a>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Email" readonly>
                             </div>
                         </div>
                         <div class="col-12">
@@ -250,7 +289,13 @@
         });
     }
     $(document).ready(function() {
-
+        $('#createid_table_user').DataTable({
+            processing: true,
+            bLengthChange: false,
+            responsive: true,
+            order: [],
+            responsive: true
+        });
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
@@ -336,14 +381,11 @@
                 'user_id': uid
             },
             success: function(data) {
-                if (data == null) {
-                }else{
+                if (data == null) {} else {
                     var obj = jQuery.parseJSON(data);
                     $('#uid').val(obj.id);
                     $('#fname').val(obj.user_fname);
                     $('#lname').val(obj.user_lname);
-                    $('#mnumber').val(obj.mobile_number);
-                    $('#email1').val(obj.email);
                     $('#utrnumber').val(tran_inr);
                     $('#user_mobile_id').val(tran_mobile);
                     // $('.model_qr').html(svgdata);

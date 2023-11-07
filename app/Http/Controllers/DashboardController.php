@@ -79,14 +79,38 @@ class DashboardController extends Controller
                 $data['myPinBalance'] = 0;
             }
             if(Auth::user()->user_role != 'S' ){
-                $data['myadminSlug']= $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $levelupid = Auth::user()->id;
+                for($i=0;$i<1000;$i++){
+                    $res = $this->findMyAdmin($levelupid);
+                    if(isset($res) && is_numeric($res)){
+                        $levelupid = $res;
+                    }else{
+                        $myadminSlug = $res;
+                        break;   
+                    }
+                }
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['myadminSlug']= $myadminSlug;
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }else{
-                $data['myadminSlug']= $myadminSlug = Auth::user()->user_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $levelupid = Auth::user()->id;
+                for($i=0;$i<1000;$i++){
+                    $res = $this->findMyAdmin($levelupid);
+                    if(isset($res) && is_numeric($res)){
+                        $levelupid = $res;
+                    }else{
+                        $myadminSlug = $res;
+                        break;   
+                    }
+                }
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['myadminSlug']= $myadminSlug;
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
 
@@ -137,14 +161,39 @@ class DashboardController extends Controller
                 $data['myPinBalance'] = 0;
             }
             if(Auth::user()->user_role != 'S' ){
-                $data['myadminSlug'] = $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $levelupid = Auth::user()->id;
+                for($i=0;$i<1000;$i++){
+                    $res = $this->findMyAdmin($levelupid);
+                    if(isset($res) && is_numeric($res)){
+                        $levelupid = $res;
+                    }else{
+                        $myadminSlug = $res;
+                        break;   
+                    }
+                }
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['myadminSlug']= $myadminSlug;
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }else{
-                $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
-                $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-                $cryptSlug= Crypt::encryptString($myadminSlug);
+                $levelupid = Auth::user()->id;
+                for($i=0;$i<1000;$i++){
+                    $res = $this->findMyAdmin($levelupid);
+                    if(isset($res) && is_numeric($res)){
+                        $levelupid = $res;
+                    }else{
+                        $myadminSlug = $res;
+                        break;   
+                    }
+                }
+                // $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
+                // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+                // $cryptSlug= Crypt::encryptString($myadminSlug);
+                $data['myadminSlug']= $myadminSlug;
+                $cryptmobile= Auth::user()->mobile_number;
+                $cryptSlug= $myadminSlug;
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
             $myincome = $this->myincome();
@@ -490,4 +539,24 @@ class DashboardController extends Controller
         $allTotal['admin_income'] = PaymentDistribution::where('reciver_id', Auth::user()->id)->sum('amount');
         return  array_sum($allTotal);
     } 
+    public function findMyAdmin($uid){
+        if(Auth::user()->user_role == 'S'){
+            return User::where('id',$uid)->first()->user_slug;
+        }
+        $adminslug = UserReferral::where('user_id',$uid)->first();
+        $checkrole = (Auth::user()->user_role == 'U' || Auth::user()->user_role == 'L') ? 'A' : 'S';
+        if($adminslug){
+            $levl2 = User::where('user_slug',$adminslug->admin_slug)->where('user_role',$checkrole)->first();
+            if($levl2){
+                return $levl2->user_slug;
+            }else{
+                $adminslugl2 = User::where('mobile_number',$adminslug->referral_id)->first();
+                if(isset($adminslugl2) && $adminslugl2->user_role == 'A'){
+                    return $adminslugl2->user_slug;
+                }else{
+                    return $adminslugl2->id;
+                }
+            }
+        }
+    }
 }

@@ -180,6 +180,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/', 			    [RequestPinController::class, 'index']);
         Route::post('/send-request', [RequestPinController::class,'sendPinRequestToAdmin'])->name('request-pin.send-request');
         Route::get('/direct_ref_user_list', [RequestPinController::class,'direct_ref_user_list'])->name('direct_ref_user_list');
+        Route::get('/update_request_pin/{reqid}', [RequestPinController::class,'updatePinRequestByAdmin'])->name('update_request_pin');
     });
     Route::group(['prefix' => 'transferpin'], function () {
         Route::get('/', 			    [RequestPinController::class, 'adminTransferPin']);

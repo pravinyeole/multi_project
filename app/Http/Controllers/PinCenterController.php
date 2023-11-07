@@ -63,8 +63,10 @@ class PinCenterController extends Controller
         
         $getNoOfPins = UserPin::where('user_id',Auth::user()->id)->sum('pins');
         $adminAssingToLoginUser = UserReferral::where('user_id', Auth::user()->id)->first();
-        $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
-        ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+        // $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
+        // ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+
+        $requestedPins = DB::select('select CONCAT(`users`.user_fname,`users`.user_lname) AS user_name, `request_pin`.*, `request_pin`.`created_at` as `req_created_at`,"inpin" AS requesttype from `request_pin` left join `users` on `users`.`user_slug` = `request_pin`.`admin_slug` where `request_pin`.`req_user_id` = '.Auth::user()->id.' AND `request_pin`.`status` = "Pending" UNION select CONCAT(`users`.user_fname,`users`.user_lname) AS user_name, `request_pin`.*, `request_pin`.`created_at` as `req_created_at`,"outpin" AS requesttype from `request_pin` left join `users` on `users`.`id` = `request_pin`.`req_user_id` where `request_pin`.`admin_slug` = "'.Auth::user()->user_slug.'"  AND `request_pin`.`status` = "Pending"');
         $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
         ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
         ->where('transfer_pin_history.trans_by', Auth::user()->id)->limit(5)->get();

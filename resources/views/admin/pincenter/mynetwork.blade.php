@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                <!-- <table class="table dataTable no-footer" id="affilate_user">
+                <table class="table dataTable no-footer" id="affilate_user">
                     <thead>
                         <tr>
                             <th>Sr.No</th>
@@ -67,24 +67,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>3</td>
-                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>1</td>
-                            <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link">05</a></td>
-                        </tr>
+                        @php print_r($myLveledata['level_id_1']); @endphp
+                        @php $i =1; @endphp
+                        @foreach($myLveledata as $key => $v)
+                            
+                            @if(!is_array($v) && $v > 0)
+                                <tr>
+                                    
+                                <td>{{$i}}</td>
+                                <td>{{$i}}</td>
+                                
+                                <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link" data-level="{{$myLveledata['level_id_1']}}" >{{$v}}</a></td>
+                                
+                                </tr>
+                            @endif
+                        @php $i++; @endphp
+                        @endforeach
                     </tbody>
-                </table> -->
-                    <h1>Comming Soon... </h1>
+                </table>
                 </div>
             </div>
             </div>
