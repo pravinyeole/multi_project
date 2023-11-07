@@ -1,3 +1,8 @@
+07-11-2023
+ALTER TABLE `payments` ADD `comments` TEXT NOT NULL AFTER `attachment`;
+ALTER TABLE `payments` CHANGE `comments` `comments` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
 UPDATE `user_sub_info` SET `created_at` = '2023-10-30 20:59:42' WHERE `created_at` = '2023-11-06 20:59:42';
 UPDATE `user_sub_info` SET `created_at` = '2023-10-30 20:59:42' WHERE `created_at` = '2023-11-05 20:59:42';
 

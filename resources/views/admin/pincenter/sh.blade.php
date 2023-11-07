@@ -121,7 +121,7 @@
                             </div>
                             <div class="col"> -->
                             <h4 class="alert-heading">Note</h4>
-                            <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}}.00 to below user and share payment screenshot with the user directly.</p>
+                            <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}} to below user and share payment screenshot with the user directly.</p>
                             <!-- </div>  -->
                         </div>
                     </div>
@@ -136,20 +136,6 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="lname" aria-describedby="lname" placeholder="Last Name" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="number" class="form-control" id="mnumber" aria-describedby="mnumber" placeholder="Mobile Number" readonly>
-                                <a href="#" class="copy-btn copyBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg> Copy</a>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Email" readonly>
                             </div>
                         </div>
                         <div class="col-12">
@@ -342,8 +328,6 @@
                     $('#uid').val(obj.id);
                     $('#fname').val(obj.user_fname);
                     $('#lname').val(obj.user_lname);
-                    $('#mnumber').val(obj.mobile_number);
-                    $('#email1').val(obj.email);
                     $('#utrnumber').val(tran_inr);
                     $('#user_mobile_id').val(tran_mobile);
                     // $('.model_qr').html(svgdata);
