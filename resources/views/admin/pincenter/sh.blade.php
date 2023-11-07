@@ -19,6 +19,57 @@
 </style>
 <div class="content-wrapper">
     <div class="row">
+    @if(count($mycreatedids))
+        <div class="col-12">
+            <div class="card">
+                <div class="page-title">
+                    <h4>
+                        My Affilate ID
+                    </h4>
+                </div>
+                <div class="card-body gray-bg">
+                    @if (Session::has('create_id_success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('create_id_success') }}
+                    </div>
+                    @endif
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error !</strong> {{ session('error') }}
+                    </div>
+                    @endif
+                    @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('success') }}
+                    </div>
+                    @endif
+                    <div class="table-responsive">
+                        <table class="table table-hover responsive nowrap" style="width:100%" id="createid_table_user">
+                            <thead>
+                                <tr>
+                                    <th>{{__("labels.no")}}</th>
+                                    <th>Created ID</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($mycreatedids AS $key => $cr)
+                                
+                                <tr>
+                                    <td>{{($key+1)}}</td>
+                                    <td>{{$cr->mobile_id}}</td>
+                                    <td style="color:{{$cr->status}}">{{ucfirst($cr->status)}}</td>
+                                    <td>{{date('d-M-Y',strtotime($cr->created_at))}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="col-12">
             <div class="card">
                 <div class="page-title">
@@ -236,7 +287,12 @@
         });
     }
     $(document).ready(function() {
-
+        $('#createid_table_user').DataTable({
+                processing: true,
+                bLengthChange: false,
+                responsive: true,
+                order: [],
+                responsive: true});
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({

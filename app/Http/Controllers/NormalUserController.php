@@ -143,9 +143,9 @@ class NormalUserController extends Controller
                 $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
                 
                 if ($allid == $initialsNoOfCount) {
-                    return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
+                    return redirect()->back()->with('create_id_alert','You have reached the maximum limit of ID creations for today!');
                 }else if ($userIds >= config('custom.custom.user_id_limit')) {
-                    return redirect()->back()->with('alert','You have reached the maximum limit of ID creations for today!');
+                    return redirect()->back()->with('create_id_alert','You have reached the maximum limit of ID creations for today!');
                 }
 
                 // Retrieve user details and generate mobile_id
@@ -176,9 +176,9 @@ class NormalUserController extends Controller
                     $userPins->pins = $userPins->pins - 1;
                     $userPins->save();
                     // Return a response
-                    return redirect()->back()->with('success','User ID created successfully!');
+                    return redirect()->route('/help/sh_panel')->with('create_id_success','User ID created successfully!');
                 }else{
-                    return redirect()->back()->with('error','You don`t have a PIN Balance.');
+                    return redirect()->back()->with('create_id_error','You don`t have a PIN Balance.');
                 }
             // }
         } catch (\Exception $e) {

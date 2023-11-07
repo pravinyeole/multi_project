@@ -37,6 +37,7 @@
                                         ?>
                                         
                                         @if($slo != 'not_login')
+                                        @endif
                                             @if($Pins > 0)
                                                 <button class="btn-sm create-new btn btn-primary {{$createIdLimit ?? ''}}" tabindex="0" type="button" data-toggle="modal" data-target="#modals-slide-in">
                                                     <span>
@@ -50,7 +51,6 @@
                                             @else
                                                 <span style="color:red;"> Your ƀPIN balance is low. Please contact your introducer.</span>  
                                             @endif   
-                                        @endif
                                     @endif
                                 </div>
                             </div>

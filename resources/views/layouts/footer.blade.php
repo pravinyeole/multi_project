@@ -1,3 +1,35 @@
+<a href="javascript:void()" class="floating-btn" data-toggle="modal" data-target="#modals-slide-in">Create Id<span>+</span></a>
+  <div class="modal fade" id="modals-slide-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalSlideLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalSlideLabel">Please Wait</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-start">
+                    <div>
+                        <p class="msg-date text-black mb-0">
+                            Are you sure want to create Id ?
+                        <div id="timer">1:00</div>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex flex-column-reverse flex-md-row gap-20 justify-content-end">
+                    <form id="createIdForm" action="{{ route('normal_user.create_id') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                        <button type="submit" id="createButton" class="btn btn-primary mb-2">Create</button>
+                        <button type="button" class="btn btn-danger mb-2 " data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <!-- <div class="copyright">
@@ -44,6 +76,29 @@
     }
   })
   $(document).ready(function() {
+        //refresh the page at:59:55 AM daily
+        // Calculate the time until 9:59:55 AM (in milliseconds)
+        var now = new Date();
+        var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 59, 55);
+        if (targetTime <= now) {
+            targetTime.setDate(targetTime.getDate() + 1); // Move to the next day
+        }
+        var timeUntilRefresh = targetTime - now;
+
+        // Schedule the page refresh
+        setTimeout(function() {
+            location.reload();
+        }, timeUntilRefresh);  
+      
+      $('#createButton').on('click', function() {
+        $('#createIdForm').submit();
+    });
+      $('.floating-btn').on('click', function() {
+        startTimer()
+    });
+    setTimeout(function() {
+            $('.alert-dismissible').css('display','none');
+    }, 3000);
     $('.common-table').DataTable( {
         dom: 'Bfrtip',
         buttons: [
@@ -54,6 +109,33 @@
         ]
     } );
 } );
+
+function startTimer() {
+        var timerElement = $('#timer');
+        var createButton = $('#createButton');
+        var modal = $('#modals-slide-in');
+
+        timerElement.text('1:00'); // Initial time
+        createButton.hide();
+        // modal.modal('show');
+
+        var timeLeft = 05; // Time in seconds
+        var timerInterval = setInterval(function() {
+            timeLeft--;
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+            var timeString = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+            timerElement.text(timeString);
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                // timerElement.text('Time\'s up!');
+                createButton.show();
+            }
+        }, 1000);
+    }
+
+    startTimer(); // Call the timer function to start the countdown
 function copyText(copyText) {
         navigator.clipboard.writeText(copyText);
         console.log(copyText);

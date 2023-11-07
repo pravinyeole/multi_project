@@ -40,9 +40,16 @@ class HelpIncomeController extends Controller
             ->whereIn('user_mobile_id', $sendHelpDataA)
             ->whereNotIn('user_mobile_id', $notInPayment)
             ->where('type', 'GH')->get();
+        // $mycreatedids = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
+        //             ->select('users.*', 'user_sub_info.mobile_id', 'user_sub_info.created_at as id_created_date', 'user_sub_info.status as id_status')
+        //             ->where('users.id', Auth::user()->id)
+        //             ->orderBy('user_sub_info.created_at', 'DESC')
+        //             ->get();
+        
+        $mycreatedids = UserSubInfo::where('user_id', Auth::user()->id)->get();
         // $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
         // $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
-        return view('admin.pincenter.sh', compact('sendHelpData'));
+        return view('admin.pincenter.sh', compact('sendHelpData','mycreatedids'));
     }
     public function ghPanel(Request $request)
     {

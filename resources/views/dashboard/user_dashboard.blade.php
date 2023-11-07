@@ -66,7 +66,7 @@
                     }, 1000);
                   </script>
                 </div>
-               <a href="#" class="floating-btn">Create Id<span>+</span></a>
+               
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Referral Code</h3>
                 </div> 
