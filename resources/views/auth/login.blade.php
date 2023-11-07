@@ -43,7 +43,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               <div class="brand-logo">
                 <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo">
               </div>
-              <div class="login-body">
+              <div class="login-body text-center">
               <div class="header">
                 <h1>Login</h1>
               </div>
@@ -55,14 +55,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
               <form class="pt-3" id="mobileForm" method="POST" action="{{url('login')}}">
                 @csrf <!-- Add CSRF token field -->
-                <div class="form-group">
+                <div class="form-group mb-3">
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
                 </div>
                 <div class="">
-                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
+                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn mt-1">Login</button>
                 </div>
                 </form>
                 <div class="seprator"></div>
+                <img src="{{asset('images/digital-india.png')}}" alt="logo" style="max-width:200px;margin: 0 auto;">
                 <div class="pb-2 social text-white">
                   <h4>Follow us</h4>
                   <div class="social-icon d-flex justify-content-between flex-nowrap">

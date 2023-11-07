@@ -44,6 +44,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::post('update-mpin', [RegisterController::class, 'updateMpin'])->name('update-mpin');
 
     Route::post('login', [LoginController::class,'login'])->name('login');
+    Route::post('logout', [LoginController::class,'logout'])->name('logout');
     Route::post('register_user', [RegisterController::class,'register'])->name('register_user');
     Route::get('/user-invitation/{userInvitation}',[MapUserController::class, 'show']);
 

@@ -108,40 +108,34 @@
             @csrf <!-- Add CSRF token field -->
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ $user->user_fname }}">
+                <input type="text" class="form-control form-control-md text-left" name="user_fname" id="user_fname" placeholder="First Name" value="{{ $user->user_fname }}">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ $user->user_lname }}">
+                <input type="text" class="form-control form-control-md text-left" name="user_lname" id="user_lname" placeholder="Last Name" value="{{ $user->user_lname }}">
               </div>
             </div>
-            <P class="error name_err"></P>
+            <P class="error name_err m-0"></P>
+            <div class="form-group form-row mb-0">
+              <div class="col-12 mb-2">
+                <input type="text" class="form-control form-control-md text-left" readonly id="mobile_number" name="mobile_number" placeholder="Telegram Phone Number" value="{{$user->mobile_number}}">
+              </div>
+              <div class="col-12 mb-2 d-flex gap-1">
+                <input type="text" class="form-control form-control-md text-left" name="my_upi_id" id="my_upi_id" placeholder="UPI ID" value="{{ $user->upi }}">
+                <button type="button" id="checkBtn" class="btn auth-form-btn text-white px-3 py-2 m-0 w-auto">Verify</button>
+              </div>
+            </div>
+            <P class="error email_err m-0"></P>
+                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $referal_check->referral_id }}" maxlength="10"><input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{ $referal_check->admin_slug }}">
+            <P class="error code_err m-0"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" readonly id="mobile_number" name="mobile_number" value="{{$user->mobile_number}}">
+                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ $user->upi }}">
+                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
-            <P class="error email_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
-                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $referal_check->referral_id }}" maxlength="10">
-              </div>
-              <div class="col">
-                <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{ $referal_check->admin_slug }}">
-              </div>
-            </div>
-            <P class="error code_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
-                <input type="password" class="form-control form-control-md" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
-              </div>
-              <div class="col">
-                <input type="password" class="form-control form-control-md" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Confirm mPIN" maxlength="4" autocomplete="false" required>
-              </div>
-            </div>
-            <P class="error mpin_err"></P>
+            <P class="error mpin_err m-0"></P>
             <div class="text-center form-group mb-0">
               <button type="button" id="registerBtn" class="btn auth-form-btn text-white">Register</button>
             </div>
@@ -159,45 +153,45 @@
             @csrf <!-- Add CSRF token field -->
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_fname" id="user_fname" placeholder="Enter First Name" value="{{ old('user_fname') }}" autocomplete="false">
+                <input type="text" class="form-control form-control-md text-left" name="user_fname" id="user_fname" placeholder="First Name" value="{{ old('user_fname') }}" autocomplete="false">
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="user_lname" id="user_lname" placeholder="Enter Last Name" value="{{ old('user_lname') }}" autocomplete="false">
+                <input type="text" class="form-control form-control-md text-left" name="user_lname" id="user_lname" placeholder="Last Name" value="{{ old('user_lname') }}" autocomplete="false">
               </div>
             </div>
-            <P class="error name_err"></P>
+            <P class="error name_err m-0"></P>
+            <div class="form-group form-row mb-0">
+              <div class="col-12 mb-2">
+                <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="mobile_number" id="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
+              </div>
+              <div class="col-12 mb-2 d-flex gap-2">
+                <input type="text" class="form-control form-control-md text-left" name="my_upi_id" id="my_upi_id" placeholder="UPI ID" value="{{ old('my_upi_id') }}" autocomplete="false">
+              </div>
+            </div>
+            <P class="error email_err m-0"></P>
+                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false"><input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
+            <P class="error code_err m-0"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="text" pattern="[0-9]{10}" class="form-control form-control-md" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
+                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
               <div class="col">
-                <input type="text" class="form-control form-control-md" name="my_upi_id" id="my_upi_id" placeholder="Enter your UPI ID" value="{{ old('my_upi_id') }}" autocomplete="false">
+                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-enter mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
-            <P class="error email_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
-                <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false">
-              </div>
-              <div class="col">
-                <input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
-              </div>
-            </div>
-            <P class="error code_err"></P>
-            <div class="form-group mb-2 form-row">
-              <div class="col">
-                <input type="password" class="form-control form-control-md" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
-              </div>
-              <div class="col">
-                <input type="password" class="form-control form-control-md" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Confirm mPIN" maxlength="4" autocomplete="false" required>
-              </div>
-            </div>
-            <P class="error mpin_err"></P>
+            <P class="error mpin_err m-0"></P>
             <div class="text-center mt-2">
               <button type="button" id="registerBtn" class="btn auth-form-btn text-white">Register</button>
             </div>
           </form>
           @endif
+          
+          <div class="seprator"></div>
+                <div class="mt-1 mb-2">
+                  <span id="siteseal">
+                      <script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=2gqQMOxnoyXrA7J9uoghOodRZmWSAdJVhXoELNzA9WvSL5kS2MydfWEGsoK9"></script>
+                    </span>
+                </div>
         </div>
       </div>
     </div>
