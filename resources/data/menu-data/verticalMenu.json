@@ -9,31 +9,31 @@
     {
       "url": "pin_center",
       "name": "Pin Center",
-      "icon": "key",
+      "icon": "bpincenter.jpeg",
       "slug": "pin_center"
     },
     {
       "url": "help/sh_panel",
       "name": "SH Panel",
-      "icon": "key",
+      "icon": "sh.jpeg",
       "slug": "help/sh_panel"
     },
     {
       "url": "help/gh_panel",
       "name": "GH Panel",
-      "icon": "key",
+      "icon": "gh.jpeg",
       "slug": "help/gh_panel"
     },
     {
       "url": "help/my_income",
       "name": "My Income",
-      "icon": "key",
+      "icon": "myincome.jpeg",
       "slug": "help/my_income"
     },
     {
       "url": "help/my_network",
       "name": "My Network",
-      "icon": "key",
+      "icon": "mynetwork.jpeg",
       "slug": "help/my_network"
     }
   ]
