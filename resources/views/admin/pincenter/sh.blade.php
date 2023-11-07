@@ -19,7 +19,7 @@
 </style>
 <div class="content-wrapper">
     <div class="row">
-    @if(count($mycreatedids))
+        @if(count($mycreatedids))
         <div class="col-12">
             <div class="card">
                 <div class="page-title">
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 @foreach($mycreatedids AS $key => $cr)
-                                
+
                                 <tr>
                                     <td>{{($key+1)}}</td>
                                     <td>{{$cr->mobile_id}}</td>
@@ -106,7 +106,7 @@
                                 $tr = 'INRB' . substr($sh->user_mobile_id, 2);
                                 // $tr = 'INRB' . date("d") . substr($sh->user_mobile_id, 2);
                                 if (isset($sh->upi) && $sh->upi != '') {
-                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am='.config('custom.custom.upi_pay_amount').'.00&tn=' . $tr;
+                                    $url = 'upi://pay?pa=' . $sh->upi . '&pn=' . $sh->user_fname . $sh->user_lname . '&cu=INR&am=' . config('custom.custom.upi_pay_amount') . '.00&tn=' . $tr;
                                     //$url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
                                 }
                                 ?>
@@ -132,7 +132,9 @@
                                     <input type="hidden" id="tran_inr{{$sh->id}}" value="{{$tr}}">
                                     <input type="hidden" id="tran_mobile{{$sh->id}}" value="{{$sh->user_mobile_id}}">
                                     @if(isset($sh->upi) && $sh->upi != '')
-                                    <td><div id="inr{{$sh->id}}">{!! $qrhtml !!}</div></td>
+                                    <td>
+                                        <div id="inr{{$sh->id}}">{!! $qrhtml !!}</div>
+                                    </td>
                                     <td>
                                         <a href="javascript:void(0)" class="btn btn-warning btn-sm" onClick="svgdown({{$sh->id}},'{{$tr}}')">Download QR</a>
                                         <a href="#update" data-target="#update" data-toggle="modal" class="btn btn-primary btn-sm" onClick="getUserById({{$sh->id}})" data-backdrop="static" data-keyboard="false">Pay Now</a>
@@ -288,11 +290,12 @@
     }
     $(document).ready(function() {
         $('#createid_table_user').DataTable({
-                processing: true,
-                bLengthChange: false,
-                responsive: true,
-                order: [],
-                responsive: true});
+            processing: true,
+            bLengthChange: false,
+            responsive: true,
+            order: [],
+            responsive: true
+        });
         // DataTable for organization
         if (document.getElementById("table_user")) {
             var table = $('#table_user').DataTable({
@@ -378,8 +381,7 @@
                 'user_id': uid
             },
             success: function(data) {
-                if (data == null) {
-                }else{
+                if (data == null) {} else {
                     var obj = jQuery.parseJSON(data);
                     $('#uid').val(obj.id);
                     $('#fname').val(obj.user_fname);

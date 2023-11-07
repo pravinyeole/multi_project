@@ -41,7 +41,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container-scroller mobile-wrapper">
     <nav class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-row">
