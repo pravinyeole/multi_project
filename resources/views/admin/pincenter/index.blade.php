@@ -1,5 +1,7 @@
 @extends('layouts/common_template')
-
+<style>
+    .d-none{display:none;}
+</style>
 @section('title', $title)
 
 @section('content')
@@ -8,6 +10,16 @@
         <h2>{{$getNoOfPins}}</h2>
         <p>Total ƀPIN Balance</p>
     </div>
+    @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error !</strong> {{ session('error') }}
+                    </div>
+                    @endif
+                    @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success !</strong> {{ session('success') }}
+                    </div>
+                    @endif
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Request ƀPINs</h4>
@@ -43,6 +55,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr.No</th>
+                                    <th>Name</th>
                                     <th>Qty</th>
                                     <th>Date/Time</th>
                                     <th>Type(In/Out)</th>
@@ -50,21 +63,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $i=1; @endphp
-                                @foreach ($requestedPins as $request)
+                                @foreach ($requestedPins as $k => $request)
+                                    @php
+                                    $cryptStr= Crypt::encryptString($request->pin_request_id);
+                                    $cryptUrl= url('/request-pin/update_request_pin/').'/'.$cryptStr;
+                                    @endphp
                                 <tr>
-                                    <td>{{$i }}</td>
-                                    <td>{{ $request->no_of_pin }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($request->req_created_at)) }}</td>
+                                    <td>{{($k+1)}}</td>
+                                    @if($request->requesttype == 'inpin')
+                                        <td class="username_{{($k+1)}}" >{{'To Admin'}}</td>
+                                    @elseif($request->requesttype == 'outpin')
+                                        <td class="username_{{($k+1)}}" data-suburl="{{$cryptUrl}}">{{$request->user_name}}</td>
+                                    @endif
+                                    <td class="requestpin_{{($k+1)}}" >{{ $request->no_of_pin }}</td>
+                                    <td class="requestdate_{{($k+1)}}">{{ date('d-m-Y',strtotime($request->req_created_at)) }}</td>
                                     @if($request->requesttype == 'inpin')
                                         <td>IN</td>
-                                        <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
+                                        <td><a href="javascript::void(0);" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
                                     @elseif($request->requesttype == 'outpin')
                                         <td>OUT</td>
-                                        <td><a href="#" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm">Pending</a></td>
+                                        <td><a href="#update" data-target="#" data-toggle="modal" class="btn btn-warning btn-sm" data-backdrop="static" data-keyboard="false" onclick="showrequest('{{($k+1)}}')">Pending</a></td>
                                     @endif
                                 </tr>
-                                @php $i++; @endphp
                                 @endforeach
                             </tbody>
                         </table>
@@ -151,184 +171,46 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Update Payment</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Request</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <form>
+      <form class="requestPinSubmit" method="get" action="{{url('request-pin/update_request_pin/')}}" onsubmit="return confirm('Do you really want to approve this request?');">
         <div class="modal-body py-0">
-            <div class="alert alert-success note" role="alert">
-                <h4 class="alert-heading">Note</h4>
-                <p>Kindly send ₹500 to below user and share payment screenshot with the user directly.</p>
-            </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="fname" aria-describedby="fname" placeholder="Firat Name" required="">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="lname" aria-describedby="lname" placeholder="Last Name" required="">
+                        <label type="text" class="form-control requestByName" ></label>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <input type="number" class="form-control" id="mnumber" aria-describedby="mnumber" placeholder="Mobile Number" required="">
-                        <a href="#" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</a>
+                        <label type="text" class="form-control" >Pin Requested : <span class="requestCount">Aniket</span></label>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                    <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Email">
-                    </div>
-                </div>
-                <div class="col-12">
-                <label class="d-block font-weight-bold mb-2">Payment Method</label>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label class="d-block" for="Gpay"><img src="http://localhost:8000/images/Google-Pay-logo.png" alt="" class="img-fuild" style="max-height:25px;"></label>
-                    </div>
-                </div>
-                <div class="col-6 text-end">
-                    <label class="switch" for="Gpay">
-                        <input type="radio" name="payment" id="Gpay">
-                        <div class="slider round"></div>
-                    </label>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label class="d-block" for="PhonePe"><img src="http://localhost:8000/images/phonePe.png" alt="" class="img-fuild" style="max-height:28px;"></label>
-                    </div>
-                </div>
-                <div class="col-6 text-end">
-                    <label class="switch" for="PhonePe">
-                        <input type="radio" name="payment" id="PhonePe">
-                        <div class="slider round"></div>
-                    </label>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label class="d-block" for="PayTM"><img src="http://localhost:8000/images/paytm_logo.png" alt="" class="img-fuild" style="max-height:22px;"></label>
-                    </div>
-                </div>
-                <div class="col-6 text-end">
-                    <label class="switch" for="PayTM">
-                        <input type="radio" name="payment" id="PayTM">
-                        <div class="slider round"></div>
-                    </label>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="utrnumber" aria-describedby="utrnumber" placeholder="Transaction ID / UTR No." required="">
-                        <a href="#" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</a>
-                    </div>
-                </div>
-                
-                <div class="col-12">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="Comments" aria-describedby="Comments" placeholder="Comments" required="">
+                        <label type="text" class="form-control" >Pin Requested Date : <span class="requestDate">Aniket</span></label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer border-top-0 d-flex justify-content-start">
-          <button type="submit" class="btn btn-secondary w-50 m-0 b-r-r-0 waves-effect waves-float waves-light" data-dismiss="modal" aria-label="Close">Cancel</button>
+          <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0 waves-effect waves-float waves-light" data-dismiss="modal" aria-label="Close">Cancel</button>
           <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0 waves-effect waves-float waves-light">Submit</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<script>
-    $(document).ready(function() {
-        // DataTable for organization
-        if (document.getElementById("table_user")) {
-            var table = $('#table_user').DataTable({
-                processing: true,
-                serverSide: true,
-                bLengthChange: false,
-                responsive: true,
-                /* order: [1, 'ASC'],
-                ajax: {
-                    url: base_url + "/pin_center",
-                    data: function(data) {}
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'user_name',
-                        name: 'user_name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'mobile_number',
-                        name: 'mobile_number'
-                    },
-                    // {data: 'pins', name: 'pins', orderable: false, searchable: false},
-                    // {data: 'event', name: 'event', orderable: false, searchable: false},
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ],
-                drawCallback: function(settings) {
-                    // Enable/disable pins input and event checkboxes for all rows
-                    enableDisableInputs(true);
-                } */
-            });
-            $("#table_user_processing").hide();
-            // Enable/disable pins input and event checkbox based on checkbox click
-            $(document).on('change', '.event-checkbox', function() {
-                var isChecked = $(this).prop('checked');
-                if ($(this).closest('tr').find('.pins-input').val().length === 0) {
-                    isChecked = false;
-                }
-                $(this).closest('tr').find('.pins-input').prop('disabled', !isChecked);
-            });
 
-            // Enable/disable event checkboxes based on pins input
-            $(document).on('input', '.pins-input', function() {
-                var pinsInput = $(this);
-                var isChecked = pinsInput.val().length > 0;
-                pinsInput.closest('tr').find('.event-checkbox').prop('disabled', !isChecked);
-            });
-
-            // Enable/disable pins input and event checkboxes for all rows
-            function enableDisableInputs(enable) {
-                var rows = table.rows().nodes().to$();
-                rows.each(function() {
-                    var pinsInput = $(this).find('.pins-input');
-                    var eventCheckbox = $(this).find('.event-checkbox');
-                    var isChecked = pinsInput.val().length > 0;
-                    eventCheckbox.prop('disabled', !isChecked);
-                    pinsInput.prop('disabled', !enable || isChecked);
-                });
-            }
-        }
-
-        $('.addDepartment').on('submit', function(e) {
-            if ($(".addDepartment").valid()) {
-                $('#loader').show();
-                return true;
-            }
-        });
-        $('.editDepartment').on('submit', function(e) {
-            if ($(".editDepartment").valid()) {
-                $('#loader').show();
-                return true;
-            }
-        });
-    });
-</script>
+    <script>
+    function showrequest(rid){
+        $('.requestByName').text($('.username_'+rid).text());
+        $('.requestCount').text($('.requestpin_'+rid).text());
+        $('.requestDate').text($('.requestdate_'+rid).text());
+        $('.requestPinSubmit').attr('action', $('.username_'+rid).attr('data-suburl'));
+    }
+    </script>
 @endsection
