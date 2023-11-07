@@ -96,9 +96,7 @@
     $('.floating-btn').on('click', function() {
       startTimer()
     });
-    setTimeout(function() {
-      $('.alert-dismissible').css('display', 'none');
-    }, 3000);
+   
     $('.common-table').DataTable({
       dom: 'Bfrtip',
       buttons: [
