@@ -59,18 +59,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="mobile_number">Mobile Number<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="mobile_number" name="mobile_number" placeholder='Enter Mobile Number' value="{{$senderUserDetails->mobile_number}}" maxlength="10" required="" pattern="[0-9]{10}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="email">Email Id<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder='Enter Email Id' value="{{$senderUserDetails->email}}" maxlength="100" required="" disabled>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     {{-- @dd($senderUserDetails); --}}
                                     <label class="form-label" for="payment_mode">Select Payment Mode<span class="text-danger">*</span></label>
                                     <div class="form-check">
