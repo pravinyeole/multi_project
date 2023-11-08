@@ -101,9 +101,7 @@ class RegisterController extends Controller
             $invitation_ID = base64_decode($invitationID);
             $invitation_mobile = base64_decode($mobile_num);
         }
-        $invitation_ID = base64_decode($invitationID);
-        $invitation_mobile = base64_decode($mobile_num);
-        if ((isset($mobile_num) && strlen($mobile_num) == 10) && (isset($invitationID) && strlen($invitationID) == 6)) {
+        if ((isset($invitation_mobile) && strlen($invitation_mobile) == 10) && (isset($invitation_ID) && strlen($invitation_ID) == 6)) {
             // $invitation_ID = Crypt::decryptString($invitationID);
             // $invitation_mobile = Crypt::decryptString($mobile_num);
             // $invitation_ID = base64_decode($invitationID);
