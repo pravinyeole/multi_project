@@ -38,7 +38,7 @@
       "url": "help/my_network",
       "name": "My Network",
       "icon": "key",
-      "img_icon": "mynetwork.jpeg",
+      "img_icon": "my_network.jpeg",
       "slug": "help/my_network"
     }
   ]

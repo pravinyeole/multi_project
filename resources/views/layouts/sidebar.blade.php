@@ -42,7 +42,11 @@
         @endphp
         <li class="nav-item @if(Request::is($menu->slug.'/*') || Request::is($menu->slug)) active  @endif" {{ $custom_classes }}">
             <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed @if(isset($menu->submenu)) submenu @endif" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
+                @if(isset($menu->img_icon) && $menu->img_icon != null)
+                <img class="menu-icon" src="{{url('menu_icon/').'/'.$menu->img_icon}}" width="25" height="25"></img>
+                @else
                 <i class="menu-icon" data-feather="{{$menu->icon}}"></i>
+                @endif
                 <span class="menu-title text-truncate">{{ __('locale.'.$menu->name) }}</span>
                 @if (isset($menu->badge))
                 <?php $badgeClasses = "badge badge-pill badge-light-primary ml-auto mr-1" ?>
