@@ -46,7 +46,7 @@ class HelpIncomeController extends Controller
         //             ->orderBy('user_sub_info.created_at', 'DESC')
         //             ->get();
 
-        $mycreatedids = UserSubInfo::where('user_id', Auth::user()->id)->get();
+        $mycreatedids = UserSubInfo::where('user_id', Auth::user()->id)->orderBy('status','desc')->get();
         // $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
         // $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
         return view('admin.pincenter.sh', compact('sendHelpData', 'mycreatedids'));
