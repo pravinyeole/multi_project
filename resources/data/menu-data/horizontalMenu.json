@@ -7,7 +7,7 @@
             "slug": "home"
         },
         {
-            "url" : "pin_center",
+            "url" : "pin_center", 
             "name": "Pin Center",
             "icon": "key",
             "slug": "pin_center"

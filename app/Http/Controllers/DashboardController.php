@@ -92,8 +92,8 @@ class DashboardController extends Controller
                 // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
                 // $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['myadminSlug']= $myadminSlug;
-                $cryptmobile= Auth::user()->mobile_number;
-                $cryptSlug= $myadminSlug;
+                $cryptmobile= base64_encode(Auth::user()->mobile_number);
+                $cryptSlug= base64_encode($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }else{
                 $levelupid = Auth::user()->id;
@@ -109,8 +109,8 @@ class DashboardController extends Controller
                 // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
                 // $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['myadminSlug']= $myadminSlug;
-                $cryptmobile= Auth::user()->mobile_number;
-                $cryptSlug= $myadminSlug;
+                $cryptmobile= base64_encode(Auth::user()->mobile_number);
+                $cryptSlug= base64_encode($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
 
@@ -174,8 +174,8 @@ class DashboardController extends Controller
                 // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
                 // $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['myadminSlug']= $myadminSlug;
-                $cryptmobile= Auth::user()->mobile_number;
-                $cryptSlug= $myadminSlug;
+                $cryptmobile= base64_encode(Auth::user()->mobile_number);
+                $cryptSlug= base64_encode($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }else{
                 $levelupid = Auth::user()->id;
@@ -192,8 +192,8 @@ class DashboardController extends Controller
                 // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
                 // $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['myadminSlug']= $myadminSlug;
-                $cryptmobile= Auth::user()->mobile_number;
-                $cryptSlug= $myadminSlug;
+                $cryptmobile= base64_encode(Auth::user()->mobile_number);
+                $cryptSlug= base64_encode($myadminSlug);
                 $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
             }
             $myincome = $this->myincome();

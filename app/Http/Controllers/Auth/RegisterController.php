@@ -97,11 +97,19 @@ class RegisterController extends Controller
     {
         $invitation_ID = '';
         $invitation_mobile = '';
+        if ((isset($mobile_num) && $mobile_num != null && strlen($mobile_num) < 30) && (isset($invitationID) && $invitationID != null && strlen($mobile_num) < 30)) {
+            $invitation_ID = base64_decode($invitationID);
+            $invitation_mobile = base64_decode($mobile_num);
+        }
+        $invitation_ID = base64_decode($invitationID);
+        $invitation_mobile = base64_decode($mobile_num);
         if ((isset($mobile_num) && strlen($mobile_num) == 10) && (isset($invitationID) && strlen($invitationID) == 6)) {
             // $invitation_ID = Crypt::decryptString($invitationID);
             // $invitation_mobile = Crypt::decryptString($mobile_num);
-            $invitation_mobile = $mobile_num;
-            $invitation_ID = $invitationID;
+            // $invitation_ID = base64_decode($invitationID);
+            // $invitation_mobile = base64_decode($mobile_num);
+            // $invitation_mobile = $mobile_num;
+            // $invitation_ID = $invitationID;
             $adminSlug = User::where('user_slug', $invitation_ID)->count();
             $userMobile = User::where('mobile_number', $invitation_mobile)->count();
             if ($adminSlug && $userMobile) {
