@@ -107,7 +107,9 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('resendOTP',        [UserController::class, 'resendOTP']);
         Route::get('/map-user',         [MapUserController::class, 'index']);
         Route::post('userbyid',       [UserController::class, 'userByID']);
+        
     });
+    
 
     Route::group(['prefix' => 'pin_center'], function () {
         Route::get('/', 			    [PinCenterController::class, 'index']);
@@ -138,6 +140,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::any('/announce_create', [SuperAdminController::class, 'announce_create']);
         Route::any('/delete/{id}', [SuperAdminController::class, 'delete']);
         Route::get('/red_id', [SuperAdminController::class, 'redid']);
+        Route::post('create_id_button',       [SuperAdminController::class, 'create_id_button']);
 
     });
 

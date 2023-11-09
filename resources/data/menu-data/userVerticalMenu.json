@@ -4,6 +4,7 @@
       "url":  "home",
       "name": "Dashboards",
       "icon": "mdi mdi-grid-large",
+      "img_icon": "dashboard.jpeg",
       "slug": "home"
     },
     {

@@ -4,12 +4,9 @@
     </a>
     <a href="javascript:void(0)" class="close" data-bs-toggle="minimize">+</a>
     <div class="user-item">
-        <div class="user-img">
-            <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image">
-        </div>
         <div class="user-info">
-            <p class="mb-0 mt-0 font-weight-semibold">{{Auth::User()->mobile_number}}</p>
-            <p class="fw-light text-muted mb-0">{{Auth::User()->email}}</p>
+            <p class="mb-0 mt-0 font-weight-semibold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</p>
+            <p class="fw-light text-muted mb-0">{{Auth::User()->mobile_number}}</p>
         </div>
     </div>
     <ul class="nav">
@@ -63,9 +60,7 @@
         @endforeach
         <li class="nav-item ">
             <a href="{{ url('two-fact-auth/updateProfile') }}" class="nav-link collapsed " target="_self">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key menu-icon">
-                    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-                </svg>
+                <img class="menu-icon" src="{{url('menu_icon/profile.jpeg')}}" width="20" height="20"></img>
                 <span class="menu-title text-truncate">My Profile</span>
             </a>
 

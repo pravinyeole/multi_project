@@ -46,7 +46,7 @@
                                     <input id="user_lname" type="text" class="form-control @error('user_lname') is-invalid @enderror" name="user_lname" value="{{ old('user_lname', $user->user_lname) }}" required>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Email ID</label>
                                     @error('email')
@@ -56,7 +56,7 @@
                                     @enderror
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">UPI ID</label>
