@@ -72,7 +72,7 @@
 
                   </div>
                 </div>
-                @if(count($data['myReferalUser']))
+                @if(count($data['myReferalUser_list']))
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Direct Ref Users</h3>
                   <a href="{{url('/request-pin/direct_ref_user_list')}}" class="btn btn-view">View All</a>
@@ -87,7 +87,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($data['myReferalUser'] AS $key => $ref)
+                      @foreach($data['myReferalUser_list'] AS $key => $ref)
                       <tr>
                         <td>{{ucfirst($ref->user_fname.' '.$ref->user_lname)}}</td>
                         <td>{{$ref->mobile_number}}</td>

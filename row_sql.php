@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS `create_button`;
+CREATE TABLE `create_button` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `button` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `create_button` (`id`, `button`) VALUES
+(1,	1);
 07-11-2023
 ALTER TABLE `payments` ADD `comments` TEXT NOT NULL AFTER `attachment`;
 ALTER TABLE `payments` CHANGE `comments` `comments` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;

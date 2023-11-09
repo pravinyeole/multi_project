@@ -219,6 +219,8 @@ class RequestPinController extends Controller
   }
   public function direct_ref_user_list(Request $request)
   {
+    $create_button = DB::select("select button from create_button");
+    $create_button = $create_button[0]->button;
     $title = "Direct Referance Users List";
     if (Auth::user()->user_role == 'U') {
       $data = User::join('user_referral', 'users.id', '=', 'user_referral.user_id')
@@ -231,7 +233,7 @@ class RequestPinController extends Controller
         ->where('user_referral.admin_slug', Auth::user()->user_slug)
         ->get();
     }
-    return view('reffral.index', compact('title', 'data'));
+    return view('reffral.index', compact('title', 'data','create_button'));
   }
   public function adminTransferPinSubmit(Request $request)
   {

@@ -65,8 +65,7 @@ class DashboardController extends Controller
             ->where('ur.referral_id',Auth::user()->mobile_number)
             ->orWhere('ur.admin_slug',Auth::user()->user_slug)
             ->orderBy('users.id','DESC')
-            ->take(5)
-            ->get();
+            ->count();
             $data['requestedPins'] = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
                             ->where('request_pin.req_user_id', Auth::user()->id)
                             ->count();
@@ -234,13 +233,14 @@ class DashboardController extends Controller
                     ->where('user_map_new.new_user_id',Auth::user()->id)
                     ->where('user_sub_info.status','green')
                     ->count();
-            $myReferalUser = User::join('user_referral AS ur','ur.user_id','users.id')
+            $data['myReferalUser_list'] = User::join('user_referral AS ur','ur.user_id','users.id')
                     ->where('ur.referral_id',Auth::user()->mobile_number)
                     ->orWhere('ur.admin_slug',Auth::user()->user_slug)
                     ->orderBy('users.id','DESC')
-                    ->count();
+                    ->take(5)
+                    ->get();
             
-            return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','myReferalUser','create_button'));
+            return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','create_button'));
         }
     }
 
