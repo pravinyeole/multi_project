@@ -1,3 +1,7 @@
+@php
+$create_button = DB::select("select button from create_button");
+$create_button = $create_button[0]->button;
+@endphp
 @if($create_button == 1)
 <a href="javascript:void()" class="floating-btn" data-toggle="modal" data-target="#modals-slide-in">Create Id<span>+</span></a>
 @endif
