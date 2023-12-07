@@ -45,7 +45,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               </div>
               <div class="login-body">
               <div class="header">
-                <h1>Login</h1>
+                <!-- <h1>Login</h1> -->
               </div>
               @if (session('error'))
               <div class="alert alert-error m-1" role="alert" style="padding: 2%">
@@ -56,13 +56,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
               <form class="pt-3" id="mobileForm" method="POST" action="{{url('login')}}">
                 @csrf <!-- Add CSRF token field -->
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
+                  <!-- <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number"> -->
+                  <b>“The biggest risk is not taking any risk. In a world that’s changing really quickly, the only strategy that is guaranteed to fail is not taking risks.”</br> – Mark Zuckerberg</b>
                 </div>
                 <div class="">
-                  <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
+                  <!-- <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button> -->
                 </div>
                 </form>
-                <div class="seprator"></div>
+                
+                <div class="seprator"><span><h1>COMING SOON!</h1></span></div>
                 <div class="pb-2 social text-white">
                   <h4>Follow us</h4>
                   <div class="social-icon d-flex justify-content-between flex-nowrap">
