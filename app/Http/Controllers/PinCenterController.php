@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use App\Models\User;
 use App\Models\UserPin;
 use App\Models\UserReferral;
@@ -22,7 +23,7 @@ class PinCenterController extends Controller
         $this->title_msg    = "Pin Ceter";
         $this->middleware(['auth']);
     }
-     
+
     public function index(Request $request) {
        
         $title = $this->title;

@@ -74,7 +74,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                     </a>
                     <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" >
                     <i class="icon" data-feather="twitter"></i>
-                    </a>
+                    </a>php 
                     <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" >
                     <i class="icon" data-feather="instagram"></i>
                     </a>

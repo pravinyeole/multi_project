@@ -42,6 +42,10 @@ return [
     'level_6'	=> 7,
     'level_7'	=> 10,
     'user_id_limit'=>5,
+    'telegram_bot_name'=>'INRBAdmin@23',
+    'telegram_bot_token'=>'6400971457:AAExvpR8uacc1ytXwlVkhcgoovR11W1Y1ZE',
+    'telegram_bot_API'=>'https://api.telegram.org/bot6400971457:AAExvpR8uacc1ytXwlVkhcgoovR11W1Y1ZE',
+    'telegram_bot_user_name'=>'inrbadmin23_bot',
   ]
 ];
 

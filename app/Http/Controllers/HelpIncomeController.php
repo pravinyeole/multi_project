@@ -181,7 +181,7 @@ class HelpIncomeController extends Controller
         if($lvlOneA){
             $lvlTwoA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlOneA)->pluck('users.mobile_number')->toArray();
             $myLveledata['level_2'] = count($lvlTwoA);
-            $myLveledata['level_id_2'] = $lvlOneA;
+            $myLveledata['level_id_2'] = $lvlTwoA;
             if($lvlTwoA){
                 $lvlThreeA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlTwoA)->pluck('users.mobile_number')->toArray();
                 $myLveledata['level_3'] = count($lvlThreeA);

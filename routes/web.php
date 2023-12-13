@@ -14,6 +14,7 @@ use App\Http\Controllers\PinCenterController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\HelpIncomeController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\TelegreamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,13 @@ Route::get('/artisancache', function()
 {
     Artisan::call('cache:clear');
     Artisan::call('optimize:clear');
+});
+Route::group(['prefix' => 'telegram'], function () {
+    Route::post('/start-command', 'TelegramController@handleStartCommand');
+    Route::post('/messages', [TelegreamController::class,'handleIncomingMessages']);
+    // curl -F "url=https://your-app-url/telegram/messages" "https://api.telegram.org/botYOUR_BOT_TOKEN/setWebhook"
+        Route::get('/get-updates', [TelegreamController::class, 'getUpdates']);
+
 });
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
