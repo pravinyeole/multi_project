@@ -57,7 +57,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                 @csrf <!-- Add CSRF token field -->
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" name="mobileNumber" id="mobileNumber" maxlength="10" placeholder="Enter your mobile number">
-                  <b>“The biggest risk is not taking any risk. In a world that’s changing really quickly, the only strategy that is guaranteed to fail is not taking risks.”</br> – Mark Zuckerberg</b>
+                  <!-- <b>“The biggest risk is not taking any risk. In a world that’s changing really quickly, the only strategy that is guaranteed to fail is not taking risks.”</br> – Mark Zuckerberg</b> -->
                 </div>
                 <div class="">
                   <button id="getOtpBtn" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
