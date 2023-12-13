@@ -72,6 +72,32 @@
 
                   </div>
                 </div>
+                @if(count($data['myReferalUser_list']))
+                <div class="heading d-flex align-items-center justify-content-between">
+                  <h3>Direct Ref Users</h3>
+                  <a href="{{url('/request-pin/direct_ref_user_list')}}" class="btn btn-view">View All</a>
+                </div>
+                <div class="trans-table dashboard-table pb-4">
+                  <table class="table" width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>User ID</th>
+                        <th>Mobile No.</th>
+                        <th>Creation Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($data['myReferalUser_list'] AS $key => $ref)
+                      <tr>
+                        <td>{{ucfirst($ref->user_fname.' '.$ref->user_lname)}}</td>
+                        <td>{{$ref->mobile_number}}</td>
+                        <td>{{$ref->created_at}}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                @endif
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Referral Code</h3>
                 </div>

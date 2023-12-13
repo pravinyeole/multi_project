@@ -654,4 +654,18 @@ class SuperAdminController extends Controller
         }
         return view('superadmin.payment_pending_list', compact('data'));
     }
+
+    public function create_id_button(Request $request){
+        
+        $create_button = DB::select("update create_button set button = $request->id where id = 1");
+        if($request->id == 1)
+        {
+            return ['success'=>"Button Active"];
+        }
+        else
+        {
+            return ['success'=>"Button D-Active"];
+        }
+        
+    }
 }

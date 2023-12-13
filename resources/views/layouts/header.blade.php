@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>IN₹ Bharat</title>
   <?php
   header('Access-Control-Allow-Origin: *');
@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="{{asset('css/base/plugins/forms/pickers/form-flat-pickr.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/toggle.css')}}">
   <!-- endinject -->
   <!-- inject:css -->
   @if(Auth::user()->user_role != 'S' )
@@ -87,15 +88,25 @@
                   }
             ?>
             @if(Auth::user()->user_role == 'S' )
-            <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
-            <h3 class="welcome-sub-text">
-              <button type="button" onclick="copyText('{{Session::get('cryptUrl')}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button>
-            </h3>
+              <h1 class="welcome-text">{{$slo}}, <span class="text-black fw-bold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</span></h1>
+              <h3 class="welcome-sub-text">
+                <button type="button" onclick="copyText('{{Session::get('cryptUrl')}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button>
+              </h3>
             @endif
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           @if(Auth::user()->user_role == 'S' )
+            @if($create_button == 1)
+             @php $class = "checked"; $val = 1; @endphp
+            @else
+              @php $class = ""; $val = 0; @endphp
+            @endif
+
+          <label class="switch">
+            <input type="checkbox" {{$class}} id="myCheck" value={{$val}} onclick="myFunction()">
+            <span class="slider round"></span>
+          </label>
           <li class="nav-item d-lg-block">
             <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker datepicker-popup">
               <span class="input-group-addon input-group-prepend border-right">

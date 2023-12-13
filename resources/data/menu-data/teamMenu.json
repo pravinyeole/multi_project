@@ -4,6 +4,7 @@
       "url": "home",
       "name": "Dashboards",
       "icon": "home",
+      "img_icon": "dashboard.jpeg",
       "slug": "home"
     },
      {

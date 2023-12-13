@@ -1253,4 +1253,5 @@ class UserController extends Controller
                 ->where('id',$request->user_id)->first();
         return json_encode($user);
     }
+    
 }

@@ -39,8 +39,8 @@ class DashboardController extends Controller
         //     ->select('users.*', 'user_pins.pins')
         //     ->where('users.id', Auth::user()->id)
         //     ->first();
-
-
+        $create_button = DB::select("select button from create_button");
+        $create_button = $create_button[0]->button;
         if(Auth::User()->user_role == 'S')
         {
             Carbon::setWeekStartsAt(Carbon::SUNDAY);
@@ -54,7 +54,7 @@ class DashboardController extends Controller
             
             //return view('dashboard/dashboard', compact('pageConfigs', 'userDetails'));
 
-             return view('dashboard/new_dashboard',compact('activeAdmin','pinCreated','activeUsers','pinReuqest','todaysUsers','weekUsers'));
+             return view('dashboard/new_dashboard',compact('activeAdmin','pinCreated','activeUsers','pinReuqest','todaysUsers','weekUsers','create_button'));
 
         }
         elseif(Auth::User()->user_role == 'A')
@@ -62,10 +62,10 @@ class DashboardController extends Controller
             if(isset(Auth::user()->upi) && Auth::user()->upi == null) { return redirect()->route('two-fact-auth/updateProfile');}
             $data['Announcement'] = Announcement::whereIn('type',['Admin','All'])->get()->last();
             $data['myReferalUser'] = User::join('user_referral AS ur','ur.user_id','users.id')
-                            ->where('ur.referral_id',Auth::user()->mobile_number)
-                            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
-                            ->orderBy('users.id','DESC')
-                            ->count();
+            ->where('ur.referral_id',Auth::user()->mobile_number)
+            ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+            ->orderBy('users.id','DESC')
+            ->count();
             $data['requestedPins'] = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
                             ->where('request_pin.req_user_id', Auth::user()->id)
                             ->count();
@@ -139,7 +139,7 @@ class DashboardController extends Controller
             ->where('type', 'GH')->count();
 
             $myincome = $this->myincome();
-            return view('dashboard/admin_dashboard',compact('data','myincome','sendHelpData','compltesendHelpData'));
+            return view('dashboard/admin_dashboard',compact('data','myincome','sendHelpData','compltesendHelpData','create_button'));
         }
         elseif(Auth::User()->user_role == 'U')
         {
@@ -233,13 +233,14 @@ class DashboardController extends Controller
                     ->where('user_map_new.new_user_id',Auth::user()->id)
                     ->where('user_sub_info.status','green')
                     ->count();
-            $myReferalUser = User::join('user_referral AS ur','ur.user_id','users.id')
+            $data['myReferalUser_list'] = User::join('user_referral AS ur','ur.user_id','users.id')
                     ->where('ur.referral_id',Auth::user()->mobile_number)
                     ->orWhere('ur.admin_slug',Auth::user()->user_slug)
                     ->orderBy('users.id','DESC')
-                    ->count();
+                    ->take(5)
+                    ->get();
             
-            return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','myReferalUser'));
+            return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','create_button'));
         }
     }
 

@@ -1,4 +1,10 @@
+@php
+$create_button = DB::select("select button from create_button");
+$create_button = $create_button[0]->button;
+@endphp
+@if($create_button == 1)
 <a href="javascript:void()" class="floating-btn" data-toggle="modal" data-target="#modals-slide-in">Create Id<span>+</span></a>
+@endif
 <div class="modal fade" id="modals-slide-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalSlideLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -67,7 +73,8 @@
 <script src="{{ asset('assets/js/main.js')}}"></script>
 
 <script type="text/javascript">
-  $(window).on('load', function() {
+ var base_url = "{{ url('') }}";
+$(window).on('load', function() {
     if (feather) {
       feather.replace({
         width: 18,
@@ -165,6 +172,33 @@
     setTimeout(function() {
       $('.copyBtn').tooltip('hide');
     }, 1000);
+  }
+
+  function myFunction()
+  {
+    var checkBox = document.getElementById("myCheck");
+    var id = 1;
+    if (checkBox.checked == true){
+      id= 1;
+    } else {
+      id= 0;
+    }
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+            url: base_url+"/superadmin/create_id_button",
+            type: 'post',
+            data: {
+                    'id': id,
+                },
+            dataType: 'json',
+            success: function(response) {
+                alert(response.success);
+            }
+        });
   }
 </script>
 </body>
