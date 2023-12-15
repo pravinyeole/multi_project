@@ -18,13 +18,14 @@ class TelegreamController extends Controller
         $url = config('custom.custom.telegram_bot_API')."/getUpdates";
         $response = $client->get($url);
         $updates = json_decode($response->getBody(), true);
-        print_r($updates);
+
         // Check if there are new messages
         if (!empty($updates['result'])) {
             foreach ($updates['result'] as $update) {
-                if (isset($update['message'])) {
+                if (isset($update['message']['chat']['id'])) {
                     $message = $update['message']['text'];
                     $chatId = $update['message']['chat']['id'];
+                    $this->sendMessage($chatId);
                 }
             }
         }

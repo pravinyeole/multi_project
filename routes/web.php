@@ -37,8 +37,7 @@ Route::get('/artisancache', function()
 Route::group(['prefix' => 'telegram'], function () {
     Route::post('/start-command', 'TelegramController@handleStartCommand');
     Route::post('/messages', [TelegreamController::class,'handleIncomingMessages']);
-    // curl -F "url=https://your-app-url/telegram/messages" "https://api.telegram.org/botYOUR_BOT_TOKEN/setWebhook"
-        Route::get('/get-updates', [TelegreamController::class, 'getUpdates']);
+    Route::get('/get-updates', [TelegreamController::class, 'getUpdates']);
 
 });
 // Main Page Route
