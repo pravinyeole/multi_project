@@ -80,21 +80,17 @@
             }, 1000);
           </script>
         </div>
-
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
             <h4>Total Affiliates</h4>
-
-            <h3>{{count($data['myReferalUser'])}}</h3>
+            <h3> @if(isset($data['myReferalUser'])) {{count($data['myReferalUser'])}} @else {{'0'}} @endif</h3>
           </div>
         </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
             <h4>My Total ID</h4>
-            <h3>{{$data['myReferalUserCount']}}</h3>
+            <h3> @if(isset($data['myReferalUserCount'])) {{count($data['myReferalUserCount'])}} @else {{'0'}} @endif</h3>
           </div>
-
-
           <!-- <div class="row">
                     <div class="col-6">
                       <div class="p-3 ref-code">

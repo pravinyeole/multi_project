@@ -72,7 +72,7 @@
 
                   </div>
                 </div>
-                @if(count($data['myReferalUser_list']))
+                @if(isset($data['myReferalUser_list']) && count($data['myReferalUser_list']))
                 <div class="heading d-flex align-items-center justify-content-between">
                   <h3>Direct Ref Users</h3>
                   <a href="{{url('/request-pin/direct_ref_user_list')}}" class="btn btn-view">View All</a>
