@@ -11,15 +11,45 @@
         <p>Total ƀPIN Balance</p>
     </div>
     @if (Session::has('error'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <strong>Error !</strong> {{ session('error') }}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>Error !</strong> {{ session('error') }}
+        </div>
+    @endif
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>Success !</strong> {{ session('success') }}
+        </div>
+    @endif
+    
+    <div class="note mb-4">
+        <div class="affilates d-flex justify-content-between px-0 py-3">
+        <h4>Send ƀPINs</h4>
+        </div>
+        @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @endif
+        <form  action="{{url('/transferpin/transsubmit_everyone')}}" method="POST">
+            @csrf
+            <div class="row">
+            
+                <div class="col-5 col-lg-5 pe-0">
+                    <div class="form-group m-0">
+                        <input type="number" class="form-control" name="mobile_no" id="mobile_no" placeholder="Enter Mobile No." required/>
+                        <input type="hidden" name="current_bpin" value="{{$getNoOfPins}}">
                     </div>
-                    @endif
-                    @if (Session::has('success'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <strong>Success !</strong> {{ session('success') }}
+                </div>
+                <div class="col-4 col-lg-4 pe-0">
+                    <div class="form-group m-0">
+                        <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of ƀPIN" required/>
                     </div>
-                    @endif
+                </div>
+                <div class="col-3 btn-group pt-0">
+                <button type="submit" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send</button>
+            
+            </div>
+        </form>
+        </div>
+    </div>
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Request ƀPINs</h4>
@@ -94,35 +124,7 @@
             </div>
         </div>
     </div>
-    <div class="note mb-4">
-        <div class="affilates d-flex justify-content-between px-0 py-3">
-        <h4>Send ƀPINs</h4>
-        </div>
-        @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-        @endif
-        <form  action="{{url('/transferpin/transsubmit_everyone')}}" method="POST">
-            @csrf
-            <div class="row">
-            
-                <div class="col-4 col-lg-4 pe-0">
-                    <div class="form-group m-0">
-                        <input type="number" class="form-control" name="mobile_no" id="mobile_no" placeholder="Enter Mobile No." required/>
-                        <input type="hidden" name="current_bpin" value="{{$getNoOfPins}}">
-                    </div>
-                </div>
-                <div class="col-4 col-lg-4 pe-0">
-                    <div class="form-group m-0">
-                        <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of ƀPIN" required/>
-                    </div>
-                </div>
-                <div class="col-4 btn-group pt-0">
-                <button type="submit" class="input-group-text copyBtn w-100 flex-100"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send</button>
-            
-            </div>
-        </form>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-12">
             <div class="card">

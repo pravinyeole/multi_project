@@ -36,11 +36,19 @@
             <h3>{{$data['myPinBalance']}}</h3>
           </div>
         </div>
-        <div class="quota-timer d-none">
+        <div class="quota-timer d-none">  
           Today’s Quota is Full. Please try after <p id="demo"></p>
           <script>
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate()+1);
+            var year = tomorrow.getFullYear();
+            var mes = tomorrow.getMonth()+1;
+            var dia = tomorrow.getDate();
+            var fecha =dia+"-"+mes+"-"+year;
+
+            console.log('new_date',fecha);
             // Set the date we're counting down to
-            var countDownDate = new Date("Nov 07, 2023 10:00:00").getTime();
+            var countDownDate = new Date("Dec 16, 2023 10:00:00").getTime();
             // Update the count down every 1 second
             var x = setInterval(function() {
               // Get today's date and time
@@ -73,14 +81,20 @@
           </script>
         </div>
 
-        <div class="heading d-flex align-items-center justify-content-between">
-          <h3>Referral Code</h3>
-        </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
             <h4>Total Affiliates</h4>
-            <h3>{{$myReferalUser}}</h3>
+
+            <h3>{{count($data['myReferalUser'])}}</h3>
           </div>
+        </div>
+        <div class="refForm mb-4">
+          <div class="affilates d-flex justify-content-between px-3 py-3">
+            <h4>My Total ID</h4>
+            <h3>{{$data['myReferalUserCount']}}</h3>
+          </div>
+
+
           <!-- <div class="row">
                     <div class="col-6">
                       <div class="p-3 ref-code">
