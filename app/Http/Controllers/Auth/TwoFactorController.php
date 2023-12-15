@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use GuzzleHttp\Client;
 use App\Mail\TwoFactor;
 use App\Models\InsuranceAgency;
 use App\Models\Notification;
@@ -164,27 +165,45 @@ class TwoFactorController extends Controller
             $validator = Validator::make($request->all(), [
                 'user_fname' => 'required|string|max:100',
                 'user_lname' => 'required|string|max:100',
-                'email' => 'required|email',
-                'user_upi' => 'required|min:10|max:15',
+                // 'email' => 'required|email',
+                'user_upi' => 'required|min:10',
             ]);
-    
+
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-    
-            // Get the authenticated user
-            $user = Auth::user();
-    
+            $user = Auth::user();    
             // Update the user profile fields
             $user->user_fname = $request->input('user_fname');
             $user->user_lname = $request->input('user_lname');
-            $user->email = $request->input('email');
+            // $user->email = $request->input('email');
             $user->upi = $request->input('user_upi');
+
+            // Validate UPI Id
+            $endpoint = 'https://api.razorpay.com/v1/payments/validate/vpa';
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode(config('custom.custom.razor_key') . ':' . config('custom.custom.razor_secret')),
+            ];
+            $vpa = $request->input('user_upi');
+            $body = json_encode([
+                'vpa' => $vpa,
+            ]);
+            $client = new Client();
+            $response = $client->post($endpoint, [
+                'headers' => $headers,
+                'body' => $body,
+            ]);
+            // Get the response body
+            $result = $response->getBody()->getContents();
+            
+            print_r($result);dd();
             // Save the changes
             $user->save();
             // Return a success message
             return redirect()->back()->with('success','Profile updated successfully!');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error','Something went wrong!');
         }
     }
