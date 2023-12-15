@@ -194,7 +194,7 @@ class DashboardController extends Controller
                         break;   
                     }
                 }
-                // $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
+                $data['myadminSlug'] = $myadminSlug = Auth::user()->user_slug;
                 // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
                 // $cryptSlug= Crypt::encryptString($myadminSlug);
                 $data['myadminSlug']= $myadminSlug;

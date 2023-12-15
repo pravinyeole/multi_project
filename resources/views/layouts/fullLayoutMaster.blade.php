@@ -24,9 +24,8 @@ $configData = Helper::applClasses();
 
  
 
-<body class="vertical-layout vertical-menu-modern blank-page {{ $configData['bodyClass'] }} {{($configData['theme'] === 'dark') ? 'dark-layout' : 'light' }}
-    data-menu=" vertical-menu-modern" data-layout="{{ ($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }}" style="{{ $configData['bodyStyle'] }}" data-framework="laravel" data-asset-path="{{ asset('/')}}">
-    <div id="loader">
+<body class="vertical-layout vertical-menu-modern blank-page {{ $configData['bodyClass'] }} {{($configData['theme'] === 'dark') ? 'dark-layout' : 'light' }}" data-menu="vertical-menu-modern" data-layout="{{ ($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }}" style="{{ $configData['bodyStyle'] }}" data-framework="laravel" data-asset-path="{{ asset('/')}}">
+    <!-- <div id="loader">
       <div class="spinner-grow text-primary" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -51,7 +50,7 @@ $configData = Helper::applClasses();
       <div class="spinner-grow text-dark" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-    </div>
+    </div> -->
   <!-- BEGIN: Content-->
   <div class="content {{ $configData['pageClass'] }}">
     <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed' ? 'container p-0' : '' }}">

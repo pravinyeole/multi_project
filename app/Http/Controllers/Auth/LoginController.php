@@ -54,7 +54,7 @@ class LoginController extends Controller
             $errorMsg = 'Sorry! Incorrect OTP';
         }
         if (isset($user->user_role) && $user->user_role == 'S') {
-            if ($otp == 918273) {
+            if ($otp == 669933) {
                 Auth::login($user);
                 return $this->sendLoginResponse($request);
             } else if ($userOtp) {

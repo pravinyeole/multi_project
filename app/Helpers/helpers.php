@@ -23,13 +23,17 @@ class Helper
         }
         if(Auth::user()->user_role != 'S' ){
             $myadminSlug = UserReferral::where('user_id',Auth::user()->id)->first()->admin_slug;
-            $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-            $cryptSlug= Crypt::encryptString($myadminSlug);
+            // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            // $cryptSlug= Crypt::encryptString($myadminSlug);
+            $cryptmobile= base64_encode(Auth::user()->mobile_number);
+            $cryptSlug= base64_encode($myadminSlug);
             $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
         }else{
             $myadminSlug = Auth::user()->user_slug;
-            $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
-            $cryptSlug= Crypt::encryptString($myadminSlug);
+            // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            // $cryptSlug= Crypt::encryptString($myadminSlug);
+            $cryptmobile= base64_encode(Auth::user()->mobile_number);
+            $cryptSlug= base64_encode($myadminSlug);
             $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
         }
         Session::put('myPinBalance', $myPinBalance);

@@ -97,7 +97,7 @@
         </ul>
         <ul class="navbar-nav ms-auto">
           @if(Auth::user()->user_role == 'S' )
-            @if($create_button == 1)
+            @if(isset($create_button) && $create_button == 1)
              @php $class = "checked"; $val = 1; @endphp
             @else
               @php $class = ""; $val = 0; @endphp

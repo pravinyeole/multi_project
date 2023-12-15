@@ -5,7 +5,7 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <input type="hidden" name="timeZone" id="timeZone" value="">
 
-<div id="loader">
+<!-- <div id="loader">
   <div class="spinner-grow text-primary" role="status">
     <span class="sr-only">Loading...</span>
   </div>
@@ -30,7 +30,7 @@
   <div class="spinner-grow text-dark" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-</div>
+</div> -->
 
   {{-- Include Sidebar --}}
   @if((isset($configData['showMenu']) && $configData['showMenu'] === true))

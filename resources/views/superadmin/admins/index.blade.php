@@ -49,8 +49,10 @@ use Illuminate\Support\Facades\Crypt;
                                 @foreach($admin_data AS $key => $au)
                                 @php
                                     $myadminSlug = ($au->user_role == 'U') ? $au->admin_slug : $au->user_slug;
-                                    $cryptmobile= Crypt::encryptString($au->mobile_number);
-                                    $cryptSlug= Crypt::encryptString($myadminSlug);
+                                    // $cryptmobile= Crypt::encryptString($au->mobile_number);
+                                    // $cryptSlug= Crypt::encryptString($myadminSlug);
+                                    $cryptmobile= base64_encode($au->mobile_number);
+                                    $cryptSlug= base64_encode($myadminSlug);
                                     $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
                                     $badgeSt = ($au->user_status == 'Inactive') ? 'danger':'success';
                                     $cryptID= Crypt::encryptString($au->id);
