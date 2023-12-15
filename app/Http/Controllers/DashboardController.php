@@ -154,6 +154,12 @@ class DashboardController extends Controller
                                         ->orderBy('users.id','DESC')
                                         ->take(5)
                                         ->get();
+            $data['myReferalUserCount'] = User::join('user_referral AS ur','ur.user_id','users.id')
+                                        ->where('ur.referral_id',Auth::user()->mobile_number)
+                                        ->orWhere('ur.admin_slug',Auth::user()->user_slug)
+                                        ->orderBy('users.id','DESC')
+                                        ->count();
+            
             $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
             if ($myPinBalance_a) {
                 $data['myPinBalance'] = $myPinBalance_a;
@@ -233,12 +239,6 @@ class DashboardController extends Controller
                     ->where('user_map_new.new_user_id',Auth::user()->id)
                     ->where('user_sub_info.status','green')
                     ->count();
-            $data['myReferalUser_list'] = User::join('user_referral AS ur','ur.user_id','users.id')
-                    ->where('ur.referral_id',Auth::user()->mobile_number)
-                    ->orWhere('ur.admin_slug',Auth::user()->user_slug)
-                    ->orderBy('users.id','DESC')
-                    ->take(5)
-                    ->get();
             
             return view('dashboard/user_dashboard',compact('data','myincome','sendHelpData','getHelpData','compltegetHelpData','compltesendHelpData','create_button'));
         }
