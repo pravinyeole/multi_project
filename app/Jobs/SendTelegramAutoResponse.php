@@ -57,12 +57,12 @@ class SendTelegramAutoResponse implements ShouldQueue
                                 ],
                             ]);
                             // Handle the response as needed
-                            $statusCode = $response->getStatusCode();
-                            $responseData = json_decode($response->getBody(), true);
-                            return response()->json([
-                                'status' => $statusCode,
-                                'response' => $responseData,
-                            ]);
+                            // $statusCode = $response->getStatusCode();
+                            // $responseData = json_decode($response->getBody(), true);
+                            // return response()->json([
+                            //     'status' => $statusCode,
+                            //     'response' => $responseData,
+                            // ]);
                     }
                 }
             }
