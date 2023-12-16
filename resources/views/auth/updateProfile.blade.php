@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">UPI ID</label>
                                     @error('user_upi')
@@ -78,11 +78,11 @@
                                     @enderror
                                     <input id="user_upi" type="user_upi" class="form-control form-control-md text-left" name="user_upi" value="{{ old('upi', $user->upi) }}" required>
                                 </div>
-                            </div> -->
-                            <div class="col-12 mb-2 d-flex gap-1">
+                            </div>
+                            <!-- <div class="col-12 mb-2 d-flex gap-1">
                                 <input type="text" class="form-control form-control-md text-left" name="user_upi" id="user_upi" placeholder="UPI ID" value="{{ old('upi', $user->upi) }}" required>
                                 <button type="button" id="checkBtn" class="btn btn-success">Verify</button>
-                            </div>
+                            </div> -->
                             
                         </div>
                         <div class="d-flex justify-content-start gap-1">
