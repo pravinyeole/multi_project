@@ -222,7 +222,7 @@ class RegisterController extends Controller
                 $circle_data = MobileCircle::where('serial', $mobileNumberD[0])->first();
                 $user = new User();
                 $user->mobile_number = (int)$request->mobile_number;
-                $user->user_status = 'Inactive';
+                $user->user_status = 'Active';
                 if ($circle_data) {
                     $user->operator = $circle_data->operator;
                     $user->circle = $circle_data->circle;
