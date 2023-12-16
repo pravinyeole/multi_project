@@ -33,7 +33,7 @@
                   <div class="card card-orange">
                     <div class="card-body">
                       <i data-feather="users"></i>
-                      <h5>No of Users Registers</h5>
+                      <h5>My Total Referrals</h5>
                       <h3><a href="{{url('request-pin/direct_ref_user_list')}}">{{$data['myReferalUser']}}</a></h3>
                     </div>
                   </div>
@@ -111,30 +111,9 @@
                   </div>
                   </form>
                 </div>
-                
-                <div class="card">
-                  <div class="card-body">
-                    <!-- <div class="heading pt-0 d-flex align-items-center justify-content-between">
-                      <h3 class="pt-0">bPIN Details</h3>
-                    </div> -->
-                    <div class="row flex-grow pin-details pt-0">
-                      <div class="col-6">
-                      <a href="{{url('request-pin')}}"><p>Request Sent Count</p>
-                          <h3>{{$data['requestedPins']}}</h3></a>
-                      </div>
-                      <div class="col-6 bdr-left">
-                        <a href="{{url('superadmin/revokepin')}}"><p>Revoke Pins</p>
-                        <h3>{{$data['revokePins']}}</h3></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
             </div>
           </div>
         </div>
 @endsection
-
-
-
 @section('page-script')
 @endsection
