@@ -10666,7 +10666,7 @@ progress {
   color: #212529;
   background-color: color(white);
   background-clip: padding-box;
-  border: 1px solid #74819d;
+  border: 1px solid #c3c7d1;
   appearance: none;
   border-radius: 6px !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -23705,7 +23705,7 @@ code {
 .form-control, .asColorPicker-input, .dataTables_wrapper select, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead,
 .tt-query,
 .tt-hint {
-  border: 1px solid #74819d;
+  border: 1px solid #c3c7d1;
   font-weight: 400;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -28897,7 +28897,7 @@ div.tagsinput span.tag a {
   font-size: .9375rem;
 }
 
-.auth form .auth-form-btn,.auth form .login-btn {
+.auth form .auth-form-btn,.auth form .login-btn,.home-tab .create-btn, .login-body .auth-form-btn {
   padding: .8rem 3rem;
   line-height: 1.5;
   width: 100%;border-radius: 6px;background: #2f9a28;
@@ -28970,8 +28970,10 @@ div.tagsinput span.tag a {
 .social-icon{
   max-width: 314px;margin: 0px auto;
 }
-.social-icon a{color: #fff;transition: all ease-in-out 300ms;}
+.social-icon a{color: #fff;transition: all ease-in-out 300ms;background: transparent;}
+.login-body a{color: #fff;transition: all ease-in-out 300ms;background: transparent;text-decoration: none;}
 .social-icon a:hover{opacity: .5;}
+.login-body a:hover{color: rgb(0,128,0);text-decoration: none;}
 #siteseal{
   display: inline-block;
   padding: 6px;border-radius: 4px;background: #fff;box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
@@ -29026,7 +29028,7 @@ div.tagsinput span.tag a {
   .login-body h3 {font-size: 1.1rem;}
   .login-body h4 {font-size: 1rem;}
   .auth form .form-group {margin-bottom: 1rem;}
-  .auth form .form-group .form-control,.auth form .auth-form-btn, .auth form .login-btn{padding: 8px 15px;height: auto;min-height:20px;font-size: 13px;margin-bottom: 0px;}
+  .auth form .form-group .form-control,.auth form .auth-form-btn, .auth form .login-btn,.home-tab .create-btn{padding: 8px 15px;height: auto;min-height:20px;font-size: 13px;margin-bottom: 0px;}
   .social-icon a svg, .social-icon a img{width: 18px;height: 18px;}
   #siteseal img{max-width: 100px;}
 }
@@ -31489,8 +31491,11 @@ div.tagsinput span.tag a {
   --lightgreen:#e7fae4;
   --lightorangeb:#e3c4a5;
   --lightgreenb:#c0e4bb;
-  --box-shadow: 3px 5px 4px rgba(0,0,0,.08);
-}
+  --box-shadow: 3px 5px 4px rgba(0,0,0,.08);--f10:0.71428571rem;--f11:0.7857142857rem;--f12:0.85714285rem;--f13:0.92857142rem;--f14:1rem;--f15:1.071428571rem;--f16:1.1428571rem;--f17:1.21428571rem;--f18:1.28571428rem;--f19:1.35714285rem;--f20:1.42857142rem;--f21:1.5rem;--f22:1.57142857rem;--f23:1.64285714rem;--f24:1.71428571rem;--f25:1.78571428rem;--f26:1.85714285rem;--f27:1.92857142rem;--f28:2rem;--f29:2.071428571rem;--f30:2.1428571rem;--f31:2.21428571rem;--f32:2.28571428rem;--f33:2.35714285rem;--f34:2.42857142rem;--f35:2.5rem;--f36:2.57142857rem;--f37:2.64285714rem;--f38:2.71428571rem;--f39:2.78571428rem;--f40:2.85714285rem;--f41:2.92857142rem;--f42:3rem;--f43:3.071428571rem;--f44:3.1428571rem;--f45:3.21428571rem;--f46:3.28571428rem;--f47:3.35714285rem;--f48:3.42857142rem;--f49:3.5rem;--f50:3.571428571rem;--f51:3.6428571rem;--f52:3.71428571rem;--f53:3.785714285rem;--f54:3.85714285rem;--f55:3.92857142rem;--f56:4rem;--f57:4.071428571rem;--f58:4.142857142rem;--f59:4.2142857142rem;--f60:4.285714285rem;}
+
+a,button,input[type="button"],input[type="submit"],input[type="search"],input[type="clear"],.navbar-toggler-icon, .navbar-toggler-icon:before,.navbar-toggler-icon:after{transition:all ease-in-out 300ms;-webkit-transition:all ease-in-out 300ms;-ms-transition:all ease-in-out 300ms;-moz-transition:all ease-in-out 300ms;-o-transition:all ease-in-out 300ms;}
+a:hover{text-decoration:none;color:var(--secondary);}
+.f10{font-size:var(--f10) !important;}.f11{font-size:var(--f11) !important;}.f12{font-size:var(--f12) !important;}.f13{font-size:var(--f13) !important;}.f14{font-size:var(--f14) !important;}.f15{font-size:var(--f15) !important;}.f16{font-size:var(--f16) !important;}.f17{font-size:var(--f17) !important;}.f18{font-size:var(--f18) !important;}.f19{font-size:var(--f19) !important;}.f20{font-size:var(--f20) !important;}.f21{font-size:var(--f21) !important;}.f22{font-size:var(--f22) !important;}.f23{font-size:var(--f23) !important;}.f24{font-size:var(--f24) !important;}.f25{font-size:var(--f25) !important;}.f26{font-size:var(--f26) !important;}.f27{font-size:var(--f27) !important;}.f28{font-size:var(--f28) !important;}.f29{font-size:var(--f29) !important;}.f30{font-size:var(--f30) !important;}.f31{font-size:var(--f31) !important;}.f32{font-size:var(--f32) !important;}.f33{font-size:var(--f33) !important;}.f34{font-size:var(--f34) !important;}.f35{font-size:var(--f35) !important;}.f36{font-size:var(--f36) !important;}.f37{font-size:var(--f37) !important;}.f38{font-size:var(--f38) !important;}.f39{font-size:var(--f39) !important;}.f40{font-size:var(--f40) !important;}.f41{font-size:var(--f41) !important;}.f42{font-size:var(--f42) !important;}.f43{font-size:var(--f43) !important;}.f44{font-size:var(--f44) !important;}.f45{font-size:var(--f45) !important;}.f46{font-size:var(--f46) !important;}.f47{font-size:var(--f47) !important;}.f48{font-size:var(--f48) !important;}.f49{font-size:var(--f49) !important;}.f50{font-size:var(--f50) !important;}.f51{font-size:var(--f51) !important;}.f52{font-size:var(--f52) !important;}.f53{font-size:var(--f53) !important;}.f54{font-size:var(--f54) !important;}.f55{font-size:var(--f55) !important;}.f56{font-size:var(--f56) !important;}.f57{font-size:var(--f57) !important;}.f58{font-size:var(--f58) !important;}.f59{font-size:var(--f59) !important;}.f60{font-size:var(--f60) !important;}
 .announsement{
   background: rgb(50,159,40);
   background: -moz-linear-gradient(90deg, rgba(50,159,40,1) 0%, rgba(215,113,12,1) 100%);
@@ -31889,6 +31894,9 @@ div.dataTables_wrapper div.dataTables_filter label {
 
 .btn-icon {
   background: #fff;
+}
+.social-icon .btn-icon {
+  background: transparent;
 }
 .btn-icon .bx {
   font-size: 20px;
