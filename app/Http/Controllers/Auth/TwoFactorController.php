@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use App\Mail\TwoFactor;
 use App\Models\InsuranceAgency;
 use App\Models\Notification;
+use App\Models\UserReferral;
 use AWS;
 use Mail;
 use Config;
@@ -40,7 +41,43 @@ class TwoFactorController extends Controller
             $decodedPaymentModes = [];
         }
 
-        return view('/auth/updateProfile', compact('user', 'paymentModes', 'decodedPaymentModes'));
+        if(Auth::user()->user_role != 'S' ){
+            $levelupid = Auth::user()->id;
+            for($i=0;$i<1000;$i++){
+                $res = $this->findMyAdmin($levelupid);
+                if(isset($res) && is_numeric($res)){
+                    $levelupid = $res;
+                }else{
+                    $myadminSlug = $res;
+                    break;   
+                }
+            }
+            // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            // $cryptSlug= Crypt::encryptString($myadminSlug);
+            $data['myadminSlug']= $myadminSlug;
+            $cryptmobile= base64_encode(Auth::user()->mobile_number);
+            $cryptSlug= base64_encode($myadminSlug);
+            $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+        }else{
+            $levelupid = Auth::user()->id;
+            for($i=0;$i<1000;$i++){
+                $res = $this->findMyAdmin($levelupid);
+                if(isset($res) && is_numeric($res)){
+                    $levelupid = $res;
+                }else{
+                    $myadminSlug = $res;
+                    break;   
+                }
+            }
+            // $cryptmobile= Crypt::encryptString(Auth::user()->mobile_number);
+            // $cryptSlug= Crypt::encryptString($myadminSlug);
+            $data['myadminSlug']= $myadminSlug;
+            $cryptmobile= base64_encode(Auth::user()->mobile_number);
+            $cryptSlug= base64_encode($myadminSlug);
+            $data['cryptUrl']= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+        }
+
+        return view('/auth/updateProfile', compact('user', 'paymentModes', 'decodedPaymentModes','data'));
     }
 
 
@@ -214,6 +251,27 @@ class TwoFactorController extends Controller
         } catch (\Exception $e) {
             dd($e);
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    public function findMyAdmin($uid){
+        if(Auth::user()->user_role == 'S'){
+            return User::where('id',$uid)->first()->user_slug;
+        }
+        $adminslug = UserReferral::where('user_id',$uid)->first();
+        $checkrole = (Auth::user()->user_role == 'U' || Auth::user()->user_role == 'L') ? 'A' : 'S';
+        if($adminslug){
+            $levl2 = User::where('user_slug',$adminslug->admin_slug)->where('user_role',$checkrole)->first();
+            if($levl2){
+                return $levl2->user_slug;
+            }else{
+                $adminslugl2 = User::where('mobile_number',$adminslug->referral_id)->first();
+                if(isset($adminslugl2) && $adminslugl2->user_role == 'A'){
+                    return $adminslugl2->user_slug;
+                }else{
+                    return $adminslugl2->id;
+                }
+            }
         }
     }
 }

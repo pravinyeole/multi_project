@@ -100,6 +100,7 @@ class LoginController extends Controller
         if ($response = $this->loggedOut($request)) {
             return $response;
         }
+        return view('/auth/logout');
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/login');
@@ -115,5 +116,9 @@ class LoginController extends Controller
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect()->route('home');
+    }
+
+    public function newlogout(Request $request){
+        return view('/auth/logout');
     }
 }

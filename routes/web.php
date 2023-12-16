@@ -40,6 +40,7 @@ Route::group(['prefix' => 'telegram'], function () {
     Route::get('/get-updates', [TelegreamController::class, 'getUpdates']);
 
 });
+
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('/', [LoginController::class, 'showLoginForm']);
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
 
     Route::get('/home',[DashboardController::class,'dashboard'])->name('home');
    
+    
     Auth::routes(['verify' => true]);
     Route::get('logout', [LoginController::class, 'logout']);
 
