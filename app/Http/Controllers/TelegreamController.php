@@ -9,23 +9,48 @@ use DB;
 
 class TelegreamController extends Controller
 {
+    public function setWebHook(Request $request)
+    {
+        $botToken = config('custom.custom.telegram_bot_token');
+        $webhookUrl = 'https://testinrb.in/telegram/get-updates'; // Replace with your actual webhook URL
+        $webhookUrl = 'https://testinrb.in/telegram//start-command'; // Replace with your actual webhook URL
+        $apiUrl = config('custom.custom.telegram_bot_API');
+        $response = file_get_contents($apiUrl . '/setWebhook?url=' . urlencode($webhookUrl));
+        // Handle the response as needed
+        echo $response;
+        dd();
+    }
+    public function deleteWebHook(Request $request)
+    {
+        $botToken = config('custom.custom.telegram_bot_token');
+        $apiUrl = config('custom.custom.telegram_bot_API').'/setWebhook?url=';
+        // To disable the webhook, set the URL to an empty string
+        $webhookUrl = '';
+        $apiUrl .= urlencode($webhookUrl);
+        $response = file_get_contents($apiUrl);
+        // Handle the response as needed
+        echo $response;
+        dd();
+    }
     public function getUpdates(Request $request)
     {
         $message = 'Hello, this is your individual Telegram message!';
-        // $chatId = '15399547731539954773'; // Replace with the actual chat_id of the user
+        // $chatId = '1539954773'; // Replace with the actual chat_id of the user
         $client = new Client();
         // Make a request to get updates
-        $url = config('custom.custom.telegram_bot_API')."/getUpdates";
+        $url = config('custom.custom.telegram_bot_API')."/getUpdates"; // ?offset=-1 = for last message
         $response = $client->get($url);
         $updates = json_decode($response->getBody(), true);
-
+        
         // Check if there are new messages
         if (!empty($updates['result'])) {
             foreach ($updates['result'] as $update) {
                 if (isset($update['message']['chat']['id'])) {
-                    $message = $update['message']['text'];
                     $chatId = $update['message']['chat']['id'];
-                    $this->sendMessage($chatId);
+                    $response_message = 'Hello, '.$chatId.'this is your Chat ID .Update this on your pfofile Page';
+                    if($chatId == '1539954773' && isset($update['message']['text']) && $update['message']['text'] == "/start"){
+                            $this->sendMessage($chatId,$response_message);
+                    }
                 }
             }
         }

@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('audit:alerts')->daily();
+        $schedule->job(new \App\Jobs\SendTelegramAutoResponse)->everyMinute();
     }
 
     /**
