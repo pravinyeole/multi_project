@@ -23,7 +23,7 @@ class TelegreamController extends Controller
     public function deleteWebHook(Request $request)
     {
         $botToken = config('custom.custom.telegram_bot_token');
-        $apiUrl = config('custom.custom.telegram_bot_API').'/setWebhook?url=';
+        $apiUrl = config('custom.custom.telegram_bot_API') . '/setWebhook?url=';
         // To disable the webhook, set the URL to an empty string
         $webhookUrl = '';
         $apiUrl .= urlencode($webhookUrl);
@@ -34,22 +34,19 @@ class TelegreamController extends Controller
     }
     public function getUpdates(Request $request)
     {
-        $message = 'Hello, this is your individual Telegram message!';
-        // $chatId = '1539954773'; // Replace with the actual chat_id of the user
         $client = new Client();
         // Make a request to get updates
-        $url = config('custom.custom.telegram_bot_API')."/getUpdates"; // ?offset=-1 = for last message
+        $url = config('custom.custom.telegram_bot_API') . "/getUpdates"; // ?offset=-1 = for last message
         $response = $client->get($url);
         $updates = json_decode($response->getBody(), true);
-        
         // Check if there are new messages
         if (!empty($updates['result'])) {
-            foreach ($updates['result'] as $update) {
-                if (isset($update['message']['chat']['id'])) {
+            foreach ($updates['result'] as $k => $update) {
+                if (isset($update['message']['text']) && $update['message']['text'] == "/start") {
                     $chatId = $update['message']['chat']['id'];
-                    $response_message = 'Hello, '.$chatId.'this is your Chat ID .Update this on your pfofile Page';
-                    if($chatId == '1539954773' && isset($update['message']['text']) && $update['message']['text'] == "/start"){
-                            $this->sendMessage($chatId,$response_message);
+                    if (isset($update['message']['chat']['id'])) {
+                        $response_message = 'Hello, ' . $chatId . 'this is your Chat ID .Update this on your pfofile Page';
+                        $this->sendMessage($chatId, $response_message);
                     }
                 }
             }
@@ -59,8 +56,8 @@ class TelegreamController extends Controller
     {
         // Send Message
         $client = new Client();
-        $url = config('custom.custom.telegram_bot_API')."/sendMessage"; // Send Message
-        $message = (isset($message) && !empty($message)) ? $message :'Welcome INRB';        
+        $url = config('custom.custom.telegram_bot_API') . "/sendMessage"; // Send Message
+        $message = (isset($message) && !empty($message)) ? $message : 'Welcome INRB';
         $response = $client->post($url, [
             'json' => [
                 'chat_id' => $chatId,
@@ -98,7 +95,7 @@ class TelegreamController extends Controller
         $message = 'Thank you for starting the bot! This is an automatic response.';
 
         $client = new Client();
-        $url = config('custom.custom.telegram_bot_API')."/sendMessage";
+        $url = config('custom.custom.telegram_bot_API') . "/sendMessage";
 
         $response = $client->post($url, [
             'json' => [

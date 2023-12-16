@@ -31,38 +31,29 @@ class SendTelegramAutoResponse implements ShouldQueue
      */
     public function handle()
     {
-        $message = 'Hello, this is your individual Telegram message!';
-        // $chatId = '1539954773'; // Replace with the actual chat_id of the user
         $client = new Client();
         // Make a request to get updates
-        $url = config('custom.custom.telegram_bot_API')."/getUpdates"; // ?offset=-1 = for last message
+        $url = config('custom.custom.telegram_bot_API') . "/getUpdates"; // ?offset=-1 = for last message
         $response = $client->get($url);
         $updates = json_decode($response->getBody(), true);
-        
+        $emAry = [];
         // Check if there are new messages
         if (!empty($updates['result'])) {
             foreach ($updates['result'] as $update) {
-                if (isset($update['message']['chat']['id'])) {
+                if (isset($update['message']['text']) && $update['message']['text'] == "/start") {
                     $chatId = $update['message']['chat']['id'];
-                    $response_message = 'Hello, '.$chatId.'this is your Chat ID .Update this on your pfofile Page';
-                    if($chatId == '1539954773' && isset($update['message']['text']) && $update['message']['text'] == "/start"){
-                            // Send Message
-                            $client = new Client();
-                            $url = config('custom.custom.telegram_bot_API')."/sendMessage"; // Send Message
-                            $message = (isset($message) && !empty($message)) ? $message :'Welcome INRB';        
+                    $response_message = 'Hello, ' . $chatId . ' this is your Chat ID.Update this on your Profile Page';
+                    if (isset($update['message']['chat']['id'])) {
+                        if (!in_array($chatId, $emAry)) {
+                            array_push($emAry, $chatId);
+                            $url = config('custom.custom.telegram_bot_API') . "/sendMessage"; // Send Message     
                             $response = $client->post($url, [
                                 'json' => [
                                     'chat_id' => $chatId,
                                     'text' => $response_message,
                                 ],
                             ]);
-                            // Handle the response as needed
-                            // $statusCode = $response->getStatusCode();
-                            // $responseData = json_decode($response->getBody(), true);
-                            // return response()->json([
-                            //     'status' => $statusCode,
-                            //     'response' => $responseData,
-                            // ]);
+                        }
                     }
                 }
             }

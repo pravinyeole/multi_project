@@ -132,7 +132,7 @@
                 <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
               <div class="col">
-                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-Set mPIN" maxlength="4" autocomplete="false" required>
+                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Confirm mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
             <div class="form-group form-row mb-0">
