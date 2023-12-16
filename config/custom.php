@@ -47,8 +47,13 @@ return [
     'telegram_bot_token'=>'6400971457:AAExvpR8uacc1ytXwlVkhcgoovR11W1Y1ZE',
     'telegram_bot_API'=>'https://api.telegram.org/bot6400971457:AAExvpR8uacc1ytXwlVkhcgoovR11W1Y1ZE',
     'telegram_bot_user_name'=>'inrbadmin23_bot',
-    'razor_key'=>'rzp_live_o49lKN7oSl3P7P',
-    'razor_secret'=>'85AME1R6E4Ktkhsiji2EGOCC',
+    // // 'razor_key'=>'rzp_live_o49lKN7oSl3P7P',
+    // // 'razor_secret'=>'85AME1R6E4Ktkhsiji2EGOCC', // Old Key
+    // 'razor_key'=>'rzp_live_k6raQAGtfIhPCJ',
+    // 'razor_secret'=>'1AzTfgfDLuUNT5QN7l3sJvv2',
+    'cashfree_key'=>'144598aeb9177623a0679abcdd895441',
+    'cashfree_secret'=>'f7f7e355e51d5c39cf1bd824153a63c025156473',
+    
   ]
 ];
 
