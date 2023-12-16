@@ -88,7 +88,7 @@
         </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
-            <h4>My Total ID</h4>
+            <h4>My Total Referrals</h4>
             <h3> @if(isset($data['myReferalUserCount'])) {{$data['myReferalUserCount']}} @else 0 @endif</h3>
           </div>
           <!-- <div class="row">

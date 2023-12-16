@@ -6,31 +6,7 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12">
-        <div class="refForm mb-4">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="p-3 ref-code">
-                        <p>My Referral Code</p>
-                        <h3>{{$data['myadminSlug']}}</h3>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="p-3 sys-code">
-                        <p>System Access Code</p>
-                        <h3>XYZ</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn-group d-flex">
-                      <button type="button" class="input-group-text copyBtn" id="idcopy" onclick="copyText('{{$data['cryptUrl']}}')"><i data-feather="copy"></i>Copy</button>
-                      <button type="button" class="input-group-text copyBtn" id="idshare"><i data-feather="share-2"></i>Share</button>
-                  </div>
-        </div>
-            <!-- <div class="card">
-                <div class="page-title">
-                    <h4>Update Profile</h4>
-                </div>
-                <div class="card-body gray-bg"> -->
+        
                 <h4 class="font-weight-bold f24 mb-3">Update Profile</h4>
                     @if (Session::has('error'))
                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -79,10 +55,6 @@
                                     <input id="user_upi" type="user_upi" class="form-control form-control-md text-left" name="user_upi" value="{{ old('upi', $user->upi) }}" required>
                                 </div>
                             </div>
-                            <!-- <div class="col-12 mb-2 d-flex gap-1">
-                                <input type="text" class="form-control form-control-md text-left" name="user_upi" id="user_upi" placeholder="UPI ID" value="{{ old('upi', $user->upi) }}" required>
-                                <button type="button" id="checkBtn" class="btn btn-success">Verify</button>
-                            </div> -->
                             
                         </div>
                         <div class="d-flex justify-content-start gap-1">

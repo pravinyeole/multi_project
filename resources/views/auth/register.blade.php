@@ -129,10 +129,10 @@
             <P class="error code_err m-0"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
+                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
               <div class="col">
-                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-enter mPIN" maxlength="4" autocomplete="false" required>
+                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
             <div class="form-group form-row mb-0">
@@ -179,10 +179,10 @@
             <P class="error code_err m-0"></P>
             <div class="form-group mb-2 form-row">
               <div class="col">
-                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Enter mPIN" maxlength="4" autocomplete="false" required>
+                <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
               <div class="col">
-                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-enter mPIN" maxlength="4" autocomplete="false" required>
+                <input type="password" class="form-control form-control-md text-left" name="confirm_my_mpin" id="confirm_my_mpin" placeholder="Re-Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
             </div>
             <P class="error mpin_err m-0"></P>
