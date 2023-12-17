@@ -235,6 +235,9 @@ class RegisterController extends Controller
             if (isset($user->email) && $user->email == null) {
                 $user->email = $request->user_fname . $request->mobile_number . '@' . 'yahoo.com';
             }
+            if (isset($user->tel_chat_Id) && $user->tel_chat_Id == null) {
+                $user->tel_chat_Id = $request->telegram_chat_Id;
+            }
             $user->upi = $request->my_upi_id;
             // $user->user_status = 'Inactive';
             if($user->user_role == 'S'){
