@@ -52,11 +52,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
                   <a href="{{url('/')}}" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn mt-2">Login Again</a>
                 </div>
                 </form>
-                <!--div class="seprator"></div-->
-                <div class="d-flex justify-content-between align-items-center gap-2">
+                <div class="seprator"></div>
+                <!-- <div class="d-flex justify-content-between align-items-center gap-2">
                     <img src="{{asset('images/digital-india.png')}}" alt="logo" style="max-width:200px;margin: 0 auto;width:48%">
                     <img src="{{asset('images/make-india.png')}}" alt="logo" style="max-width:120px;margin: 0 auto;width:48%">
-                </div>
+                </div> -->
                 <div class="pb-2 social text-white">
                   <h4>Follow us</h4>
                   <div class="social-icon d-flex justify-content-between flex-nowrap">
