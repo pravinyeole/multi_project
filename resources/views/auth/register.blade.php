@@ -145,7 +145,7 @@
                 <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="telegram_chat_Id" id="telegram_chat_Id" placeholder="Telegram Chat ID" value="{{ old('telegram_chat_Id') }}" autocomplete="false">
               </div>
               <div class="col-4 mb-2">
-                <a href="https://t.me/inrbadmin23_bot" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>
+                <a href="{{config('custom.custom.telegram_bot_join')}}" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>
               </div>
             </div>
             <P class="error email_err m-0"></P>
@@ -203,7 +203,7 @@
                 <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="telegram_chat_Id" id="telegram_chat_Id" placeholder="Telegram Chat ID" value="{{ old('telegram_chat_Id') }}" autocomplete="false">
               </div>
               <div class="col-4 mb-2">
-                <a href="https://t.me/inrbadmin23_bot" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>
+                <a href="{{config('custom.custom.telegram_bot_join')}}" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>
               </div>
             </div>
             <P class="error email_err m-0"></P>

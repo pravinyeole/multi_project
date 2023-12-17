@@ -238,7 +238,39 @@ class RegisterController extends Controller
             if (isset($user->tel_chat_Id) && $user->tel_chat_Id == null || empty($user->tel_chat_Id) || $user->tel_chat_Id == '') {
                 $user->tel_chat_Id = $request->telegram_chat_Id;
             }
-            $user->upi = $request->my_upi_id;
+            if(isset($request->my_upi_id) && $request->my_upi_id != null){
+                $curl = curl_init();
+                $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->input('user_upi');
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => $apiUrl,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Cache-Control: no-cache',
+                        'X-Client-Id: '.config('custom.custom.cashfree_key'),
+                        'X-Client-Secret: '.config('custom.custom.cashfree_secret')
+                    ),
+                ));
+                $response = curl_exec($curl);
+                if ($response === false) {
+                    return redirect()->back()->withInput()->with('error', curl_error($curl));
+                } else {
+                    $response = json_decode($response);
+                }
+                if (isset($response->status) && $response->status == 'OK' && isset($response->valid) && $response->valid == 1) {
+                    $user->upi = $request->input('user_upi');
+                    // $response->vpa; // If Valid will get this details
+                    // $response->status; // If Valid will get this details
+                    // $response->valid; // If Valid will get this details
+                    // $response->name; // If Valid will get this details
+                }
+                curl_close($curl);
+            }
             // $user->user_status = 'Inactive';
             if($user->user_role == 'S'){
                 $user->user_role = 'S';
