@@ -1,3 +1,8 @@
+=====================================================17-12-2023==============================================================
+ALTER TABLE `users` ADD `tel_chat_Id` VARCHAR(11) NULL DEFAULT NULL AFTER `user_sub_info_id`;
+
+
+===================================================================================================================
 DROP TABLE IF EXISTS `create_button`;
 CREATE TABLE `create_button` (
   `id` int NOT NULL AUTO_INCREMENT,
