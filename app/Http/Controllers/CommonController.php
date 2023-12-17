@@ -118,6 +118,36 @@ class CommonController extends Controller
                 'mobileNumber' => 'required|numeric|digits:10',
             ]);
             $mobileNumber = $validatedData['mobileNumber'];
+                if(isset($request->pagename) && $request->pagename == 'registerpage'){
+                    $mobileNumberD = str_split($mobileNumber, 4);
+                    $circle_data = MobileCircle::where('serial',$mobileNumberD[0])->first();
+                    $user = new User();
+                    $user->mobile_number = $mobileNumber;
+                    $user->user_status = 'Inactive';
+                    if($circle_data){
+                        $user->operator = $circle_data->operator;
+                        $user->circle = $circle_data->circle;
+                    }
+                    $user->save();
+                    $user = User::where('mobile_number', $mobileNumber)->first();
+                    UserOtp::where('user_id', $user->id)->delete();
+                    $otp = mt_rand(100000, 999999);
+                    $userOtp = UserOtp::create([
+                        'user_id' => $user->id,
+                        'phone_otp' => $otp,
+                    ]);
+                    // Send OTP API Call
+                    $response  = $this->sendOTPAPI($mobileNumber,$otp);
+                    if($response != 1){
+                        // $redirectUrl = route('login');
+                        return response()->json(['status'=>'error','message' => 'Somthing Went Wrong,Please Try again'], 200);
+                    }
+                    // Check if the entered OTP matches the stored OTP for the user
+                    $userOtp = UserOtp::where('user_id', $user->id)->first();
+                    // After successfully sending the OTP, prepare the redirect URL
+                    // $redirectUrl = route('show-enter-otp', ['user_id' => $userId,'mobileNumber'=>$mobileNumber]);
+                    return response()->json(['status'=>'success','message' => 'OTP sent successfully'], 200);                    
+                }
             $user = User::where('mobile_number', $mobileNumber)->first();
             if (!$user) {
                 // Handle the case where the user does not exist
@@ -169,11 +199,11 @@ class CommonController extends Controller
                     'phone_otp' => $otp,
                 ]);
                 // Send OTP API Call
-                // $response  = $this->sendOTPAPI($mobileNumber,$otp);
-                // if($response != 1){
-                //     $redirectUrl = route('login');
-                //     return response()->json(['message' => 'Somthing Went Wrong,Please Try again',"redirect_url"=>$redirectUrl], 200);
-                // }
+                $response  = $this->sendOTPAPI($mobileNumber,$otp);
+                if($response != 1){
+                    $redirectUrl = route('login');
+                    return response()->json(['message' => 'Somthing Went Wrong,Please Try again',"redirect_url"=>$redirectUrl], 200);
+                }
             // Check if the entered OTP matches the stored OTP for the user
             $userOtp = UserOtp::where('user_id', $user->id)->first();
             // After successfully sending the OTP, prepare the redirect URL

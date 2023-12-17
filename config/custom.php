@@ -19,7 +19,7 @@ return [
     'apipath' => 'http://web.smsgw.in/smsapi/httpapi.jsp?',
     'username' => 'IRBHARAT03',
     'otpvalidtime' => '5',
-    'password' => 'IRBHARAT03',
+    'password' => 'DAN@10Cr2024',
     'sender_id' => 'INBART',
     'PE_ID' => '1001873533044526874',
     'template_id' => '1007252692316482946',

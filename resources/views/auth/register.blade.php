@@ -97,6 +97,48 @@
     color: #989696b8;
     font-size: 14px;
   }
+   .otp-input-group {
+    display: flex;
+    padding-bottom: 15px;
+  }
+    .nextstep{
+        display:none;
+    }
+  .otp-input-group input {
+    width: 45px;
+    margin: 5px 5px 5px 5px;
+    height: 45px;
+    border: 1px solid #adadad;
+    border-radius: 6px;
+    box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    text-align: center;
+  }
+
+  @media all and (max-width:360px) {
+    .otp-input-group input {
+      width: 38px;
+      height: 38px;
+      margin: 0px 5px 0px 5px;
+    }
+  }
+
+  @media all and (max-height:660px) {
+    .otp-input-group input {
+      width: 35px;
+      height: 35px;
+      margin: 0px 5px 0px 5px;
+    }
+  }
+
+  .otp-input-group .form-control {
+    flex: 1;
+    max-width: 40px;
+  }
+
+  .otp-input-group .form-control:not(:last-child) {
+    margin-right: 5px;
+  }
 </style>
 @endsection
 
@@ -181,7 +223,29 @@
           </div>
           <form id="registrationForm" method="POST" action="{{route('register_user')}}">
             @csrf <!-- Add CSRF token field -->
-            <div class="form-group mb-2 form-row">
+            <div class="form-group form-row mb-2">
+                    <div class="col-7 mb-2">
+                        <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="mobile_number" id="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
+                    </div>
+                    <div class="col-5 mb-2">
+                        <button type="button" id="get_otp" class="form-control form-control-md btn-success">Get OTP</button>
+                    </div>
+            </div>
+            <div class="form-group form-row mb-0 otp-section" id="otp-section">
+                <div class="otp-input-group d-flex align-items-center justify-content-center">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                  <input type="text" class="otp-input" maxlength="1" name="otp[]">
+                </div>
+                <div class="col-12 mb-2">
+                    <button type="button" id="verify_mobile" class="form-control form-control-md btn-success">Verify Mobile</button>
+                </div>
+            </div>
+            <P class="error email_err m-0"></P>
+            <div class="form-group mb-2 form-row nextstep">
               <div class="col">
                 <input type="text" class="form-control form-control-md text-left" name="user_fname" id="user_fname" placeholder="First Name" value="{{ old('user_fname') }}" autocomplete="false">
               </div>
@@ -190,26 +254,22 @@
               </div>
             </div>
             <P class="error name_err m-0"></P>
-            <div class="form-group form-row mb-0">
-              <div class="col-12 mb-2">
-                <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="mobile_number" id="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
-              </div>
-              <div class="col-12 mb-2 d-flex gap-2">
-                <input type="text" class="form-control form-control-md text-left" name="my_upi_id" id="my_upi_id" placeholder="UPI ID" value="{{ old('my_upi_id') }}" autocomplete="false">
-              </div>
+            <div class="form-group form-row mb-2 nextstep">
+                <div class="col-12 mb-2 d-flex gap-2">
+                    <input type="text" class="form-control form-control-md text-left" name="my_upi_id" id="my_upi_id" placeholder="UPI ID" value="{{ old('my_upi_id') }}" autocomplete="false">
+                </div>
             </div>
-            <div class="form-group form-row mb-0">
-              <div class="col-8 mb-2">
-                <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="telegram_chat_Id" id="telegram_chat_Id" placeholder="Telegram Chat ID" value="{{ old('telegram_chat_Id') }}" autocomplete="false">
-              </div>
-              <div class="col-4 mb-2">
-                <a href="{{config('custom.custom.telegram_bot_join')}}" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>
-              </div>
-            </div>
-            <P class="error email_err m-0"></P>
+            <!--<div class="form-group form-row mb-0">-->
+            <!--  <div class="col-8 mb-2">-->
+            <!--    <input type="text" pattern="[0-9]{10}" class="form-control form-control-md text-left" name="telegram_chat_Id" id="telegram_chat_Id" placeholder="Telegram Chat ID" value="{{ old('telegram_chat_Id') }}" autocomplete="false">-->
+            <!--  </div>-->
+            <!--  <div class="col-4 mb-2">-->
+            <!--    <a href="{{config('custom.custom.telegram_bot_join')}}" target="_blank" type="button" id="getChatID" class="form-control form-control-md btn-success">Get Chat ID</a>-->
+            <!--  </div>-->
+            <!--</div>-->
             <input type="hidden" class="form-control form-control-md" name="referal_code" id="referal_code" placeholder="Enter Referal Mobile Number" value="{{ $invitation_mobile }}" maxlength="10" @if(isset($invitation_mobile) && $invitation_mobile !=null) readonly @endif autocomplete="false"><input type="hidden" class="form-control form-control-md" name="admin_referal_code" id="admin_referal_code" placeholder="Enter System Access Code" value="{{$invitation_ID}}" @if(isset($invitation_ID) && $invitation_ID !=null) readonly @endif autocomplete="false">
             <P class="error code_err m-0"></P>
-            <div class="form-group mb-2 form-row">
+            <div class="form-group mb-2 form-row nextstep">
               <div class="col">
                 <input type="password" class="form-control form-control-md text-left" name="my_mpin" id="my_mpin" placeholder="Set mPIN" maxlength="4" autocomplete="false" required>
               </div>
@@ -218,7 +278,7 @@
               </div>
             </div>
             <P class="error mpin_err m-0"></P>
-            <div class="text-center mt-2">
+            <div class="text-center mt-2 nextstep">
               <button type="button" id="registerBtn" class="btn auth-form-btn text-white">Register</button>
             </div>
           </form>
@@ -245,6 +305,50 @@
   @section('page-script')
   <script>
     $(document).ready(function() {
+    var base_url = "{{url('/')}}";
+      $('#get_otp').click(function() {
+        if ($('#mobile_number').val() == null || $('#mobile_number').val().length != 10) {
+          $('.email_err').text('Please Enter Valid Mobile Number.');
+          return false;
+        }else{
+          $.ajax({
+            // url: jqForm.attr('action'),
+            url: base_url + "/common/send-otp",
+            method: 'POST',
+            data: {"_token": "{{ csrf_token() }}",mobileNumber:$('#mobile_number').val(),pagename:'registerpage'},
+            success: function(response) {
+                if(response.status == 'success'){
+                    toastr.success('OTP sent successfully');
+                    $('#otp-section').css('display','block');   
+                    
+                }else{
+                    toastr.error('Failed to send OTP');
+                }
+            }
+          });
+        }
+      });
+
+      // Resend OTP button click event
+      resendOtpBtn.click(function(e) {
+        e.preventDefault();
+        // Send mobile number with AJAX
+        $.ajax({
+          url: base_url + "/common/resend-otp",
+          method: 'POST',
+          data: jqForm.serialize(),
+          success: function(response) {
+            console.log(response);
+            // Handle the success response here
+            toastr.success('OTP sent successfully');
+          },
+          error: function(error) {
+            console.log(error);
+            toastr.success('Somthing went wrong!!');
+            // Handle the error response here
+          }
+        });
+      });
       $('#registerBtn').click(function() {
         if ($('#user_fname').val() == null || $('#user_fname').val().length <= 2) {
           $('.name_err').text('User First Name Required.(Atleast 3 letters.)');

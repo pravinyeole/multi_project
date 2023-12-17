@@ -177,22 +177,22 @@
             <div class="pb-2 social text-white">
               <h4>Follow us</h4>
               <div class="social-icon d-flex justify-content-between flex-nowrap">
-                <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.facebook_id')}}" type="button" target="_blank">
                   <i class="icon" data-feather="facebook"></i>
                 </a>
-                <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.youtube_id')}}" type="button" target="_blank">
                   <i class="icon" data-feather="youtube"></i>
                 </a>
-                <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.twitter_id')}}" type="button" target="_blank">
                   <i class="icon" data-feather="twitter"></i>
                 </a>
-                <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.instagram_id')}}" type="button" target="_blank">
                   <i class="icon" data-feather="instagram"></i>
                 </a>
-                <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.whatsapp_id')}}" type="button" target="_blank">
                   <i><img width="24" height="24" src="{{asset('images/auth/whatsap.png')}}" alt="whatsapp--v1" /></i>
                 </a>
-                <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank" >
+                <a href="{{config('custom.custom.telegram_id')}}" type="button" target="_blank">
                   <i class="icon" data-feather="send"></i>
                 </a>
               </div>
