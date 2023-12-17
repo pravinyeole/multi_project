@@ -41,22 +41,23 @@ class SendTelegramAutoResponse implements ShouldQueue
         // Check if there are new messages
         if (!empty($updates['result'])) {
             foreach ($updates['result'] as $update) {
-                $checkExist = User::where('tel_chat_Id', $chatId)->first();
-                if ($checkExist == null) {
+                if (isset($update['message']['chat']['id']) && !empty($update['message']['chat']['id'])) {
                     $chatId = $update['message']['chat']['id'];
-                    if (isset($update['message']['text']) && $update['message']['text'] == "/start") {
-                        $checkExist = User::where('tel_chat_Id', $chatId)->first();
-                        $response_message = 'Hello, ' . $chatId . ' this is your Chat ID.Update this on your Profile Page';
-                        if (isset($update['message']['chat']['id'])) {
-                            if (!in_array($chatId, $emAry)) {
-                                array_push($emAry, $chatId);
-                                $url = config('custom.custom.telegram_bot_API') . "/sendMessage"; // Send Message     
-                                $response = $client->post($url, [
-                                    'json' => [
-                                        'chat_id' => $chatId,
-                                        'text' => $response_message,
-                                    ],
-                                ]);
+                    $checkExist = User::where('tel_chat_Id', $chatId)->first();
+                    if ($checkExist == null) {
+                        if (isset($update['message']['text']) && $update['message']['text'] == "/start") {
+                            $response_message = 'Hello, ' . $chatId . ' this is your Chat ID.Update this on your Profile Page';
+                            if (isset($update['message']['chat']['id'])) {
+                                if (!in_array($chatId, $emAry)) {
+                                    array_push($emAry, $chatId);
+                                    $url = config('custom.custom.telegram_bot_API') . "/sendMessage"; // Send Message     
+                                    $response = $client->post($url, [
+                                        'json' => [
+                                            'chat_id' => $chatId,
+                                            'text' => $response_message,
+                                        ],
+                                    ]);
+                                }
                             }
                         }
                     }
