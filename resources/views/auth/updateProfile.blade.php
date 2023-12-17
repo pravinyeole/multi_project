@@ -43,7 +43,19 @@
                                     <input id="user_lname" type="text" class="form-control @error('user_lname') is-invalid @enderror" name="user_lname" value="{{ old('user_lname', $user->user_lname) }}" required>
                                 </div>
                             </div>
-
+                            @if(!isset($user->tel_chat_Id) && empty($user->tel_chat_Id))
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Telegram Chat ID</label>
+                                    @error('tel_chat_Id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <input id="tel_chat_Id" type="tel_chat_Id" class="form-control form-control-md text-left" name="tel_chat_Id" value="{{ old('tel_chat_Id', $user->tel_chat_Id) }}" required>
+                                </div>
+                            </div>
+                            @endif
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">UPI ID</label>

@@ -211,6 +211,11 @@ class TwoFactorController extends Controller
             // Update the user profile fields
             $user->user_fname = $request->input('user_fname');
             $user->user_lname = $request->input('user_lname');
+            // Telegram Chat ID
+            if(isset($request->tel_chat_Id) && !empty($request->tel_chat_Id) || $request->tel_chat_Id != null){
+                $user->tel_chat_Id = $request->tel_chat_Id;
+            }
+            
             // CashFree API Validation
             $curl = curl_init();
             $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->input('user_upi');
