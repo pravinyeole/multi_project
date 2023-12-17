@@ -12,7 +12,7 @@
                     <h3>{{$myReferalUser}}</h3>
                 </div>
             </div>
-            <div class="card mb-4">
+            <!-- <div class="card mb-4">
                 <div class="page-title">
                     <h4>
                         Pending for Approvals
@@ -36,7 +36,6 @@
                                     <td>{{$i}}</td>
                                     <td>{{$v->user_fname}} {{$v->user_lname}}</td>
                                     <td class="mobile">{{$v->mobile_number}}</td>
-                                    <!-- <td><a href="{{url('/normal_user/active_user/'.$v->id)}}" class="btn btn-sm btn-outline-dark p-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></a></td> -->
                                     @if($myPinBalance_a > 0)
                                     <td><a href="#createpin" id="fetch" data-toggle="modal" data-target="#createpin" class="btn btn-sm btn-outline-dark p-2" data-mobile="{{$v->mobile_number}}" data-userid="{{$v->id}}" data-mpin="{{$myPinBalance_a}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
                                                 <polyline points="20 6 9 17 4 12"></polyline>
@@ -51,7 +50,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="card">
                 <div class="page-title">
                     <h4>
