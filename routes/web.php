@@ -38,12 +38,12 @@ Route::group(['prefix' => 'telegram'], function () {
     Route::post('/messages', [TelegreamController::class, 'handleIncomingMessages']);
     Route::get('/get-updates', [TelegreamController::class, 'getUpdates']);
 });
+Route::get('register', [RegisterController::class, 'showRegistrationForm']);
 
 // Main Page Route
 Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('/', [LoginController::class, 'showLoginForm']);
     Route::get('register/{mobile_num}/{invitation_id}', [RegisterController::class, 'showRegistrationForm']);
-    Route::get('register', [RegisterController::class, 'showRegistrationForm']);
     Route::get('show-enter-otp/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterOtp'])->name('show-enter-otp');
     Route::get('show-enter-mpin/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterMpin'])->name('show-enter-mpin');
     Route::get('reset-mpin/{user_id}/{mobileNumber}', [RegisterController::class, 'showResetMpin'])->name('reset-mpin');
