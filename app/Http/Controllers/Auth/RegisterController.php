@@ -235,9 +235,11 @@ class RegisterController extends Controller
             if (isset($user->email) && $user->email == null) {
                 $user->email = $request->user_fname . $request->mobile_number . '@' . 'yahoo.com';
             }
+            // Telegram Chat ID 
             if (isset($user->tel_chat_Id) && $user->tel_chat_Id == null || empty($user->tel_chat_Id) || $user->tel_chat_Id == '') {
                 $user->tel_chat_Id = $request->telegram_chat_Id;
             }
+            // Check UPI Validation
             if(isset($request->my_upi_id) && $request->my_upi_id != null){
                 $curl = curl_init();
                 $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->my_upi_id;
