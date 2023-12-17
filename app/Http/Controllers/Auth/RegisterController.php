@@ -240,7 +240,7 @@ class RegisterController extends Controller
             }
             if(isset($request->my_upi_id) && $request->my_upi_id != null){
                 $curl = curl_init();
-                $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->input('user_upi');
+                $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->my_upi_id;
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => $apiUrl,
                     CURLOPT_RETURNTRANSFER => true,
@@ -263,7 +263,7 @@ class RegisterController extends Controller
                     $response = json_decode($response);
                 }
                 if (isset($response->status) && $response->status == 'OK' && isset($response->valid) && $response->valid == 1) {
-                    $user->upi = $request->input('user_upi');
+                    $user->upi = $request->my_upi_id;
                     // $response->vpa; // If Valid will get this details
                     // $response->status; // If Valid will get this details
                     // $response->valid; // If Valid will get this details
