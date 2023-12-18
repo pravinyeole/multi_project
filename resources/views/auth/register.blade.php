@@ -350,7 +350,7 @@
             @csrf <!-- Add CSRF token field -->
             <div class="form-group form-row mb-2">
               <div class="col-12 mb-2">
-                <input type="text" pattern="[0-9]{10}" class="form-control form-row text-left" name="mobile_number" id="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}" autocomplete="false">
+                <input type="text" pattern="[0-9]{10}" class="form-control form-row text-left" name="mobile_number" id="mobile_number" placeholder="Mobile Number" maxlength="10" value="{{ old('mobile_number') }}" autocomplete="false">
               </div>
             </div>
             <div class="form-group form-row mb-0 otp-section" id="otp-section">
