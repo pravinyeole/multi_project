@@ -77,7 +77,7 @@ class LoginController extends Controller
                 ]);
                 $userMpin = UserMpin::where('uid', $user->id)->get();
                 $referal_check = UserReferral::where('user_id', $user->id)->first();
-                if (count($userMpin) == 0) {
+                if ($user->user_role == 'U') {
                     if ($referal_check == null) {
                         return redirect()->route('login')->with('error', 'Invalid User! No Refferal code found');
                     }
