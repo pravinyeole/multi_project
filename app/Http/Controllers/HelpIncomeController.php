@@ -194,16 +194,16 @@ class HelpIncomeController extends Controller
                         $lvlFiveA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlFourA)->pluck('users.mobile_number')->toArray();
                         $myLveledata['level_5'] = count($lvlFiveA);
                         $myLveledata['level_id_5'] = $lvlFiveA;
-                        if($lvlFiveA){
-                            $lvlSixA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlFiveA)->pluck('users.mobile_number')->toArray();
-                            $myLveledata['level_6'] = count($lvlSixA);
-                            $myLveledata['level_id_6'] = $lvlSixA;
-                            if($lvlSixA){
-                                $lvlSevenA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlSixA)->pluck('users.mobile_number')->toArray();
-                                $myLveledata['level_7'] = count($lvlSevenA);
-                                $myLveledata['level_id_7'] = $lvlSevenA;
-                            }
-                        }
+                        // if($lvlFiveA){
+                        //     $lvlSixA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlFiveA)->pluck('users.mobile_number')->toArray();
+                        //     $myLveledata['level_6'] = count($lvlSixA);
+                        //     $myLveledata['level_id_6'] = $lvlSixA;
+                        //     if($lvlSixA){
+                        //         $lvlSevenA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlSixA)->pluck('users.mobile_number')->toArray();
+                        //         $myLveledata['level_7'] = count($lvlSevenA);
+                        //         $myLveledata['level_id_7'] = $lvlSevenA;
+                        //     }
+                        // }
                     }
                 }
             }
