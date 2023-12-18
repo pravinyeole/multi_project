@@ -170,7 +170,7 @@ class RegisterController extends Controller
         if (isset($data_res->data->ack_id) && !empty($data_res->data->ack_id)) {
             return view('auth.reset_mpin', compact('user_id', 'mobileNumber'));
         } else {
-            return redirect()->back()->with('error','OTP send Failed this time, please try again.');
+            return redirect()->back()->with('error', 'OTP send Failed this time, please try again.');
         }
     }
     public function updateMpin(Request $request)
@@ -222,7 +222,6 @@ class RegisterController extends Controller
                 $circle_data = MobileCircle::where('serial', $mobileNumberD[0])->first();
                 $user = new User();
                 $user->mobile_number = (int)$request->mobile_number;
-                $user->user_status = 'Active';
                 if ($circle_data) {
                     $user->operator = $circle_data->operator;
                     $user->circle = $circle_data->circle;
@@ -230,6 +229,7 @@ class RegisterController extends Controller
                 $user->save();
                 $user = User::where('mobile_number', $request->mobile_number)->first();
             }
+            $user->user_status = 'Active';
             $user->user_fname = $request->user_fname;
             $user->user_lname = $request->user_lname;
             if (isset($user->email) && $user->email == null) {
@@ -239,48 +239,15 @@ class RegisterController extends Controller
             if (isset($user->tel_chat_Id) && $user->tel_chat_Id == null || empty($user->tel_chat_Id) || $user->tel_chat_Id == '') {
                 $user->tel_chat_Id = $request->telegram_chat_Id;
             }
-            // Check UPI Validation
-            if(isset($request->my_upi_id) && $request->my_upi_id != null){
-                $curl = curl_init();
-                $apiUrl = 'https://api.cashfree.com/api/v2/upi/validate/'.$request->my_upi_id;
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => $apiUrl,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Cache-Control: no-cache',
-                        'X-Client-Id: '.config('custom.custom.cashfree_key'),
-                        'X-Client-Secret: '.config('custom.custom.cashfree_secret')
-                    ),
-                ));
-                $response = curl_exec($curl);
-                if ($response === false) {
-                    return redirect()->back()->withInput()->with('error', curl_error($curl));
-                } else {
-                    $response = json_decode($response);
-                }
-                if (isset($response->status) && $response->status == 'OK' && isset($response->valid) && $response->valid == 1) {
-                    $user->upi = $request->my_upi_id;
-                    // $response->vpa; // If Valid will get this details
-                    // $response->status; // If Valid will get this details
-                    // $response->valid; // If Valid will get this details
-                    // $response->name; // If Valid will get this details
-                }
-                curl_close($curl);
-            }
+            $user->upi = $request->my_upi_id;
             // $user->user_status = 'Inactive';
-            if($user->user_role == 'S'){
+            if ($user->user_role == 'S') {
                 $user->user_role = 'S';
-            }elseif($user->user_role == 'A'){
+            } elseif ($user->user_role == 'A') {
                 $user->user_role = 'A';
-            }elseif($user->user_role == 'L'){
+            } elseif ($user->user_role == 'L') {
                 $user->user_role = 'L';
-            }else{
+            } else {
                 $user->user_role = 'U';
             }
             $user->user_slug = $this->generateUserSlug($request->user_fname, $request->user_lname, $request->mobile_number); // Set the user_slug value
