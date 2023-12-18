@@ -68,6 +68,7 @@ class RegisterController extends Controller
             'last_name.required' => 'The last name field is required.',
         ]);
     }
+
     // /**
     //  * Create a new user instance after a valid registration.
     //  *
@@ -266,6 +267,7 @@ class RegisterController extends Controller
                 $userReferral->admin_slug = $admin->user_slug;
                 $userReferral->save();
             }
+
             $userRole = new UserRole();
             $userRole->user_id = $user->id;
             $userRole->role = 'U';

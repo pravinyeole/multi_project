@@ -124,7 +124,7 @@ class CommonController extends Controller
                 }
                 $user->save();
             }
-            if($user->status == 'Inactive' && $user->user_fname == "" && $user->user_lname == ""){
+            if($user->user_status == 'Inactive' && $user->user_fname == "" && $user->user_lname == ""){
                 UserOtp::where('user_id', $user->id)->delete();
                 $otp = mt_rand(100000, 999999);
                 $userOtp = UserOtp::create([
