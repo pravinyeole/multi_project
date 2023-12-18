@@ -77,13 +77,15 @@ class LoginController extends Controller
                 ]);
                 $userMpin = UserMpin::where('uid', $user->id)->get();
                 $referal_check = UserReferral::where('user_id', $user->id)->first();
-                if (count($userMpin) == 0) {
-                    if ($referal_check == null) {
-                        return redirect()->route('login')->with('error', 'Invalid User! No Refferal code found');
+                if($user->user_role == 'U'){
+                    if (count($userMpin) == 0) {
+                        if ($referal_check == null) {
+                            return redirect()->route('login')->with('error', 'Invalid User! No Refferal code found');
+                        }
+                        return view('auth.register', compact('user', 'referal_check'));
+                    } elseif ($user->user_status == 'Inactive') {
+                        return redirect()->route('login')->with('error', 'Inactive Account! Contact Admin to Activate');
                     }
-                    return view('auth.register', compact('user', 'referal_check'));
-                } elseif ($user->user_status == 'Inactive') {
-                    return redirect()->route('login')->with('error', 'Inactive Account! Contact Admin to Activate');
                 }
                 Auth::login($user);
                 return $this->sendLoginResponse($request);
