@@ -124,23 +124,31 @@ class CommonController extends Controller
                 }
                 $user->save();
             }
-            UserOtp::where('user_id', $user->id)->delete();
-            $otp = mt_rand(100000, 999999);
-            $userOtp = UserOtp::create([
-                'user_id' => $user->id,
-                'phone_otp' => $otp,
-            ]);
-            // Send OTP API Call
-            $response  = $this->sendOTPAPI($mobileNumber, $otp);
-            if ($response != 1) {
-                // $redirectUrl = route('login');
-                return response()->json(['status' => 'error', 'message' => 'Somthing Went Wrong,Please Try again'], 200);
+            if($user->status == 'Inactive' && $user->user_fname == "" && $user->user_lname == ""){
+                UserOtp::where('user_id', $user->id)->delete();
+                $otp = mt_rand(100000, 999999);
+                $userOtp = UserOtp::create([
+                    'user_id' => $user->id,
+                    'phone_otp' => $otp,
+                ]);
+                // Send OTP API Call
+                $response  = $this->sendOTPAPI($mobileNumber, $otp);
+                if ($response != 1) {
+                    // $redirectUrl = route('login');
+                    return response()->json(['status' => 'error', 'message' => 'Somthing Went Wrong,Please Try again'], 200);
+                }
+                // Check if the entered OTP matches the stored OTP for the user
+                $userOtp = UserOtp::where('user_id', $user->id)->first();
+                // After successfully sending the OTP, prepare the redirect URL
+                // $redirectUrl = route('show-enter-otp', ['user_id' => $userId,'mobileNumber'=>$mobileNumber]);
+                return response()->json(['status' => 'success', 'message' => 'OTP sent successfully', 'uid' => $user->id], 200);
+            }else{
+                $checkMypin = UserMpin::where('uid', $user->id)->get();
+                if (count($checkMypin) == 1) {
+                    $redirectUrl = route('show-enter-mpin', ['user_id' => $user->id, 'mobileNumber' => $mobileNumber, 'mpincheck' => 1]);
+                    return response()->json(['message' => 'Mobile NUmber already Registerd.<br>Enter your mPIN for Login', "redirect_url" => $redirectUrl], 200);
+                }
             }
-            // Check if the entered OTP matches the stored OTP for the user
-            $userOtp = UserOtp::where('user_id', $user->id)->first();
-            // After successfully sending the OTP, prepare the redirect URL
-            // $redirectUrl = route('show-enter-otp', ['user_id' => $userId,'mobileNumber'=>$mobileNumber]);
-            return response()->json(['status' => 'success', 'message' => 'OTP sent successfully', 'uid' => $user->id], 200);
         }
         $user = User::where('mobile_number', $mobileNumber)->first();
         if (!$user) {
@@ -172,7 +180,7 @@ class CommonController extends Controller
         $checkMypin = UserMpin::where('uid', $user->id)->get();
         if (count($checkMypin) == 1) {
             $redirectUrl = route('show-enter-mpin', ['user_id' => $user->id, 'mobileNumber' => $mobileNumber, 'mpincheck' => 1]);
-            return response()->json(['message' => 'Mobile NUmber already Registerd.Enter your mPIN for Login', "redirect_url" => $redirectUrl], 200);
+            return response()->json(['message' => 'Mobile NUmber already Registerd.<br>Enter your mPIN for Login', "redirect_url" => $redirectUrl], 200);
         }
         $now = Carbon::now();
         $otpvalidtime = config('custom.custom.otpvalidtime');

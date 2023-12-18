@@ -46,7 +46,7 @@ class SendTelegramAutoResponse implements ShouldQueue
                     $checkExist = User::where('tel_chat_Id', $chatId)->first();
                     if ($checkExist == null) {
                         if (isset($update['message']['text']) && $update['message']['text'] == "/start") {
-                            $response_message = 'Hello, ' . $chatId . ' this is your Chat ID.Update this on your Profile Page';
+                            $response_message = 'Welcome to INR Bharat. Please copy the below Chat ID and update on Registration/Profile page.';
                             if (isset($update['message']['chat']['id'])) {
                                 if (!in_array($chatId, $emAry)) {
                                     array_push($emAry, $chatId);
@@ -55,6 +55,12 @@ class SendTelegramAutoResponse implements ShouldQueue
                                         'json' => [
                                             'chat_id' => $chatId,
                                             'text' => $response_message,
+                                        ],
+                                    ]);
+                                    $response = $client->post($url, [
+                                        'json' => [
+                                            'chat_id' => $chatId,
+                                            'text' => $chatId,
                                         ],
                                     ]);
                                 }

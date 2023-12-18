@@ -452,7 +452,10 @@
                 $('#verify_mobile').css('display', 'block');
                 $('#resendOtpBtn').css('display', 'block');
               } else {
-                toastr.error('Failed to send OTP');
+                toastr.error(response.message);
+                window.setTimeout(function() {
+                    window.location.href = response.redirect_url; 
+                }, 4000);
               }
             }
           });
