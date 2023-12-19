@@ -142,18 +142,18 @@ class HelpIncomeController extends Controller
             $level_5 = $level_5->whereRaw($condtion1);
         }
         $allTotal['level_5'] = $level_5->sum('amount');
-        $level_6 = PaymentDistribution::where('reciver_id', Auth::user()->id)
-            ->where('level', 'LVL6');
-        if ($condtion1) {
-            $level_6 = $level_6->whereRaw($condtion1);
-        }
-        $allTotal['level_6'] = $level_6->sum('amount');
-        $level_7 = PaymentDistribution::where('reciver_id', Auth::user()->id)
-            ->where('level', 'LVL7');
-        if ($condtion1) {
-            $level_7 = $level_7->whereRaw($condtion1);
-        }
-        $allTotal['level_7'] = $level_7->sum('amount');
+        // $level_6 = PaymentDistribution::where('reciver_id', Auth::user()->id)
+        //     ->where('level', 'LVL6');
+        // if ($condtion1) {
+        //     $level_6 = $level_6->whereRaw($condtion1);
+        // }
+        // $allTotal['level_6'] = $level_6->sum('amount');
+        // $level_7 = PaymentDistribution::where('reciver_id', Auth::user()->id)
+        //     ->where('level', 'LVL7');
+        // if ($condtion1) {
+        //     $level_7 = $level_7->whereRaw($condtion1);
+        // }
+        // $allTotal['level_7'] = $level_7->sum('amount');
         // }
         $allTotalTwo['bpin_used'] = UserSubInfo::where('user_id', Auth::user()->id)->count('user_sub_info_id');
         $allTotalTwo['total_sh'] = 0;
