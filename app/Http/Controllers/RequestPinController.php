@@ -52,7 +52,7 @@ class RequestPinController extends Controller
         'no_of_pin_requested.integer' => 'The number of pins must be an integer.',
       ]);
       $findAdmin = User::where('user_slug', $request->admin_slug)->count();
-     
+
       if (isset($findAdmin) && ($findAdmin <= 0 || $findAdmin == null)) {
         return redirect()->back()->with('error', 'Admin Slug is invalid');
       }
@@ -76,7 +76,6 @@ class RequestPinController extends Controller
       return redirect()->back()->with('error', 'Admin Slug is invalid');
     }
   }
-
 
   public function showAdminRequestAcceptPage(Request $request)
   {
@@ -123,50 +122,50 @@ class RequestPinController extends Controller
     return view('requestpin.edit_req_admin_page', compact('title', 'user'));
   }
 
-  public function updatePinRequestByAdmin($reqid,Request $request){
+  public function updatePinRequestByAdmin($reqid, Request $request)
+  {
     $pin_request_id = Crypt::decryptString($reqid);
-    $reqDetails = RequestPin::where('status','pending')->where('request_pin.pin_request_id', $pin_request_id)->first();
-    if($reqDetails){
-        
-    }else{
-        return redirect()->back()->with('error', 'Sorry,Inavlid Request ID or Somthing went wrong.');
+    $reqDetails = RequestPin::where('status', 'pending')->where('request_pin.pin_request_id', $pin_request_id)->first();
+    if ($reqDetails) {
+    } else {
+      return redirect()->back()->with('error', 'Sorry,Inavlid Request ID or Somthing went wrong.');
     }
-    try{
-      $checkIsSuperAdmin= User::where('id',Auth::user()->id)->where('user_role','S')->first();
+    try {
+      $checkIsSuperAdmin = User::where('id', Auth::user()->id)->where('user_role', 'S')->first();
       if (isset($checkIsSuperAdmin)) {
         // Code for Superadmin
-        $userPins = UserPin::where('user_id',$reqDetails->req_user_id)->first();
+        $userPins = UserPin::where('user_id', $reqDetails->req_user_id)->first();
         $userPins->pins = $userPins->pins + $reqDetails->no_of_pin;
         $userPins->update();
-        $requestPins = RequestPin::where('pin_request_id',$reqDetails->pin_request_id)->first();
-        $requestPins->status ='completed'; 
+        $requestPins = RequestPin::where('pin_request_id', $reqDetails->pin_request_id)->first();
+        $requestPins->status = 'completed';
         $requestPins->updated_at = Carbon::now();
         $requestPins->update();
         return redirect()->back()->with('success', 'Pins Transfer successfully!!');
       } else {
-        $updateSelfPins = UserPin::where('user_id',Auth::user()->id)->first();
-        $adminAvaiablePins = $updateSelfPins->pins ;
-        if($reqDetails->no_of_pin >= $adminAvaiablePins){
+        $updateSelfPins = UserPin::where('user_id', Auth::user()->id)->first();
+        $adminAvaiablePins = $updateSelfPins->pins;
+        if ($reqDetails->no_of_pin >= $adminAvaiablePins) {
           return redirect()->back()->with('error', 'Your Available Pins Balances is low.Please connect to Superadmin');
         }
-        if($reqDetails->no_of_pin >= $adminAvaiablePins){
-            $updateSelfPins->pins = $reqDetails->no_of_pin - $adminAvaiablePins;
-        }else{
-            $updateSelfPins->pins = $adminAvaiablePins - $reqDetails->no_of_pin;
+        if ($reqDetails->no_of_pin >= $adminAvaiablePins) {
+          $updateSelfPins->pins = $reqDetails->no_of_pin - $adminAvaiablePins;
+        } else {
+          $updateSelfPins->pins = $adminAvaiablePins - $reqDetails->no_of_pin;
         }
         $updateSelfPins->updated_at = Carbon::now();
         $updateSelfPins->update();
-        $userPins = UserPin::where('user_id',$reqDetails->req_user_id)->first();
+        $userPins = UserPin::where('user_id', $reqDetails->req_user_id)->first();
         $userPins->pins = $userPins->pins + $reqDetails->no_of_pin;
         $userPins->update();
-        $requestPins = RequestPin::where('pin_request_id',$reqDetails->pin_request_id)->first();
-        $requestPins->status ='completed'; 
+        $requestPins = RequestPin::where('pin_request_id', $reqDetails->pin_request_id)->first();
+        $requestPins->status = 'completed';
         $requestPins->updated_at = Carbon::now();
         $requestPins->update();
         return redirect()->back()->with('success', 'Pins Transfer successfully!!');
       }
-     }catch(\Exception $e) {
-        return redirect()->back()->with('success', config('messages.500'));
+    } catch (\Exception $e) {
+      return redirect()->back()->with('success', config('messages.500'));
     }
   }
 
@@ -233,7 +232,7 @@ class RequestPinController extends Controller
         ->where('user_referral.admin_slug', Auth::user()->user_slug)
         ->get();
     }
-    return view('reffral.index', compact('title', 'data','create_button'));
+    return view('reffral.index', compact('title', 'data', 'create_button'));
   }
   public function adminTransferPinSubmit(Request $request)
   {
@@ -245,7 +244,7 @@ class RequestPinController extends Controller
       $tarspin->trans_count = $request->trans_number;
       $tarspin->trans_reason = $request->trans_reason;
       $tarspin->save();
-      
+
       if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
         UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
         $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);
@@ -297,91 +296,80 @@ class RequestPinController extends Controller
   public function pendingrequests(Request $request)
   {
     $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
-        ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
-    return view('admin.pincenter.pendingrequests',compact('requestedPins'));
+      ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+    return view('admin.pincenter.pendingrequests', compact('requestedPins'));
   }
   public function transactionhistory(Request $request)
   {
     $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
-    ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as dr', 'transfer_pin_history.created_at')
-    ->where('transfer_pin_history.trans_by', Auth::user()->id)->get()->toArray();
+      ->select('users.user_fname', 'users.user_lname', 'users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as dr', 'transfer_pin_history.created_at')
+      ->where('transfer_pin_history.trans_by', Auth::user()->id)->get()->toArray();
     $tarnsferto = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
-    ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as cr', 'transfer_pin_history.created_at')
-    ->where('transfer_pin_history.trans_to', Auth::user()->id)->get()->toArray();
-    $arra = array_merge($tarnsferHistory,$tarnsferto);
-    return view('admin.pincenter.transactionhistory',compact('arra'));
+      ->select('users.user_fname', 'users.user_lname', 'users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason as cr', 'transfer_pin_history.created_at')
+      ->where('transfer_pin_history.trans_to', Auth::user()->id)->get()->toArray();
+    $arra = array_merge($tarnsferHistory, $tarnsferto);
+    return view('admin.pincenter.transactionhistory', compact('arra'));
   }
 
   public function useradminTransferPinSubmit(Request $request)
-  { 
+  {
     $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
-    
+
     if ($checkBalance >= $request->trans_number && $request->trans_number > 0) {
       $tarspin = new TransferPin();
       $tarspin->trans_by = Auth::user()->id;
       $tarspin->trans_to = $request->trans_id;
       $tarspin->trans_count = $request->trans_number;
       $tarspin->save();
-      
-      
-      
+
       if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
         UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->trans_number);
         $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);
         $inventory->pins = ($inventory->pins + $request->trans_number);
         $inventory->save();
-        
-        $data = User::where('id', $request->trans_id)->update(['user_status'=>'Active']);
-        return ["data"=>'success','res'=> 'Pin Transfer Successfully.'];
+
+        $data = User::where('id', $request->trans_id)->update(['user_status' => 'Active']);
+        return ["data" => 'success', 'res' => 'Pin Transfer Successfully.'];
       }
     }
-    return ["data"=>'error','res'=>'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.'];
+    return ["data" => 'error', 'res' => 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.'];
   }
 
   public function anyoneTransferPinSubmit(Request $request)
-  { 
-    
+  {
     // $user = User::where('mobile_number',$request->mobile_no)->count();
-
     // if($user == 1)
     // {
-      if($request->current_bpin >= $request->requestBpin)
-      {
-      $user = User::where('mobile_number',trim($request->mobile_no))->first();
-        $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
-        
-        if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {
-          $tarspin = new TransferPin();
-          $tarspin->trans_by = Auth::user()->id;
-          $tarspin->trans_to = $user->id;
-          $tarspin->trans_count = $request->requestBpin;
-          $tarspin->save();
-          
-          
-          
-          if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
-            UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->requestBpin);
-            $inventory = UserPin::firstOrNew(['user_id' => $user->id]);
-            $inventory->pins = ($inventory->pins + $request->requestBpin);
-            $inventory->save();
-            
-            return redirect()->back()->with('success', 'Pin Transfer Successfully.');
-          }
+    if ($request->current_bpin >= $request->requestBpin) {
+      $user = User::where('mobile_number', trim($request->mobile_no))->first();
+      $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
+      if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {
+        $tarspin = new TransferPin();
+        $tarspin->trans_by = Auth::user()->id;
+        $tarspin->trans_to = $user->id;
+        $tarspin->trans_count = $request->requestBpin;
+        $tarspin->save();
+
+        if (isset($tarspin->trans_id) && $tarspin->trans_id > 0) {
+          UserPin::where('user_id', Auth::user()->id)->decrement('pins', $request->requestBpin);
+          $inventory = UserPin::firstOrNew(['user_id' => $user->id]);
+          $inventory->pins = ($inventory->pins + $request->requestBpin);
+          $inventory->save();
+
+          return redirect()->back()->with('success', 'Pin Transfer Successfully.');
+        }
+      } else {
+        Session::flash('message', "Your Bpin is less than your trasfer pin");
+        Session::flash('alert-class', 'alert-danger');
+        return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
       }
-      else
-      {
-          Session::flash('message', "Your Bpin is less than your trasfer pin"); 
-          Session::flash('alert-class', 'alert-danger'); 
-          return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
-      }
-    // }
-    // else
-    // {
-    //     Session::flash('message', "$request->mobile_no this mobile number is not register"); 
-    //     Session::flash('alert-class', 'alert-danger'); 
-    //     return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
-    // }
-    
+      // }
+      // else
+      // {
+      //     Session::flash('message', "$request->mobile_no this mobile number is not register"); 
+      //     Session::flash('alert-class', 'alert-danger'); 
+      //     return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
+      // }    
     }
     return redirect()->back()->with('error', 'You Dont Have Pin Balance to Transfer OR Incorrect Count to Transfer.');
   }
