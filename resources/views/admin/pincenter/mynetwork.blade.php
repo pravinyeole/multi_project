@@ -74,7 +74,8 @@
                                 <tr>
                                     <td>{{$i}}</td>
                                     <td>{{$i}}</td>
-                                    <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link" data-level="{{base64_encode(implode(',',$myLveledata['level_id_'.$i]))}}">{{$v}}</a></td>
+                                    <!-- <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link" data-level="{{base64_encode(implode(',',$myLveledata['level_id_'.$i]))}}">{{$v}}</a></td> -->
+                                    <td><a href="#idlist" class="link" data-level="{{base64_encode(implode(',',$myLveledata['level_id_'.$i]))}}">{{$v}}</a></td>
                                 </tr>
                                 @php $i++; @endphp
                                 @endif
