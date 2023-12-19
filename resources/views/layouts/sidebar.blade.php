@@ -40,7 +40,7 @@
         <li class="nav-item @if(Request::is($menu->slug.'/*') || Request::is($menu->slug)) active  @endif" {{ $custom_classes }}">
             <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link collapsed @if(isset($menu->submenu)) submenu @endif" target="{{isset($menu->newTab) ? '_blank':'_self'}}">
                 @if(isset($menu->img_icon) && $menu->img_icon != null)
-                <img class="menu-icon" src="{{url('menu_icon/').'/'.$menu->img_icon}}" width="20" height="20"></img>
+                <img class="menu-icon" src="{{asset('menu_icon/').'/'.$menu->img_icon}}" width="20" height="20"></img>
                 @else
                 <i class="menu-icon" data-feather="{{$menu->icon}}"></i>
                 @endif
@@ -60,7 +60,7 @@
         @endforeach
         <li class="nav-item ">
             <a href="{{ url('two-fact-auth/updateProfile') }}" class="nav-link collapsed " target="_self">
-                <img class="menu-icon" src="{{url('menu_icon/profile.jpeg')}}" width="20" height="20"></img>
+                <img class="menu-icon" src="{{asset('menu_icon/profile.jpeg')}}" width="20" height="20"></img>
                 <span class="menu-title text-truncate">My Profile</span>
             </a>
 
