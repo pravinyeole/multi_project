@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Models\InsuranceAgency;
 use App\Models\User;
-use App\Models\Client;
 use GuzzleHttp\Client;
 use App\Models\Carrier;
 use App\Models\InsurancePlan;
