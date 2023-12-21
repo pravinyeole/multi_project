@@ -36,7 +36,7 @@
             <h3>{{$data['myPinBalance']}}</h3>
           </div>
         </div>
-        <div class="quota-timer d-none">  
+        <div id="quota-timer" class="quota-timer d-none">  
           Today’s Quota is Full. Please try after <p id="demo"></p>
           <script>
             var tomorrow = new Date();
@@ -44,11 +44,12 @@
             var year = tomorrow.getFullYear();
             var mes = tomorrow.getMonth()+1;
             var dia = tomorrow.getDate();
-            var fecha =dia+"-"+mes+"-"+year;
+            const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
+            
 
-            console.log('new_date',fecha);
             // Set the date we're counting down to
-            var countDownDate = new Date("Dec 16, 2023 10:00:00").getTime();
+            var countDownDate = new Date(fecha).getTime();
             // Update the count down every 1 second
             var x = setInterval(function() {
               // Get today's date and time
@@ -79,6 +80,9 @@
               }
             }, 1000);
           </script>
+        </div>
+        <div id="btn-createid" class="text-center form-group mb-3 d-none">
+          <a href="{{url('/normal_user')}}" id="createId" class="btn create-btn text-white"><span>+</span> Create Id</a>
         </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
@@ -236,4 +240,22 @@
 </div>
 @endsection
 @section('page-script')
+<script>
+  $(document).ready(function() {
+    var tomorrow = new Date();
+    let hour_check = tomorrow.getHours();
+    if(hour_check >= 10 && hour_check <= 16)
+    {
+      console.log("hii");
+      $('#btn-createid').removeClass("d-none");
+      $('#quota-timer').addClass("d-none");
+    }
+    else
+    {
+      console.log("bye");
+      $('#quota-timer').removeClass("d-none");;
+      $('#btn-createid').addClass("d-none");
+    }
+  });
+</script>
 @endsection
