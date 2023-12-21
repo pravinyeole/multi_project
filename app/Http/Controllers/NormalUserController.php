@@ -191,7 +191,7 @@ class NormalUserController extends Controller
     public function createIdClone()
     {
         if (date('l') != 'Sunday') {
-            $mobileNumber = ['9096093799', '7620801801', '7083124124', '9922226114', '9922020123', '9860838087', '7778882312'];
+            $mobileNumber = ['9922020123','9860838087','9996668997','9975702645','7778882312','8149702000','7745859535','9595085302','9172811929','7620801801','9130669169'];
             $k = 1;
             $createdIds = [];
             for ($i = 0; $i < count($mobileNumber); $i++) {

@@ -664,25 +664,6 @@ class UserController extends Controller
         }
     }
 
-    public function updateStatus(Request $request){
-        $type = ($request->type == 'Inactive') ? 'Decrement' : 'Increment';
-        if (in_array(Session('USER_TYPE'), ['A', 'SA'])) {
-            $user = User::where('id', $request->id)->first();
-            $insuranceAgencies = UserRole::with('insuranceAgency')->where('user_id',$user->id)->get()->pluck('insuranceAgency');
-            foreach($insuranceAgencies as $insuranceAgency){
-                $this->updateTeamLicenceQty($insuranceAgency->user_id, $type);
-            }
-        } else {
-            $insurance_agency_id = Auth::user()->getInsuranceAgencyID();
-            $agency = InsuranceAgency::where('insurance_agency_id', $insurance_agency_id)->first();
-            $this->updateTeamLicenceQty($agency->user_id, $type);
-        }
-        // $this->modifyStatus($request, 'User', 'user_status');
-        $insurance_agency_id = Auth::user()->getInsuranceAgencyID();
-        //changes By Narsing for active/inactive
-        $this->modifyRoleStatus($request, $insurance_agency_id, 'UserRole', 'user_role_status');
-    }
-
     public function destroy(Request $request)
     {
         try {

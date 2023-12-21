@@ -9,6 +9,7 @@ use App\Models\UserPin;
 use App\Models\UserReferral;
 use App\Models\RequestPin;
 use App\Models\TransferPin;
+use App\Traits\CommonTrait;
 use DataTables;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Crypt;
 use Redirect;
 class PinCenterController extends Controller
 {
+    use CommonTrait;
     //
     public function __construct(){
         $this->title        = "Pin Center";

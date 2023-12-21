@@ -15,9 +15,11 @@ use DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Session;
+use App\Traits\CommonTrait;
 
 class RequestPinController extends Controller
 {
+  use CommonTrait;
   //
   public function __construct()
   {
@@ -68,6 +70,12 @@ class RequestPinController extends Controller
 
       // Save the request pin in the database
       $requestPin->save();
+
+        $user = User::where('id', trim($user_id))->first();
+        $recMsg = 'ƀPIN received successfully. Quantity: '.$validatedData['no_of_pin_requested'].' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $senderMsg = 'ƀPIN sent successfully. Quantity: '.$validatedData['no_of_pin_requested'].' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+        $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg);
 
       toastr()->success('Pin request sent successfully');
       return redirect()->back();
@@ -162,6 +170,12 @@ class RequestPinController extends Controller
         $requestPins->status = 'completed';
         $requestPins->updated_at = Carbon::now();
         $requestPins->update();
+
+        $user = User::where('id', trim($request->req_user_id))->first();
+        $recMsg = 'ƀPIN received successfully. Quantity: '.$reqDetails->no_of_pin.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $senderMsg = 'ƀPIN sent successfully. Quantity: '.$reqDetails->no_of_pin.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+        $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg);
         return redirect()->back()->with('success', 'Pins Transfer successfully!!');
       }
     } catch (\Exception $e) {
@@ -206,7 +220,11 @@ class RequestPinController extends Controller
           toastr()->error("Your Available Pins Balance is low. Please connect to Superadmin");
           return redirect()->back();
         }
-
+        $user = User::where('id', trim($request->req_user_id))->first();
+        $recMsg = 'ƀPIN received successfully. Quantity: '.$request->no_of_pins.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $senderMsg = 'ƀPIN sent successfully. Quantity: '.$request->no_of_pins.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+        $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg);
         toastr()->success('Pins Transfer successfully!!');
         return redirect('pins-request');
       }
@@ -250,6 +268,11 @@ class RequestPinController extends Controller
         $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);
         $inventory->pins = ($inventory->pins + $request->trans_number);
         $inventory->save();
+        $user = User::where('id', trim($request->trans_id))->first();
+        $recMsg = 'ƀPIN received successfully. Quantity: '.$request->trans_number.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $senderMsg = 'ƀPIN sent successfully. Quantity: '.$request->trans_number.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+        $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg);
         return redirect()->back()->with('success', 'Pin Transfer Successfully.');
       }
     }
@@ -327,7 +350,11 @@ class RequestPinController extends Controller
         $inventory = UserPin::firstOrNew(['user_id' => $request->trans_id]);
         $inventory->pins = ($inventory->pins + $request->trans_number);
         $inventory->save();
-
+        $user = User::where('id', trim($request->trans_id))->first();
+        $recMsg = 'ƀPIN received successfully. Quantity: '.$request->trans_number.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $senderMsg = 'ƀPIN sent successfully. Quantity: '.$request->trans_number.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+        $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+        $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg);
         $data = User::where('id', $request->trans_id)->update(['user_status' => 'Active']);
         return ["data" => 'success', 'res' => 'Pin Transfer Successfully.'];
       }
@@ -342,6 +369,9 @@ class RequestPinController extends Controller
     // {
     if ($request->current_bpin >= $request->requestBpin) {
       $user = User::where('mobile_number', trim($request->mobile_no))->first();
+      if($user == null){
+        return redirect()->back()->with('error', 'Destination Mobile Number Not Registered.');
+      }
       $checkBalance  = UserPin::where('user_id', Auth::user()->id)->where('pins', '>', '0')->sum('pins');
       if ($checkBalance >= $request->requestBpin && $request->requestBpin > 0) {
         $tarspin = new TransferPin();
@@ -355,7 +385,10 @@ class RequestPinController extends Controller
           $inventory = UserPin::firstOrNew(['user_id' => $user->id]);
           $inventory->pins = ($inventory->pins + $request->requestBpin);
           $inventory->save();
-
+          $recMsg = 'ƀPIN received successfully. Quantity: '.$request->requestBpin.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+          $senderMsg = 'ƀPIN sent successfully. Quantity: '.$request->requestBpin.' Sender: '.Auth::user()->mobile_number.'. Receiver: '.$user->mobile_number.'.';
+          $this->sendTelegramMsg($user->tel_chat_Id,$recMsg); 
+          $this->sendTelegramMsg(Auth::user()->tel_chat_Id,$senderMsg); 
           return redirect()->back()->with('success', 'Pin Transfer Successfully.');
         }
       } else {

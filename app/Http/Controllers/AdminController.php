@@ -345,33 +345,6 @@ class AdminController extends Controller
         }
     }
 
-    //Status change of record
-    public function updateStatus(Request $request){
-        try{
-            // if(!$this->isAdmin()){
-            //     $insurance_agency_id =    Auth::user()->insurance_agencies->insurance_agency_id;
-            // }else{
-            //     $insurance_agency_id =    Auth::user()->insurance_agency_id;
-            // }
-            $insurance_agency_id = Auth::user()->getInsuranceAgencyID();
-
-            $agency = InsuranceAgency::where('insurance_agency_id',$insurance_agency_id)->first();
-            if($request->type == 'Inactive'){ // Decrement team licence subscription
-                $type = 'Decrement';
-            }else{ // Increment team licence subscription
-                $type = 'Increment';
-            }
-            $this->updateTeamLicenceQty($agency->user_id, $type);
-
-            $this->modifyStatus($request, 'User', 'user_status');
-        }catch (\Exception $e){
-            $resultArr['title'] = 'Error';
-            $resultArr['message'] = 'Something went wrong';
-            echo json_encode($resultArr);
-            exit;
-        }
-    }
-
     //Delete record
     public function destroy(Request $request){
         try{
