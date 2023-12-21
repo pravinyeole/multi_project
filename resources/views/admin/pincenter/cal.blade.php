@@ -127,20 +127,6 @@
                         </span>
                         <h3><sup>₹</sup>{{$allTotal['level_5'] }}</h3>
                     </div>
-                    <div class="list-item d-flex align-items-center justify-content-between">
-                        <span>
-                            <img src="{{asset('images/cash.png')}}" alt="">
-                            AL6 Income
-                        </span>
-                        <h3><sup>₹</sup>{{$allTotal['level_6'] }}</h3>
-                    </div>
-                    <div class="list-item d-flex align-items-center justify-content-between">
-                        <span>
-                            <img src="{{asset('images/cash.png')}}" alt="">
-                            AL7 Income
-                        </span>
-                        <h3><sup>₹</sup>{{$allTotal['level_7'] }}</h3>
-                    </div>
                 </div>
                 @endif
             </div>

@@ -63,7 +63,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr.No</th>
-                                    <th>Lavel</th>
+                                    <th>Level</th>
                                     <th>No of ID</th>
                                 </tr>
                             </thead>
