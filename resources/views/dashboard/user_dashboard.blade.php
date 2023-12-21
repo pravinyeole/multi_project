@@ -244,7 +244,7 @@
   $(document).ready(function() {
     var tomorrow = new Date();
     let hour_check = tomorrow.getHours();
-    if(hour_check >= 10 && hour_check <= 16)
+    if(hour_check >= 10 && hour_check <= 11 || hour_check >= 18 && hour_check <= 19)
     {
       $('#btn-createid').removeClass("d-none");
       $('#quota-timer').addClass("d-none");
