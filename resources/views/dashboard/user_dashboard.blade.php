@@ -82,7 +82,7 @@
           </script>
         </div>
         <div id="btn-createid" class="text-center form-group mb-3 d-none">
-          <a href="{{url('/normal_user')}}" id="createId" class="btn create-btn text-white"><span>+</span> Create Id</a>
+          <a href="javascript:void()" data-toggle="modal" data-target="#modals-slide-in" id="createId" class="btn create-btn text-white"><span>+</span> Create Id</a>
         </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
@@ -246,13 +246,11 @@
     let hour_check = tomorrow.getHours();
     if(hour_check >= 10 && hour_check <= 16)
     {
-      console.log("hii");
       $('#btn-createid').removeClass("d-none");
       $('#quota-timer').addClass("d-none");
     }
     else
     {
-      console.log("bye");
       $('#quota-timer').removeClass("d-none");;
       $('#btn-createid').addClass("d-none");
     }
