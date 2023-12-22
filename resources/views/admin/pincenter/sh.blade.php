@@ -191,7 +191,7 @@
                                 <input type="text" class="form-control" id="lname" aria-describedby="lname" placeholder="Last Name" readonly>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <label class="d-block font-weight-bold mb-2">Payment Method</label>
                         </div>
                         <div class="col-6">
@@ -226,7 +226,7 @@
                                 <input type="radio" name="payment" id="PayTM" value="paytm" required />
                                 <div class="slider round"></div>
                             </label>
-                        </div>
+                        </div> -->
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="utrnumber" name="utrnumber" aria-describedby="utrnumber" placeholder="Transaction ID / UTR No." readonly>
