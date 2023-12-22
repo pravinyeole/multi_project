@@ -261,7 +261,7 @@ class DashboardController extends Controller
             $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
 
             // Calculate the initial number of count for the current wx`x`eek
-            $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+            $initialsNoOfCount = ($currentWeek === 0) ? 50 : 50 * pow(2, $currentWeek);
 
             if ($allid == $initialsNoOfCount) {
                 $data['display'] = 1;
