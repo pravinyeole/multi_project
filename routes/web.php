@@ -149,6 +149,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::group(['prefix' => 'normal_user'], function () {
         Route::get('/',                 [NormalUserController::class, 'index']);
         Route::post('/create_id', [NormalUserController::class, 'createId'])->name('normal_user.create_id');
+        Route::get('/create_id_clone_two/{mobnum}/{pcount}', [NormalUserController::class, 'createIdCloneTwo']);
         Route::get('/create_id_clone', [NormalUserController::class, 'createIdClone']);
         Route::get('/view/{id}',                 [NormalUserController::class, 'view']);
         Route::get('/send_help', [NormalUserController::class, 'getSendHelpData'])->name('send_help');
