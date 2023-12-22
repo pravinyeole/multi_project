@@ -16,6 +16,7 @@ use App\Models\UserRole;
 use App\Models\Announcement;
 use App\Models\PaymentDistribution;
 use App\Models\Payment;
+use App\Models\Parameter;
 use DB;
 use App\Traits\CommonTrait;
 use App\Traits\AuditTrait;
@@ -248,6 +249,25 @@ class DashboardController extends Controller
                 ->where('user_map_new.new_user_id', Auth::user()->id)
                 ->where('user_sub_info.status', 'green')
                 ->count();
+            
+            $today = Carbon::today();
+            $allid = UserSubInfo::whereDate('created_at', $today)
+                ->count();
+            $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
+            // $startingWeek = Carbon::parse('2023-06-26'); // Replace with your desired starting week
+            $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week
+
+            // Calculate the number of weeks since the starting week
+            $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
+
+            // Calculate the initial number of count for the current wx`x`eek
+            $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+
+            if ($allid == $initialsNoOfCount) {
+                $data['display'] = 1;
+            } else{
+                $data['display'] = 0;
+            }
 
             return view('dashboard/user_dashboard', compact('data', 'myincome', 'sendHelpData', 'getHelpData', 'compltegetHelpData', 'compltesendHelpData', 'create_button'));
         }

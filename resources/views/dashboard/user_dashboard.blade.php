@@ -41,12 +41,23 @@
           <script>
             var tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate()+1);
+            var today = new Date();
+            today.setDate(today.getDate());
             var year = tomorrow.getFullYear();
             var mes = tomorrow.getMonth()+1;
             var dia = tomorrow.getDate();
+            var date = today.getDate();
             const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-            var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
             
+            let hour_check = tomorrow.getHours();
+            if(hour_check <= 18)
+            {
+              var fecha =date+"-"+month[today.getMonth()]+"-"+year+" 18:00:00";
+            }
+            else
+            {
+              var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
+            }
 
             // Set the date we're counting down to
             var countDownDate = new Date(fecha).getTime();
@@ -242,9 +253,10 @@
 @section('page-script')
 <script>
   $(document).ready(function() {
+    var display = <?php echo json_encode($data['display']); ?>;
     var tomorrow = new Date();
     let hour_check = tomorrow.getHours();
-    if(hour_check >= 10 && hour_check <= 11 || hour_check >= 18 && hour_check <= 19)
+    if((hour_check >= 10 && hour_check < 11 || hour_check >= 18 && hour_check < 19) && display != 1)
     {
       $('#btn-createid').removeClass("d-none");
       $('#quota-timer').addClass("d-none");
