@@ -234,7 +234,7 @@ class NormalUserController extends Controller
                                 $userPins = UserPin::where('user_id', $user_id)->first();
                                 $userPins->pins = $userPins->pins - 1;
                                 $userPins->save();
-                                // echo $i . ' User ID created successfully!' . '<br>';
+                                echo $j . ' User ID created successfully!' . '<br>';
                             }
                         // }
                         // $k++;
