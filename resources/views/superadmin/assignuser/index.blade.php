@@ -315,9 +315,9 @@
                         var htmlassign_one = '';
                         htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
                         $('#assign_inputs').empty();
-                        $('input[type="checkbox"]').each(function(index) {
-                            $('input[type="checkbox"]').attr("disabled", false);
-                            $('input[type="checkbox"]').prop('checked', false);
+                        $('input[type="checkbox"][name="new_user_id"]').each(function(index) {
+                            $('input[type="checkbox"][name="new_user_id"]').attr("disabled", false);
+                            $('input[type="checkbox"][name="new_user_id"]').prop('checked', false);
                         });
                         if ($('#autocheck').val() == 1) {
                             location.reload();
@@ -367,9 +367,9 @@
                     htmlassign += '</div></div>';
                     $('#htmlassign').html('');
                     $('#htmlassign').append(htmlassign);
-                    $('input[type="checkbox"]').each(function(index) {
-                        $('input[type="checkbox"]').attr("disabled", true);
-                        $('input[type="checkbox"]').prop('checked', true);
+                    $('input[type="checkbox"][name="new_user_id"]').each(function(index) {
+                        $('input[type="checkbox"][name="new_user_id"]').attr("disabled", true);
+                        $('input[type="checkbox"][name="new_user_id"]').prop('checked', true);
                     });
                     $('input[type="radio"]').each(function(index) {
                         $('input[type="radio"]').attr("disabled", true);
