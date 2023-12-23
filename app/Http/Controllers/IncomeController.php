@@ -37,7 +37,7 @@ class IncomeController extends Controller
             $payment->comments = (isset($request->comments) && !empty($request->comments)) ? $request->comments : 'No Comments';
             $payment->type = "SH";
             $payment->status = "pending";
-            $payment->payment_type = $request->payment;
+            //$payment->payment_type = $request->payment;
             // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
             $payment->attachment = $request->utrnumber;
             $payment->save();

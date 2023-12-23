@@ -80,7 +80,7 @@ class NormalUserController extends Controller
         $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
         // echo $userIds;
         // Calculate the initial number of count for the current wx`x`eek
-        $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+        $initialsNoOfCount = ($currentWeek === 0) ? 50 : 50 * pow(2, $currentWeek);
 
         $createIdLimit = '';
         if ($allid == $initialsNoOfCount) {
@@ -139,7 +139,7 @@ class NormalUserController extends Controller
             $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
 
             // Calculate the initial number of count for the current wx`x`eek
-            $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+            $initialsNoOfCount = ($currentWeek === 0) ? 50 : 50 * pow(2, $currentWeek);
 
             if ($allid == $initialsNoOfCount) {
                 return redirect()->back()->with('create_id_alert', 'You have reached the maximum limit of ID creations for today!');
@@ -274,7 +274,7 @@ class NormalUserController extends Controller
                         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
                         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week      
                         $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
-                        $initialsNoOfCount = ($currentWeek === 0) ? 10 : 10 * pow(2, $currentWeek);
+                        $initialsNoOfCount = ($currentWeek === 0) ? 50 : 50 * pow(2, $currentWeek);
                         if ($allid == $initialsNoOfCount) {
                             echo $k . ' You have reached the maximum limit of ID creations for today!' . '<br>';
                         } else if ($userIds >= config('custom.custom.user_id_limit')) {
