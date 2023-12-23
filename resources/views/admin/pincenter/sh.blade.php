@@ -94,6 +94,7 @@
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
                                     <th>User ID</th>
+                                    <th>Date</th>
                                     <th>QR</th>
                                     <th>Action</th>
                                     <!-- <th>{{__("labels.action")}}</th> -->
@@ -112,6 +113,7 @@
                                 ?>
                                 <tr>
                                     <td>{{($key+1)}}</td>
+                                    <td>{{date('d-M-Y',strtotime($sh->assigndate))}}</td>
                                     <td>
                                         <div class="">
                                             <a href="#update" data-target="#update" data-toggle="modal" class="link">{{$sh->user_fname}} {{$sh->user_lname}}

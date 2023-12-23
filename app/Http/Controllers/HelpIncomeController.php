@@ -36,7 +36,7 @@ class HelpIncomeController extends Controller
             ->pluck('user_sub_info.mobile_id')->toArray();
         $notInPayment = Payment::where('user_id', Auth::user()->id)->where('status', 'pending')->pluck('mobile_id')->toArray();
         $sendHelpData = UserMap::join('users', 'users.id', 'user_map_new.new_user_id')
-            ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_map_new.user_mobile_id')
+            ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_map_new.user_mobile_id','user_map_new.created_at AS assigndate')
             ->whereIn('user_mobile_id', $sendHelpDataA)
             ->whereNotIn('user_mobile_id', $notInPayment)
             ->where('type', 'GH')->get();
