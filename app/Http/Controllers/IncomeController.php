@@ -39,7 +39,19 @@ class IncomeController extends Controller
             $payment->status = "pending";
             //$payment->payment_type = $request->payment;
             // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
-            $payment->attachment = $request->utrnumber;
+            if ($request->hasFile('ss_payment')) {
+                $image = $request->file('ss_payment');
+                $name = $request->utrnumber.'.'.$image->getClientOriginalExtension();
+                $destinationPath = 'public/images/paymentSS/';
+                if (file_exists($destinationPath.$name)) {
+                    unlink($destinationPath.$name);
+                }
+                $image->move($destinationPath, $name);
+                
+                $payment->attachment = $destinationPath.$name;
+            }else{
+                $payment->attachment = $request->utrnumber;
+            }
             $payment->save();
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
             // Increment total_invited for mobile_number referral
@@ -52,9 +64,9 @@ class IncomeController extends Controller
             if ($referredAdminUser) {
                 $referredAdminUser->increment('total_invited');
             }
-            return redirect()->back()->with('success', 'Send Help Process Completed !!');
+            return redirect('/help/sh_panel')->with('success', 'Send Help Process Completed !!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', config('messages.500'));
+            return redirect('help/sh_panel')->with('error', config('messages.500'));
         }
     }
     public function requestShow(Request $request)

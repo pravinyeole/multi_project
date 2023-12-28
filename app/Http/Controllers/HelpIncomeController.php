@@ -36,7 +36,7 @@ class HelpIncomeController extends Controller
             ->pluck('user_sub_info.mobile_id')->toArray();
         $notInPayment = Payment::where('user_id', Auth::user()->id)->where('status', 'pending')->pluck('mobile_id')->toArray();
         $sendHelpData = UserMap::join('users', 'users.id', 'user_map_new.new_user_id')
-            ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_map_new.user_mobile_id','user_map_new.created_at AS assigndate')
+            ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_map_new.user_mobile_id', 'user_map_new.created_at AS assigndate')
             ->whereIn('user_mobile_id', $sendHelpDataA)
             ->whereNotIn('user_mobile_id', $notInPayment)
             ->where('type', 'GH')->get();
@@ -55,6 +55,14 @@ class HelpIncomeController extends Controller
         // $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
         // $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
         return view('admin.pincenter.sh', compact('sendHelpData', 'mycreatedids'));
+    }
+    public function shPayNow(Request $request)
+    {
+        $result_data = User::select('id', 'user_fname', 'user_lname', 'mobile_number', 'email', 'upi')
+            ->where('id', $request->user_id)->first();
+        $result_data['tran_inr'] = $request->tran_inr;
+        $result_data['tran_mobile'] = $request->tran_mobile;
+        return view('admin.pincenter.paynow', compact('result_data'));
     }
     public function ghPanel(Request $request)
     {
@@ -174,24 +182,24 @@ class HelpIncomeController extends Controller
             ->get();
         $myPinBalance_a = UserPin::where('user_id', Auth::user()->id)->sum('pins');
         $u_mn = Auth::user()->mobile_number;
-        $myLveledata=[];
-        $lvlOneA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->where('user_referral.referral_id',$u_mn)->pluck('users.mobile_number')->toArray();
+        $myLveledata = [];
+        $lvlOneA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->where('user_referral.referral_id', $u_mn)->pluck('users.mobile_number')->toArray();
         $myLveledata['level_1'] = count($lvlOneA);
         $myLveledata['level_id_1'] = $lvlOneA;
-        if($lvlOneA){
-            $lvlTwoA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlOneA)->pluck('users.mobile_number')->toArray();
+        if ($lvlOneA) {
+            $lvlTwoA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlOneA)->pluck('users.mobile_number')->toArray();
             $myLveledata['level_2'] = count($lvlTwoA);
             $myLveledata['level_id_2'] = $lvlTwoA;
-            if($lvlTwoA){
-                $lvlThreeA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlTwoA)->pluck('users.mobile_number')->toArray();
+            if ($lvlTwoA) {
+                $lvlThreeA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlTwoA)->pluck('users.mobile_number')->toArray();
                 $myLveledata['level_3'] = count($lvlThreeA);
                 $myLveledata['level_id_3'] = $lvlThreeA;
-                if($lvlThreeA){
-                    $lvlFourA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlThreeA)->pluck('users.mobile_number')->toArray();
+                if ($lvlThreeA) {
+                    $lvlFourA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlThreeA)->pluck('users.mobile_number')->toArray();
                     $myLveledata['level_4'] = count($lvlFourA);
                     $myLveledata['level_id_4'] = $lvlFourA;
-                    if($lvlFourA){
-                        $lvlFiveA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlFourA)->pluck('users.mobile_number')->toArray();
+                    if ($lvlFourA) {
+                        $lvlFiveA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlFourA)->pluck('users.mobile_number')->toArray();
                         $myLveledata['level_5'] = count($lvlFiveA);
                         $myLveledata['level_id_5'] = $lvlFiveA;
                         // if($lvlFiveA){
@@ -208,6 +216,6 @@ class HelpIncomeController extends Controller
                 }
             }
         }
-        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a','myLveledata'));
+        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata'));
     }
 }
