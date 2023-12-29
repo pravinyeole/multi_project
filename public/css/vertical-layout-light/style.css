@@ -32100,6 +32100,15 @@ input:checked + .slider:before {
       padding: 6px 15px;
   }
 }
+@media (max-width: 768px){
+  #inr3 svg {
+      width:100%;
+      height:auto;
+  }
+  .form-group{
+      margin-bottom:10px;
+  }
+}
 @media all and (max-width:580px){
   .announsement{padding-right: 0;}
   .announsement img{max-width: 120px;}

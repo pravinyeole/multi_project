@@ -8,7 +8,7 @@
 <div class="content-wrapper">
     <div class="bpin-balance">
         <h2>{{$getNoOfPins}}</h2>
-        <p>Total ƀPIN Balance</p>
+        <p>Total rPIN Balance</p>
     </div>
     @if (Session::has('error'))
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -23,7 +23,7 @@
     
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
-        <h4>Send ƀPINs</h4>
+        <h4>Send rPINs</h4>
         </div>
         @if(Session::has('message'))
         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
@@ -34,13 +34,13 @@
             
                 <div class="col-5 col-lg-5 pe-0">
                     <div class="form-group m-0">
-                        <input type="number" class="form-control" name="mobile_no" id="mobile_no" placeholder="Enter Mobile No." required/>
+                        <input type="text" class="form-control" name="mobile_no" id="mobile_no" placeholder="Enter Mobile No." onkeypress="return validateNumber(event)" required/>
                         <input type="hidden" name="current_bpin" value="{{$getNoOfPins}}">
                     </div>
                 </div>
                 <div class="col-4 col-lg-4 pe-0">
                     <div class="form-group m-0">
-                        <input type="number" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of ƀPIN" required/>
+                        <input type="text" class="form-control" name="requestBpin" id="requestBpin" placeholder="No. of rPIN" onkeypress="return validateNumber(event)" required/>
                     </div>
                 </div>
                 <div class="col-3 btn-group pt-0">
@@ -52,7 +52,7 @@
     </div>
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
-        <h4>Request ƀPINs</h4>
+        <h4>Request rPINs</h4>
         </div>
         <form id="requestPinForm" action="{{ route('request-pin.send-request') }}" method="POST">
         @csrf
@@ -60,7 +60,7 @@
             <div class="col-8 col-lg-8 pe-0">
                 <input type="hidden" name="admin_slug" value="{{$adminAssingToLoginUser->admin_slug ?? ''}}">
                 <div class="form-group m-0">
-                    <input type="number" class="form-control" name="no_of_pin_requested" id="requestBpin" placeholder="Enter No. Of ƀPINs" required/>
+                    <input type="text" class="form-control" name="no_of_pin_requested" id="requestBpin" placeholder="Enter Qty" onkeypress="return validateNumber(event)" required/>
                 </div>
             </div>
             <div class="col-4 btn-group pt-0">
@@ -213,6 +213,11 @@
         $('.requestCount').text($('.requestpin_'+rid).text());
         $('.requestDate').text($('.requestdate_'+rid).text());
         $('.requestPinSubmit').attr('action', $('.username_'+rid).attr('data-suburl'));
+    }
+    function validateNumber(e) {
+        const pattern = /^[0-9]$/;
+
+        return pattern.test(e.key )
     }
     </script>
 @endsection

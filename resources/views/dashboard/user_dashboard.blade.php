@@ -30,7 +30,7 @@
           <img src="images/announce.png" alt="" class="img-fuild" />
         </div>
         <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
-          <h5>ƀPIN Balance</h5>
+          <h5>rPIN Balance</h5>
           <div class="info">
             <p>Total</p>
             <h3>{{$data['myPinBalance']}}</h3>
@@ -233,19 +233,19 @@
       <div class="card">
         <div class="card-body">
           <div class="heading pt-0 d-flex align-items-center justify-content-between">
-            <h3 class="pt-0">bPIN Details</h3>
+            <h3 class="pt-0">rPIN Details</h3>
           </div>
           <div class="row flex-grow pin-details">
             <div class="col-4">
-              <p>No. of bPIN Transferred</p>
+              <p>No. of rPIN Transferred</p>
               <h3>{{$data['pinTransferSend']}}</h3>
             </div>
             <div class="col-4 bdr-left">
-              <p>No. of bPIN Used</p>
+              <p>No. of rPIN Used</p>
               <h3>{{$data['pinused']}}</h3>
             </div>
             <div class="col-4 bdr-left">
-              <p>No. of bPIN Requested</p>
+              <p>No. of rPIN Requested</p>
               <h3>{{$data['pinTransferRequest']}}</h3>
             </div>
           </div>

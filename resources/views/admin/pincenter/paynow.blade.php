@@ -2,6 +2,17 @@
 
 @section('content')
 <style>
+    /* .page-title {
+        font-weight: 800;
+        font-size: 1.3rem;
+        padding: 0.8rem 0rem;
+        BACKGROUND: transparent;
+        border-radius: 0;
+    }
+    .page-title h4{color:#072664;font-size:1.6rem;font-weight: 800;}
+    .page-body{
+        background:#fff;padding:1rem;border-radius:15px 15px 0 0;box-shadow:0 0 6px rgba(0,0,0,0.1);border-top:1px solid #072664;
+    } */
     .footer {
         padding: 0
     }
@@ -26,74 +37,72 @@
                         <strong>Success !</strong> {{ session('success') }}
                     </div>
                     @endif
-                    <form method="post" action="{{url('/payment/requestsave')}}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body py-0">
-                            <div class="alert alert-success note" role="alert">
-                                <div class="row align-items-start">
-                                    <div class="col-5 model_qr">
-                                        @php
-                                        $tr = $result_data->tran_inr;
-                                        if (isset($result_data->upi) && $result_data->upi != '') {
-                                        $url = 'upi://pay?pa=' . $result_data->upi . '&pn=' . $result_data->user_fname . $result_data->user_lname . '&cu=INR&am=' . config('custom.custom.upi_pay_amount') . '.00&tn=' . $tr;
-                                        //$url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
-                                        }
-                                        $from = [255, 0, 0];$to = [0, 0, 255];
-                                        $qrhtml = QrCode::size(210)->mergeString('$tr')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(5)->generate($url);
-                                        $qrhtml = str_replace('</svg>','<text fill="#a3a3a3" font-size="15" font-family="FranklinGothic-Heavy, Franklin Gothic">
-                                            <tspan x="50" y="15" id="LA">'.$tr.'</tspan>
-                                        </text></svg>',$qrhtml);
-                                        @endphp
-                                        <!--$qrhtml = QrCode::size(100)->mergeString('$tr')->style('dot')->eye('circle')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(6)->generate($url);-->
-                                        <div id="inr{{$result_data->id}}">{!! $qrhtml !!}</div>
-                                    </div>
-                                    <div class="col">
-                                        <h4 class="alert-heading">Note</h4>
-                                        <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}} to below user and share payment screenshot with the user directly.</p>
-                                        <button type="button" class="btn btn-warning btn-sm waves-effect waves-float waves-light m-2" onclick="svgdown(3,'INRB9128122023')">Download QR</button>
-                                    </div>
-                                </div>
+                <form method="post" action="{{url('/payment/requestsave')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body py-0">
+                    <div class="alert alert-success note" role="alert">
+                        <div class="row align-items-start">
+                            <div class="col-12 col-md-5 model_qr">
+                                @php
+                                $tr = $result_data->tran_inr;
+                                if (isset($result_data->upi) && $result_data->upi != '') {
+                                    $url = 'upi://pay?pa=' . $result_data->upi . '&pn=' . $result_data->user_fname . $result_data->user_lname . '&cu=INR&am=' . config('custom.custom.upi_pay_amount') . '.00&tn=' . $tr;
+                                    //$url = 'upi://pay?pa=sureshkalda@ybl&pn=SureshKalda&cu=INR&am=1.00&tn=INRB'.$tr;
+                                }
+                                $from = [255, 0, 0];$to = [0, 0, 255];
+                                $qrhtml = QrCode::size(210)->mergeString('$tr')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(5)->generate($url);
+                                $qrhtml = str_replace('</svg>','<text fill="#a3a3a3" font-size="15" font-family="FranklinGothic-Heavy, Franklin Gothic"><tspan x="50" y="15" id="LA">'.$tr.'</tspan></text></svg>',$qrhtml);
+                                @endphp
+                                <!--$qrhtml = QrCode::size(100)->mergeString('$tr')->style('dot')->eye('circle')->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')->margin(6)->generate($url);-->
+                                <div id="inr{{$result_data->id}}">{!! $qrhtml !!}</div>
                             </div>
-                            <input type="hidden" class="form-control" id="uid" name="uid" value="{{$result_data->id}}">
-                            <input type="hidden" class="form-control" id="user_mobile_id" name="user_mobile_id" value="{{$result_data->tran_mobile}}">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="fname" aria-describedby="fname" placeholder="Firat Name" value="{{$result_data->user_fname.' '.$result_data->user_lname}}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="mobilenum" aria-describedby="mobilenum" placeholder="Recivers Mobile" value="{{$result_data->mobile_number}}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="utrnumber" name="utrnumber" aria-describedby="utrnumber" placeholder="Transaction ID / UTR No." value="{{$tr}}" readonly>
-                                        <!--<a href="#" class="copy-btn copyBtn">-->
-                                        <!--    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">-->
-                                        <!--        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>-->
-                                        <!--        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>-->
-                                        <!--    </svg> Copy</a>-->
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="comments" name="comments" aria-describedby="Comments" placeholder="Comments">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input type="file" class="form-control" id="ss_payment" name="ss_payment" placeholder="Browse" required>
-                                    </div>
-                                </div>
+                            <div class="col-12 col-md-7 pt-4 pt-md-0">
+                            <h4 class="alert-heading">Note</h4>
+                            <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}} to below user and share payment screenshot with the user directly.</p>
+                             <button type="button" class="btn btn-warning btn-sm waves-effect waves-float waves-light my-2" onclick="svgdown(3,'INRB9128122023')">Download QR</button>
+                             </div>  
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="uid" name="uid" value="{{$result_data->id}}">
+                    <input type="hidden" class="form-control" id="user_mobile_id" name="user_mobile_id" value="{{$result_data->tran_mobile}}">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="fname" aria-describedby="fname" placeholder="Firat Name" value="{{$result_data->user_fname.' '.$result_data->user_lname}}" readonly>
                             </div>
                         </div>
-                        <div class="modal-footer border-top-0 d-flex justify-content-start">
-                            <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close">Cancel</button>
-                            <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Submit</button>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="mobilenum" aria-describedby="mobilenum" placeholder="Recivers Mobile" value="{{$result_data->mobile_number}}" readonly>
+                            </div>
                         </div>
-                    </form>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="utrnumber" name="utrnumber" aria-describedby="utrnumber" placeholder="Transaction ID / UTR No." value="{{$tr}}" readonly>
+                                <!--<a href="#" class="copy-btn copyBtn">-->
+                                <!--    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">-->
+                                <!--        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>-->
+                                <!--        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>-->
+                                <!--    </svg> Copy</a>-->
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="comments" name="comments" aria-describedby="Comments" placeholder="Comments">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="file" class="form-control" id="ss_payment" name="ss_payment" placeholder="Browse" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 d-flex justify-content-start">
+                    <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Submit</button>
+                </div>
+            </form>
                 </div>
             </div>
         </div>
@@ -136,5 +145,6 @@
             }
         });
     }
+
 </script>
 @endsection

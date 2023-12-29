@@ -60,20 +60,12 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table dataTable no-footer" id="affilate_user">
-                            <thead>
-                                <tr>
-                                    <th>Sr.No</th>
-                                    <th>Level</th>
-                                    <th>No of ID</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 @php $i =1; @endphp
                                 @foreach($myLveledata as $key => $v)
                                 @if(!is_array($v) && $v > 0)
                                 <tr>
-                                    <td>{{$i}}</td>
-                                    <td>{{$i}}</td>
+                                    <td>Level {{$i}}</td>
                                     <!-- <td><a href="#idlist" data-toggle="modal" data-target="#idlist" class="link" data-level="{{base64_encode(implode(',',$myLveledata['level_id_'.$i]))}}">{{$v}}</a></td> -->
                                     <td><a href="#idlist" class="link" data-level="{{base64_encode(implode(',',$myLveledata['level_id_'.$i]))}}">{{$v}}</a></td>
                                 </tr>
@@ -152,7 +144,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="exampleModalLabel">Send bPin </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Send rPin </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -166,7 +158,7 @@
                                 <thead>
                                     <tr>
                                         <th>Enter Mobile Number</th>
-                                        <th>Enter Number of bPin</th>
+                                        <th>Enter Number of rPin</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -174,7 +166,7 @@
                                         <input type="hidden" id="user_id" class="form-control user_id" value="" readonly>
                                         <input type="hidden" id="mpin_value" class="form-control mpin_value" value="" readonly>
                                         <td><input type="text" id="mobile_number_id" class="form-control mobilenumber" value="" readonly></td>
-                                        <td><input type="text" id="bpin_input" class="form-control" placeholder="Enter No. bPin" required></td>
+                                        <td><input type="text" id="bpin_input" class="form-control" placeholder="Enter No. rPin" required></td>
                                         <td><button type="submit" class="btn btn-success">
                                                 Submit
                                             </button></td>

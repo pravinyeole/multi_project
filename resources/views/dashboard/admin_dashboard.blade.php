@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
-                    <h5>bPIN Balance</h5>
+                    <h5>rPIN Balance</h5>
                   <div class="info">
                     <p>Total</p>
                     <h3>{{$data['myPinBalance']}}</h3>
