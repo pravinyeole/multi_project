@@ -52,12 +52,22 @@
             let hour_check = tomorrow.getHours();
             if(hour_check <= 18)
             {
-              var fecha =date+"-"+month[today.getMonth()]+"-"+year+" 18:00:00";
+                if(hour_check <= 10)
+                {
+                    var new_time = "10:00:00";
+                }
+                else
+                {
+                    var new_time = "18:00:00";
+                }
+                
+              var fecha =date+"-"+month[today.getMonth()]+"-"+year+" "+new_time;
             }
             else
             {
               var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
             }
+            var display = <?php echo json_encode($data['display']); ?>;
 
             // Set the date we're counting down to
             var countDownDate = new Date(fecha).getTime();
@@ -87,7 +97,17 @@
               // If the count down is over, write some text 
               if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                
+                if(display != 0)
+                {
+                    $('#btn-createid').removeClass("d-none");
+                    $('#quota-timer').addClass("d-none");
+                }
+                else
+                {
+                    document.getElementById("demo").innerHTML = "EXPIRED";
+                }
+
               }
             }, 1000);
           </script>
@@ -252,11 +272,14 @@
 @endsection
 @section('page-script')
 <script>
-  $(document).ready(function() {
+  $(document).ready(function() {  
     var display = <?php echo json_encode($data['display']); ?>;
     var tomorrow = new Date();
     let hour_check = tomorrow.getHours();
-    if((hour_check >= 10 && hour_check < 11 || hour_check >= 18 && hour_check < 19) && display != 1)
+    console.log(hour_check);
+    console.log(display);
+    
+    if((hour_check == 10 || hour_check == 18 ) && display == 1)
     {
       $('#btn-createid').removeClass("d-none");
       $('#quota-timer').addClass("d-none");
@@ -267,5 +290,8 @@
       $('#btn-createid').addClass("d-none");
     }
   });
+  setInterval(function(){
+    location.reload();
+    }, 3600500);
 </script>
 @endsection
