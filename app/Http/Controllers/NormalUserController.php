@@ -24,7 +24,7 @@ class NormalUserController extends Controller
 {
     public function __construct()
     {
-        $this->title = "Dashboard";
+        $this->title = "Home";
         $this->middleware(['auth'])->except(['createIdClone','createIdCloneTwo']);
     }
     public function index(Request $request)

@@ -9,7 +9,14 @@
                 <h5>Total Affiliate IDs</h5>
                 <div class="info">
                     <p>No. of IDs</p>
-                    <h3>{{$myReferalUser}}</h3>
+                    <h3>{{$all_level_count}}</h3>
+                </div>
+            </div>
+            <div class="pinBal mb-3 d-flex align-items-center justify-content-space-between">
+                <h5>Total Referrals</h5>
+                <div class="info">
+                    <p>No. of IDs</p>
+                    <h3>{{$myLveledata['level_1']}}</h3>
                 </div>
             </div>
             <!-- <div class="card mb-4">
@@ -62,7 +69,9 @@
                         <table class="table dataTable no-footer" id="affilate_user">
                             <tbody>
                                 @php $i =1; @endphp
+                                
                                 @foreach($myLveledata as $key => $v)
+                                
                                 @if(!is_array($v) && $v > 0)
                                 <tr>
                                     <td>Level {{$i}}</td>
@@ -72,6 +81,43 @@
                                 @php $i++; @endphp
                                 @endif
                                 @endforeach
+                            </tbody>
+                        </table>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="page-title">
+                    <h4>
+                        My Referrals
+                    
+                    <span style="float:right;">
+                    <a href="{{url('/request-pin/direct_ref_user_list')}}" class="btn btn-view">View All</a>
+                    <span>
+                    </h4>   
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table dataTable no-footer" id="affilate_user">
+                            <thead>
+                                <tr>
+                                <th>User ID</th>
+                                <th>Mobile No.</th>
+                                <th>Creation Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(count($myReferalUser2))
+                                    @foreach($myReferalUser2 AS $key => $ref)
+                                    <tr>
+                                    <td>{{ucfirst($ref->user_fname.' '.$ref->user_lname)}}</td>
+                                    <td>{{$ref->mobile_number}}</td>
+                                    <td>{{$ref->created_at}}</td>
+                                    </tr>
+                                    @endforeach
+                                @endif    
                             </tbody>
                         </table>
                     </div>
