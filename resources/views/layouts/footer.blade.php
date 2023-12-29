@@ -1,10 +1,10 @@
-@php
+<!-- @php
 $create_button = DB::select("select button from create_button");
 $create_button = $create_button[0]->button;
 @endphp
 @if($create_button == 1)
 <a href="javascript:void()" class="floating-btn" data-toggle="modal" data-target="#modals-slide-in">Create Id<span>+</span></a>
-@endif
+@endif -->
 <div class="modal fade" id="modals-slide-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalSlideLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
