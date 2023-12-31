@@ -43,7 +43,7 @@
             tomorrow.setDate(tomorrow.getDate()+1);
             var today = new Date();
             today.setDate(today.getDate());
-            var year = tomorrow.getFullYear();
+            var year = today.getFullYear();
             var mes = tomorrow.getMonth()+1;
             var dia = tomorrow.getDate();
             var date = today.getDate();
@@ -67,6 +67,7 @@
             {
               var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
             }
+            console.log(fecha);
             var display = <?php echo json_encode($data['display']); ?>;
 
             // Set the date we're counting down to
