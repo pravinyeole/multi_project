@@ -59,7 +59,7 @@ class HelpIncomeController extends Controller
     public function shPayNow(Request $request)
     {
         $result_data = User::select('id', 'user_fname', 'user_lname', 'mobile_number', 'email', 'upi')
-            ->where('id', $request->user_id)->first();
+                        ->where('id', $request->user_id)->first();
         $result_data['tran_inr'] = (isset($request->tran_inr) && !empty($request->tran_inr)) ? $request->tran_inr : '';
         $result_data['tran_mobile'] = (isset($request->tran_mobile) && !empty($request->tran_mobile)) ? $request->tran_mobile : '';
         return view('admin.pincenter.paynow', compact('result_data'));

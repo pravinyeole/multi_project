@@ -2,17 +2,6 @@
 
 @section('content')
 <style>
-    /* .page-title {
-        font-weight: 800;
-        font-size: 1.3rem;
-        padding: 0.8rem 0rem;
-        BACKGROUND: transparent;
-        border-radius: 0;
-    }
-    .page-title h4{color:#072664;font-size:1.6rem;font-weight: 800;}
-    .page-body{
-        background:#fff;padding:1rem;border-radius:15px 15px 0 0;box-shadow:0 0 6px rgba(0,0,0,0.1);border-top:1px solid #072664;
-    } */
     .footer {
         padding: 0
     }

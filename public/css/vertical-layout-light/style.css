@@ -32093,8 +32093,6 @@ input:checked + .slider:before {
   padding: 0;
 }
 
-
-
 @media (max-width: 991px){
   .navbar .navbar-brand-wrapper {
       padding: 6px 15px;
@@ -32107,7 +32105,7 @@ input:checked + .slider:before {
   }
   .form-group{
       margin-bottom:10px;
-  }
+  } 
 }
 @media all and (max-width:580px){
   .announsement{padding-right: 0;}
