@@ -37,7 +37,7 @@
           </div>
         </div>
         <div id="quota-timer" class="quota-timer d-none">  
-          Today’s Quota is Full. Please try after <p id="demo"></p>
+          <b>Create ID</b> will start in <p id="demo"></p>
           <script>
             var tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate()+1);
@@ -117,7 +117,7 @@
         </div>
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
-            <h4>Total Affiliates</h4>
+            <h4>Total Referrals</h4>
             <!-- <h3> @if(isset($data['myReferalUser'])) {{count($data['myReferalUser'])}} @else 0 @endif</h3> -->
             <h3> @if(isset($data['myReferalUserCount'])) {{$data['myReferalUserCount']}} @else 0 @endif</h3>
           </div>
@@ -156,7 +156,7 @@
                 <div class="statistics-details">
                   <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
                   <a href="#">
-                    <p class="statistics-title pt-0">Complted SH</p>
+                    <p class="statistics-title pt-0">Completed SH</p>
                     <h3 class="rate-percentage">{{$compltesendHelpData}}</h3>
                   </a>
                 </div>
@@ -192,7 +192,7 @@
         </div>
       </div>
       @if(count($data['myReferalUser']))
-      <div class="heading d-flex align-items-center justify-content-between">
+      <!-- <div class="heading d-flex align-items-center justify-content-between">
         <h3>Direct Ref Users</h3>
         <a href="{{url('/request-pin/direct_ref_user_list')}}" class="btn btn-view">View All</a>
       </div>
@@ -215,7 +215,7 @@
             @endforeach
           </tbody>
         </table>
-      </div>
+      </div> -->
       @endif
       <div class="heading d-flex align-items-center justify-content-between">
         <h3>Referral Code</h3>

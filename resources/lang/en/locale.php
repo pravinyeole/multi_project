@@ -207,9 +207,9 @@ return [
   "message" => "Cake sesame snaps cupcake gingerbread danish I love gingerbread. Apple pie pie jujubes chupa chups muffin halvah lollipop. Chocolate cake oat cake tiramisu marzipan sugar plum. Donut sweet pie oat cake dragée fruitcake cotton candy lemon drops.",
   "Invited Users" => "Invited Users",
   "Institutions" => "Institutions",
-  "Pin Center" => "Pin Center",
-  "SH Panel" => "SH Panel",
-  "GH Panel" => "GH Panel",
+  "Pin Center" => "rPin Center",
+  "SH Panel" => "Send Help (SH)",
+  "GH Panel" => "Get Help (GH)",
   "My Income" => "My Income",
   "My Network" => "My Network",
   "Admin" => "Admin",
@@ -227,5 +227,6 @@ return [
   "Calculation" => "Calculation",
   "Calculation" => "Calculation",
   "Pending Payment List" => "Pending Payment List",
-  "Reports"=>"Reports"
+  "Reports"=>"Reports",
+  "Home"=>"Home"
 ];

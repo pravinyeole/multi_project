@@ -216,6 +216,14 @@ class HelpIncomeController extends Controller
                 }
             }
         }
-        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata'));
+        
+        $all_level_count = $myLveledata['level_1'] + $myLveledata['level_2'] + $myLveledata['level_3'] + $myLveledata['level_4'] + $myLveledata['level_5'];
+        $myReferalUser2 = User::join('user_referral AS ur', 'ur.user_id', 'users.id')
+                ->where('ur.referral_id', Auth::user()->mobile_number)
+                ->orWhere('ur.admin_slug', Auth::user()->user_slug)
+                ->orderBy('users.id', 'DESC')
+                ->take(5)
+                ->get();
+        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata','myReferalUser2','all_level_count'));
     }
 }

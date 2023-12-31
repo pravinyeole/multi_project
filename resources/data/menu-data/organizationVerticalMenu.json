@@ -2,7 +2,7 @@
   "menu": [
     {
       "url": "home1",
-      "name": "Dashboards",
+      "name": "Home",
       "icon": "home1",
       "slug": "home"
     },
