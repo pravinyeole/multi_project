@@ -107,7 +107,7 @@ class HelpIncomeController extends Controller
         // if($dataGreen){
         $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_amount');
         $totalGH = Payment::where('receivers_id',Auth::user()->id)->count('payment_id');
-        $allTotal['totalGHIncome'] = $totalGH * config('custom.custom.plan_investment');
+        $allTotalTwo['totalGHIncome'] = $totalGH * config('custom.custom.plan_investment');
         $admin_income = PaymentDistribution::where('reciver_id', Auth::user()->id)
             ->where('level', 'ADMIN');
         if ($condtion1) {
