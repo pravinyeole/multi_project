@@ -7,7 +7,7 @@
         <div class="card">
                 <div class="page-title d-flex justify-content-between align-items-center">
                     <h4>
-                        ƀPINs Transaction History
+                        rPINs Transaction History
                     </h4>
                 </div>
                 <div class="card-body">
@@ -19,7 +19,7 @@
                                     <th>Sr.No</th>
                                     <th>User Name</th>
                                     <!-- <th>Mobile No.</th> -->
-                                    <th>ƀPIN Qty</th>
+                                    <th>rPIN Qty</th>
                                     <th>Trxn Type</th>
                                     <th>Date Time</th>
                                 </tr>

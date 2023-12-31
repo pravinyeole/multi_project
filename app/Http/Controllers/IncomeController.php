@@ -126,16 +126,16 @@ class IncomeController extends Controller
                                         ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
                                         ->select('u.id AS level_six')
                                         ->where('user_referral.user_id', $referal_id_5->level_five)->first();
-                                    if ($referal_id_6) {
-                                        $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_6->level_six, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_6'), 'level' => 'LVL6'];
-                                        $referal_id_7 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
-                                            ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
-                                            ->select('u.id AS level_seven')
-                                            ->where('user_referral.user_id', $referal_id_6->level_six)->first();
-                                        if ($referal_id_7) {
-                                            $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_7->level_seven, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_7'), 'level' => 'LVL7'];
-                                        }
-                                    }
+                                    // if ($referal_id_6) {
+                                    //     $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_6->level_six, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_6'), 'level' => 'LVL6'];
+                                    //     $referal_id_7 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                    //         ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                    //         ->select('u.id AS level_seven')
+                                    //         ->where('user_referral.user_id', $referal_id_6->level_six)->first();
+                                    //     if ($referal_id_7) {
+                                    //         $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_7->level_seven, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_7'), 'level' => 'LVL7'];
+                                    //     }
+                                    // }
                                 }
                             }
                         }

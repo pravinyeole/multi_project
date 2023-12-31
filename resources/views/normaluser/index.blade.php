@@ -49,7 +49,7 @@
                                         </span>
                                     </button>
                                     @else
-                                    <span style="color:red;"> Your ƀPIN balance is low. Please contact your introducer.</span>
+                                    <span style="color:red;"> Your rPIN balance is low. Please contact your introducer.</span>
                                     @endif
                                     @endif
                                 </div>

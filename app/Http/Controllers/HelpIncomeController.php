@@ -105,7 +105,7 @@ class HelpIncomeController extends Controller
         }
         $dataGreen = $dataGreen->count('user_sub_info_id');
         // if($dataGreen){
-        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_income_amt');
+        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_amount');
 
         $admin_income = PaymentDistribution::where('reciver_id', Auth::user()->id)
             ->where('level', 'ADMIN');
@@ -169,6 +169,7 @@ class HelpIncomeController extends Controller
     }
     public function myNetwork(Request $request)
     {
+        $all_level_count = 0;
         $myReferalUser = User::join('user_referral AS ur', 'ur.user_id', 'users.id')
             ->where('ur.referral_id', Auth::user()->mobile_number)
             ->orWhere('ur.admin_slug', Auth::user()->user_slug)
@@ -186,21 +187,26 @@ class HelpIncomeController extends Controller
         $lvlOneA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->where('user_referral.referral_id', $u_mn)->pluck('users.mobile_number')->toArray();
         $myLveledata['level_1'] = count($lvlOneA);
         $myLveledata['level_id_1'] = $lvlOneA;
+        $all_level_count += $myLveledata['level_1'];
         if ($lvlOneA) {
             $lvlTwoA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlOneA)->pluck('users.mobile_number')->toArray();
             $myLveledata['level_2'] = count($lvlTwoA);
+            $all_level_count += $myLveledata['level_2'];
             $myLveledata['level_id_2'] = $lvlTwoA;
             if ($lvlTwoA) {
                 $lvlThreeA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlTwoA)->pluck('users.mobile_number')->toArray();
                 $myLveledata['level_3'] = count($lvlThreeA);
+                $all_level_count += $myLveledata['level_3'];
                 $myLveledata['level_id_3'] = $lvlThreeA;
                 if ($lvlThreeA) {
                     $lvlFourA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlThreeA)->pluck('users.mobile_number')->toArray();
                     $myLveledata['level_4'] = count($lvlFourA);
+                    $all_level_count += $myLveledata['level_4'];
                     $myLveledata['level_id_4'] = $lvlFourA;
                     if ($lvlFourA) {
                         $lvlFiveA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlFourA)->pluck('users.mobile_number')->toArray();
                         $myLveledata['level_5'] = count($lvlFiveA);
+                        $all_level_count += $myLveledata['level_5'];
                         $myLveledata['level_id_5'] = $lvlFiveA;
                         // if($lvlFiveA){
                         //     $lvlSixA = UserReferral::join('users','users.id','user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id',$lvlFiveA)->pluck('users.mobile_number')->toArray();
@@ -217,7 +223,6 @@ class HelpIncomeController extends Controller
             }
         }
         
-        $all_level_count = $myLveledata['level_1'] + $myLveledata['level_2'] + $myLveledata['level_3'] + $myLveledata['level_4'] + $myLveledata['level_5'];
         $myReferalUser2 = User::join('user_referral AS ur', 'ur.user_id', 'users.id')
                 ->where('ur.referral_id', Auth::user()->mobile_number)
                 ->orWhere('ur.admin_slug', Auth::user()->user_slug)

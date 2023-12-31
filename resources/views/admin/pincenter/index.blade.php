@@ -130,7 +130,7 @@
             <div class="card">
                 <div class="page-title d-flex justify-content-between align-items-center">
                     <h4>
-                        ƀPINs Transaction History
+                        rPINs Transaction History
                     </h4>
                     <a href="pins-request/transactionhistory" class="btn btn-sm btn-success">View All</a>
                 </div>
@@ -142,7 +142,7 @@
                                 <tr>
                                     <th>Sr.No</th>
                                     <th>User Name</th>
-                                    <th>ƀPIN Qty</th>
+                                    <th>rPIN Qty</th>
                                     <th>Trxn Type</th>
                                     <th>Date Time</th>
                                 </tr>

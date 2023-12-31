@@ -138,7 +138,7 @@
                     <div class="list-item d-flex align-items-center justify-content-between">
                         <span>
                             <img src="{{asset('images/cash.png')}}" alt="">
-                            ƀPINs Used
+                            rPINs Used
                         </span>
                         <h3><sup>₹</sup>@if(isset($allTotalTwo->bpin_used)) {{$allTotalTwo->bpin_used}} @else {{'0.00'}} @endif</h3>
                     </div>
