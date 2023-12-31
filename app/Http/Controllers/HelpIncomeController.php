@@ -104,11 +104,18 @@ class HelpIncomeController extends Controller
             $dataGreen = $dataGreen->whereRaw($condtion1);
         }
         $dataGreen = $dataGreen->count('user_sub_info_id');
+        $dataAllPins = UserSubInfo::where('user_id', Auth::user()->id);
+        if ($condtion1) {
+            $dataGreen = $dataGreen->whereRaw($condtion1);
+        }
+        $dataGreen = $dataGreen->count('user_sub_info_id');
         // if($dataGreen){
-        $totalGH = Payment::where('receivers_id',Auth::user()->id)->count('payment_id');
-        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_investment');
-        $allTotalTwo['totalGHIncome'] = $totalGH * config('custom.custom.plan_investment');
-        $allTotalTwo['total_investment'] = $dataGreen * config('custom.custom.plan_amount');
+        $receivedGH = Payment::where('receivers_id',Auth::user()->id)->where('status','completed')->count('payment_id');
+        $allTotal['plan_income_amt'] = $receivedGH * config('custom.custom.plan_income_amt');
+
+        $allTotalTwo['pin_used'] = $dataAllPins * config('custom.custom.pin_amount');
+        $allTotalTwo['total_SH'] = $dataGreen * config('custom.custom.upi_pay_amount'); 
+        
         $admin_income = PaymentDistribution::where('reciver_id', Auth::user()->id)
             ->where('level', 'ADMIN');
         if ($condtion1) {
