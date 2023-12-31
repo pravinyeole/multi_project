@@ -140,14 +140,14 @@
                             <img src="{{asset('images/cash.png')}}" alt="">
                             rPINs Used
                         </span>
-                        <h3><sup>₹</sup>@if(isset($allTotalTwo->totalGHIncome)) {{$allTotalTwo->totalGHIncome}} @else {{'0.00'}} @endif</h3>
+                        <h3><sup>₹</sup>@if(isset($allTotalTwo['totalGHIncome'])) {{$allTotalTwo['totalGHIncome']}} @else {{'0.00'}} @endif</h3>
                     </div>
                     <div class="list-item d-flex align-items-center justify-content-between">
                         <span>
                             <img src="{{asset('images/cash.png')}}" alt="">
                             Total SH Done
                         </span>
-                        <h3><sup>₹</sup>@if(isset($allTotalTwo->plan_income_amt)) {{$allTotalTwo->plan_income_amt}} @else {{'0.00'}} @endif</h3>
+                        <h3><sup>₹</sup>@if(isset($allTotalTwo['total_investment'])) {{$allTotalTwo['total_investment']}} @else {{'0.00'}} @endif</h3>
                     </div>
                 </div>
             </div>

@@ -48,7 +48,7 @@
                             <div class="col-12 col-md-7 pt-4 pt-md-0">
                             <h4 class="alert-heading">Note</h4>
                             <p>Kindly send ₹{{config('custom.custom.upi_pay_amount')}} to below user and share payment screenshot with the user directly.</p>
-                             <button type="button" class="btn btn-warning btn-sm waves-effect waves-float waves-light my-2" onclick="svgdown(3,'INRB9128122023')">Download QR</button>
+                             <button type="button" class="btn btn-warning btn-sm waves-effect waves-float waves-light my-2" onclick="svgdown(<?php echo $result_data->id ?>,'INRB9128122023')">Download QR</button>
                              </div>  
                         </div>
                     </div>
