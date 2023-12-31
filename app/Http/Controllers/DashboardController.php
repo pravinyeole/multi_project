@@ -249,7 +249,7 @@ class DashboardController extends Controller
                 ->where('user_map_new.new_user_id', Auth::user()->id)
                 ->where('user_sub_info.status', 'green')
                 ->count();
-            
+
             $today = Carbon::today();
             $allid = UserSubInfo::whereDate('created_at', $today)
                 ->count();
@@ -265,7 +265,7 @@ class DashboardController extends Controller
 
             if ($allid == $initialsNoOfCount) {
                 $data['display'] = 1;
-            } else{
+            } else {
                 $data['display'] = 0;
             }
 
