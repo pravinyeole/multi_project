@@ -53,7 +53,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td><a href="javascript:void(0);" class="btn btn-warning btn-sm" onClick="getPaymentDetails({{$gh->new_user_id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
+                                    <td><a href="javascript:void(0);" class="btn btn-warning btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
                                 </tr>
                                 @endforeach
                                 @endif
@@ -101,41 +101,36 @@
                     <input type="hidden" id="payrowid">
                     <input type="hidden" id="mobile_id">
                     <div class="row info">
-                        <div class="col-12">
-                            <div class="form-group">
+                        <div class="col-12 row">
+                            <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Name</label>
                                 <h4 class="user_name">First Last Name</h4>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
+                            <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Mobile</label>
                                 <h4 class="user_mobile">7777777777</h4>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
+                        <div class="col-12 row">
+                            <div class="col-6 form-group" style="display:none">
                                 <label class="d-block font-weight-bold">Email</label>
                                 <h4 class="user_email">info@domain.com</h4>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
+                            <div class="col-6 form-group">
+                                <label class="d-block font-weight-bold">Comments</label>
+                                <p class="tarns_comments">test comment</p>
+                            </div>
+                            <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Payment Method</label>
                                 <h4><img class="payment_mode" src="{{asset('images/Google-Pay-logo.png')}}" alt="" class="img-fuild" style="max-width:80px;" /></h4>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 row">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Transaction ID / UTR No.</label>
                                 <h4 class="user_tarns">ABCB0000012456</h4>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label class="d-block font-weight-bold">Comments</label>
-                                <p class="tarns_comments">test comment</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -167,11 +162,11 @@
                 },
                 success: function(data) {
                     var obj = jQuery.parseJSON(data);
-                    if(obj.msg == 'success'){
+                    if (obj.msg == 'success') {
                         $('.alert-success').removeClass('noshow');
                         $('.successtext').text('Payment Confirmed Successfully.');
                         location.reload();
-                    }else{
+                    } else {
                         $('.alert-danger').removeClass('noshow');
                         $('.dangertext').text(obj.msg);
                         location.reload();
@@ -313,7 +308,14 @@
                     $('#payrowid').val(obj.payment_id);
                     $('#mobile_id').val(obj.mobile_id);
                     $('.user_email').text(obj.email);
-                    $('.user_tarns').text(obj.attachment);
+                    var ttss = obj.attachment;
+                    if (ttss.indexOf("public/images/paymentSS") >= 0) {
+                        var ss_imgsrc = base_url + '/' + ttss;
+                        $('.user_tarns').html('<img class="payment_ss" src="' + ss_imgsrc + '" alt="" class="img-fuild" style="max-width: 260px;max-height: 260px;" />');
+                    } else {
+                        var ss_imgsrc = ttss;
+                        $('.user_tarns').text(obj.attachment);
+                    }
                     if (obj.payment_type == 'google_pay') {
                         var imgsrc = base_url + '/images/Google-Pay-logo.png';
                     } else if (obj.payment_type == 'phone_pay') {

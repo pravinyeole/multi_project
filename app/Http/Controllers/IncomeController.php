@@ -41,15 +41,15 @@ class IncomeController extends Controller
             // $imagePath = $request->file('attached_screenshot')->store('public/storage/attached_screenshots');
             if ($request->hasFile('ss_payment')) {
                 $image = $request->file('ss_payment');
-                $name = $request->utrnumber.'.'.$image->getClientOriginalExtension();
+                $name = $request->utrnumber . '.' . $image->getClientOriginalExtension();
                 $destinationPath = 'public/images/paymentSS/';
-                if (file_exists($destinationPath.$name)) {
-                    unlink($destinationPath.$name);
+                if (file_exists($destinationPath . $name)) {
+                    unlink($destinationPath . $name);
                 }
                 $image->move($destinationPath, $name);
-                
-                $payment->attachment = $destinationPath.$name;
-            }else{
+
+                $payment->attachment = $destinationPath . $name;
+            } else {
                 $payment->attachment = $request->utrnumber;
             }
             $payment->save();
@@ -71,10 +71,10 @@ class IncomeController extends Controller
     }
     public function requestShow(Request $request)
     {
-        $getPaymentStatus = Payment::join('users', 'users.id', 'payments.receivers_id')
+        $getPaymentStatus = Payment::join('users', 'users.id', 'payments.user_id')
             ->select('users.id', 'users.user_fname', 'users.user_lname', 'users.mobile_number', 'users.email', 'payments.comments', 'payments.mobile_id', 'payments.payment_id', 'payments.payment_type', 'payments.attachment')
             ->where('payments.mobile_id', $request->mobile_id)
-            ->where('payments.receivers_id', $request->user_id)
+            ->where('payments.user_id', $request->user_id)
             ->first();
         return json_encode($getPaymentStatus);
     }

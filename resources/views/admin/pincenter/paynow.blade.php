@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
-                    <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <a type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" href="{{url('help/sh_panel')}}" aria-label="Close">Cancel</a>
                     <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Submit</button>
                 </div>
             </form>
