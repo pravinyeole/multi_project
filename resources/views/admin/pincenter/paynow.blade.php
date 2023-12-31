@@ -68,11 +68,6 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="utrnumber" name="utrnumber" aria-describedby="utrnumber" placeholder="Transaction ID / UTR No." value="{{$tr}}" readonly>
-                                <!--<a href="#" class="copy-btn copyBtn">-->
-                                <!--    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">-->
-                                <!--        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>-->
-                                <!--        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>-->
-                                <!--    </svg> Copy</a>-->
                             </div>
                         </div>
                         <div class="col-6">
@@ -88,7 +83,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
-                    <a type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" href="{{url('help/sh_panel')}}" aria-label="Close">Cancel</a>
+                    <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close">Cancel</button>
                     <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Submit</button>
                 </div>
             </form>
@@ -134,6 +129,5 @@
             }
         });
     }
-
 </script>
 @endsection
