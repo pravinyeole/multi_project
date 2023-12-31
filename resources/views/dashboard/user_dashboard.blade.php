@@ -36,83 +36,41 @@
             <h3>{{$data['myPinBalance']}}</h3>
           </div>
         </div>
-        <div id="quota-timer" class="quota-timer d-none">  
+        <?php
+            date_default_timezone_set("Asia/Kolkata");
+            $todayDate = date('d-m-Y');
+            $currentTime = date('H-i-s');
+            $tomorrowDate = date("d-m-Y", strtotime("+1 day"));
+            if($data['display'] == 0){
+                $hour = date('H');
+                $hour = 19;
+                $classA = 'd-none';
+                $classB = 'block';
+                if($hour == 10){
+                    // show Button
+                }elseif($hour >= 11 && $hour <= 17){
+                    // echo $todayDate;
+                    $targetTimestamp = strtotime('18:00:00');
+                    $classA = 'block';
+                    $classB = 'none';
+                }elseif($hour == 18 && $data['display'] == 0){
+                    $classA = 'd-none';
+                    $classB = 'block';
+                }else{
+                    $targetTimestamp = strtotime($tomorrowDate.' 10:00:00');
+                    $classA = 'block';
+                    $classB = 'd-none';
+                }
+            }else{
+                $targetTimestamp = strtotime($tomorrowDate.' 10:00:00');
+                $classA = 'block';
+                $classB = 'd-none';
+            }
+        ?>
+        <div id="quota-timer" class="quota-timer {{$classA}}">  
           <b>Create ID</b> will start in <p id="demo"></p>
-          <script>
-            var tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate()+1);
-            var today = new Date();
-            today.setDate(today.getDate());
-            var year = today.getFullYear();
-            var mes = tomorrow.getMonth()+1;
-            var dia = tomorrow.getDate();
-            var date = today.getDate();
-            const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-            let hour_check = tomorrow.getHours();
-            
-            if(hour_check <= 18)
-            {
-                if(hour_check <= 10)
-                {
-                    var new_time = "10:00:00";
-                }
-                else
-                {
-                    var new_time = "18:00:00";
-                }
-                
-              var fecha =date+"-"+month[today.getMonth()]+"-"+year+" "+new_time;
-            }
-            else
-            {
-              var fecha =dia+"-"+month[tomorrow.getMonth()]+"-"+year+" 10:00:00";
-            }
-            var display = <?php echo json_encode($data['display']); ?>;
-
-            // Set the date we're counting down to
-            var countDownDate = new Date(fecha).getTime();
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-              // Get today's date and time
-              var now = new Date().getTime();
-              // Find the distance between now and the count down date
-              var distance = countDownDate - now;
-              // Time calculations for days, hours, minutes and seconds
-              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) + (days * 24));
-              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-              // Output the result in an element with id="demo"
-              if (hours < "10") {
-                hours = "0" + hours;
-              }
-              if (minutes < "10") {
-                minutes = "0" + minutes;
-              }
-              if (seconds < "10") {
-                seconds = "0" + seconds;
-              }
-              document.getElementById("demo").innerHTML = hours + "H : " +
-                minutes + "M : " + seconds + "S";
-              // If the count down is over, write some text 
-              if (distance < 0) {
-                clearInterval(x);
-                
-                if(display != 0)
-                {
-                    $('#btn-createid').removeClass("d-none");
-                    $('#quota-timer').addClass("d-none");
-                }
-                else
-                {
-                    document.getElementById("demo").innerHTML = "EXPIRED";
-                }
-
-              }
-            }, 1000);
-          </script>
         </div>
-        <div id="btn-createid" class="text-center form-group mb-3 d-none">
+        <div id="btn-createid" class="text-center form-group mb-3 {{$classB}}">
           <a href="javascript:void()" data-toggle="modal" data-target="#modals-slide-in" id="createId" class="btn create-btn text-white"><span>+</span> Create Id</a>
         </div>
         <div class="refForm mb-4">
@@ -265,26 +223,39 @@
 @endsection
 @section('page-script')
 <script>
-  $(document).ready(function() {  
-    var display = <?php echo json_encode($data['display']); ?>;
-    var tomorrow = new Date();
-    let hour_check = tomorrow.getHours();
-    console.log(hour_check);
-    console.log(display);
-    
-    if((hour_check == 10 || hour_check == 18 ) && display == 1)
-    {
-      $('#btn-createid').removeClass("d-none");
-      $('#quota-timer').addClass("d-none");
+$(document).ready(function () {
+    var currentHour = new Date().getHours();
+    // Refresh the page every 20 minutes (20 * 60 * 1000 milliseconds)
+    if(currentHour >= 10 && currentHour <= 18){
+        location.reload();
     }
-    else
-    {
-      $('#quota-timer').removeClass("d-none");;
-      $('#btn-createid').addClass("d-none");
-    }
-  });
-  setInterval(function(){
-    location.reload();
-    }, 3600500);
-</script>
+    setInterval(function () {
+        location.reload();
+    }, 20 * 60 * 1000);
+    // Update the countdown every second
+    setInterval(updateCountdown, 1000);
+        // Initial update
+        updateCountdown();
+        function updateCountdown() {
+            // Target timestamp from PHP
+            var targetTimestamp = <?php echo $targetTimestamp; ?>;
+
+            // Current timestamp in JavaScript
+            var currentTimestamp = Math.floor(Date.now() / 1000);
+
+            // Calculate the difference in seconds
+            var diffSeconds = targetTimestamp - currentTimestamp;
+
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(diffSeconds / (60 * 60 * 24));
+            var hours = Math.floor((diffSeconds % (60 * 60 * 24)) / (60 * 60));
+            var minutes = Math.floor((diffSeconds % (60 * 60)) / 60);
+            var seconds = diffSeconds % 60;
+
+            // Display the live countdown
+            document.getElementById('demo').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds ;
+            // document.getElementById('demo').innerHTML = "Countdown: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds remaining.";
+        }
+    });
+    </script>
 @endsection
