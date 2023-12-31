@@ -30,7 +30,7 @@
                                     <td>{{$k + 1}}</td>
                                     <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v['user_fname'].' '.$v['user_lname']}}</h6>{{$v['mobile_number']}}</td>
                                     <td>{{$v['trans_count']}}</td>
-                                    @if(isset($v['trans_by']) && $v['trans_by'] == Auth::user()->id)
+                                    @if(isset($v['trans_by']) && $v['trans_by'] !== Auth::user()->id)
                                         <td><span class="text-success font-weight-bold">Cr.</span></td>
                                     @else
                                         <td><span class="text-danger font-weight-bold">Dr.</span></td>
