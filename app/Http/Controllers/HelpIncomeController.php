@@ -85,16 +85,18 @@ class HelpIncomeController extends Controller
         if (isset($request->Duration) && $request->Duration == 'today') {
             $queryArray['Duration'] = $request->Duration;
             $queryArray['FromDate'] = $request->FromDate;
-            $condtion1 = " DATE(created_at) '=' '$request->FromDate'";
+            $condtion1 = " DATE(created_at) BETWEEN '$request->FromDate 00:00:00' AND '$request->FromDate 23:59:59'";
         } elseif (isset($request->Duration) && $request->Duration == 'week') {
             $queryArray['Duration'] = $request->Duration;
             $queryArray['FromDate'] = $request->FromDate;
             $queryArray['ToDate'] = $request->ToDate;
             $condtion1 = " DATE(created_at) between '$request->FromDate' AND '$request->ToDate'";
         } elseif (isset($request->Duration) && $request->Duration == 'month') {
+            $monthA = ['Jan' => 1,'Feb' => 2,'Mar' => 3,'Apr' => 4,'May' => 5,'Jun' => 6,'Jul' => 7,'Aug' => 8,'Sep' => 9,'Oct' => 10,'Nov' => 11,'Dec' => 12];
+            $month = $monthA[$request->DurationMonth];
             $queryArray['Duration'] = $request->Duration;
             $queryArray['DurationMonth'] = $request->DurationMonth;
-            $condtion1 = " 'DATE(created_at)' = '$request->DurationMonth'";
+            $condtion1 = " MONTH(created_at) = '$month'";
         } elseif (isset($request->Duration) && $request->Duration == 'lifetime') {
             $queryArray['Duration'] = $request->Duration;
         }
