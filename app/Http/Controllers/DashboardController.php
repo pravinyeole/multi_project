@@ -565,7 +565,7 @@ class DashboardController extends Controller
     {
         $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)
             ->where('status', 'green')->count('user_sub_info_id');
-        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_income_amt');
+        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_amount');
         $allTotal['admin_income'] = PaymentDistribution::where('reciver_id', Auth::user()->id)->sum('amount');
         return  array_sum($allTotal);
     }
