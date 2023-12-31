@@ -59,7 +59,7 @@ class HelpIncomeController extends Controller
     public function shPayNow(Request $request)
     {
         $result_data = User::select('id', 'user_fname', 'user_lname', 'mobile_number', 'email', 'upi')
-                        ->where('id', $request->user_id)->first();
+            ->where('id', $request->user_id)->first();
         $result_data['tran_inr'] = (isset($request->tran_inr) && !empty($request->tran_inr)) ? $request->tran_inr : '';
         $result_data['tran_mobile'] = (isset($request->tran_mobile) && !empty($request->tran_mobile)) ? $request->tran_mobile : '';
         return view('admin.pincenter.paynow', compact('result_data'));
@@ -92,8 +92,8 @@ class HelpIncomeController extends Controller
             $queryArray['ToDate'] = $request->ToDate;
             $condtion1 = " DATE(created_at) between '$request->FromDate' AND '$request->ToDate'";
         } elseif (isset($request->Duration) && $request->Duration == 'month') {
-            $monthA = ['Jan' => 1,'Feb' => 2,'Mar' => 3,'Apr' => 4,'May' => 5,'Jun' => 6,'Jul' => 7,'Aug' => 8,'Sep' => 9,'Oct' => 10,'Nov' => 11,'Dec' => 12];
-            $month = $monthA[$request->DurationMonth];
+            $monthA = ['Jan' => 1, 'Feb' => 2, 'Mar' => 3, 'Apr' => 4, 'May' => 5, 'Jun' => 6, 'Jul' => 7, 'Aug' => 8, 'Sep' => 9, 'Oct' => 10, 'Nov' => 11, 'Dec' => 12];
+            $month = str_pad($monthA[$request->DurationMonth], 2, '0', STR_PAD_LEFT);
             $queryArray['Duration'] = $request->Duration;
             $queryArray['DurationMonth'] = $request->DurationMonth;
             $condtion1 = " MONTH(created_at) = '$month'";
@@ -108,16 +108,20 @@ class HelpIncomeController extends Controller
         $dataGreen = $dataGreen->count('user_sub_info_id');
         $dataAllPins = UserSubInfo::where('user_id', Auth::user()->id);
         if ($condtion1) {
-            $dataGreen = $dataAllPins->whereRaw($condtion1);
+            $dataAllPins = $dataAllPins->whereRaw($condtion1);
         }
         $dataAllPins = $dataAllPins->count('user_sub_info_id');
         // if($dataGreen){
-        $receivedGH = Payment::where('receivers_id',Auth::user()->id)->where('status','completed')->count('payment_id');
+        $receivedGH = Payment::where('receivers_id', Auth::user()->id)->where('status', 'completed');
+        if ($condtion1) {
+            $receivedGH = $receivedGH->whereRaw($condtion1);
+        }
+        $receivedGH = $receivedGH->count('payment_id');
         $allTotal['plan_income_amt'] = $receivedGH * config('custom.custom.plan_income_amt');
 
         $allTotalTwo['pin_used'] = $dataAllPins * config('custom.custom.pin_amount');
-        $allTotalTwo['total_SH'] = $dataGreen * config('custom.custom.upi_pay_amount'); 
-        
+        $allTotalTwo['total_SH'] = $dataGreen * config('custom.custom.upi_pay_amount');
+
         $admin_income = PaymentDistribution::where('reciver_id', Auth::user()->id)
             ->where('level', 'ADMIN');
         if ($condtion1) {
@@ -233,13 +237,13 @@ class HelpIncomeController extends Controller
                 }
             }
         }
-        
+
         $myReferalUser2 = User::join('user_referral AS ur', 'ur.user_id', 'users.id')
-                ->where('ur.referral_id', Auth::user()->mobile_number)
-                ->orWhere('ur.admin_slug', Auth::user()->user_slug)
-                ->orderBy('users.id', 'DESC')
-                ->take(5)
-                ->get();
-        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata','myReferalUser2','all_level_count'));
+            ->where('ur.referral_id', Auth::user()->mobile_number)
+            ->orWhere('ur.admin_slug', Auth::user()->user_slug)
+            ->orderBy('users.id', 'DESC')
+            ->take(5)
+            ->get();
+        return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata', 'myReferalUser2', 'all_level_count'));
     }
 }

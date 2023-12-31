@@ -32,8 +32,8 @@
                             <thead>
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
-                                    <th>User ID</th>
                                     <th>Date</th>
+                                    <th>Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
