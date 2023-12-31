@@ -97,6 +97,7 @@
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
                                     <th>Created ID</th>
+                                    <th>Name</th>
                                     <th>Status</th>
                                     <th>Date</th>
                                 </tr>
@@ -107,6 +108,13 @@
                                 <tr>
                                     <td>{{($key+1)}}</td>
                                     <td>{{$cr->mobile_id}}</td>
+                                    <td>
+                                        <div class="">
+                                            <a href="#update" data-target="#update" data-toggle="modal" class="link">{{$cr->user_fname}} {{$cr->user_lname}}
+                                                <p class="text-muted mb-0">{{$tr}}</p>
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td style="color:{{$cr->status}}">{{ucfirst($cr->status)}}</td>
                                     <td>{{date('d-M-Y',strtotime($cr->created_at))}}</td>
                                 </tr>
