@@ -106,9 +106,9 @@ class HelpIncomeController extends Controller
         $dataGreen = $dataGreen->count('user_sub_info_id');
         $dataAllPins = UserSubInfo::where('user_id', Auth::user()->id);
         if ($condtion1) {
-            $dataGreen = $dataGreen->whereRaw($condtion1);
+            $dataGreen = $dataAllPins->whereRaw($condtion1);
         }
-        $dataGreen = $dataGreen->count('user_sub_info_id');
+        $dataAllPins = $dataAllPins->count('user_sub_info_id');
         // if($dataGreen){
         $receivedGH = Payment::where('receivers_id',Auth::user()->id)->where('status','completed')->count('payment_id');
         $allTotal['plan_income_amt'] = $receivedGH * config('custom.custom.plan_income_amt');
