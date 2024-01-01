@@ -555,7 +555,7 @@ class SuperAdminController extends Controller
                         return $user_name;
                     })
                     ->editColumn('announce', function ($row) {
-                        $user_role = $row->announce;
+                        $user_role = strip_tags($row->announce);
                         return $user_role;
                     })
                     ->editColumn('start_date', function ($row) {

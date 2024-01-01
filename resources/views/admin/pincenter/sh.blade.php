@@ -111,7 +111,7 @@
                                     <td>
                                         <div class="">
                                             <a href="#update" data-target="#update" data-toggle="modal" class="link">{{$cr->user_fname}} {{$cr->user_lname}}
-                                                <p class="text-muted mb-0">{{$tr}}</p>
+                                                <p class="text-muted mb-0">{{$cr->mobile_number}}</p>
                                             </a>
                                         </div>
                                     </td>

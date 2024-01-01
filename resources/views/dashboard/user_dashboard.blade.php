@@ -19,7 +19,7 @@
             <h5><b>Announcements</b></h5>
             @if(isset($data['Announcement']))
             @if(strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['start_time']) || strtotime(date("Y-m-d")) >= strtotime($data['Announcement']['end_time']))
-            <p>{{$data['Announcement']['announce']}}</p>
+            <p>{!! $data['Announcement']['announce'] !!}</p>
             @else
             <p>No new Announcement</p>
             @endif

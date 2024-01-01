@@ -46,18 +46,14 @@ class HelpIncomeController extends Controller
             'orange' => 3,
             'gray' => 4,
         ];
-        $mycreatedids = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-            ->select('users.*', 'user_sub_info.mobile_id', 'user_sub_info.created_at as id_created_date', 'user_sub_info.status as status')
-            ->where('users.id', Auth::user()->id)
-            ->orderByRaw("FIELD(user_sub_info.status, 'red', 'green', 'orange', 'gray')")
-            ->get();
-
+ 
         // $mycreatedids = UserSubInfo::where('user_id', Auth::user()->id)->orderByRaw("FIELD(status, 'red', 'green', 'orange', 'gray')")->get();
 
-        $mycreatedids = UserSubInfo::join('users', 'users.id', 'user_sub_info.new_user_id')
-            ->join('user_map_new', 'users.id', 'user_map_new.new_user_id')
-            ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_sub_info.user_mobile_id', 'user_sub_info.created_at AS assigndate')
-            ->where('user_id', Auth::user()->id)->orderByRaw("FIELD(status, 'red', 'green', 'orange', 'gray')")->get();
+        $mycreatedids = UserSubInfo::join('user_map_new', 'user_map_new.user_mobile_id', 'user_sub_info.mobile_id')
+        ->join('users', 'users.id', 'user_map_new.new_user_id')
+        ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname','users.mobile_number', 'user_sub_info.mobile_id', 'user_sub_info.created_at','user_sub_info.status')
+        ->where('user_sub_info.user_id', Auth::user()->id)
+        ->orderByRaw("FIELD(user_sub_info.status, 'red', 'green', 'orange', 'gray')")->get();
 
         // $getHelpuserIds = $getGetHelpData->pluck('new_user_id')->toArray();
         // $sendHelpData = User::whereIn('id',$getHelpuserIds)->get();
