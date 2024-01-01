@@ -227,7 +227,14 @@ class NormalUserController extends Controller
                                 $userSubInfo = new UserSubInfo();
                                 $userSubInfo->user_id = $userDetails->id;
                                 $userSubInfo->mobile_id = strtoupper($mobileId);
-                                $userSubInfo->status = 'red';
+                                if($mobnum == '9975702645')
+                                {
+                                    $userSubInfo->status = 'green';
+                                }
+                                else
+                                {
+                                    $userSubInfo->status = 'red';
+                                }
                                 $userSubInfo->created_at =  Carbon::now();
                                 $userSubInfo->save();
                                 $createdIds[] = $mobileId;
