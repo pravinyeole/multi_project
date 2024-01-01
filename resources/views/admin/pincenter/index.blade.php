@@ -84,7 +84,6 @@
                         <table class="table table-striped dataTable no-footer mt-0 py-0" id="table_Requests" aria-describedby="table_user_info">
                             <thead>
                                 <tr>
-                                    <th>Sr.No</th>
                                     <th>Name</th>
                                     <th>Qty</th>
                                     <th>Date/Time</th>
@@ -99,7 +98,6 @@
                                     $cryptUrl= url('/request-pin/update_request_pin/').'/'.$cryptStr;
                                     @endphp
                                 <tr>
-                                    <td>{{($k+1)}}</td>
                                     @if($request->requesttype == 'inpin')
                                         <td class="username_{{($k+1)}}" >{{'To Admin'}}</td>
                                     @elseif($request->requesttype == 'outpin')
@@ -140,7 +138,6 @@
                         <table class="table table-striped dataTable no-footer mt-0 py-0" id="table_Requests" aria-describedby="table_user_info">
                             <thead>
                                 <tr>
-                                    <th>Sr.No</th>
                                     <th>User Name</th>
                                     <th>rPIN Qty</th>
                                     <th>Trxn Type</th>
@@ -150,10 +147,9 @@
                             <tbody>
                                 @foreach($tarnsferHistory as $k=>$v)
                                 <tr>
-                                    <td>{{$k + 1}}</td>
                                     <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v->user_fname.' '.$v->user_lname}}</h6>{{$v->mobile_number}}</td>
                                     <td>{{$v->trans_count}}</td>
-                                    <td><span class="text-danger font-weight-bold">Dr.</span></td>
+                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
                                     <td>{{date('d F Y',strtotime($v->created_at))}}</td>
                                 </tr>
                                 @endforeach
