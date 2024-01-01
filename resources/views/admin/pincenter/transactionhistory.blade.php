@@ -31,9 +31,9 @@
                                     <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v['user_fname'].' '.$v['user_lname']}}</h6>{{$v['mobile_number']}}</td>
                                     <td>{{$v['trans_count']}}</td>
                                     @if(isset($v['cr']))
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
-                                    @else
                                     <td><span class="text-danger font-weight-bold">Dr.</span></td>
+                                    @else
+                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
                                     @endif
                                     <td>{{date('d F Y',strtotime($v['created_at']))}}</td>
                                 </tr>
