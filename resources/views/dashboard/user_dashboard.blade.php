@@ -37,37 +37,41 @@
           </div>
         </div>
         <?php
-            date_default_timezone_set("Asia/Kolkata");
-            $todayDate = date('d-m-Y');
-            $currentTime = date('H-i-s');
-            $tomorrowDate = date("d-m-Y", strtotime("+1 day"));
-            if($data['display'] == 0){
-                $hour = date('H');
-                $hour = 19;
-                $classA = 'd-none';
-                $classB = 'block';
-                if($hour == 10){
-                    // show Button
-                }elseif($hour >= 11 && $hour <= 17){
-                    // echo $todayDate;
-                    $targetTimestamp = strtotime('18:00:00');
-                    $classA = 'block';
-                    $classB = 'none';
-                }elseif($hour == 18 && $data['display'] == 0){
-                    $classA = 'd-none';
-                    $classB = 'block';
-                }else{
-                    $targetTimestamp = strtotime($tomorrowDate.' 10:00:00');
-                    $classA = 'block';
-                    $classB = 'd-none';
-                }
-            }else{
-                $targetTimestamp = strtotime($tomorrowDate.' 10:00:00');
-                $classA = 'block';
-                $classB = 'd-none';
+        date_default_timezone_set("Asia/Kolkata");
+        $targetTimestamp = '';
+        $todayDate = date('d-m-Y');
+        $currentTime = date('H-i-s');
+        $tomorrowDate = date("d-m-Y", strtotime("+1 day"));
+        $hour = date('H');
+        if ($data['display'] == 0) {
+          $classA = 'd-none';
+          $classB = 'block';
+          if ($hour == 10) {
+            // show Button
+          } elseif ($hour >= 11 && $hour <= 17) {
+            // echo $todayDate;
+            $targetTimestamp = strtotime('18:00:00');
+            $classA = 'block';
+            $classB = 'd-none';
+          } elseif ($hour == 18 && $data['display'] == 0) {
+            $classA = 'd-none';
+            $classB = 'block';
+          } else {
+            if ($hour >= 0 && $hour <= 10) {
+              $targetTimestamp = strtotime($todayDate . ' 10:00:00');
+            } else {
+              $targetTimestamp = strtotime($tomorrowDate . ' 10:00:00');
             }
+            $classA = 'block';
+            $classB = 'd-none';
+          }
+        } else {
+          $targetTimestamp = strtotime($tomorrowDate . ' 10:00:00');
+          $classA = 'block';
+          $classB = 'd-none';
+        }
         ?>
-        <div id="quota-timer" class="quota-timer {{$classA}}">  
+        <div id="quota-timer" class="quota-timer {{$classA}}">
           <b>Create ID</b> will start in <p id="demo"></p>
         </div>
         <div id="btn-createid" class="text-center form-group mb-3 {{$classB}}">
@@ -223,39 +227,40 @@
 @endsection
 @section('page-script')
 <script>
-$(document).ready(function () {
+  $(document).ready(function() {
     var currentHour = new Date().getHours();
     // Refresh the page every 20 minutes (20 * 60 * 1000 milliseconds)
-    if(currentHour >= 10 && currentHour <= 18){
-        location.reload();
+    if (currentHour >= 10 && currentHour <= 18) {
+      location.reload();
     }
-    setInterval(function () {
-        location.reload();
+    setInterval(function() {
+      location.reload();
     }, 20 * 60 * 1000);
     // Update the countdown every second
     setInterval(updateCountdown, 1000);
-        // Initial update
-        updateCountdown();
-        function updateCountdown() {
-            // Target timestamp from PHP
-            var targetTimestamp = <?php echo $targetTimestamp; ?>;
+    // Initial update
+    updateCountdown();
 
-            // Current timestamp in JavaScript
-            var currentTimestamp = Math.floor(Date.now() / 1000);
+    function updateCountdown() {
+      // Target timestamp from PHP
+      var targetTimestamp = <?php echo $targetTimestamp; ?>;
 
-            // Calculate the difference in seconds
-            var diffSeconds = targetTimestamp - currentTimestamp;
+      // Current timestamp in JavaScript
+      var currentTimestamp = Math.floor(Date.now() / 1000);
 
-            // Calculate days, hours, minutes, and seconds
-            var days = Math.floor(diffSeconds / (60 * 60 * 24));
-            var hours = Math.floor((diffSeconds % (60 * 60 * 24)) / (60 * 60));
-            var minutes = Math.floor((diffSeconds % (60 * 60)) / 60);
-            var seconds = diffSeconds % 60;
+      // Calculate the difference in seconds
+      var diffSeconds = targetTimestamp - currentTimestamp;
 
-            // Display the live countdown
-            document.getElementById('demo').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds ;
-            // document.getElementById('demo').innerHTML = "Countdown: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds remaining.";
-        }
-    });
-    </script>
+      // Calculate days, hours, minutes, and seconds
+      var days = Math.floor(diffSeconds / (60 * 60 * 24));
+      var hours = Math.floor((diffSeconds % (60 * 60 * 24)) / (60 * 60));
+      var minutes = Math.floor((diffSeconds % (60 * 60)) / 60);
+      var seconds = diffSeconds % 60;
+
+      // Display the live countdown
+      document.getElementById('demo').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+      // document.getElementById('demo').innerHTML = "Countdown: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds remaining.";
+    }
+  });
+</script>
 @endsection
