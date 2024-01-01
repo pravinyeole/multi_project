@@ -230,9 +230,9 @@
   $(document).ready(function() {
     var currentHour = new Date().getHours();
     // Refresh the page every 20 minutes (20 * 60 * 1000 milliseconds)
-    if (currentHour >= 10 && currentHour <= 18) {
-      location.reload();
-    }
+    // if(currentHour >= 10 && currentHour <= 18){
+    //     location.reload();
+    // }
     setInterval(function() {
       location.reload();
     }, 20 * 60 * 1000);
@@ -240,7 +240,6 @@
     setInterval(updateCountdown, 1000);
     // Initial update
     updateCountdown();
-
     function updateCountdown() {
       // Target timestamp from PHP
       var targetTimestamp = <?php echo $targetTimestamp; ?>;
@@ -258,7 +257,8 @@
       var seconds = diffSeconds % 60;
 
       // Display the live countdown
-      document.getElementById('demo').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+            document.getElementById('demo').innerHTML = hours + ":" + minutes + ":" + seconds ;
+            // document.getElementById('demo').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds ;
       // document.getElementById('demo').innerHTML = "Countdown: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds remaining.";
     }
   });
