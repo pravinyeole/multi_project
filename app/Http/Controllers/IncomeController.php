@@ -123,10 +123,10 @@ class IncomeController extends Controller
                                     ->where('user_referral.user_id', $referal_id_4->level_four)->first();
                                 if ($referal_id_5) {
                                     $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_5->level_five, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_5'), 'level' => 'LVL5'];
-                                    $referal_id_6 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
-                                        ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
-                                        ->select('u.id AS level_six')
-                                        ->where('user_referral.user_id', $referal_id_5->level_five)->first();
+                                    // $referal_id_6 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
+                                    //     ->join('users AS u', 'u.mobile_number', 'user_referral.referral_id')
+                                    //     ->select('u.id AS level_six')
+                                    //     ->where('user_referral.user_id', $referal_id_5->level_five)->first();
                                     // if ($referal_id_6) {
                                     //     $data[] = ['sender_id' => $userId, 'reciver_id' => $referal_id_6->level_six, 'mobile_id' => $request->mobile_id, 'amount' => config('custom.custom.level_6'), 'level' => 'LVL6'];
                                     //     $referal_id_7 = UserReferral::join('users', 'users.mobile_number', 'user_referral.referral_id')
