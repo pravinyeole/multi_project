@@ -26,6 +26,9 @@ class IncomeController extends Controller
     public function requestSave(Request $request)
     {
         try {
+            $request->validate([
+                'ss_payment' => 'required|file|mimes:jpeg,png,jpg',
+            ]);
             $prv_check = Payment::where('mobile_id', $request->user_mobile_id)->where('receivers_id', $request->uid)->where('user_id', Auth::user()->id)->count();
             if ($prv_check) {
                 return redirect()->back()->with('error', 'This Send help all ready Processed.');

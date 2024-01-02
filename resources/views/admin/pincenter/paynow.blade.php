@@ -77,7 +77,8 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="file" class="form-control" id="ss_payment" name="ss_payment" placeholder="Browse" required>
+                                <p style="color:red">Choose only Image file (.jpeg, .jpg, .png)</p>
+                                <input type="file" class="form-control" id="ss_payment" name="ss_payment" placeholder="Browse" accept="image/*" required>
                             </div>
                         </div>
                     </div>
