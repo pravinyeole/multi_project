@@ -37,6 +37,7 @@
                                 <tr>
                                     <th>{{__("labels.no")}}</th>
                                     <th>User ID</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                     <!-- <th>{{__("labels.action")}}</th> -->
                                 </tr>
@@ -49,10 +50,11 @@
                                     <td>
                                         <div class="">
                                             <a href="javascript:void(0);" class="link">{{$gh->user_fname}} {{$gh->user_lname}}
-                                                <!-- <p class="text-muted mb-0">M: {{$gh->mobile_number}}</p> -->
+                                                <p class="text-muted mb-0">M: {{$gh->mobile_number}}</p>
                                             </a>
                                         </div>
                                     </td>
+                                    <td>{{date('Y-m-d',strtotime($gh->created_at))}}</td>
                                     <td><a href="javascript:void(0);" class="btn btn-warning btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
                                 </tr>
                                 @endforeach

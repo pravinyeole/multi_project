@@ -51,7 +51,7 @@ class IncomeController extends Controller
                 $payment->attachment = $destinationPath . $name;
             } else {
                 // $payment->attachment = $request->utrnumber;
-                return redirect()->back()->with('error', 'Payment Screen shot required !!');
+                return redirect('/help/sh_panel')->with('error', 'Payment Screen shot required !!');
             }
             $payment->save();
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
