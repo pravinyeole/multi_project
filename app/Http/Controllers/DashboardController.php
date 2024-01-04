@@ -213,6 +213,8 @@ class DashboardController extends Controller
                 $data['cryptUrl'] = url('/register/') . '/' . $cryptmobile . '/' . $cryptSlug;
             }
             $myincome = $this->myincome();
+            $receivedGH = Payment::where('receivers_id', Auth::user()->id)->where('status', 'completed')->count('payment_id');
+            $myincome += $receivedGH * config('custom.custom.plan_income_amt');
             $sendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
                 ->where('users.id', Auth::user()->id)
                 ->where('user_sub_info.status', 'red')

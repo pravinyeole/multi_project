@@ -87,7 +87,7 @@
             <div class="card">
                 <div class="page-title">
                     <h4>
-                        My Affilate ID
+                        Completed SH
                     </h4>
                 </div>
                 <div class="card-body gray-bg">
