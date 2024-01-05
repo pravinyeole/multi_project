@@ -213,8 +213,6 @@ class DashboardController extends Controller
                 $data['cryptUrl'] = url('/register/') . '/' . $cryptmobile . '/' . $cryptSlug;
             }
             $myincome = $this->myincome();
-            $receivedGH = Payment::where('receivers_id', Auth::user()->id)->where('status', 'completed')->count('payment_id');
-            $myincome += $receivedGH * config('custom.custom.plan_income_amt');
             $sendHelpDataA = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
                 ->where('users.id', Auth::user()->id)
                 ->where('user_sub_info.status', 'red')
@@ -563,13 +561,39 @@ class DashboardController extends Controller
         }
     }
 
-    public function  myincome()
+    public function myincome()
     {
-        $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)
-            ->where('status', 'green')->count('user_sub_info_id');
-        $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_amount');
-        $allTotal['admin_income'] = PaymentDistribution::where('reciver_id', Auth::user()->id)->sum('amount');
-        return  array_sum($allTotal);
+        if (Auth::user()->user_role == 'U') {
+            $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)->where('status', 'green');
+            $dataGreen = $dataGreen->count('user_sub_info_id');
+            $dataAllPins = UserSubInfo::where('user_id', Auth::user()->id);
+            $dataAllPins = $dataAllPins->count('user_sub_info_id');
+            $receivedGH = Payment::where('receivers_id', Auth::user()->id)->where('status', 'completed');
+            $receivedGH = $receivedGH->count('payment_id');
+            $allTotal['plan_income_amt'] = $receivedGH * config('custom.custom.plan_income_amt');
+            $admin_income = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'ADMIN');
+            $allTotal['admin_income'] = $admin_income->sum('amount');
+            $leader_income = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LEADER');
+            $allTotal['leader_income'] = $leader_income->sum('amount');
+            $level_1 = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LVL1');
+            $allTotal['level_1'] = $level_1->sum('amount');
+            $level_2 = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LVL2');
+            $allTotal['level_2'] = $level_2->sum('amount');
+            $level_3 = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LVL3');
+            $allTotal['level_3'] = $level_3->sum('amount');
+            $level_4 = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LVL4');
+            $allTotal['level_4'] = $level_4->sum('amount');
+            $level_5 = PaymentDistribution::where('reciver_id', Auth::user()->id)->where('level', 'LVL5');
+            $allTotal['level_5'] = $level_5->sum('amount');
+            return array_sum($allTotal);
+            dd();
+        } else {
+            $dataGreen = UserSubInfo::where('user_id', Auth::user()->id)
+                ->where('status', 'green')->count('user_sub_info_id');
+            $allTotal['plan_income_amt'] = $dataGreen * config('custom.custom.plan_amount');
+            $allTotal['admin_income'] = PaymentDistribution::where('reciver_id', Auth::user()->id)->sum('amount');
+            return  array_sum($allTotal);
+        }
     }
     public function findMyAdmin($uid)
     {
