@@ -69,5 +69,10 @@ trait CommonTrait
                 'text' => $message,
             ],
         ]);
+        if(isset($response->statusCode) && $response->statusCode == 200){
+            return true;
+        }else{
+            return true;
+        }
     }
 }

@@ -55,7 +55,7 @@
                                         </div>
                                     </td>
                                     <td>{{date('Y-m-d',strtotime($gh->created_at))}}</td>
-                                    <td><a href="javascript:void(0);" class="btn btn-warning btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
+                                    <td><a href="javascript:void(0);" class="btn btn-{{($gh->pstatus=='inpay')?"green":"warning"}} btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
                                 </tr>
                                 @endforeach
                                 @endif

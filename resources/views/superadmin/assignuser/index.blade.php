@@ -7,6 +7,10 @@
         overflow-y: auto;
         ;
     }
+    #manaualAssignRadio,#manaualAssignCheck{
+        font-size: 15px;
+        font-weight: 700;
+    }
 
     /*----------------genealogy-scroll----------*/
     .genealogy-scroll::-webkit-scrollbar {
@@ -55,7 +59,7 @@
         text-align: center;
         list-style-type: none;
         position: relative;
-        padding: 15px 35px 0px 35px;
+        padding: 15px 25px 0px 25px;
     }
 
     .genealogy-tree li::before,
@@ -210,12 +214,12 @@
                         </div>
                         @endif
                         <div class="col-sm-12 row">
-                            <div class="col-sm-3 scrolldiv">
+                            <div class="col-sm-4 scrolldiv">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <!-- {{$from_date.'-'.$to_date}} -->
-                                            <th>Added On {{date('d F Y',strtotime($from_date))}}</th>
+                                            <th>{{count($getOldUser)}} Users Added On {{date('d F Y',strtotime($from_date))}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignRadio">
@@ -226,7 +230,7 @@
                                             <td>
                                                 <input type="radio" name="user_id" id="{{ $user->id }}_{{ $user->mobile_id }}" data-username="{{ $user->mobile_id }}" data-oid="{{ $user->id }}">
                                                 <label radiovalue="{{ $user->id }}_{{ $user->mobile_id }}" radioname="{{ $user->user_fname }}_{{ $user->user_lname }}" class="col-sm-4 control-label" id="manaual_radio_{{$j}}">
-                                                    <center>{{ $user->mobile_id }}</br> ({{ $user->mobile_number }})</center>
+                                                    <center>{{ $user->mobile_id }}</br> ({{ $user->user_fname.' '.$user->user_lname .'-'.$user->mobile_number }})</center>
                                                 </label>
                                             </td>
                                         </tr>
@@ -236,15 +240,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-6 scrolldiv" id="htmlassign">
+                            <div class="col-sm-4 scrolldiv" id="htmlassign">
                                 <div class="loader hide"></div>
                             </div>
-                            <div class="col-sm-3 scrolldiv">
+                            <div class="col-sm-4 scrolldiv">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <!-- $from_date_one.'-'.$to_date_one -->
-                                            <th>Added On {{date('d F Y',strtotime($from_date_one))}}</th>
+                                            <th>{{count($getRecentlyJoinUser)}} Added On {{date('d F Y',strtotime($from_date_one))}}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="manaualAssignCheck">
@@ -258,7 +262,7 @@
                                                 <td>
                                                     <input type="checkbox" name="new_user_id" value="{{ $recentUser->id }}_{{ $recentUser->mobile_id }}" data-checkname="{{ $recentUser->mobile_id }}" data-nid="{{ $recentUser->id }}">
                                                     <label checkvalue="{{ $recentUser->id }}" checkname="{{ $recentUser->mobile_id }}" class="col-sm-4 control-label" id="manuel_check_{{$r}}">
-                                                        <center>{{ $recentUser->mobile_id }}</br> ({{ $recentUser->mobile_number }}) </center>
+                                                        <center>{{ $recentUser->mobile_id }}</br> ({{ $recentUser->user_fname.' '.$recentUser->user_lname .'-'.$recentUser->mobile_number }}) </center>
                                                     </label>
                                                 </td>
                                             </tr>

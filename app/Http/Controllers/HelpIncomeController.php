@@ -69,14 +69,19 @@ class HelpIncomeController extends Controller
     }
     public function ghPanel(Request $request)
     {
-        // $notInPayment = Payment::where('receivers_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
+        $notInPayment = Payment::where('receivers_id', Auth::user()->id)->where('status','pending')->pluck('mobile_id')->toArray();
         $getHelpData = User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
             ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
-            ->select('users.id', 'users.user_lname', 'users.user_fname', 'users.mobile_number', 'user_map_new.user_mobile_id', 'user_map_new.new_user_id','user_map_new.created_at')
+            ->select('users.id', 'users.user_lname', 'users.user_fname', 'users.mobile_number', 'user_map_new.user_mobile_id', 'user_map_new.new_user_id','user_map_new.created_at',DB::raw("'notin' as pstatus"))
             ->where('user_map_new.new_user_id', Auth::user()->id)
-            // ->whereNotIn('user_map_new.user_mobile_id', $notInPayment)
+            ->whereNotIn('user_map_new.user_mobile_id', $notInPayment)
             ->where('user_sub_info.status', 'red')
-            ->orderBy('user_map_new.created_at', 'DESC')
+            ->union(User::join('user_map_new', 'users.id', '=', 'user_map_new.user_id')
+            ->join('user_sub_info', 'user_sub_info.mobile_id', '=', 'user_map_new.user_mobile_id')
+            ->select('users.id', 'users.user_lname', 'users.user_fname', 'users.mobile_number', 'user_map_new.user_mobile_id', 'user_map_new.new_user_id','user_map_new.created_at',DB::raw("'inpay' as pstatus"))
+            ->where('user_map_new.new_user_id', Auth::user()->id)
+            ->whereIn('user_map_new.user_mobile_id', $notInPayment)
+            ->where('user_sub_info.status', 'red'))
             ->get();
         return view('admin.pincenter.gh', compact('getHelpData'));
     }
