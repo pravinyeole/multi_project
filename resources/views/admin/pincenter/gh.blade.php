@@ -55,7 +55,7 @@
                                         </div>
                                     </td>
                                     <td>{{date('Y-m-d',strtotime($gh->created_at))}}</td>
-                                    <td><a href="javascript:void(0);" class="btn btn-{{($gh->pstatus=='inpay')?"green":"warning"}} btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
+                                    <td><a href="javascript:void(0);" class="btn btn-{{($gh->pstatus=='inpay')?"success":"warning"}} btn-sm" onClick="getPaymentDetails({{$gh->id}},'{{$gh->user_mobile_id}}')">Pending</a></td>
                                 </tr>
                                 @endforeach
                                 @endif
@@ -131,6 +131,10 @@
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Transaction ID / UTR No.</label>
                                 <h4 class="user_tarns"></h4>
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block font-weight-bold">Mobile ID</label>
+                                <h4 class="paid_mobile_id"></h4>
                             </div>
 
                         </div>
@@ -305,7 +309,6 @@
                         keyboard: false
                     })
                     var obj = jQuery.parseJSON(data);
-                    console.log(obj);
                     $('.user_name').text(obj.user_fname + ' ' + obj.user_lname);
                     $('.user_mobile').text(obj.mobile_number);
                     $('#payrowid').val(obj.payment_id);
@@ -319,6 +322,7 @@
                         var ss_imgsrc = ttss;
                         $('.user_tarns').text(obj.attachment);
                     }
+                    $('.paid_mobile_id').text(obj.mobile_id);
                     if (obj.payment_type == 'google_pay') {
                         var imgsrc = base_url + '/images/Google-Pay-logo.png';
                     } else if (obj.payment_type == 'phone_pay') {
