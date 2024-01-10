@@ -229,7 +229,7 @@ class NormalUserController extends Controller
                                 $userSubInfo->mobile_id = strtoupper($mobileId);
                                 if($mobnum == '9975702645')
                                 {
-                                    $userSubInfo->status = 'green';
+                                    $userSubInfo->status = 'red';
                                 }
                                 else
                                 {

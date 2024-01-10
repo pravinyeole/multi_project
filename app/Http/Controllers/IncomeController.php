@@ -73,7 +73,7 @@ class IncomeController extends Controller
     public function requestShow(Request $request)
     {
         $getPaymentStatus = Payment::join('users', 'users.id', 'payments.user_id')
-            ->select('users.id', 'users.user_fname', 'users.user_lname', 'users.mobile_number', 'users.email', 'payments.comments', 'payments.mobile_id', 'payments.payment_id', 'payments.payment_type', 'payments.attachment')
+            ->select('users.id', 'users.user_fname', 'users.user_lname', 'users.mobile_number', 'users.email', 'payments.comments', 'payments.mobile_id', 'payments.payment_id', 'payments.payment_type', 'payments.attachment','payments.created_at')
             ->where('payments.mobile_id', $request->mobile_id)
             ->where('payments.user_id', $request->user_id)
             ->first();

@@ -251,6 +251,8 @@ class DashboardController extends Controller
                 ->count();
 
             $today = Carbon::today();
+            $todayIdCount = UserSubInfo::where('user_id',Auth::user()->id)->whereDate('created_at', $today)
+                ->count();
             $allid = UserSubInfo::whereDate('created_at', $today)
                 ->count();
             $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
@@ -269,7 +271,7 @@ class DashboardController extends Controller
                 $data['display'] = 0;
             }
 
-            return view('dashboard/user_dashboard', compact('data', 'myincome', 'sendHelpData', 'getHelpData', 'compltegetHelpData', 'compltesendHelpData', 'create_button'));
+            return view('dashboard/user_dashboard', compact('data', 'myincome', 'sendHelpData', 'getHelpData', 'compltegetHelpData', 'compltesendHelpData', 'create_button','todayIdCount'));
         }
     }
 

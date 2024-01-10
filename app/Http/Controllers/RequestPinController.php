@@ -335,17 +335,17 @@ class RequestPinController extends Controller
   public function pendingrequests(Request $request)
   {
     $requestedPins = RequestPin::select('users.*', 'request_pin.*', 'request_pin.created_at as req_created_at')->leftJoin('users', 'users.user_slug', '=', 'request_pin.admin_slug')
-      ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->get();
+      ->where('request_pin.req_user_id', Auth::user()->id)->limit(5)->orderBy('request_pin.created_at', 'DESC')->get();
     return view('admin.pincenter.pendingrequests', compact('requestedPins'));
   }
   public function transactionhistory(Request $request)
   {
     $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
       ->select('users.user_fname', 'users.user_lname', 'users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.created_at', 'transfer_pin_history.trans_by')
-      ->where('transfer_pin_history.trans_by', Auth::user()->id)->get()->toArray();
+      ->where('transfer_pin_history.trans_by', Auth::user()->id)->orderBy('transfer_pin_history.created_at', 'DESC')->get()->toArray();
     $tarnsferto = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_by')
       ->select('users.user_fname', 'users.user_lname', 'users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.created_at', 'transfer_pin_history.trans_by')
-      ->where('transfer_pin_history.trans_to', Auth::user()->id)->get()->toArray();
+      ->where('transfer_pin_history.trans_to', Auth::user()->id)->orderBy('transfer_pin_history.created_at', 'DESC')->get()->toArray();
     $arra = array_merge($tarnsferHistory, $tarnsferto);
     $arra = array_merge($tarnsferHistory, $tarnsferto);
     return view('admin.pincenter.transactionhistory', compact('arra'));

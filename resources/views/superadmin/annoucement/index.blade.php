@@ -56,7 +56,7 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label class="form-label" for="last_name">Announcement Desc:<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="editor" name="anno" rows="10" placeholder="Please Enter Announcement for Users and admin" required></textarea>
+                                    <textarea class="form-control" id="editor" name="anno" rows="10" placeholder="Please Enter Announcement for Users and admin"></textarea>
                                 </div>
                             </div>
                         </div>

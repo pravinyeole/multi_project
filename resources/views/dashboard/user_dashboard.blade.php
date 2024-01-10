@@ -77,12 +77,21 @@
         <div id="btn-createid" class="text-center form-group mb-3 {{$classB}}">
           <a href="javascript:void()" data-toggle="modal" data-target="#modals-slide-in" id="createId" class="btn create-btn text-white"><span>+</span> Create Id</a>
         </div>
+        
+        <div class="refForm mb-4">
+          <div class="affilates d-flex justify-content-between px-3 py-3">
+            <h4>IDs Created Today</h4>
+            <h3> @if(isset($todayIdCount)) {{$todayIdCount}} @else 0 @endif</h3>
+          </div>
+        </div>
+
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
             <h4>Total Referrals</h4>
             <h3> @if(isset($data['myReferalUserCount'])) {{$data['myReferalUserCount']}} @else 0 @endif</h3>
           </div>
         </div>
+
         <a href="#" class="income">
           <h4><svg class="svg-icon" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <path d="M933.034667 494.933333h-17.066667v-119.466666a51.2 51.2 0 0 0-51.2-51.2h-38.4l-19.797333-74.069334a51.2 51.2 0 0 0-62.634667-36.181333l-18.773333 5.12L699.733333 165.717333a51.2 51.2 0 0 0-68.266666-24.746666L237.738667 324.266667h-21.504a51.2 51.2 0 0 0-51.2 51.2v191.829333a164.864 164.864 0 0 0 68.266666 314.88h631.466667a51.2 51.2 0 0 0 51.2-51.2v-119.466667h17.066667a17.066667 17.066667 0 0 0 17.066666-17.066666V512a17.066667 17.066667 0 0 0-17.066666-17.066667z m-286.72-324.266666a17.066667 17.066667 0 0 1 22.698666 8.192l22.528 48.469333-155.306666 41.642667a17.066667 17.066667 0 1 0 8.874666 33.109333l207.701334-55.637333a17.066667 17.066667 0 0 1 20.821333 11.946666l17.066667 65.194667H318.464zM102.4 716.8a130.901333 130.901333 0 1 1 130.901333 130.730667A131.072 131.072 0 0 1 102.4 716.8z m779.434667 51.2H570.709333a17.066667 17.066667 0 0 0 0 34.133333h311.125334v28.330667a17.066667 17.066667 0 0 1-17.066667 17.066667H333.312A161.962667 161.962667 0 0 0 374.101333 802.133333h46.933334a17.066667 17.066667 0 0 0 0-34.133333h-31.061334a164.864 164.864 0 0 0-156.672-216.234667 159.744 159.744 0 0 0-34.133333 3.584V375.466667a17.066667 17.066667 0 0 1 17.066667-17.066667h648.533333a17.066667 17.066667 0 0 1 17.066667 17.066667v119.466666H705.365333a62.464 62.464 0 0 0-62.464 62.464V648.533333a62.464 62.464 0 0 0 62.464 62.464h176.469334z m34.133333-91.136H705.365333A28.330667 28.330667 0 0 1 677.034667 648.533333v-90.624A28.330667 28.330667 0 0 1 705.365333 529.066667h210.602667z" fill="#3D3D63" />
@@ -120,7 +129,7 @@
           </div>
 
           <div class="col-6 pb-3">
-            <div class="card card-orange stat-card">
+            <div class="card card-green stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <a href="#" class="col-6">
@@ -132,7 +141,7 @@
             </div>
           </div>
           <div class="col-6 pb-3">
-            <div class="card card-green stat-card">
+            <div class="card card-orange stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->

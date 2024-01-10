@@ -106,31 +106,31 @@
                         <div class="col-12 row">
                             <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Name</label>
-                                <h4 class="user_name">First Last Name</h4>
+                                <h4 class="user_name"></h4>
                             </div>
                             <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Mobile</label>
-                                <h4 class="user_mobile">7777777777</h4>
+                                <h4 class="user_mobile"></h4>
                             </div>
                         </div>
                         <div class="col-12 row">
                             <div class="col-6 form-group" style="display:none">
                                 <label class="d-block font-weight-bold">Email</label>
-                                <h4 class="user_email">info@domain.com</h4>
+                                <h4 class="user_email"></h4>
                             </div>
                             <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Comments</label>
-                                <p class="tarns_comments">test comment</p>
+                                <p class="tarns_comments"></p>
                             </div>
                             <div class="col-6 form-group">
-                                <label class="d-block font-weight-bold">Payment Method</label>
-                                <h4><img class="payment_mode" src="{{asset('images/Google-Pay-logo.png')}}" alt="" class="img-fuild" style="max-width:80px;" /></h4>
+                                <label class="d-block font-weight-bold">Date</label>
+                                <p class="created_at"></p>
                             </div>
                         </div>
                         <div class="col-12 row">
                             <div class="form-group">
                                 <label class="d-block font-weight-bold">Transaction ID / UTR No.</label>
-                                <h4 class="user_tarns">ABCB0000012456</h4>
+                                <h4 class="user_tarns"></h4>
                             </div>
 
                         </div>
@@ -305,6 +305,7 @@
                         keyboard: false
                     })
                     var obj = jQuery.parseJSON(data);
+                    console.log(obj);
                     $('.user_name').text(obj.user_fname + ' ' + obj.user_lname);
                     $('.user_mobile').text(obj.mobile_number);
                     $('#payrowid').val(obj.payment_id);
@@ -327,6 +328,8 @@
                     }
                     $('.payment_mode').attr('src', imgsrc);
                     $('.tarns_comments').text(obj.comments);
+                    $('.created_at').text(obj.created_at);
+                    
                 }
             }
         });

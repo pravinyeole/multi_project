@@ -54,7 +54,7 @@
                     @enderror
                     <div class="d-flex">
                         <div class="col-8 ">
-                            <input id="tel_chat_Id" type="tel_chat_Id" class="form-control form-control-md text-left" name="tel_chat_Id" value="{{ old('tel_chat_Id', $user->tel_chat_Id) }}" required>
+                            <input id="tel_chat_Id" type="tel_chat_Id" class="form-control form-control-md text-left" name="tel_chat_Id" value="{{ old('tel_chat_Id', $user->tel_chat_Id) }}" onkeypress="return validateNumber(event)" required>
                         </div>
                         <div class="col-4 m-1">
                             <a href="{{config('custom.custom.telegram_bot_join')}}" target="_blank" type="button" id="getChatID" class="btn btn-success">Get Chat ID</a>
@@ -85,4 +85,11 @@
 </div>
 @endsection
 @section('page-script')
+<script>
+    function validateNumber(e) {
+        const pattern = /^[0-9]$/;
+
+        return pattern.test(e.key )
+    }
+    </script>
 @endsection

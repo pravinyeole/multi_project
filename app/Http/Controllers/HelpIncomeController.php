@@ -39,7 +39,7 @@ class HelpIncomeController extends Controller
             ->select('users.id', 'users.user_fname', 'users.upi', 'users.user_lname', 'user_map_new.user_mobile_id', 'user_map_new.created_at AS assigndate')
             ->whereIn('user_mobile_id', $sendHelpDataA)
             ->whereNotIn('user_mobile_id', $notInPayment)
-            ->where('type', 'GH')->get();
+            ->where('type', 'GH')->orderBy('user_map_new.created_at', 'DESC')->get();
         $statusOrder = [
             'red' => 1,
             'green' => 2,
@@ -76,6 +76,7 @@ class HelpIncomeController extends Controller
             ->where('user_map_new.new_user_id', Auth::user()->id)
             // ->whereNotIn('user_map_new.user_mobile_id', $notInPayment)
             ->where('user_sub_info.status', 'red')
+            ->orderBy('user_map_new.created_at', 'DESC')
             ->get();
         return view('admin.pincenter.gh', compact('getHelpData'));
     }
