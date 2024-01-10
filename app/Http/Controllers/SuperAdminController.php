@@ -232,7 +232,7 @@ class SuperAdminController extends Controller
         $title = $this->title;
         try {
             if ($request->ajax()) {
-                $data = User::select('*')->orderBy('id','DESC')->get();
+                $data = User::select('*')->where('user_status','Active')->orderBy('id','DESC')->get();
                 
         
                 return Datatables::of($data)

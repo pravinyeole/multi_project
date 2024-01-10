@@ -24,7 +24,7 @@
                                     <th>{{__("labels.no")}}</th>
                                     <th>Role</th>
                                     <th>Username</th>
-                                    <th>Email</th>
+                                    <th>UPI ID</th>
                                     <th>Mobile No</th>
                                     <th>Refferal Id</th>
                                     <th>{{__("labels.action")}}</th>
@@ -82,8 +82,8 @@
                         name: 'user_name'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'upi',
+                        name: 'UPI Id'
                     },
                     {
                         data: 'mobile_number',
