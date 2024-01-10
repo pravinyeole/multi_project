@@ -90,7 +90,7 @@
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title" id="exampleModalLabel">Approve / Reject Help</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close closemodel" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -128,11 +128,11 @@
                             </div>
                         </div>
                         <div class="col-12 row">
-                            <div class="form-group">
+                            <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Transaction ID / UTR No.</label>
                                 <h4 class="user_tarns"></h4>
                             </div>
-                            <div class="form-group">
+                            <div class="col-6 form-group">
                                 <label class="d-block font-weight-bold">Mobile ID</label>
                                 <h4 class="paid_mobile_id"></h4>
                             </div>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
-                    <button type="button" class="btn btn-danger w-50 m-0 b-r-r-0 close">Close</button>
+                    <button type="button" class="btn btn-danger w-50 m-0 b-r-r-0 close closemodel">Close</button>
                     <button type="button" class="btn btn-success w-50 m-0 b-l-r-0" onclick="btnReqUpdate()">Approve</button>
                 </div>
             </form>
@@ -182,7 +182,7 @@
         }
     }
     $(document).ready(function() {
-        $('.close').click(function() {
+        $('.closemodel').click(function() {
             $('#update').modal('toggle');
         });
         // DataTable for organization
