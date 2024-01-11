@@ -63,8 +63,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="email">Email Id<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder='{{__("labels.department.title")}}' value="{{$admin->email}}" maxlength="100" required="">
+                                    <label class="form-label" for="email">Comments<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder='Comments' value="{{$admin->email}}" maxlength="100" required="">
                                 </div>
                             </div>
                         </div>

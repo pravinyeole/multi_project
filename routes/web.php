@@ -128,6 +128,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/admin_create_form',                 [SuperAdminController::class, 'showAdminCreateFrom']);
         Route::post('/admin/save',                 [SuperAdminController::class, 'saveAdmin']);
         Route::get('/admin/edit/{id}',                 [SuperAdminController::class, 'showEditAdminFrom']);
+        Route::get('/admin/delete/{id}',                 [SuperAdminController::class, 'showDeleteAdminFrom']);
         Route::post('/admin/update',                 [SuperAdminController::class, 'updateAdmin']);
         // users list who dont have ref code but wan to join 
         Route::get('/users',                 [SuperAdminController::class, 'userWithOutRefral']);

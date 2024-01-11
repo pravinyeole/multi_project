@@ -19,28 +19,26 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-            <center>
+            <div class="card">
+                <div class="card-body">
+                    <center>
                         <h4 class="card-title" style="text-transform: uppercase;">Unassigned User List</h4>
                     </center>
-            <div class="table-responsive">
-                <table class="table table-striped" id="table_user">
-                <thead>
-                    <tr>
-                        <th>{{__("labels.no")}}</th>
-                        <th>Username</th>                             
-                        <th>Email</th>
-                        <th>Mobile No</th>
-                        {{-- <th>Pins</th>
-                        <th>Event</th> --}}
-                        <th>{{__("labels.action")}}</th>
-                    </tr>
-                </thead>
-                </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="table_user">
+                        <thead>
+                            <tr>
+                                <th>{{__("labels.no")}}</th>
+                                <th>Username</th>
+                                <th>Mobile No</th>
+                                <th>Comments</th>
+                                <th>{{__("labels.action")}}</th>
+                            </tr>
+                        </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
 </div>
@@ -65,8 +63,8 @@ $(document).ready(function () {
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'user_name', name: 'user_name'},
-                {data: 'email', name: 'email'},
                 {data: 'mobile_number', name: 'mobile_number'},
+                {data: 'email', name: 'email'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
