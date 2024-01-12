@@ -102,7 +102,7 @@
         </a>
         <div class="row flex-grow mb-3">
           <div class="col-6 pb-3">
-            <div class="card card-green stat-card">
+            <div class="card card-orange stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
@@ -115,7 +115,7 @@
             </div>
           </div>
           <div class="col-6 pb-3">
-            <div class="card card-orange stat-card">
+            <div class="card card-green stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
@@ -129,7 +129,7 @@
           </div>
 
           <div class="col-6 pb-3">
-            <div class="card card-green stat-card">
+            <div class="card card-orange stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <a href="#" class="col-6">
@@ -141,7 +141,7 @@
             </div>
           </div>
           <div class="col-6 pb-3">
-            <div class="card card-orange stat-card">
+            <div class="card card-green stat-card">
               <div class="card-body">
                 <div class="statistics-details">
                   <!-- <img src="images/pending.png" alt="" class="img-fuild" /> -->
@@ -182,7 +182,7 @@
       </div> -->
       @endif
       <div class="heading d-flex align-items-center justify-content-between">
-        <h3>Referral Code</h3>
+        <h3>My Referral Code</h3>
       </div>
       <div class="refForm mb-4">
         <form action="#">
@@ -200,18 +200,18 @@
             <h3 class="pt-0">rPIN Details</h3>
           </div>
           <div class="row flex-grow pin-details">
-            <div class="col-4">
+            <div class="col-6">
               <p>No. of rPIN Transferred</p>
               <h3>{{$data['pinTransferSend']}}</h3>
             </div>
-            <div class="col-4 bdr-left">
+            <div class="col-6 bdr-left">
               <p>No. of rPIN Used</p>
               <h3>{{$data['pinused']}}</h3>
             </div>
-            <div class="col-4 bdr-left">
+            <!-- <div class="col-4 bdr-left">
               <p>No. of rPIN Requested</p>
               <h3>{{$data['pinTransferRequest']}}</h3>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
