@@ -48,15 +48,11 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
     Route::get('show-enter-mpin/{user_id}/{mobileNumber}', [RegisterController::class, 'showEnterMpin'])->name('show-enter-mpin');
     Route::get('reset-mpin/{user_id}/{mobileNumber}', [RegisterController::class, 'showResetMpin'])->name('reset-mpin');
     Route::post('update-mpin', [RegisterController::class, 'updateMpin'])->name('update-mpin');
-
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::post('register_user', [RegisterController::class, 'register'])->name('register_user');
     Route::get('/home', [DashboardController::class, 'dashboard'])->name('home');
-
-
     Auth::routes(['verify' => true]);
     Route::get('logout', [LoginController::class, 'logout']);
-
     // org selection screens
 
     /* Route Common */
@@ -121,7 +117,6 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('/edit/{id}',                 [PinCenterController::class, 'edit'])->name('pin_center.edit');
         Route::post('/update/{id}',                 [PinCenterController::class, 'update']);
     });
-
     Route::group(['prefix' => 'superadmin'], function () {
         Route::get('/',                 [SuperAdminController::class, 'index']);
         Route::get('/admin',                 [SuperAdminController::class, 'admins']);
@@ -132,13 +127,13 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('/admin/update',                 [SuperAdminController::class, 'updateAdmin']);
         // users list who dont have ref code but wan to join 
         Route::get('/users',                 [SuperAdminController::class, 'userWithOutRefral']);
-        //
         Route::get('/allusers',                 [SuperAdminController::class, 'showAllUser']);
         //revoke super admin can revoke pin form any user in the system
         Route::get('/revokepin',                 [SuperAdminController::class, 'showRevokePin']);
         Route::get('/user/details/{id}',                 [SuperAdminController::class, 'getRevokePinUserDetails']);
         Route::post('/save_revoke',                 [SuperAdminController::class, 'saveRevoke']);
-
+        Route::get('/flusheduser',                 [SuperAdminController::class, 'showFlushedForm']);
+        Route::post('/saveflush',                 [SuperAdminController::class, 'saveFlushIds']);
         Route::get('/assignuser',                 [SuperAdminController::class, 'showAssignUserFrom']);
         Route::post('/save-assigne-user', [SuperAdminController::class, 'saveAssignUsers'])->name('superadmin.save-assigne-user');
         Route::get('/announcement', [SuperAdminController::class, 'showannouncement']);

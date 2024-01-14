@@ -54,6 +54,7 @@ class IncomeController extends Controller
                 return redirect('/help/sh_panel')->with('error', 'Payment Screen shot required !!');
             }
             $payment->save();
+            $datayellow = UserSubInfo::where('mobile_id', $request->user_mobile_id)->update(['status' => 'yellow']);
             $refferalUser = UserReferral::where('user_id', Auth::user()->id)->first();
             // Increment total_invited for mobile_number referral
             $referredMobileUser = User::where('mobile_number', $refferalUser->referral_id)->first();

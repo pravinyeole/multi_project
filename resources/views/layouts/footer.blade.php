@@ -105,11 +105,13 @@ $(window).on('load', function() {
     });
    
     $('.common-table').DataTable({
-      dom: 'Bfrtip',
+      dom: 'lBfrtip',
+      lengthMenu: [
+        [25, 50, 100, 200, -1],
+        [25, 50, 100, 200, "All"]
+      ],
       buttons: [
-        // 'copyHtml5',
         'excelHtml5',
-        // 'csvHtml5',
         'pdfHtml5'
       ]
     });

@@ -1,3 +1,37 @@
+--  Find Referal Ids Count is 0
+SELECT users.id, users.user_fname, users.user_lname, users.mobile_number,users.created_at AS joinng_date FROM users WHERE users.mobile_number NOT IN ( SELECT DISTINCT user_referral.referral_id FROM user_referral WHERE user_referral.referral_id IS NOT NULL ) AND user_role='U' and user_status='Active'
+
+--  Find Referal Ids Count > 0
+SELECT users.id, user_fname, user_lname, created_at AS joining_date, referal_count FROM users JOIN ( SELECT referral_id, COUNT(user_referral_id) AS referal_count FROM user_referral GROUP BY referral_id ) AS ur ON ur.referral_id = users.mobile_number WHERE user_status = 'Active' AND user_role = 'U';
+
+
+-- Each user level wise data
+$usersall = DB::select(DB::raw("SELECT users.id, mobile_number,user_fname, user_lname, created_at AS joining_date, referal_count FROM users JOIN ( SELECT referral_id, COUNT(user_referral_id) AS referal_count FROM user_referral GROUP BY referral_id ) AS ur ON ur.referral_id = users.mobile_number WHERE user_status = 'Active' AND user_role = 'U'"));
+
+$myLveledata = [];
+foreach($usersall AS $key => $u ){
+    $lvlOneA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->where('user_referral.referral_id', $u->mobile_number)->pluck('users.mobile_number')->toArray();
+    $myLveledata[]= [$u->mobile_number];
+    $myLveledata[$u->mobile_number][] = ['level_1' => count($lvlOneA)];
+    if ($lvlOneA) {
+        $lvlTwoA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlOneA)->pluck('users.mobile_number')->toArray();
+        $myLveledata[$u->mobile_number][] = ['level_2' => count($lvlTwoA)];
+        if ($lvlTwoA) {
+            $lvlThreeA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlTwoA)->pluck('users.mobile_number')->toArray();
+            $myLveledata[$u->mobile_number][] = ['level_3' => count($lvlThreeA)]; 
+            if ($lvlThreeA) {
+                $lvlFourA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlThreeA)->pluck('users.mobile_number')->toArray();
+                $myLveledata[$u->mobile_number][] = ['level_4' => count($lvlFourA)];
+                if ($lvlFourA) {
+                    $lvlFiveA = UserReferral::join('users', 'users.id', 'user_referral.user_id')->select('users.mobile_number')->whereIn('user_referral.referral_id', $lvlFourA)->pluck('users.mobile_number')->toArray();
+                    $myLveledata[$u->mobile_number][] = ['level_5' => count($lvlFiveA)];
+                }
+            }
+        }
+    }
+}
+
+
 =====================================================17-12-2023==============================================================
 ALTER TABLE `users` ADD `tel_chat_Id` VARCHAR(11) NULL DEFAULT NULL AFTER `user_sub_info_id`;
 

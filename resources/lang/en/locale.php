@@ -215,6 +215,7 @@ return [
   "Admin" => "Admin",
   "All Users" => "All Users",
   "Revoke Pin" => "Revoke Pin",
+  "Flushed Users"=>"Flushed Users",
   "Assign Users"=>"Assign Users",
   "Request Pin"=>"Request Pin",
   "Requests"=>'Requests',

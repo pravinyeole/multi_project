@@ -33,6 +33,12 @@
       "slug": "superadmin/revokepin"
     },
     {
+      "url":  "superadmin/flusheduser",
+      "name": "Flushed Users",
+      "icon": "mdi mdi-account-network",
+      "slug": "superadmin/flusheduser"
+    },
+    {
       "url":  "superadmin/assignuser",
       "name": "Assign Users",
       "icon": "mdi mdi-account-network",

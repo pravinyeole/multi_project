@@ -71,7 +71,7 @@ class NormalUserController extends Controller
             ->whereDate('created_at', $today)
             ->count();
 
-        $allid = UserSubInfo::whereDate('created_at', $today)->count();
+        $allid = UserSubInfo::whereDate('created_at', $today)->where('status','!=','flushed')->count();
 
         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week
@@ -124,7 +124,8 @@ class NormalUserController extends Controller
                 ->count();
 
             $allid = UserSubInfo::whereDate('created_at', $today)
-                ->count();
+                        ->where('status','!=','flushed')    
+                        ->count();
 
             // if ($userIds >= 3 || ) {
             //     toastr()->error('You have reached the maximum limit of ID creations for today!');
@@ -203,7 +204,7 @@ class NormalUserController extends Controller
                         $userIds = UserSubInfo::where('user_id', $user_id)
                             ->whereDate('created_at', $today)
                             ->count();
-                        $allid = UserSubInfo::whereDate('created_at', $today)->count();
+                        $allid = UserSubInfo::whereDate('created_at', $today)->where('status','!=','flushed')->count();
                         // $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
                         // $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week      
                         // $currentWeek = Carbon::now()->diffInWeeks($startingWeek);
@@ -277,7 +278,7 @@ class NormalUserController extends Controller
                         $userIds = UserSubInfo::where('user_id', $user_id)
                             ->whereDate('created_at', $today)
                             ->count();
-                        $allid = UserSubInfo::whereDate('created_at', $today)->count();
+                        $allid = UserSubInfo::whereDate('created_at', $today)->where('status','!=','flushed')->count();
                         $parameter = Parameter::where('parameter_key', 'starting_monday')->first();
                         $startingWeek = Carbon::parse($parameter->parameter_value); // Replace with your desired starting week      
                         $currentWeek = Carbon::now()->diffInWeeks($startingWeek);

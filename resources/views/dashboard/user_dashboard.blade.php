@@ -84,7 +84,14 @@
             <h3> @if(isset($todayIdCount)) {{$todayIdCount}} @else 0 @endif</h3>
           </div>
         </div>
-
+        @if(isset($flsuhedToday) && $flsuhedToday > 0)
+        <div class="refForm mb-4">
+          <div class="affilates d-flex justify-content-between px-3 py-3">
+            <h4>IDs Flushed Today</h4>
+            <h3>  {{$flsuhedToday}} </h3>
+          </div>
+        </div>
+        @endif
         <div class="refForm mb-4">
           <div class="affilates d-flex justify-content-between px-3 py-3">
             <h4>Total Referrals</h4>

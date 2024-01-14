@@ -5,6 +5,10 @@
     .footer {
         padding: 0
     }
+    .shstatus{
+    font-size: medium;
+    font-weight: bold;
+    }
 </style>
 <div class="content-wrapper">
     <div class="row">
@@ -115,7 +119,8 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td style="color:{{$cr->status}}">{{ucfirst($cr->status)}}</td>
+                                    @php $bg = ($cr->status=='red') ? 'bisque' : (($cr->status=='yellow') ? 'blueviolet': (($cr->status=='green') ? 'chartreuse':'cadetblue')) @endphp
+                                    <td><button type="button" class="btn btn-sm shstatus" style="color:{{$cr->status}};background: {{$bg}};">{{ucfirst($cr->status)}}</button></td>
                                     <td>{{date('d-M-Y',strtotime($cr->created_at))}}</td>
                                 </tr>
                                 @endforeach

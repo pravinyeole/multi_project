@@ -381,7 +381,23 @@ class SuperAdminController extends Controller
             return back()->with('error','Something went wrong');
         }
     }
-
+    public function saveFlushIds(Request $request){
+        date_default_timezone_set( 'Asia/Kolkata');
+        if(count($request->checkedValues)){
+            $checkedValues = '"'.implode('","',$request->checkedValues).'"';
+            $tr = DB::update(DB::raw('UPDATE user_sub_info SET status="flushed",updated_at=now() WHERE mobile_id IN ('.$checkedValues.')'));
+            $status = ($tr) ? 'success':'error';
+            $code = ($tr) ? '200':'400';
+            return response()->json(['status'=>$status,'message' => 'Ids flushed successfully.'], $code);
+        }
+    }
+    public function showFlushedForm(Request $request){
+        date_default_timezone_set( 'Asia/Kolkata');
+        $today = date('Y-m-d');
+        $title = 'Flushed Users';
+        $flushedList = UserSubInfo::join('users','users.id','=','user_sub_info.user_id')->select('user_id','user_fname','user_lname','mobile_id')->where(['user_sub_info.status'=>'red'])->whereBetween('user_sub_info.created_at',[$today.' 00:00:00',$today.' 23:59:59'])->get();
+        return view('superadmin.assignuser.flushed', compact('title','flushedList'));
+    }
     public function showAssignUserFrom(Request $request)
     {
         date_default_timezone_set( 'Asia/Kolkata');
