@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\UserPin;
 use App\Models\UserSubInfo;
 use App\Models\UserReferral;
+use App\Models\Withdraw_money;
 use Illuminate\Support\Carbon;
 use App\Models\PaymentDistribution;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -189,7 +190,22 @@ class HelpIncomeController extends Controller
         // }
         $allTotalTwo['bpin_used'] = UserSubInfo::where('user_id', Auth::user()->id)->count('user_sub_info_id');
         $allTotalTwo['total_sh'] = 0;
-        return view('admin.pincenter.cal', compact('allTotal', 'allTotalTwo', 'queryArray'));
+        $res = Withdraw_money::where('user_id', Auth::user()->id)->orderByDesc('id')->first();
+        
+        if(isset($res))
+        {
+            $dashboard_total = $res['money'];
+
+        }
+        else    
+        {
+            $dashboard_total = array_sum($allTotal);
+        }
+        $check = fmod($dashboard_total, 100);
+        $latest_value = $dashboard_total - $check;
+        $add_pin = $latest_value/config('custom.custom.withdraw_money_rpin_price');
+        $trans = Withdraw_money::where('user_id', Auth::user()->id)->orderByDesc('id')->get();
+        return view('admin.pincenter.cal', compact('allTotal', 'allTotalTwo', 'queryArray','dashboard_total','add_pin','trans'));
     }
     public function myNetwork(Request $request)
     {
@@ -254,5 +270,29 @@ class HelpIncomeController extends Controller
             ->take(5)
             ->get();
         return view('admin.pincenter.mynetwork', compact('myReferalUser', 'data', 'myPinBalance_a', 'myLveledata', 'myReferalUser2', 'all_level_count'));
+    }
+    public function addpin(Request $request)
+    {
+        try{
+            $inventoryTwo = UserPin::firstOrNew(['user_id'=>Auth::user()->id]);
+            $inventoryTwo->pins = $inventoryTwo->pins+$request['rpin_add'];
+            $inventoryTwo->save();
+
+            $data['user_id'] = Auth::user()->id;
+            $data['withdraw_rpin'] = $request['rpin_add'];
+            $data['money'] = $request['old_money'] - (config('custom.custom.withdraw_money_rpin_price') * $request['rpin_add']);
+
+            $res = Withdraw_money::Create($data);
+            return redirect()->back()->with('message', 'rPin added Successfully.');
+        }
+        catch(e){
+            return redirect()->back()->with('message', "Somthing went wrong e");
+        }
+    }
+
+    public function transactionhistory(Request $request)
+    {
+        $trans = Withdraw_money::where('user_id', Auth::user()->id)->orderByDesc('id')->get();
+        return view('admin.pincenter.withdrow_transactionhistory', compact('trans'));
     }
 }

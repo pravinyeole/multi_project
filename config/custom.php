@@ -43,7 +43,7 @@ return [
     'level_5'	=> 10,
     'level_6'	=> 7,
     'level_7'	=> 10,
-    'user_id_limit'=>5,
+    'user_id_limit'=>10,
     'telegram_bot_name'=>'INRBAdmin@23',
     'telegram_bot_join'=>'https://t.me/inrbadmin23_bot',
     'telegram_bot_token'=>'6400971457:AAExvpR8uacc1ytXwlVkhcgoovR11W1Y1ZE',
@@ -55,6 +55,7 @@ return [
     // 'razor_secret'=>'1AzTfgfDLuUNT5QN7l3sJvv2',
     'cashfree_key'=>'144598aeb9177623a0679abcdd895441',
     'cashfree_secret'=>'f7f7e355e51d5c39cf1bd824153a63c025156473',
+    'withdraw_money_rpin_price'=>100,
   ]
 ];
 

@@ -9,7 +9,7 @@
                     <img src="{{asset('images/indian-rupee.png')}}" alt="" class="img-fluid" />
                     <div>
                         <p>My Total Earning</p>
-                        <h1><sup>₹</sup>{{array_sum($allTotal) }}</h1>
+                        <h1><sup>₹</sup>{{ $dashboard_total }}</h1>
                     </div>
                 </div>
             </div>
@@ -151,6 +151,75 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="page-title">
+                    <h4 class="d-flex align-items-center justify-content-between" style="text-transform: uppercase;">Withdraw Money</h4>
+                </div>
+                <span style="color:green;text-align:center;"><b>rPin cost Rs. 100. You can added only {{$add_pin}} rPin.</b></span>
+                <div class="card-body ">
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
+                    <form method="post" action="{{url('help/add_pin')}}" autocomplete="off" enctype="multipart/form-data">
+                    @csrf
+                        <div class="container">
+                            <div class="row">
+                                <div  class="col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
+                                    <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
+                                </div>
+                                <div  class="col-md-6 col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+
+            <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="page-title d-flex justify-content-between align-items-center">
+                    <h4>
+                    Withdraw Income and Purchase rPINs Transaction History
+                    </h4>
+                    <a href="transactionhistory" class="btn btn-sm btn-success">View All</a>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                    <div id="table_user_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table table-striped dataTable no-footer mt-0 py-0" id="table_Requests" aria-describedby="table_user_info">
+                            <thead>
+                                <tr>
+                                    <th>rPIN Qty</th>
+                                    <th>Date Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $i=0 @endphp
+                                @foreach($trans as $k=>$v)
+                                <tr>
+                                    @if($i > 1)
+                                      @php break; @endphp
+                                    @else
+                                    <td>{{$v->withdraw_rpin}}</td>
+                                    <td>{{date('d F Y',strtotime($v->created_at))}}</td>
+                                    @endif
+                                    @php $i++; @endphp
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>
@@ -177,5 +246,12 @@
             $('#income_qry').submit();
         }
     }, false);
+
+    
+    function validateNumber(e) {
+        const pattern = /^[0-9]$/;
+
+        return pattern.test(e.key )
+    }
 </script>
 @endsection
