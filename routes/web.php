@@ -82,6 +82,8 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::get('gh_panel', [HelpIncomeController::class, 'ghPanel']);
         Route::any('my_income', [HelpIncomeController::class, 'myIncome']);
         Route::get('my_network', [HelpIncomeController::class, 'myNetwork']);
+        Route::any('add_pin', [HelpIncomeController::class, 'addpin']);
+        Route::any('transactionhistory', [HelpIncomeController::class, 'transactionhistory']);
     });
     Route::group(['prefix' => 'payment'], function () {
         Route::post('requestsave', [IncomeController::class, 'requestSave']);
