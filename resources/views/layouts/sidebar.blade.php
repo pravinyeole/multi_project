@@ -1,4 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <div class="menu-close" data-bs-toggle="minimize"></div>
+    <div class="sidebar-wrapper">
     <a class="navbar-brand brand-logo navbar-logo" href="{{url('/home')}}">
         <img src="{{asset('images/logo/inrb_logo.svg')}}" alt="logo" />
     </a>
@@ -6,7 +8,7 @@
     <div class="user-item">
         <div class="user-info">
             <p class="mb-0 mt-0 font-weight-semibold">{{Auth::User()->user_fname}} {{Auth::User()->user_lname}}</p>
-            <p class="fw-light text-muted mb-0">{{Auth::User()->mobile_number}}</p>
+            <p class="fw-regular text-dark mb-0">{{Auth::User()->mobile_number}}</p>
         </div>
     </div>
     <ul class="nav">
@@ -84,4 +86,5 @@
 
         </li>
     </ul>
+    </div>
 </nav>
