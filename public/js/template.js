@@ -35,11 +35,30 @@
       }
     }
 
-    var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+    var current = location.pathname.split("/");
     $('.nav li a', sidebar).each(function() {
       var $this = $(this);
       addActiveClass($this);
     })
+
+    var cururl = window.location.pathname;
+var curpage = cururl.substr(cururl.lastIndexOf('/') + 1);
+var hash = window.location.hash.substr(1);
+if((curpage == "" || curpage == "/" || curpage == "admin") && hash=="")
+{
+//$("nav .navbar-nav > li:first-child").addClass("active");
+}
+else
+{
+$(".sidebar li").each(function()
+{
+    $(this).removeClass("active");
+});
+if(hash != "")
+$(".sidebar li a[href*='"+hash+"']").parents("li").addClass("active");
+else
+$(".sidebar li a[href*='"+curpage+"']").parents("li").addClass("active");
+}
 
     $('.horizontal-menu .nav li a').each(function() {
       var $this = $(this);
