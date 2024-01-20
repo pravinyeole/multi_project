@@ -153,9 +153,9 @@
             </div>
             <div class="card">
                 <div class="page-title">
-                    <h4 class="d-flex align-items-center justify-content-between" style="text-transform: uppercase;">Withdraw Money</h4>
+                    <h4 class="d-flex align-items-center justify-content-between" style="text-transform: uppercase;">My Withdrawals <span style="text-align:right;">{{$add_pin}}</span></h4>
                 </div>
-                <span style="color:green;text-align:center;"><b>rPin cost Rs. 100. You can added only {{$add_pin}} rPin.</b></span>
+                <span style="color:green;text-align:center;"><b>rPINs calculated at INR 100 per rPIN </b></span>
                 <div class="card-body ">
                 @if(session()->has('message'))
                     <div class="alert alert-success">
@@ -167,11 +167,11 @@
                         <div class="container">
                             <div class="row">
                                 <div  class="col-md-6 col-sm-12">
-                                    <input type="text" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
+                                    <input type="number" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
                                     <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
                                 </div>
                                 <div  class="col-md-6 col-sm-12">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Withdraw</button>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
             <div class="card">
                 <div class="page-title d-flex justify-content-between align-items-center">
                     <h4>
-                    Withdraw Income and Purchase rPINs Transaction History
+                    rPIN Withdrawal History
                     </h4>
                     <a href="transactionhistory" class="btn btn-sm btn-success">View All</a>
                 </div>
