@@ -20,7 +20,24 @@
             <strong>Success !</strong> {{ session('success') }}
         </div>
     @endif
-    
+    <div class="card">
+        <div class="card-body">
+            <div class="row flex-grow pin-details">
+            <div class="col-6">
+                <p>No. of rPIN Transferred</p>
+                <h3>{{$data['pinTransferSend']}}</h3>
+            </div>
+            <div class="col-6 bdr-left">
+                <p>No. of rPIN Used</p>
+                <h3>{{$data['pinused']}}</h3>
+            </div>
+            <!-- <div class="col-4 bdr-left">
+                <p>No. of rPIN Requested</p>
+                <h3>{{$data['pinTransferRequest']}}</h3>
+            </div> -->
+            </div>
+        </div>
+    </div>
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Send rPINs</h4>
