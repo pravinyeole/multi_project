@@ -127,7 +127,8 @@ class HelpIncomeController extends Controller
             $receivedGH = $receivedGH->whereRaw($condtion1);
         }
         $receivedGH = $receivedGH->count('payment_id');
-        $allTotal['plan_income_amt'] = $receivedGH * config('custom.custom.plan_income_amt');
+        $planincome = 0;
+        $allTotal['plan_income_amt']= $planincome = $receivedGH * config('custom.custom.plan_income_amt');
 
         $allTotalTwo['pin_used'] = $dataAllPins * config('custom.custom.pin_amount');
         $allTotalTwo['total_SH'] = $dataGreen * config('custom.custom.upi_pay_amount');
@@ -199,13 +200,13 @@ class HelpIncomeController extends Controller
         }
         else    
         {
-            $dashboard_total = array_sum($allTotal);
+            $dashboard_total = array_sum($allTotal)-$planincome;
         }
         $check = fmod($dashboard_total, 100);
         $latest_value = $dashboard_total - $check;
         $add_pin = $latest_value/config('custom.custom.withdraw_money_rpin_price');
         $trans = Withdraw_money::where('user_id', Auth::user()->id)->orderByDesc('id')->get();
-        return view('admin.pincenter.cal', compact('allTotal', 'allTotalTwo', 'queryArray','dashboard_total','add_pin','trans'));
+        return view('admin.pincenter.cal', compact('allTotal', 'allTotalTwo', 'queryArray','dashboard_total','add_pin','trans','planincome'));
     }
     public function myNetwork(Request $request)
     {

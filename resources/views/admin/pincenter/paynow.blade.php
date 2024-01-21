@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-start">
-                    <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn btn-secondary w-50 m-0 b-r-r-0" data-dismiss="modal" aria-label="Close" onclick="goPrev()">Cancel</button> 
                     <button type="submit" class="btn btn-success w-50 m-0 b-l-r-0">Submit</button>
                 </div>
             </form>
@@ -129,6 +129,11 @@
                 });
             }
         });
+    }
+
+    function goPrev()
+    {
+    window.history.back();
     }
 </script>
 @endsection

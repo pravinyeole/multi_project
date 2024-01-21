@@ -19,7 +19,6 @@
                                     <th>{{__("labels.no")}}</th>
                                     <th>Username</th>
                                     <th>Refferal Id</th>
-                                    <th>SAC</th>
                                     <th>Refferal Link</th>
                                 </tr>
                             </thead>
@@ -27,13 +26,16 @@
                                 @php $i = 1; @endphp
                                 @foreach ($data as $key => $val)
                                 <tr>
+                                    @php
+                                    $myadminSlug = ($val->user_role == 'U') ? $val->admin_slug : $val->user_slug;
+                                    $cryptmobile= base64_encode($val->mobile_number);
+                                    $cryptSlug= base64_encode($myadminSlug);
+                                    $cryptUrl= url('/register/').'/'.$cryptmobile.'/'.$cryptSlug;
+                                    @endphp
                                     <td>{{$i}}</td>
                                     <td>{{$val->user_fname}} {{$val->user_lname}}</td>
                                     <td>{{$val->referral_id}}</td>
-                                    <td>{{$val->admin_slug}}</td>
-                                    <td> @php $cryptStr= Crypt::encryptString($val->admin_slug);
-                                                $cryptUrl= url('/register/').'/'.$cryptStr;
-                                            @endphp
+                                    <td> 
                                         <button type="button" id="copyBtn" onclick="copyText('{{$cryptUrl}}')" class="btn btn-success btn-fw p-2 copyBtn">Copy Refferal URL</button></td>
                                     
                                 </tr>
