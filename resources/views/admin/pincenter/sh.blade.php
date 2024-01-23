@@ -108,7 +108,6 @@
                             </thead>
                             <tbody>
                                 @foreach($mycreatedids AS $key => $cr)
-
                                 <tr>
                                     <td>{{($key+1)}}</td>
                                     <td>{{$cr->mobile_id}}</td>
