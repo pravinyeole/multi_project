@@ -201,7 +201,7 @@
           </div>
         </form>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-body">
           <div class="heading pt-0 d-flex align-items-center justify-content-between">
             <h3 class="pt-0">rPIN Details</h3>
@@ -214,14 +214,14 @@
             <div class="col-6 bdr-left">
               <p>No. of rPIN Used</p>
               <h3>{{$data['pinused']}}</h3>
-            </div>
+            </div> -->
             <!-- <div class="col-4 bdr-left">
               <p>No. of rPIN Requested</p>
               <h3>{{$data['pinTransferRequest']}}</h3>
             </div> -->
-          </div>
+          <!-- </div>
         </div>
-      </div>
+      </div> -->
       <?php
       date_default_timezone_set('Asia/Kolkata');
       $slo = '';

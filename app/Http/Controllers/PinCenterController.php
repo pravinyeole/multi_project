@@ -10,6 +10,7 @@ use App\Models\UserReferral;
 use App\Models\RequestPin;
 use App\Models\TransferPin;
 use App\Traits\CommonTrait;
+use App\Models\UserSubInfo;
 use DataTables;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -73,8 +74,10 @@ class PinCenterController extends Controller
         $tarnsferHistory = TransferPin::join('users', 'users.id', '=', 'transfer_pin_history.trans_to')
         ->select('users.user_fname', 'users.user_lname','users.mobile_number', 'transfer_pin_history.trans_count', 'transfer_pin_history.trans_reason', 'transfer_pin_history.created_at')
         ->where('transfer_pin_history.trans_by', Auth::user()->id)->limit(3)->orderBy('created_at','DESC')->get();
-
-        return view('admin.pincenter.index', compact('title','getNoOfPins','adminAssingToLoginUser','requestedPins','tarnsferHistory'));
+        $data['pinTransferRequest'] = RequestPin::where('req_user_id', Auth::user()->id)->sum('no_of_pin');
+        $data['pinTransferSend'] = TransferPin::where('trans_by', Auth::user()->id)->sum('trans_count');
+        $data['pinused'] = UserSubInfo::where('user_id', Auth::user()->id)->count();
+        return view('admin.pincenter.index', compact('title','getNoOfPins','adminAssingToLoginUser','requestedPins','tarnsferHistory','data'));
     }
     
 

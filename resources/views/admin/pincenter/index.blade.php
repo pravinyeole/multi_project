@@ -20,7 +20,24 @@
             <strong>Success !</strong> {{ session('success') }}
         </div>
     @endif
-    
+    <div class="card">
+        <div class="card-body">
+            <div class="row flex-grow pin-details">
+            <div class="col-6">
+                <p>No. of rPIN Transferred</p>
+                <h3>{{$data['pinTransferSend']}}</h3>
+            </div>
+            <div class="col-6 bdr-left">
+                <p>No. of rPIN Used</p>
+                <h3>{{$data['pinused']}}</h3>
+            </div>
+            <!-- <div class="col-4 bdr-left">
+                <p>No. of rPIN Requested</p>
+                <h3>{{$data['pinTransferRequest']}}</h3>
+            </div> -->
+            </div>
+        </div>
+    </div>
     <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Send rPINs</h4>
@@ -50,7 +67,7 @@
         </form>
         </div>
     </div>
-    <div class="note mb-4">
+    <!-- <div class="note mb-4">
         <div class="affilates d-flex justify-content-between px-0 py-3">
         <h4>Request rPINs</h4>
         </div>
@@ -121,7 +138,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-12">
@@ -149,7 +166,7 @@
                                 <tr>
                                     <td><h6 class="m-0 p-0 font-weight-bold pb-2">{{$v->user_fname.' '.$v->user_lname}}</h6>{{$v->mobile_number}}</td>
                                     <td>{{$v->trans_count}}</td>
-                                    <td><span class="text-success font-weight-bold">Cr.</span></td>
+                                    <td><span class="text-success font-weight-bold">Dr.</span></td>
                                     <td>{{date('d F Y',strtotime($v->created_at))}}</td>
                                 </tr>
                                 @endforeach
@@ -189,7 +206,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <label type="text" class="form-control" >Pin Requested Date : <span class="requestDate">Aniket</span></label>
+                        <label type="te xt" class="form-control" >Pin Requested Date : <span class="requestDate">Aniket</span></label>
                     </div>
                 </div>
             </div>

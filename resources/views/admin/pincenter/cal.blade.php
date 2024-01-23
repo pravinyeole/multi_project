@@ -9,7 +9,7 @@
                     <img src="{{asset('images/indian-rupee.png')}}" alt="" class="img-fluid" />
                     <div>
                         <p>My Total Earning</p>
-                        <h1><sup>₹</sup>{{ $dashboard_total }}</h1>
+                        <h1><sup>₹</sup>{{ $dashboard_total + $planincome }}</h1>
                     </div>
                 </div>
             </div>
@@ -153,28 +153,40 @@
             </div>
             <div class="card">
                 <div class="page-title">
-                    <h4 class="d-flex align-items-center justify-content-between" style="text-transform: uppercase;">My Withdrawals <span style="text-align:right;">{{$add_pin}}</span></h4>
+                    <h4 class="d-flex align-items-center justify-content-between" style="text-transform: uppercase;">My Withdrawals </h4>
                 </div>
-                <span style="color:green;text-align:center;"><b>rPINs calculated at INR 100 per rPIN </b></span>
-                <div class="card-body ">
-                @if(session()->has('message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('message') }}
+                <div class="card-body">
+                    <div class="list-item d-flex align-items-center justify-content-between">
+                        <span>
+                            <img src="{{asset('images/cash.png')}}" alt="">
+                            Total Withdrawable Income
+                        </span>
+                        <h3><sup>₹</sup>{{ $dashboard_total }}</h3>
                     </div>
-                @endif
+                    <div class="list-item d-flex align-items-center justify-content-between">
+                        <span>
+                            <img src="{{asset('images/cash.png')}}" alt="">
+                            Total Withdrawable rPin
+                        </span>
+                        <h3><sup>₹</sup>{{$add_pin}}</h3>
+                    </div> 
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif  
                     <form method="post" action="{{url('help/add_pin')}}" autocomplete="off" enctype="multipart/form-data">
                     @csrf
-                        <div class="container">
-                            <div class="row">
-                                <div  class="col-md-6 col-sm-12">
-                                    <input type="number" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
-                                    <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
+                                <div class="list-item d-flex align-items-center justify-content-between">
+                                    <span>
+                                        <input type="number" style="width:140px;" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
+                                        <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
+                                    </span>
+                                    <h3><button type="submit" class="btn btn-primary">Withdraw</button></h3>
                                 </div>
-                                <div  class="col-md-6 col-sm-12">
-                                    <button type="submit" class="btn btn-primary">Withdraw</button>
+                                <div  class="col-md-3">
+                                    <small><span style="color:red;text-align:center;"><b>rPINs calculated at INR 100 per rPIN </b></span></small>
                                 </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
                 
