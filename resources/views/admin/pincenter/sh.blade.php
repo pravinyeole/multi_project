@@ -118,8 +118,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    @php $bg = ($cr->status=='red') ? 'bisque' : (($cr->status=='yellow') ? 'blueviolet': (($cr->status=='green') ? 'chartreuse':'cadetblue')) @endphp
-                                    <td><button type="button" class="btn btn-sm shstatus" style="color:{{$cr->status}};background: {{$bg}};">{{ucfirst($cr->status)}}</button></td>
+                                    @php $bg = ($cr->status=='red') ? 'red' : (($cr->status=='yellow') ? 'yellow': (($cr->status=='green') ? 'green':'cadetblue')) @endphp
+                                    @php $text = ($cr->status=='red') ? 'white' : (($cr->status=='yellow') ? 'black': (($cr->status=='green') ? 'white':'cadetblue')) @endphp
+                                    @php $value = ($cr->status=='red') ? 'pending' : (($cr->status=='yellow') ? 'pending': (($cr->status=='green') ? 'Completed':'cadetblue')) @endphp
+                                    <td><button type="button" class="btn btn-sm shstatus" style="color:{{$text}};background: {{$bg}};">{{ucfirst($value)}}</button></td>
                                     <td>{{date('d-M-Y',strtotime($cr->created_at))}}</td>
                                 </tr>
                                 @endforeach
