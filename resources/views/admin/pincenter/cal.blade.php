@@ -168,7 +168,7 @@
                             <img src="{{asset('images/cash.png')}}" alt="">
                             Total Withdrawable rPin
                         </span>
-                        <h3><sup>₹</sup>{{$add_pin}}</h3>
+                        <h3>{{$add_pin}}</h3>
                     </div> 
                     @if(session()->has('message'))
                         <div class="alert alert-success">
@@ -176,23 +176,22 @@
                         </div>
                     @endif  
                     <form method="post" action="{{url('help/add_pin')}}" autocomplete="off" enctype="multipart/form-data">
-                    @csrf
-                                <div class="list-item d-flex align-items-center justify-content-between">
-                                    <span>
-                                        <input type="number" style="width:140px;" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
-                                        <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
-                                    </span>
-                                    <h3><button type="submit" class="btn btn-primary">Withdraw</button></h3>
-                                </div>
-                                <div  class="col-md-3">
-                                    <small><span style="color:red;text-align:center;"><b>rPINs calculated at INR 100 per rPIN </b></span></small>
-                                </div>
+                        @csrf
+                            <div class="list-item d-flex align-items-center justify-content-between">
+                                <span>
+                                    <input type="number" style="width:140px;" class="form-control" name="rpin_add" min="1" max="{{$add_pin}}" Placeholder="Enter rPin Qty." onkeypress="return validateNumber(event)" required/>
+                                    <input type="hidden" class="form-control" name="old_money" value="{{$dashboard_total}}"/>
+                                </span>
+                                <h3><button type="submit" class="btn btn-primary">Withdraw</button></h3>
+                            </div>
+                            <div  class="col-md-3">
+                                <small><span style="color:red;text-align:center;"><b>rPINs calculated at INR 100 per rPIN </b></span></small>
+                            </div>
                     </form>
                 </div>
-                
             </div>
 
-            <div class="row">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="page-title d-flex justify-content-between align-items-center">
