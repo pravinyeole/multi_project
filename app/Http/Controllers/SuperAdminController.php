@@ -400,22 +400,43 @@ class SuperAdminController extends Controller
     }
     public function showAssignUserFrom(Request $request)
     {
-        date_default_timezone_set( 'Asia/Kolkata');
         // $getOldUser = User::all();
+        date_default_timezone_set( 'Asia/Kolkata');
+        if(isset($request->assigndate) && $request->assigndate != null){
+            $inputDate = $request->input('assigndate');
+            $carbonDate = Carbon::parse($inputDate);
+            $carbonDateTwo = Carbon::parse($inputDate);
+            $resultDate = $carbonDate->subDays(7);
+            $from_date = $resultDate;
+            $to_date = $resultDate;
+            $to_date = str_replace('00:00:00','23:59:59',$to_date);
+            $from_date_one = $carbonDateTwo;
+            $to_date_one = $carbonDateTwo;
+            $to_date_one = str_replace('00:00:00','23:59:59',$to_date_one);
+
+        }else{
+            $from_date = \Carbon\Carbon::today()->subDays(7);
+            $to_date = \Carbon\Carbon::today()->subDays(7);
+            $to_date = str_replace('00:00:00','23:59:59',$to_date);
+    
+            $from_date_one = \Carbon\Carbon::today()->subDays(0);
+            $to_date_one = \Carbon\Carbon::today()->subDays(0);
+            $to_date_one = str_replace('00:00:00','23:59:59',$to_date_one);
+        }
+        
         $title = $this->title;
         $interval = now()->subDays(2)->endOfDay();
-        $from_date = \Carbon\Carbon::today()->subDays(7);
-        $to_date = \Carbon\Carbon::today()->subDays(7);
-        $to_date = str_replace('00:00:00','23:59:59',$to_date);
         $userIds_res = UserMap::pluck('mobile_id')->all();
         $userIds = $userIds_res;
         
         $getOldUser = User::join('user_sub_info', 'users.id', '=', 'user_sub_info.user_id')
-            ->select('users.*', 'user_sub_info.mobile_id')
-            ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
-            ->where('user_sub_info.status','green')
-            ->orderBy('user_sub_info.user_id')
-            ->get();
+        ->select('users.*', 'user_sub_info.mobile_id')
+        ->whereBetween('user_sub_info.created_at',[$from_date,$to_date])
+        ->where('user_sub_info.status','green')
+        ->whereNotIn('user_sub_info.mobile_id',$userIds)
+        ->orderBy('user_sub_info.user_id')
+        ->limit(500)
+        ->get();
         
         $from_date_one = \Carbon\Carbon::today()->subDays(0);
         $to_date_one = \Carbon\Carbon::today()->subDays(0);
@@ -433,6 +454,7 @@ class SuperAdminController extends Controller
             ->whereBetween('user_sub_info.created_at',[$from_date_one,$to_date_one])
             ->whereNotIn('user_sub_info.mobile_id',$mobileUserRes)
             ->orderBy('user_sub_info.user_id','DESC')
+            ->limit(1000)
             ->get();
         // $getRecentlyJoinUser = User::where('user_role', '!=', 'S')->get();
 

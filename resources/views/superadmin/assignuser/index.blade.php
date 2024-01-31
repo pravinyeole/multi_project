@@ -178,6 +178,37 @@
     .show{
         display: block;
     }
+    #overlay{	
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height:100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+.is-hide{
+  display:none;
+}
 </style>
 @section('title', $title)
 @section('vendor-style')
@@ -190,6 +221,17 @@
             <div class="card">
                 @if(isset($getOldUser))
                 <div class="card-body">
+                        <form action="{{ route('superadmin.show-assigne-user') }}" method="post">
+                    <div class="row col-md-12">
+                            @csrf
+                        <div class="row col-md-3 m-3">
+                            <input type="date" class="col-md-3 form-control" name="assigndate" id="assigndate" value="{{date('Y-m-d',strtotime($from_date_one))}}" max="{{date('Y-m-d')}}">
+                        </div>
+                        <div class="row col-md-3 m-3">
+                            <button type="submit" class="btn btn-success" > Get Data </button>
+                        </div>
+                    </div>
+                        </form>
                     <div class="row">
                         <input type="hidden" id="autocheck" value="0">
                         <button type="button" class="btn btn-danger col-sm-3" id="auto-assign-checkbox">Auto Assign User</button>
@@ -197,6 +239,11 @@
                         <button type="button" form="manaualAssign" class="btn btn-success col-sm-3" id="assign_user_submit">Submit Assigned User</button>
                     </div>
                     <div class="card-body">
+                        <div id="overlay">
+                          <div class="cv-spinner">
+                            <span class="spinner"></span>
+                          </div>
+                        </div>
                         <div id="message_div"></div>
                         @if (Session::has('invalidId'))
                         <div class="alert alert-success alert-dismissible" role="alert">
@@ -307,8 +354,10 @@
     var assignee_user_array = [];
     var assignee_user_one = [];
     var htmlassign_one = '<div class="body genealogy-body genealogy-scroll"><div class="genealogy-tree">';
+
     $(document).ready(function() {
         $('#auto-assign-checkbox').on('click', function() {
+            $("#overlay").fadeIn(300);
                 if ($('#assign_inputs input').length >= 1) {
                     var msg = 'You Lost Manual Assign Data, Confirm ? ';
                     var result = confirm(msg);
@@ -386,6 +435,7 @@
                     $('#manaualAssign #assign_inputs').html('');
                     $('#auto-assign-checkbox').text('Auto Assign User');
                 }
+                $("#overlay").fadeOut(300);
             }),
             $('#assign_user_submit').on('click', function() {
                 var manual_form = $('#assign_inputs').find('input[type=text]').filter(':input:first').attr('data-checkcount');
@@ -471,6 +521,7 @@
             $('#message_div').html('');
         }, 3000);
     }
+    
 </script>
 @endsection
 

@@ -136,7 +136,7 @@ Route::group(['middleware' => ['httpsProtocol']], function () {
         Route::post('/save_revoke',                 [SuperAdminController::class, 'saveRevoke']);
         Route::get('/flusheduser',                 [SuperAdminController::class, 'showFlushedForm']);
         Route::post('/saveflush',                 [SuperAdminController::class, 'saveFlushIds']);
-        Route::get('/assignuser',                 [SuperAdminController::class, 'showAssignUserFrom']);
+        Route::any('/assignuser',                 [SuperAdminController::class, 'showAssignUserFrom'])->name('superadmin.show-assigne-user');
         Route::post('/save-assigne-user', [SuperAdminController::class, 'saveAssignUsers'])->name('superadmin.save-assigne-user');
         Route::get('/announcement', [SuperAdminController::class, 'showannouncement']);
         Route::any('/announce_create', [SuperAdminController::class, 'announce_create']);
