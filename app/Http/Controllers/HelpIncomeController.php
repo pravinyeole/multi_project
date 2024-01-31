@@ -204,11 +204,12 @@ class HelpIncomeController extends Controller
         // }
         $allTotalTwo['bpin_used'] = UserSubInfo::where('user_id', Auth::user()->id)->count('user_sub_info_id');
         $allTotalTwo['total_sh'] = 0;
-        $res = Withdraw_money::where('user_id', Auth::user()->id)->orderByDesc('id')->first();
+        $res = Withdraw_money::where('user_id', Auth::user()->id)->sum('withdraw_rpin');
         
-        if(isset($res))
+        $dashboard_total = array_sum($allTotal)-$planincome;
+        if($res > 0)
         {
-            $dashboard_total = $res['money'];
+            $dashboard_total = $dashboard_total - ($res * 100);
 
         }
         else    
